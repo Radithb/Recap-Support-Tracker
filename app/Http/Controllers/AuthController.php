@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
+use App\Models\Instansi;
 use App\Enums\UserRole;
+use App\Http\Requests\StoreRegisterRequest;
 
 class AuthController extends Controller
 {
@@ -23,8 +26,19 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
+            // Cek apakah akun sudah diverifikasi oleh Tim Support
+            if (!Auth::user()->is_verified) {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+
+                return back()->withErrors([
+                    'email' => 'Akun Anda belum diverifikasi oleh Tim Support. Silakan tunggu proses verifikasi.',
+                ])->onlyInput('email');
+            }
+
             $request->session()->regenerate();
-            
+
             if (Auth::user()->role === UserRole::SUPPORT) {
                 return redirect()->intended('/support/dashboard');
             }
@@ -36,28 +50,44 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    public function showRegister()
+    /**
+     * Menampilkan form registrasi Pelapor.
+     */
+    public function register()
     {
         return view('auth.register');
     }
 
-    public function register(Request $request)
+    /**
+     * Memproses form registrasi Pelapor.
+     * Business Logic:
+     * 1. Buat record Instansi (nama_instansi + no_hp)
+     * 2. Buat record User (nama PIC, email, password hash, instansi_id, role=Pelapor, is_verified=false)
+     * 3. User baru harus diverifikasi oleh Tim Support sebelum bisa login.
+     */
+    public function storeRegister(StoreRegisterRequest $request)
     {
-        $validated = $request->validate([
-            'nama' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+        $validated = $request->validated();
 
-        User::create([
-            'nama' => $validated['nama'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'role' => UserRole::PELAPOR->value,
-            'instansi_id' => null, // Pending activation/assignment
-        ]);
+        DB::transaction(function () use ($validated) {
+            // Langkah 1: Buat Instansi baru
+            $instansi = Instansi::create([
+                'nama_instansi' => $validated['nama_instansi'],
+                'no_telp'       => $validated['no_hp'],
+            ]);
 
-        return redirect('/login')->with('success', 'Registrasi berhasil. Silakan login.');
+            // Langkah 2: Buat User (Pelapor) terhubung dengan Instansi
+            User::create([
+                'nama'        => $validated['nama'],
+                'email'       => $validated['email'],
+                'password'    => Hash::make($validated['password']),
+                'role'        => UserRole::PELAPOR->value,
+                'instansi_id' => $instansi->instansi_id,
+                'is_verified' => false, // Langkah 3: Harus diverifikasi Tim Support
+            ]);
+        });
+
+        return redirect('/login')->with('success', 'Pendaftaran berhasil! Akun Anda akan diverifikasi oleh Tim Support sebelum dapat digunakan.');
     }
 
     public function logout(Request $request)

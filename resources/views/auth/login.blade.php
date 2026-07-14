@@ -26,6 +26,10 @@
                     </div>
                     <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Masuk ke Dashboard</button>
                 </form>
+
+                <div class="register-prompt">
+                    Sudah mempunyai akun? Jika belum, <a href="{{ route('register') }}">segera daftar</a>
+                </div>
             </div>
             
             <div class="login-partners">

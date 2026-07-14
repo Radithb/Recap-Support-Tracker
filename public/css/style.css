@@ -235,3 +235,38 @@
   .alert { padding:14px; margin-bottom:20px; border-radius:8px; font-weight:600; font-size:13px; }
   .alert-success { background:var(--sage-soft); color:var(--sage); border:1px solid var(--sage); }
   .alert-danger { background:var(--clay-soft); color:var(--clay); border:1px solid var(--clay); }
+
+  /* ── Register Page ── */
+  .register-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:0 16px;
+  }
+  .field-error input,
+  .field-error select,
+  .field-error textarea{
+    border-color:var(--clay) !important;
+    background:#FFF9F7;
+  }
+  .field-error input:focus,
+  .field-error select:focus,
+  .field-error textarea:focus{
+    outline-color:var(--clay);
+  }
+  .field-error-msg{
+    display:block; font-size:11.5px; color:var(--clay); font-weight:600; margin-top:5px;
+  }
+  .register-notice{
+    font-size:12px; color:var(--ink-soft); margin:18px 0 0; line-height:1.55;
+    padding:10px 12px; background:var(--paper-sunken); border-radius:8px; border:1px dashed var(--line);
+  }
+  .register-actions{
+    display:flex; gap:12px; margin-top:20px;
+  }
+  .register-actions .btn{
+    flex:1; text-align:center; justify-content:center;
+  }
+
+  @media(max-width:560px){
+    .register-grid{grid-template-columns:1fr;}
+    .register-actions{flex-direction:column;}
+  }
+

@@ -3,60 +3,102 @@
 @section('content')
 <div class="login-wrap">
     <div class="login-stage">
-        <div class="login-box" style="max-width:520px;">
+        <div class="login-box" style="max-width:640px;">
             <div class="login-brandmark">
                 <img src="{{ asset('logo.png') }}" alt="Logo" style="width: 44px; height: 44px; object-fit: contain;">
                 <div class="tx"><strong>Recap Support Tracker</strong><span>PT SAKTI KINERJA KOLABORASINDO</span></div>
             </div>
 
-            <div class="login-panel-card">
-                <p class="eyebrow">Pendaftaran Akun</p>
-                <h1>Daftar Pelapor</h1>
-                <p class="lede">Isi data instansi dan diri Anda untuk mendaftar.</p>
-                
+            <div class="login-panel-card" style="text-align:left;">
+                {{-- Header --}}
+                <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:22px;">
+                    <div>
+                        <h1 style="font-family:var(--font-display); font-size:22px; font-weight:600; margin:0 0 4px; color:var(--ink);">Daftar Akun Baru</h1>
+                        <p style="margin:0; font-size:13px; color:var(--ink-soft); font-family:var(--font-mono);">Untuk perwakilan koperasi / instansi mitra (Pelapor)</p>
+                    </div>
+                    <a href="{{ route('login') }}" style="color:var(--ink-soft); font-size:20px; text-decoration:none; line-height:1;" title="Kembali ke Login">&times;</a>
+                </div>
+
+                {{-- Flash message sukses --}}
+                @if(session('success'))
+                    <div class="alert alert-success" style="margin-bottom:18px;">{{ session('success') }}</div>
+                @endif
+
+                {{-- Flash message error global --}}
+                @if(session('error'))
+                    <div class="alert alert-danger" style="margin-bottom:18px;">{{ session('error') }}</div>
+                @endif
+
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
-                    
-                    <div style="text-align:left; font-size:13px; font-weight:700; color:var(--ink); margin:20px 0 10px;">Data Instansi</div>
-                    <div class="field">
-                        <label>Nama Instansi</label>
-                        <input type="text" name="nama_instansi" placeholder="Misal: Koperasi Sejahtera" required>
-                    </div>
-                    <div class="field">
-                        <label>Alamat Lengkap</label>
-                        <textarea name="alamat" rows="2" placeholder="Alamat lengkap instansi" required></textarea>
-                    </div>
-                    <div class="field">
-                        <label>Nomor Telepon Instansi</label>
-                        <input type="text" name="no_telp" placeholder="08..." required>
+
+                    {{-- Baris 1: Nama Koperasi & Nama PIC --}}
+                    <div class="register-grid">
+                        <div class="field {{ $errors->has('nama_instansi') ? 'field-error' : '' }}">
+                            <label for="nama_instansi">Nama Koperasi / Instansi</label>
+                            <input type="text" id="nama_instansi" name="nama_instansi" value="{{ old('nama_instansi') }}" placeholder="cth. Koperasi Kredit Sejahtera" required>
+                            @error('nama_instansi')
+                                <span class="field-error-msg">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="field {{ $errors->has('nama') ? 'field-error' : '' }}">
+                            <label for="nama">Nama PIC</label>
+                            <input type="text" id="nama" name="nama" value="{{ old('nama') }}" placeholder="Nama lengkap PIC" required>
+                            @error('nama')
+                                <span class="field-error-msg">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
 
-                    <div style="text-align:left; font-size:13px; font-weight:700; color:var(--ink); margin:24px 0 10px; border-top:1px dashed var(--line); padding-top:20px;">Data PIC (Person In Charge)</div>
-                    <div class="field">
-                        <label>Nama Lengkap PIC</label>
-                        <input type="text" name="nama" placeholder="Nama Anda" required>
+                    {{-- Baris 2: Email & No HP --}}
+                    <div class="register-grid">
+                        <div class="field {{ $errors->has('email') ? 'field-error' : '' }}">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="nama@koperasi.id" required>
+                            @error('email')
+                                <span class="field-error-msg">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="field {{ $errors->has('no_hp') ? 'field-error' : '' }}">
+                            <label for="no_hp">No. HP / WhatsApp</label>
+                            <input type="text" id="no_hp" name="no_hp" value="{{ old('no_hp') }}" placeholder="08xx-xxxx-xxxx" required>
+                            @error('no_hp')
+                                <span class="field-error-msg">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
-                    <div class="field">
-                        <label>Email</label>
-                        <input type="email" name="email" placeholder="nama@koperasi.id" required>
+
+                    {{-- Baris 3: Kata Sandi & Konfirmasi --}}
+                    <div class="register-grid">
+                        <div class="field {{ $errors->has('password') ? 'field-error' : '' }}">
+                            <label for="password">Kata Sandi</label>
+                            <input type="password" id="password" name="password" placeholder="Minimal 8 karakter" required>
+                            @error('password')
+                                <span class="field-error-msg">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="field {{ $errors->has('password_confirmation') ? 'field-error' : '' }}">
+                            <label for="password_confirmation">Konfirmasi Kata Sandi</label>
+                            <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Ulangi kata sandi" required>
+                            @error('password_confirmation')
+                                <span class="field-error-msg">{{ $message }}</span>
+                            @enderror
+                        </div>
                     </div>
-                    <div class="field">
-                        <label>Kata Sandi</label>
-                        <input type="password" name="password" placeholder="••••••••" required>
+
+                    {{-- Pesan verifikasi --}}
+                    <p class="register-notice">
+                        Akun baru akan diverifikasi oleh Tim Support sebelum dapat digunakan untuk membuat laporan.
+                    </p>
+
+                    {{-- Tombol aksi --}}
+                    <div class="register-actions">
+                        <a href="{{ route('login') }}" class="btn btn-ghost" style="flex:1; justify-content:center;">Sudah punya akun? Masuk</a>
+                        <button type="submit" class="btn btn-primary" style="flex:1; justify-content:center;">Daftar Akun</button>
                     </div>
-                    <div class="field">
-                        <label>Konfirmasi Kata Sandi</label>
-                        <input type="password" name="password_confirmation" placeholder="••••••••" required>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:10px;">Daftar Sekarang</button>
                 </form>
-                
-                <div class="register-prompt">
-                    Sudah memiliki akun? <a href="{{ route('login') }}">Masuk di sini</a>
-                </div>
             </div>
-            
+
         </div>
     </div>
 </div>

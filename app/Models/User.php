@@ -18,6 +18,7 @@ class User extends Authenticatable
         'password',
         'role',
         'instansi_id',
+        'is_verified',
     ];
 
     protected $hidden = [
@@ -26,6 +27,7 @@ class User extends Authenticatable
 
     protected $casts = [
         'role' => UserRole::class,
+        'is_verified' => 'boolean',
     ];
 
     public function instansi()

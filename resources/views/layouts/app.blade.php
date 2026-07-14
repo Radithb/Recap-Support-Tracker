@@ -33,7 +33,7 @@
     </div>
     @endif
 
-    <div class="page" style="{{ request()->routeIs('login') ? 'padding:0; max-width:100%;' : '' }}">
+    <div class="page" style="{{ request()->routeIs('login') || request()->routeIs('register') ? 'padding:0; max-width:100%;' : '' }}">
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
