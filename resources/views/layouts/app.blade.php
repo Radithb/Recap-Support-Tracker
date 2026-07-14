@@ -13,7 +13,7 @@
 
     @if(Auth::check() && !request()->routeIs('login') && !request()->routeIs('register'))
     <div class="topnav">
-        <div class="wordmark"><span class="dot"></span>Recap Support Tracker</div>
+        <div class="wordmark"><img src="{{ asset('logo.png') }}" alt="Logo" style="width: 24px; height: 24px; object-fit: contain;">Recap Support Tracker</div>
         <div class="topnav-tag">
             {{ Auth::user()->role === 'Support' ? 'internal.ptskk.id' : (Auth::user()->instansi->nama_instansi ?? 'Mitra Eksternal') }}
         </div>
