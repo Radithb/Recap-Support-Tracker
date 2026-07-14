@@ -1,24 +1,37 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="auth-wrapper" style="margin-top: -80px;">
-    <div class="glass-panel" style="width: 100%; max-width: 400px;">
-        <h2 style="text-align: center; margin-bottom: 2rem;">Login Support</h2>
-        <form action="{{ route('login') }}" method="POST">
-            @csrf
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" value="{{ old('email') }}" required autofocus>
+<div class="login-wrap">
+    <div class="login-stage">
+        <div class="login-box">
+            <div class="login-brandmark">
+                <img src="{{ asset('logo.png') }}" alt="Logo" style="width: 44px; height: 44px; object-fit: contain;">
+                <div class="tx"><strong>Recap Support Tracker</strong><span>PT SAKTI KINERJA KOLABORASINDO</span></div>
             </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" required>
+
+            <div class="login-panel-card">
+                <p class="eyebrow">Masuk ke Akun</p>
+                <h1>Login</h1>
+                <p class="lede">Masukkan email dan kata sandi Anda.</p>
+                
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="field">
+                        <label>Email</label>
+                        <input type="email" name="email" placeholder="nama@koperasi.id" required>
+                    </div>
+                    <div class="field">
+                        <label>Kata Sandi</label>
+                        <input type="password" name="password" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Masuk ke Dashboard</button>
+                </form>
             </div>
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Masuk</button>
-        </form>
-        <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem;">
-            Belum punya akun? <a href="{{ route('register') }}" style="color: var(--primary);">Daftar di sini</a>
-        </p>
+            
+            <div class="login-partners">
+                <span>SAKTI Online</span><span>SiCUNDO</span><span>ISO 27001:2022</span>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
