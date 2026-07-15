@@ -4,9 +4,6 @@
 <div class="login-wrap">
     <div class="site-nav">
         <div class="wm"><img src="{{ asset('logo.png') }}" alt="Logo" style="width: 24px; height: 24px; object-fit: contain;">Recap Support Tracker</div>
-        <div class="site-nav-links">
-            <span>Beranda</span><span>Mitra Kami</span><span>Bantuan</span>
-        </div>
         <div class="site-nav-tag">Ekosistem SAKTI.Link / SiCUNDO — PT Sakti Kinerja Kolaborasindo</div>
     </div>
 

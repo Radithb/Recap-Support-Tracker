@@ -2,6 +2,8 @@
 
 @section('content')
 
+<div class="pelapor-panel active">
+
 {{-- ═══════════════════════════════════════════ --}}
 {{-- SKELETON LOADING STATE                      --}}
 {{-- ═══════════════════════════════════════════ --}}
@@ -262,4 +264,5 @@
         });
     });
 </script>
+</div>
 @endsection

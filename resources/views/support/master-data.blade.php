@@ -1,60 +1,82 @@
 @extends('layouts.app')
 
+@section('page_title', 'Master Data')
+@section('page_subtitle', 'internal.ptskk.id')
+
 @section('content')
-<div class="grid-2">
-    <div class="glass-panel">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-            <h2 style="margin: 0;">Master Aplikasi</h2>
-            <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">+ Tambah</button>
+<div class="pelapor-panel active">
+    
+    {{-- Page Header --}}
+    <div class="page-head fade-up" style="animation-delay: 0.1s; margin-bottom: 2.5rem;">
+        <div>
+            <p class="eyebrow" style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600;">D2 &mdash; DATA MASTER KATEGORI &amp; APLIKASI</p>
+            <h1 style="margin: 0; font-size: 2rem; color: var(--ink);">Kelola Master Data</h1>
+            <p style="color: var(--text-muted); margin-top: 0.5rem; max-width: 600px; line-height: 1.5;">Referensi yang dipakai saat Pelapor membuat tiket (validasi Aplikasi) dan saat Tim Support mengklasifikasikan tiket (Kategori).</p>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Aplikasi</th>
-                    <th>Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($aplikasis as $app)
-                <tr>
-                    <td>{{ $app->aplikasi_id }}</td>
-                    <td>
-                        <strong>{{ $app->nama_aplikasi }}</strong><br>
-                        <small style="color: var(--text-muted);">{{ $app->deskripsi }}</small>
-                    </td>
-                    <td>
-                        <span class="badge {{ $app->is_active ? 'badge-proses' : 'badge-done' }}">
-                            {{ $app->is_active ? 'Aktif' : 'Nonaktif' }}
-                        </span>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
     </div>
 
-    <div class="glass-panel">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-            <h2 style="margin: 0;">Master Kategori</h2>
-            <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.85rem;">+ Tambah</button>
+    <div class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start;">
+        <div class="glass-panel fade-up" style="animation-delay: 0.15s; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
+                <div>
+                    <h3 style="margin: 0; font-size: 1rem; color: var(--ink);">Master Aplikasi</h3>
+                    <p style="margin: 0.25rem 0 0 0; font-size: 0.8rem; color: var(--text-muted);">Divalidasi saat Proses 1.0 &mdash; Manajemen Tiket Baru</p>
+                </div>
+                <button class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--ink); white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">+ Tambah</button>
+            </div>
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead style="background: #f1f5f9;">
+                    <tr>
+                        <th style="padding: 0.75rem 1.5rem; text-align: left; font-size: 0.7rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Nama Aplikasi</th>
+                        <th style="padding: 0.75rem 1.5rem; text-align: left; font-size: 0.7rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Deskripsi</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($aplikasis as $app)
+                    <tr style="border-bottom: 1px solid var(--line);">
+                        <td style="padding: 1rem 1.5rem; color: var(--ink); font-size: 0.9rem;">{{ $app->nama_aplikasi }}</td>
+                        <td style="padding: 1rem 1.5rem; color: var(--text-muted); font-size: 0.9rem;">{{ $app->deskripsi }}</td>
+                        <td style="padding: 1rem 1.5rem; text-align: right;">
+                            <span class="badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
+                                {{ $app->is_active ? 'AKTIF' : 'NONAKTIF' }}
+                            </span>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nama Kategori</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($kategoris as $kategori)
-                <tr>
-                    <td>{{ $kategori->kategori_id }}</td>
-                    <td>{{ $kategori->nama_kategori }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+
+        <div class="glass-panel fade-up" style="animation-delay: 0.2s; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden;">
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
+                <div>
+                    <h3 style="margin: 0; font-size: 1rem; color: var(--ink);">Master Kategori</h3>
+                    <p style="margin: 0.25rem 0 0 0; font-size: 0.8rem; color: var(--text-muted);">Dipakai Tim Support pada Proses 3.0 &mdash; Penyelesaian &amp; Dokumentasi</p>
+                </div>
+                <button class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--ink); white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">+ Tambah</button>
+            </div>
+            <table style="width: 100%; border-collapse: collapse;">
+                <thead style="background: #f1f5f9;">
+                    <tr>
+                        <th style="padding: 0.75rem 1.5rem; text-align: left; font-size: 0.7rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Nama Kategori</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($kategoris as $kategori)
+                    <tr style="border-bottom: 1px solid var(--line);">
+                        <td style="padding: 1rem 1.5rem; color: var(--ink); font-size: 0.9rem;">{{ $kategori->nama_kategori }}</td>
+                        <td style="padding: 1rem 1.5rem; text-align: right;">
+                            <span class="badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
+                                {{ $kategori->tickets->count() ?? 0 }} tiket
+                            </span>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 @endsection

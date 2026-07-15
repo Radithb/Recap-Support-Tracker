@@ -20,17 +20,41 @@
             </div>
             <div class="tx">
                 <strong>Recap Support</strong>
-                <span>Tracker System</span>
+                @if(Auth::check() && Auth::user()->role === \App\Enums\UserRole::SUPPORT)
+                    <span style="text-transform: uppercase;">TRACKER &bull; TIM SUPPORT</span>
+                @else
+                    <span>Tracker System</span>
+                @endif
             </div>
         </div>
         
         <div class="sidebar-menu">
-            @yield('sidebar_menu')
-            
-            <div style="margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);"></div>
-            <a href="#">
-                <span class="ic"><img src="{{ asset('setting.png') }}" alt=""></span> Pengaturan
-            </a>
+            @if(Auth::check() && Auth::user()->role === \App\Enums\UserRole::SUPPORT)
+                <a href="{{ route('support.dashboard') }}" class="{{ request()->routeIs('support.dashboard') ? 'active' : '' }}">
+                    <span class="ic">🎫</span> Dashboard Support
+                </a>
+                <a href="{{ route('support.master-data.index') }}" class="{{ request()->routeIs('support.master-data.*') ? 'active' : '' }}">
+                    <span class="ic">🗂️</span> Master Data
+                </a>
+                <a href="{{ route('support.recap') }}" class="{{ request()->routeIs('support.recap') ? 'active' : '' }}">
+                    <span class="ic">📈</span> Rekap Support
+                </a>
+                
+                <div style="margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);"></div>
+                <a href="#">
+                    <span class="ic"><img src="{{ asset('setting.png') }}" alt=""></span> Pengaturan
+                </a>
+                <a href="#">
+                    <span class="ic">🟢</span> Status Kehadiran
+                </a>
+            @else
+                @yield('sidebar_menu')
+                
+                <div style="margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);"></div>
+                <a href="#">
+                    <span class="ic"><img src="{{ asset('setting.png') }}" alt=""></span> Pengaturan
+                </a>
+            @endif
         </div>
         
         <div class="sidebar-foot">
