@@ -12,7 +12,10 @@ class ReportController extends Controller
 {
     public function index(Request $request)
     {
-        $year = $request->input('year', date('Y'));
+        $year = $request->input('year');
+        if (empty($year)) {
+            $year = date('Y');
+        }
 
         // FR-10A: Monthly Bar Chart Data (Grouping by month based on tanggal_input)
         $monthlyTickets = Ticket::select(

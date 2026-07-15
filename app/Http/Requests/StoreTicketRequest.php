@@ -16,7 +16,7 @@ class StoreTicketRequest extends FormRequest
         return [
             'aplikasi_id' => ['required', 'exists:master_aplikasis,aplikasi_id'],
             'permasalahan' => ['required', 'string', 'min:10'],
-            'lampiran' => ['nullable', 'file', 'max:5120'], // Max 5MB sesuai FR-01/02
+            'lampiran' => ['nullable', 'file', 'mimes:jpeg,png,jpg,mp4,pdf', 'max:5120'], // Max 5MB
         ];
     }
     
@@ -27,6 +27,7 @@ class StoreTicketRequest extends FormRequest
             'aplikasi_id.exists' => 'Aplikasi tidak valid.',
             'permasalahan.required' => 'Deskripsi permasalahan wajib diisi.',
             'lampiran.max' => 'Ukuran lampiran maksimal 5MB.',
+            'lampiran.mimes' => 'Format lampiran harus berupa gambar (JPEG, PNG, JPG), video (MP4), atau dokumen (PDF).',
         ];
     }
 }

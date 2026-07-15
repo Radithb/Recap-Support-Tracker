@@ -41,7 +41,7 @@
             <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom: 24px;">
                 <div>
                     <h3 style="display:flex; align-items:center; gap:8px; margin-bottom: 8px;">
-                        <span style="font-size: 24px;">🏢</span> Profil Instansi
+                        <span style="font-size: 24px;"><img src="{{ asset('company.png') }}" alt="Company" style="width: 28px; height: 28px; object-fit: contain; vertical-align: middle;"></span> Profil Instansi
                     </h3>
                     <p class="sub" style="margin-bottom:0;">Data INSTANSI · terhubung ke akun Anda</p>
                 </div>
@@ -71,7 +71,7 @@
                 
                 <div style="border-top: 1px solid var(--line); padding-top: 20px;">
                     <button type="button" class="btn btn-ghost" onclick="toggleEditMode(true)" style="padding: 9px 18px;">
-                        <span class="ic">✏️</span> Edit Data Instansi
+                        <span class="ic"><img src="{{ asset('edit.png') }}" alt="Edit" style="width: 14px; height: 14px; object-fit: contain; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span> Edit Data Instansi
                     </button>
                 </div>
             </div>

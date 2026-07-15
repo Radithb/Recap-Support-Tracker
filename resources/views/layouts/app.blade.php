@@ -70,7 +70,7 @@
                     <span>{{ Auth::user()->email ?? 'email@example.com' }}</span>
                 </div>
                 <button onclick="window.location.href='{{ route('profil.instansi') }}'">
-                    <span class="ic">🏢</span> Profil Instansi
+                    <span class="ic"><img src="{{ asset('company.png') }}" alt="Company" style="width: 16px; height: 16px; object-fit: contain; vertical-align: middle; filter: brightness(0) invert(1); opacity: 0.9;"></span> Profil Instansi
                 </button>
                 <div class="pop-div"></div>
                 <form action="{{ route('logout') }}" method="POST" style="margin:0;">

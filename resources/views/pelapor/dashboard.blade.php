@@ -70,7 +70,7 @@
                             <h3>{{ $t->permasalahan }}</h3>
                             <p>{{ $t->penyelesaian ?? 'Belum ada catatan penyelesaian.' }}</p>
                         </div>
-                        <div class="meta">{{ $t->aplikasi->nama_aplikasi }} · {{ $t->tanggal_input->format('d M Y') }}</div>
+                        <div class="meta">{{ $t->aplikasi->nama_aplikasi }} &middot; {{ $t->tanggal_input->format('d M Y') }} &middot; {{ $t->tanggal_input->format('H:i') }}</div>
                         
                         @php
                             $statusClass = match($t->status) {
@@ -105,6 +105,26 @@
             <div class="field"><label>Aplikasi</label><input type="text" value="{{ $t->aplikasi->nama_aplikasi }}" readonly></div>
             <div class="field"><label>Kategori</label><input type="text" value="{{ $t->kategori->nama_kategori ?? '-' }}" readonly></div>
             <div class="field"><label>Permasalahan</label><textarea readonly>{{ $t->permasalahan }}</textarea></div>
+            @if($t->lampiran)
+            <div class="field" style="margin-top: 14px;">
+                <label>Lampiran Bukti</label>
+                @php $ext = strtolower(pathinfo($t->lampiran, PATHINFO_EXTENSION)); @endphp
+                @if(in_array($ext, ['jpg', 'jpeg', 'png']))
+                    <a href="{{ Storage::url($t->lampiran) }}" target="_blank">
+                        <img src="{{ Storage::url($t->lampiran) }}" alt="Lampiran" style="max-width: 100%; max-height: 200px; border-radius: 8px; border: 1px solid var(--line); display: block; margin-top: 8px; object-fit: cover;">
+                    </a>
+                    <div class="helper" style="margin-top: 4px;">Klik gambar untuk memperbesar.</div>
+                @elseif($ext === 'mp4')
+                    <a href="{{ Storage::url($t->lampiran) }}" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; text-decoration: none;">
+                        <span>🎥</span> Lihat Bukti Video
+                    </a>
+                @elseif($ext === 'pdf')
+                    <a href="{{ Storage::url($t->lampiran) }}" target="_blank" class="btn btn-ghost" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--line); margin-top: 8px; text-decoration: none;">
+                        <span>📄</span> Unduh Dokumen PDF
+                    </a>
+                @endif
+            </div>
+            @endif
             <div class="field"><label>Penyelesaian Support</label><textarea readonly>{{ $t->penyelesaian }}</textarea></div>
         </div>
     </div>
@@ -118,7 +138,7 @@
             <div><h3>Buat Laporan Baru</h3><p>Jelaskan kendala Anda</p></div>
             <button type="button" class="modal-x" onclick="closeModal('modal-create')">✕</button>
         </div>
-        <form action="{{ route('pelapor.tickets.store') }}" method="POST">
+        <form action="{{ route('pelapor.tickets.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="modal-body">
                 <div class="field">
@@ -133,6 +153,11 @@
                 <div class="field">
                     <label>Deskripsi Kendala</label>
                     <textarea name="permasalahan" required placeholder="Tuliskan secara detail..."></textarea>
+                </div>
+                <div class="field" style="margin-top: 14px;">
+                    <label>Upload Lampiran (Opsional)</label>
+                    <input type="file" name="lampiran" accept=".jpg,.jpeg,.png,.mp4,.pdf" style="width:100%; font-size:13px; font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;">
+                    <div class="helper">Format: JPG, PNG, MP4, PDF (Maksimal 5MB)</div>
                 </div>
             </div>
             <div class="modal-foot">

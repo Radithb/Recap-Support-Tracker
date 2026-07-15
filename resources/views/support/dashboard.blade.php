@@ -106,7 +106,10 @@
         @foreach($tickets as $t)
         <tr>
             <td class="mono">#{{ $t->ticket_id }}</td>
-            <td class="mono">{{ $t->tanggal_input->format('d M y') }}</td>
+            <td class="mono">
+                {{ $t->tanggal_input->format('d M y') }}
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">{{ $t->tanggal_input->format('H:i') }}</div>
+            </td>
             <td>
                 <div style="font-weight:600; margin-bottom:4px; color:var(--ink)">{{ $t->pelapor->instansi->nama_instansi ?? 'Instansi' }}</div>
                 <div class="cat-tag">{{ $t->aplikasi->nama_aplikasi }}</div>
@@ -141,7 +144,7 @@
 <!-- Modals for Tickets -->
 @foreach($tickets as $t)
 <div class="overlay" id="modal-edit-{{ $t->ticket_id }}">
-    <div class="modal">
+    <div class="modal w-sm">
         <div class="modal-head">
             <div><h3>Tindak Lanjut Tiket</h3><p>{{ $t->ticket_id }}</p></div>
             <button type="button" class="modal-x" onclick="closeModal('modal-edit-{{ $t->ticket_id }}')">✕</button>
@@ -152,6 +155,26 @@
             <div class="modal-body">
                 <div class="field"><label>Aplikasi</label><input type="text" value="{{ $t->aplikasi->nama_aplikasi }}" readonly></div>
                 <div class="field"><label>Permasalahan</label><textarea readonly>{{ $t->permasalahan }}</textarea></div>
+                @if($t->lampiran)
+                <div class="field" style="margin-top: 14px;">
+                    <label>Lampiran Bukti</label>
+                    @php $ext = strtolower(pathinfo($t->lampiran, PATHINFO_EXTENSION)); @endphp
+                    @if(in_array($ext, ['jpg', 'jpeg', 'png']))
+                        <a href="{{ Storage::url($t->lampiran) }}" target="_blank">
+                            <img src="{{ Storage::url($t->lampiran) }}" alt="Lampiran" style="max-width: 100%; max-height: 200px; border-radius: 8px; border: 1px solid var(--line); display: block; margin-top: 8px; object-fit: cover;">
+                        </a>
+                        <div class="helper" style="margin-top: 4px;">Klik gambar untuk memperbesar.</div>
+                    @elseif($ext === 'mp4')
+                        <a href="{{ Storage::url($t->lampiran) }}" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; text-decoration: none;">
+                            <span>🎥</span> Lihat Bukti Video
+                        </a>
+                    @elseif($ext === 'pdf')
+                        <a href="{{ Storage::url($t->lampiran) }}" target="_blank" class="btn btn-ghost" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--line); margin-top: 8px; text-decoration: none;">
+                            <span>📄</span> Unduh Dokumen PDF
+                        </a>
+                    @endif
+                </div>
+                @endif
                 <div class="field">
                     <label>Kategori</label>
                     <select name="kategori_id" required>

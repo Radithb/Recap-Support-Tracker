@@ -44,7 +44,7 @@ class TicketController extends Controller
         
         $lampiranPath = null;
         if ($request->hasFile('lampiran')) {
-            $lampiranPath = $request->file('lampiran')->store('uploads/tickets', 'public');
+            $lampiranPath = $request->file('lampiran')->store('lampiran_tiket', 'public');
         }
 
         Ticket::create([
