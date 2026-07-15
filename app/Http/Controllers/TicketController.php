@@ -15,9 +15,27 @@ class TicketController extends Controller
     // --- PELAPOR METHODS ---
     public function pelaporDashboard()
     {
-        $tickets = Ticket::where('pelapor_id', Auth::id())->latest('tanggal_input')->get();
+        $tickets = Ticket::where('pelapor_id', Auth::id())->latest('tanggal_input')->take(5)->get();
         $aplikasis = MasterAplikasi::where('is_active', true)->get();
-        return view('pelapor.dashboard', compact('tickets', 'aplikasis'));
+        
+        $totalOpen = Ticket::where('pelapor_id', Auth::id())->whereIn('status', [\App\Enums\TicketStatus::OPEN, \App\Enums\TicketStatus::PROSES])->count();
+        $totalPending = Ticket::where('pelapor_id', Auth::id())->where('status', \App\Enums\TicketStatus::PENDING)->count();
+        $totalDone = Ticket::where('pelapor_id', Auth::id())->where('status', \App\Enums\TicketStatus::DONE)->count();
+
+        return view('pelapor.dashboard', compact('tickets', 'aplikasis', 'totalOpen', 'totalPending', 'totalDone'));
+    }
+
+    public function pelaporRiwayat(Request $request)
+    {
+        $query = Ticket::where('pelapor_id', Auth::id());
+        
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+        $tickets = $query->latest('tanggal_input')->get();
+        $aplikasis = MasterAplikasi::where('is_active', true)->get();
+        
+        return view('pelapor.riwayat', compact('tickets', 'aplikasis'));
     }
 
     public function store(StoreTicketRequest $request)

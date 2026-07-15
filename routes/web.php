@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 // Akses Pelapor
 Route::middleware(['auth', IsPelapor::class])->prefix('pelapor')->name('pelapor.')->group(function () {
     Route::get('/dashboard', [TicketController::class, 'pelaporDashboard'])->name('dashboard');
+    Route::get('/riwayat', [TicketController::class, 'pelaporRiwayat'])->name('riwayat');
     Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
 });
 
