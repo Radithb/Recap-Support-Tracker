@@ -5,10 +5,10 @@
 
 @section('sidebar_menu')
     <a href="{{ route('pelapor.dashboard') }}">
-        <span class="ic">🏠</span> Beranda Pelapor
+        <span class="ic"><img src="{{ asset('analysis.png') }}" alt=""></span> Dashboard
     </a>
     <a href="{{ route('pelapor.riwayat') }}" class="active">
-        <span class="ic">📋</span> Riwayat Lengkap
+        <span class="ic"><img src="{{ asset('file.png') }}" alt=""></span> Riwayat Lengkap
     </a>
 @endsection
 

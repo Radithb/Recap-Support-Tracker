@@ -26,6 +26,11 @@
         
         <div class="sidebar-menu">
             @yield('sidebar_menu')
+            
+            <div style="margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);"></div>
+            <a href="#">
+                <span class="ic"><img src="{{ asset('setting.png') }}" alt=""></span> Pengaturan
+            </a>
         </div>
         
         <div class="sidebar-foot">
@@ -42,9 +47,6 @@
                     <strong>{{ Auth::user()->nama ?? 'User' }}</strong>
                     <span>{{ Auth::user()->email ?? 'email@example.com' }}</span>
                 </div>
-                <button onclick="window.location.href='#'">
-                    <span class="ic">⚙️</span> Pengaturan Akun
-                </button>
                 <button onclick="window.location.href='{{ route('profil.instansi') }}'">
                     <span class="ic">🏢</span> Profil Instansi
                 </button>

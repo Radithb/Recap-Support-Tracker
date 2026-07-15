@@ -4,9 +4,24 @@
 @section('page_subtitle', 'Recap Support Tracker')
 
 @section('sidebar_menu')
-    <a href="{{ Auth::user()->role === 'support' ? route('support.dashboard') : route('pelapor.dashboard') }}" class="active">
-        <span class="ic">🏠</span> Beranda
-    </a>
+    @if(Auth::user()->role === 'support')
+        <a href="{{ route('support.dashboard') }}">
+            <span class="ic"><img src="{{ asset('analysis.png') }}" alt=""></span> Beranda Support
+        </a>
+        <a href="{{ route('support.recap') }}">
+            <span class="ic">📊</span> Rekapitulasi
+        </a>
+        <a href="{{ route('support.master-data.index') }}">
+            <span class="ic">🗄️</span> Master Data
+        </a>
+    @else
+        <a href="{{ route('pelapor.dashboard') }}">
+            <span class="ic"><img src="{{ asset('analysis.png') }}" alt=""></span> Dashboard
+        </a>
+        <a href="{{ route('pelapor.riwayat') }}">
+            <span class="ic"><img src="{{ asset('file.png') }}" alt=""></span> Riwayat Lengkap
+        </a>
+    @endif
 @endsection
 
 @section('content')
