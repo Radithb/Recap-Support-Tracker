@@ -4,61 +4,112 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recap Support Tracker</title>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Plus+Jakarta+Sans:wght@400..800&family=JetBrains+Mono:wght@400..700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 </head>
 <body>
 
-    @if(Auth::check() && !request()->routeIs('login') && !request()->routeIs('register'))
-    @php
-        $dashboardRoute = Auth::user()->role === 'Support' ? route('support.dashboard') : route('pelapor.dashboard');
-    @endphp
-    <div class="topnav">
-        <a href="{{ $dashboardRoute }}" class="wordmark" style="text-decoration:none; color:inherit; transition:.15s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
-            <img src="{{ asset('logo.png') }}" alt="Logo" style="width: 24px; height: 24px; object-fit: contain;">
-            Recap Support Tracker
-        </a>
-
-        <div class="topnav-tag">
-            {{ Auth::user()->role === 'Support' ? 'internal.ptskk.id' : (Auth::user()->instansi->nama_instansi ?? 'Mitra Eksternal') }}
-        </div>
-        <div class="topnav-right">
-            <span class="role-chip" style="{{ Auth::user()->role === 'Support' ? 'background:var(--brand-primary-soft); color:var(--indigo);' : '' }}">
-                {{ Auth::user()->role }}
-            </span>
-            <div class="avatar" style="{{ Auth::user()->role === 'Support' ? 'background:var(--indigo); color:#fff;' : '' }}">
-                {{ strtoupper(substr(Auth::user()->nama, 0, 2)) }}
+@if(Auth::check() && !request()->is('login') && !request()->is('register'))
+<div class="app-shell">
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <div class="lg">
+                <!-- Placeholder untuk logo -->
+                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="40" height="40" rx="10" fill="url(#paint0_linear)"/>
+                    <path d="M13 23C13 23 16.5 21 20 21C23.5 21 27 23 27 23" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                    <path d="M20 18C21.6569 18 23 16.6569 23 15C23 13.3431 21.6569 12 20 12C18.3431 12 17 13.3431 17 15C17 16.6569 18.3431 18 20 18Z" fill="white"/>
+                    <defs>
+                        <linearGradient id="paint0_linear" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#DC3545"/>
+                            <stop offset="1" stop-color="#1E4B8F"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
             </div>
+            <div class="tx">
+                <strong>Recap Support</strong>
+                <span>Tracker System</span>
+            </div>
+        </div>
+        
+        <div class="sidebar-menu">
+            @yield('sidebar_menu')
+        </div>
+        
+        <div class="sidebar-foot">
+            <button class="sidebar-foot-trigger" onclick="toggleProfilePopover(event)">
+                <div class="av">{{ substr(Auth::user()->nama ?? 'A', 0, 1) }}</div>
+                <div class="nm">
+                    <strong>{{ Auth::user()->nama ?? 'User' }}</strong>
+                    <span>{{ Auth::user()->instansi->nama_instansi ?? 'Administrator' }}</span>
+                </div>
+            </button>
             
-            <form action="{{ route('logout') }}" method="POST" style="margin-left:14px;">
-                @csrf
-                <button type="submit" class="btn btn-ghost btn-sm" style="color:white; border-color:rgba(255,255,255,0.3);">Keluar</button>
-            </form>
+            <div class="profile-popover" id="profile-popover">
+                <div class="pop-head">
+                    <strong>{{ Auth::user()->nama ?? 'User' }}</strong>
+                    <span>{{ Auth::user()->email ?? 'email@example.com' }}</span>
+                </div>
+                <button onclick="window.location.href='#'">
+                    <span class="ic">⚙️</span> Pengaturan Akun
+                </button>
+                <div class="pop-div"></div>
+                <form action="{{ route('logout') }}" method="POST" style="margin:0;">
+                    @csrf
+                    <button type="submit" class="danger">
+                        <span class="ic">🚪</span> Keluar
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
-    @endif
 
-    <div class="page" style="{{ request()->routeIs('login') || request()->routeIs('register') ? 'padding:0; max-width:100%;' : '' }}">
-        @if(session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-        @if(session('error'))
-            <div class="alert alert-danger">{{ session('error') }}</div>
-        @endif
+    <div class="app-main">
+        <div class="app-topbar">
+            <div>
+                <h1>@yield('page_title', 'Dashboard')</h1>
+                <div class="tag">@yield('page_subtitle', 'Recap Support Tracker')</div>
+            </div>
+            <div class="app-topbar-right">
+                @yield('topbar_right')
+            </div>
+        </div>
 
         @yield('content')
     </div>
+</div>
+@else
+    @yield('content')
+@endif
 
-    <!-- Script to handle modals easily -->
-    <script>
-        function openModal(id) {
-            document.getElementById(id).classList.add('active');
+<script>
+    // Toggle Profile Popover in Sidebar
+    function toggleProfilePopover(e) {
+        e.stopPropagation();
+        const pop = document.getElementById('profile-popover');
+        if(pop) pop.classList.toggle('active');
+    }
+
+    // Close Profile Popover when clicking outside
+    document.addEventListener('click', function(e) {
+        const pop = document.getElementById('profile-popover');
+        if(pop && pop.classList.contains('active') && !e.target.closest('.sidebar-foot')) {
+            pop.classList.remove('active');
         }
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
-        }
-    </script>
+    });
+
+    // Generic Modal functions (will be used by panels in Phase 2)
+    function openModal(id) {
+        const modal = document.getElementById(id);
+        if(modal) modal.classList.add('active');
+    }
+    
+    function closeModal(id) {
+        const modal = document.getElementById(id);
+        if(modal) modal.classList.remove('active');
+    }
+</script>
 </body>
 </html>

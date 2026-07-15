@@ -1,118 +1,112 @@
 @extends('layouts.app')
 
+@section('page_title', 'Dashboard Pelapor')
+@section('page_subtitle', 'Recap Support Tracker')
+
+@section('sidebar_menu')
+    <a href="{{ route('pelapor.dashboard') }}" class="active">
+        <span class="ic">🏠</span> Beranda Pelapor
+    </a>
+    <a href="#">
+        <span class="ic">📋</span> Riwayat Lengkap
+    </a>
+    <a href="#">
+        <span class="ic">🔔</span> Notifikasi
+    </a>
+@endsection
+
 @section('content')
-
-{{-- ═══════════════════════════════════════════ --}}
-{{-- SKELETON LOADING STATE                      --}}
-{{-- ═══════════════════════════════════════════ --}}
-<div class="skeleton-wrap" id="skeleton-loading">
-    <div class="skel-cta">
-        <div class="skel-cta-text">
-            <div class="skel skel-cta-line"></div>
-            <div class="skel skel-cta-line-sm"></div>
+<div class="pelapor-panel active">
+    {{-- SKELETON LOADING STATE --}}
+    <div class="skeleton-wrap" id="skeleton-loading">
+        <div class="skel" style="height: 100px; width: 100%; margin-bottom: 22px;"></div>
+        <div class="skel" style="height: 120px; width: 100%; margin-bottom: 28px;"></div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px;">
+            <div class="skel" style="height: 100px;"></div>
+            <div class="skel" style="height: 100px;"></div>
+            <div class="skel" style="height: 100px;"></div>
         </div>
-        <div class="skel skel-cta-btn"></div>
-    </div>
-
-    <div class="skel-stat-row">
-        @for($i = 0; $i < 3; $i++)
-        <div class="skel-stat-card">
-            <div class="skel skel-stat-n"></div>
-            <div class="skel skel-stat-l"></div>
-        </div>
-        @endfor
-    </div>
-
-    <div class="skel-grid">
-        <div>
-            <div class="skel skel-head-eyebrow"></div>
-            <div class="skel skel-head-title"></div>
-            @for($i = 0; $i < 3; $i++)
-            <div class="skel-ticket">
-                <div class="skel skel-ticket-id"></div>
-                <div class="skel-ticket-main">
-                    <div class="skel skel-ticket-h3"></div>
-                    <div class="skel skel-ticket-p"></div>
-                </div>
-                <div class="skel skel-ticket-meta"></div>
-                <div class="skel skel-ticket-badge"></div>
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+            <div>
+                <div class="skel" style="height: 30px; width: 40%; margin-bottom: 14px;"></div>
+                <div class="skel" style="height: 80px; width: 100%; margin-bottom: 12px;"></div>
+                <div class="skel" style="height: 80px; width: 100%; margin-bottom: 12px;"></div>
+                <div class="skel" style="height: 80px; width: 100%; margin-bottom: 12px;"></div>
             </div>
-            @endfor
-        </div>
-        <div class="skel-panel">
-            <div class="skel skel-panel-title"></div>
-            <div class="skel skel-panel-sub"></div>
-            <div class="skel skel-panel-line"></div>
-            <div class="skel skel-panel-line"></div>
-            <div class="skel skel-panel-line"></div>
-        </div>
-    </div>
-</div>
-
-{{-- ═══════════════════════════════════════════ --}}
-{{-- ACTUAL CONTENT                              --}}
-{{-- ═══════════════════════════════════════════ --}}
-<div class="content-wrap" id="actual-content">
-
-    <div class="cta-band fade-up" style="animation-delay: 0.1s;">
-        <div>
-            <h2>Ada kendala aplikasi hari ini?</h2>
-            <p>Laporkan sekali, pantau statusnya real-time — tim kami menindaklanjuti setiap tiket dari lapor hingga selesai.</p>
-        </div>
-        <button class="btn btn-amber" onclick="openModal('modal-create')">＋ Buat Laporan Baru</button>
-    </div>
-
-    <!-- Statistik Sederhana -->
-    <div class="stat-row fade-up" style="animation-delay: 0.2s;">
-        <div class="stat-card"><div class="n" style="color:var(--clay)">{{ $tickets->whereIn('status', [\App\Enums\TicketStatus::OPEN, \App\Enums\TicketStatus::PROSES])->count() }}</div><div class="l">Open / Proses</div></div>
-        <div class="stat-card"><div class="n" style="color:#B8923F">{{ $tickets->where('status', \App\Enums\TicketStatus::PENDING)->count() }}</div><div class="l">Pending — butuh info</div></div>
-        <div class="stat-card"><div class="n" style="color:var(--sage)">{{ $tickets->where('status', \App\Enums\TicketStatus::DONE)->count() }}</div><div class="l">Selesai Total</div></div>
-    </div>
-
-    <div class="grid2 fade-up" style="grid-template-columns:2fr 1fr; align-items:start; gap:20px; animation-delay: 0.3s;">
-        <div>
-            <div class="page-head" style="margin-bottom:14px;">
-                <div><p class="eyebrow">Dashboard Pelapor</p><h1 style="font-size:22px;">Riwayat Laporan Anda</h1></div>
+            <div>
+                <div class="skel" style="height: 150px; width: 100%;"></div>
             </div>
-            
-            <div class="ticket-list">
-                @forelse($tickets as $t)
-                <div class="ticket-card fade-up" onclick="openModal('modal-ticket-{{ $t->ticket_id }}')" style="cursor:pointer; animation-delay: {{ 0.35 + ($loop->index * 0.08) }}s;">
-                    <div class="tid">{{ $t->ticket_id }}</div>
-                    <div class="main">
-                        <h3>{{ $t->permasalahan }}</h3>
-                        <p>{{ $t->penyelesaian ?? 'Belum ada catatan penyelesaian.' }}</p>
-                    </div>
-                    <div class="meta">{{ $t->aplikasi->nama_aplikasi }} · {{ $t->tanggal_input->format('d M Y') }}</div>
-                    
-                    @php
-                        $statusClass = match($t->status) {
-                            \App\Enums\TicketStatus::OPEN, \App\Enums\TicketStatus::PROSES => 'status-open',
-                            \App\Enums\TicketStatus::PENDING => 'status-pending',
-                            \App\Enums\TicketStatus::DONE => 'status-done',
-                            default => ''
-                        };
-                    @endphp
-                    <span class="status {{ $statusClass }}">{{ $t->status->value ?? $t->status }}</span>
+        </div>
+    </div>
+
+    {{-- ACTUAL CONTENT --}}
+    <div class="content-wrap" id="actual-content" style="display:none;">
+        <div class="welcome-banner fade-up" style="animation-delay: 0.1s;">
+            <div class="wave">👋</div>
+            <div>
+                <h2>Halo, {{ Auth::user()->nama ?? 'User' }}!</h2>
+                <p>Selamat datang di Recap Support Tracker. Bagaimana kami bisa membantu hari ini?</p>
+            </div>
+        </div>
+
+        <div class="cta-band fade-up" style="animation-delay: 0.15s;">
+            <div>
+                <h2>Ada kendala aplikasi hari ini?</h2>
+                <p>Laporkan sekali, pantau statusnya real-time — tim kami menindaklanjuti setiap tiket dari lapor hingga selesai.</p>
+            </div>
+            <button class="btn btn-amber" onclick="openModal('modal-create')">＋ Buat Laporan Baru</button>
+        </div>
+
+        <!-- Statistik Sederhana -->
+        <div class="stat-row fade-up" style="animation-delay: 0.2s;">
+            <div class="stat-card"><div class="n" style="color:var(--clay)">{{ $tickets->whereIn('status', [\App\Enums\TicketStatus::OPEN, \App\Enums\TicketStatus::PROSES])->count() }}</div><div class="l">Open / Proses</div></div>
+            <div class="stat-card"><div class="n" style="color:#B8923F">{{ $tickets->where('status', \App\Enums\TicketStatus::PENDING)->count() }}</div><div class="l">Pending — butuh info</div></div>
+            <div class="stat-card"><div class="n" style="color:var(--sage)">{{ $tickets->where('status', \App\Enums\TicketStatus::DONE)->count() }}</div><div class="l">Selesai Total</div></div>
+        </div>
+
+        <div class="grid2 fade-up" style="grid-template-columns:2fr 1fr; align-items:start; gap:20px; animation-delay: 0.25s;">
+            <div>
+                <div class="page-head" style="margin-bottom:14px;">
+                    <div><p class="eyebrow">Dashboard Pelapor</p><h1 style="font-size:22px;">Riwayat Laporan Anda</h1></div>
                 </div>
                 
-
-                @empty
-                <div class="ticket-card" style="justify-content:center; padding:30px;">
-                    <p class="eyebrow">Belum ada tiket laporan.</p>
+                <div class="ticket-list">
+                    @forelse($tickets as $t)
+                    <div class="ticket-card fade-up" onclick="openModal('modal-ticket-{{ $t->ticket_id }}')" style="cursor:pointer; animation-delay: {{ 0.3 + ($loop->index * 0.08) }}s;">
+                        <div class="tid">{{ $t->ticket_id }}</div>
+                        <div class="main">
+                            <h3>{{ $t->permasalahan }}</h3>
+                            <p>{{ $t->penyelesaian ?? 'Belum ada catatan penyelesaian.' }}</p>
+                        </div>
+                        <div class="meta">{{ $t->aplikasi->nama_aplikasi }} · {{ $t->tanggal_input->format('d M Y') }}</div>
+                        
+                        @php
+                            $statusClass = match($t->status) {
+                                \App\Enums\TicketStatus::OPEN, \App\Enums\TicketStatus::PROSES => 'status-open',
+                                \App\Enums\TicketStatus::PENDING => 'status-pending',
+                                \App\Enums\TicketStatus::DONE => 'status-done',
+                                default => ''
+                            };
+                        @endphp
+                        <span class="status {{ $statusClass }}">{{ $t->status->value ?? $t->status }}</span>
+                    </div>
+                    @empty
+                    <div class="ticket-card" style="justify-content:center; padding:30px;">
+                        <p class="eyebrow">Belum ada tiket laporan.</p>
+                    </div>
+                    @endforelse
                 </div>
-                @endforelse
             </div>
-        </div>
 
-        <!-- Profil Instansi -->
-        <div class="panel fade-up" style="padding:16px 18px; animation-delay: 0.4s;">
-            <h4 style="display:flex; align-items:center; gap:6px;">🏢 Profil Instansi</h4>
-            <p class="sub" style="margin-bottom:10px;">Data INSTANSI · terhubung ke akun Anda</p>
-            <div style="font-size:12.5px; line-height:1.9; color:var(--ink-soft);">
-                <div><strong style="color:var(--ink);">{{ Auth::user()->instansi->nama_instansi ?? '-' }}</strong></div>
-                <div>{{ Auth::user()->instansi->alamat ?? '-' }}</div>
-                <div class="mono">{{ Auth::user()->instansi->no_telp ?? '-' }}</div>
+            <!-- Profil Instansi -->
+            <div class="panel fade-up" style="padding:16px 18px; animation-delay: 0.35s;">
+                <h4 style="display:flex; align-items:center; gap:6px;">🏢 Profil Instansi</h4>
+                <p class="sub" style="margin-bottom:10px;">Data INSTANSI · terhubung ke akun Anda</p>
+                <div style="font-size:12.5px; line-height:1.9; color:var(--ink-soft);">
+                    <div><strong style="color:var(--ink);">{{ Auth::user()->instansi->nama_instansi ?? '-' }}</strong></div>
+                    <div>{{ Auth::user()->instansi->alamat ?? '-' }}</div>
+                    <div class="mono">{{ Auth::user()->instansi->no_telp ?? '-' }}</div>
+                </div>
             </div>
         </div>
     </div>
@@ -172,9 +166,11 @@
     document.addEventListener('DOMContentLoaded', function () {
         const skeleton = document.getElementById('skeleton-loading');
         const content  = document.getElementById('actual-content');
+        
+        // Use a simple mechanism to wait 1.2s then show content
         setTimeout(function () {
-            skeleton.style.display = 'none';
-            content.classList.add('loaded');
+            if(skeleton) skeleton.style.display = 'none';
+            if(content) content.style.display = 'block';
         }, 1200);
     });
 </script>
