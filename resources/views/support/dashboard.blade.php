@@ -21,6 +21,17 @@
     <a href="{{ route('support.dashboard', ['status' => 'Proses']) }}" class="chip-filter {{ request('status') == 'Proses' ? 'active' : '' }}">Proses</a>
 </div>
 
+@if($pendingUsers->count() > 0)
+<div class="notif-banner">
+    <div class="notif-icon">🔔</div>
+    <div class="notif-body">
+        <strong>Permintaan Verifikasi Akun <span class="notif-count">{{ $pendingUsers->count() }}</span></strong>
+        <span>Ada {{ $pendingUsers->count() }} akun pelapor baru yang menunggu persetujuan Anda.</span>
+    </div>
+    <button class="btn btn-amber btn-sm" onclick="openModal('modal-verify')">Lihat & Verifikasi</button>
+</div>
+@endif
+
 <table class="tickets" id="tickets-table">
     <thead>
         <tr>
@@ -47,13 +58,13 @@
             <td>
                 @php
                     $statusClass = match($t->status) {
-                        'Open', 'Proses' => 'status-open',
-                        'Pending' => 'status-pending',
-                        'Done' => 'status-done',
+                        \App\Enums\TicketStatus::OPEN, \App\Enums\TicketStatus::PROSES => 'status-open',
+                        \App\Enums\TicketStatus::PENDING => 'status-pending',
+                        \App\Enums\TicketStatus::DONE => 'status-done',
                         default => ''
                     };
                 @endphp
-                <span class="status {{ $statusClass }}">{{ $t->status }}</span>
+                <span class="status {{ $statusClass }}">{{ $t->status->value ?? $t->status }}</span>
             </td>
             <td>
                 <button class="btn btn-ghost btn-sm" onclick="openModal('modal-edit-{{ $t->ticket_id }}')">Respons</button>
@@ -85,10 +96,10 @@
                         <div class="field">
                             <label>Status</label>
                             <select name="status" required>
-                                <option value="Open" {{ $t->status == 'Open' ? 'selected' : '' }}>Open</option>
-                                <option value="Proses" {{ $t->status == 'Proses' ? 'selected' : '' }}>Proses</option>
-                                <option value="Pending" {{ $t->status == 'Pending' ? 'selected' : '' }}>Pending</option>
-                                <option value="Done" {{ $t->status == 'Done' ? 'selected' : '' }}>Done</option>
+                                <option value="Open" {{ $t->status === \App\Enums\TicketStatus::OPEN ? 'selected' : '' }}>Open</option>
+                                <option value="Proses" {{ $t->status === \App\Enums\TicketStatus::PROSES ? 'selected' : '' }}>Proses</option>
+                                <option value="Pending" {{ $t->status === \App\Enums\TicketStatus::PENDING ? 'selected' : '' }}>Pending</option>
+                                <option value="Done" {{ $t->status === \App\Enums\TicketStatus::DONE ? 'selected' : '' }}>Done</option>
                             </select>
                         </div>
                         <div class="field">
@@ -106,6 +117,63 @@
         @endforeach
     </tbody>
 </table>
+
+<!-- Modal Verifikasi Akun -->
+@if($pendingUsers->count() > 0)
+<div class="overlay" id="modal-verify">
+    <div class="modal w-lg">
+        <div class="modal-head">
+            <div>
+                <h3>Verifikasi Akun Pelapor</h3>
+                <p>Setujui atau tolak akun yang mendaftar</p>
+            </div>
+            <button type="button" class="modal-x" onclick="closeModal('modal-verify')">✕</button>
+        </div>
+        <div class="modal-body" style="padding:0; overflow-x:auto;">
+            <table class="verify-table">
+                <thead>
+                    <tr>
+                        <th>Nama PIC</th>
+                        <th>Email</th>
+                        <th>Instansi</th>
+                        <th>No. HP</th>
+                        <th>Tgl Daftar</th>
+                        <th style="text-align:center;">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($pendingUsers as $pu)
+                    <tr>
+                        <td style="font-weight:600;">{{ $pu->nama }}</td>
+                        <td class="mono">{{ $pu->email }}</td>
+                        <td>{{ $pu->instansi->nama_instansi ?? '-' }}</td>
+                        <td class="mono">{{ $pu->instansi->no_telp ?? '-' }}</td>
+                        <td class="mono">{{ $pu->created_at->format('d M Y') }}</td>
+                        <td>
+                            <div class="verify-actions">
+                                <form action="{{ route('support.users.verify', $pu->user_id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <button type="submit" class="btn btn-success btn-sm" title="Setujui akun ini">✓ Setujui</button>
+                                </form>
+                                <form action="{{ route('support.users.reject', $pu->user_id) }}" method="POST" onsubmit="return confirm('Yakin ingin menolak dan menghapus akun {{ $pu->nama }}?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm" title="Tolak dan hapus akun">✕ Tolak</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-foot">
+            <button type="button" class="btn btn-ghost" onclick="closeModal('modal-verify')">Tutup</button>
+        </div>
+    </div>
+</div>
+@endif
 
 <script>
     document.getElementById('search-input').addEventListener('keyup', function() {

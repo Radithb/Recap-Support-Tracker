@@ -60,7 +60,14 @@ class TicketController extends Controller
         $tickets = $query->latest('tanggal_input')->paginate(10);
         $kategoris = MasterKategori::all();
 
-        return view('support.dashboard', compact('tickets', 'kategoris'));
+        // Ambil daftar user pelapor yang belum diverifikasi
+        $pendingUsers = \App\Models\User::with('instansi')
+            ->where('role', \App\Enums\UserRole::PELAPOR->value)
+            ->where('is_verified', false)
+            ->latest()
+            ->get();
+
+        return view('support.dashboard', compact('tickets', 'kategoris', 'pendingUsers'));
     }
 
     public function updateSupport(Request $request, Ticket $ticket)
@@ -69,7 +76,7 @@ class TicketController extends Controller
             'status' => 'required|string',
             'kategori_id' => 'required_if:status,Done',
             'penyelesaian' => 'required_if:status,Done|nullable|string',
-            'pencegahan' => 'required_if:status,Done|nullable|string',
+            'pencegahan' => 'nullable|string',
             'link_ticket' => 'nullable|string',
             'is_faq' => 'nullable|boolean',
         ]);
@@ -77,7 +84,7 @@ class TicketController extends Controller
         $data = $request->only(['status', 'kategori_id', 'penyelesaian', 'pencegahan', 'link_ticket']);
         $data['is_faq'] = $request->has('is_faq');
         
-        if ($data['status'] === TicketStatus::DONE->value && $ticket->status !== TicketStatus::DONE->value) {
+        if ($data['status'] === TicketStatus::DONE->value && $ticket->status !== TicketStatus::DONE) {
             $data['tanggal_penyelesaian'] = now();
             $data['pic_support_id'] = Auth::id(); // Assign current support user
         }

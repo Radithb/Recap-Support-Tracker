@@ -11,9 +11,9 @@
 
 <!-- Statistik Sederhana -->
 <div class="stat-row">
-    <div class="stat-card"><div class="n" style="color:var(--clay)">{{ $tickets->whereIn('status', ['Open', 'Proses'])->count() }}</div><div class="l">Open / Proses</div></div>
-    <div class="stat-card"><div class="n" style="color:#B8923F">{{ $tickets->where('status', 'Pending')->count() }}</div><div class="l">Pending — butuh info</div></div>
-    <div class="stat-card"><div class="n" style="color:var(--sage)">{{ $tickets->where('status', 'Done')->count() }}</div><div class="l">Selesai Total</div></div>
+    <div class="stat-card"><div class="n" style="color:var(--clay)">{{ $tickets->whereIn('status', [\App\Enums\TicketStatus::OPEN, \App\Enums\TicketStatus::PROSES])->count() }}</div><div class="l">Open / Proses</div></div>
+    <div class="stat-card"><div class="n" style="color:#B8923F">{{ $tickets->where('status', \App\Enums\TicketStatus::PENDING)->count() }}</div><div class="l">Pending — butuh info</div></div>
+    <div class="stat-card"><div class="n" style="color:var(--sage)">{{ $tickets->where('status', \App\Enums\TicketStatus::DONE)->count() }}</div><div class="l">Selesai Total</div></div>
 </div>
 
 <div class="grid2" style="grid-template-columns:2fr 1fr; align-items:start; gap:20px;">
@@ -34,13 +34,13 @@
                 
                 @php
                     $statusClass = match($t->status) {
-                        'Open', 'Proses' => 'status-open',
-                        'Pending' => 'status-pending',
-                        'Done' => 'status-done',
+                        \App\Enums\TicketStatus::OPEN, \App\Enums\TicketStatus::PROSES => 'status-open',
+                        \App\Enums\TicketStatus::PENDING => 'status-pending',
+                        \App\Enums\TicketStatus::DONE => 'status-done',
                         default => ''
                     };
                 @endphp
-                <span class="status {{ $statusClass }}">{{ $t->status }}</span>
+                <span class="status {{ $statusClass }}">{{ $t->status->value ?? $t->status }}</span>
             </div>
             
             <!-- Modal Detail Ticket (Read Only for Pelapor) -->

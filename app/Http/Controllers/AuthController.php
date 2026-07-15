@@ -26,8 +26,8 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            // Cek apakah akun sudah diverifikasi oleh Tim Support
-            if (!Auth::user()->is_verified) {
+            // Cek apakah akun Pelapor sudah diverifikasi oleh Tim Support
+            if (Auth::user()->role === UserRole::PELAPOR && !Auth::user()->is_verified) {
                 Auth::logout();
                 $request->session()->invalidate();
                 $request->session()->regenerateToken();

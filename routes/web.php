@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\MasterDataController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UserVerificationController;
 use App\Http\Middleware\IsPelapor;
 use App\Http\Middleware\IsSupport;
 
@@ -34,4 +35,8 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
     
     // Master Data
     Route::get('/master-data', [MasterDataController::class, 'index'])->name('master-data.index');
+
+    // Verifikasi Akun Pelapor
+    Route::put('/users/{user}/verify', [UserVerificationController::class, 'verify'])->name('users.verify');
+    Route::delete('/users/{user}/reject', [UserVerificationController::class, 'reject'])->name('users.reject');
 });

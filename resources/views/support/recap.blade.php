@@ -64,8 +64,8 @@
                 datasets: [{
                     label: 'Jumlah Tiket',
                     data: @json($chartData),
-                    backgroundColor: 'rgba(79, 70, 229, 0.5)',
-                    borderColor: 'rgba(79, 70, 229, 1)',
+                    backgroundColor: 'rgba(30, 59, 142, 0.5)',
+                    borderColor: 'rgba(30, 59, 142, 1)',
                     borderWidth: 1,
                     borderRadius: 4
                 }]

@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password123'),
             'role' => UserRole::SUPPORT->value,
             'instansi_id' => null,
+            'is_verified' => true,
         ]);
 
         // Pelapor User (Mitra)
@@ -27,6 +28,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password123'),
             'role' => UserRole::PELAPOR->value,
             'instansi_id' => 1, // Asumsi ID 1 adalah Koperasi Kredit Sejahtera dari MasterDataSeeder
+            'is_verified' => true,
         ]);
     }
 }
