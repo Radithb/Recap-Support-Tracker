@@ -3,7 +3,7 @@
 @section('content')
 <div class="login-wrap">
     <div class="site-nav">
-        <div class="wm"><span class="dot"></span>Recap Support Tracker</div>
+        <div class="wm"><img src="{{ asset('logo.png') }}" alt="Logo" style="width: 24px; height: 24px; object-fit: contain;">Recap Support Tracker</div>
         <div class="site-nav-links">
             <span>Beranda</span><span>Mitra Kami</span><span>Bantuan</span>
         </div>
@@ -14,17 +14,7 @@
         <div class="login-box">
             <div class="login-brandmark">
                 <div class="lg">
-                    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="40" height="40" rx="10" fill="url(#paint0_linear)"/>
-                        <path d="M13 23C13 23 16.5 21 20 21C23.5 21 27 23 27 23" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-                        <path d="M20 18C21.6569 18 23 16.6569 23 15C23 13.3431 21.6569 12 20 12C18.3431 12 17 13.3431 17 15C17 16.6569 18.3431 18 20 18Z" fill="white"/>
-                        <defs>
-                            <linearGradient id="paint0_linear" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#DC3545"/>
-                                <stop offset="1" stop-color="#1E4B8F"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
+                    <img src="{{ asset('logo.png') }}" alt="Logo" style="width: 46px; height: 46px; object-fit: contain;">
                 </div>
                 <div class="tx">
                     <strong>Recap Support Tracker</strong>
@@ -39,10 +29,13 @@
 
                 {{-- Tampilkan error login --}}
                 @if($errors->any())
-                    <div style="text-align: left; margin-bottom: 18px; font-weight: 500; color: var(--amber); background: var(--amber-soft); padding: 12px; border-radius: 8px;">
-                        @foreach ($errors->all() as $error)
-                            <div>{{ $error }}</div>
-                        @endforeach
+                    <div id="login-error" class="alert-dismiss" style="text-align: left; margin-bottom: 18px; font-weight: 500; color: var(--amber); background: var(--amber-soft); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: flex-start; transition: opacity 0.6s ease, transform 0.6s ease;">
+                        <div>
+                            @foreach ($errors->all() as $error)
+                                <div>{{ $error }}</div>
+                            @endforeach
+                        </div>
+                        <button type="button" onclick="document.getElementById('login-error').style.display='none'" style="background: none; border: none; color: var(--amber); cursor: pointer; font-size: 18px; font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
                     </div>
                 @endif
                 

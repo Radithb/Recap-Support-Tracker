@@ -16,17 +16,7 @@
         <div class="sidebar-brand">
             <div class="lg">
                 <!-- Placeholder untuk logo -->
-                <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="40" height="40" rx="10" fill="url(#paint0_linear)"/>
-                    <path d="M13 23C13 23 16.5 21 20 21C23.5 21 27 23 27 23" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-                    <path d="M20 18C21.6569 18 23 16.6569 23 15C23 13.3431 21.6569 12 20 12C18.3431 12 17 13.3431 17 15C17 16.6569 18.3431 18 20 18Z" fill="white"/>
-                    <defs>
-                        <linearGradient id="paint0_linear" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-                            <stop stop-color="#DC3545"/>
-                            <stop offset="1" stop-color="#1E4B8F"/>
-                        </linearGradient>
-                    </defs>
-                </svg>
+                <img src="{{ asset('logo.png') }}" alt="Logo" style="width: 40px; height: 40px; object-fit: contain;">
             </div>
             <div class="tx">
                 <strong>Recap Support</strong>
@@ -54,6 +44,9 @@
                 </div>
                 <button onclick="window.location.href='#'">
                     <span class="ic">⚙️</span> Pengaturan Akun
+                </button>
+                <button onclick="window.location.href='{{ route('profil.instansi') }}'">
+                    <span class="ic">🏢</span> Profil Instansi
                 </button>
                 <div class="pop-div"></div>
                 <form action="{{ route('logout') }}" method="POST" style="margin:0;">
@@ -84,6 +77,7 @@
     @yield('content')
 @endif
 
+
 <script>
     // Toggle Profile Popover in Sidebar
     function toggleProfilePopover(e) {
@@ -110,6 +104,20 @@
         const modal = document.getElementById(id);
         if(modal) modal.classList.remove('active');
     }
+
+    // Auto-dismiss alerts after 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        const alerts = document.querySelectorAll('.alert-dismiss');
+        alerts.forEach(alert => {
+            setTimeout(() => {
+                alert.style.opacity = '0';
+                alert.style.transform = 'translateY(-8px)';
+                setTimeout(() => {
+                    alert.style.display = 'none';
+                }, 600);
+            }, 5000);
+        });
+    });
 </script>
 </body>
 </html>

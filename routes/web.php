@@ -19,6 +19,14 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'storeRegister']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::middleware('auth')->group(function () {
+    Route::get('/profil-instansi', function () {
+        return view('profil-instansi');
+    })->name('profil.instansi');
+    
+    Route::put('/profil-instansi', [AuthController::class, 'updateInstansi'])->name('profil.instansi.update');
+});
+
 // Akses Pelapor
 Route::middleware(['auth', IsPelapor::class])->prefix('pelapor')->name('pelapor.')->group(function () {
     Route::get('/dashboard', [TicketController::class, 'pelaporDashboard'])->name('dashboard');

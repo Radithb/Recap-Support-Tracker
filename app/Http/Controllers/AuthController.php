@@ -97,4 +97,21 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
         return redirect('/login');
     }
+    public function updateInstansi(Request $request)
+    {
+        $request->validate([
+            'alamat' => ['nullable', 'string', 'max:255'],
+            'no_telp' => ['nullable', 'string', 'max:50'],
+        ]);
+
+        $user = Auth::user();
+        if ($user && $user->instansi) {
+            $user->instansi->update([
+                'alamat' => $request->alamat,
+                'no_telp' => $request->no_telp,
+            ]);
+        }
+
+        return back()->with('success', 'Profil Instansi berhasil diperbarui!');
+    }
 }

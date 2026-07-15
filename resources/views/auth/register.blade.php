@@ -21,12 +21,18 @@
 
                 {{-- Flash message sukses --}}
                 @if(session('success'))
-                    <div class="alert alert-success" style="margin-bottom:18px;">{{ session('success') }}</div>
+                    <div id="register-success" class="alert-dismiss" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--sage-soft); color: var(--sage); border-radius: 8px; margin-bottom: 18px; font-size: 13px; font-weight: 600; border: 1px solid rgba(46, 125, 82, 0.2); transition: opacity 0.6s ease, transform 0.6s ease;">
+                        <span>{{ session('success') }}</span>
+                        <button type="button" onclick="document.getElementById('register-success').style.display='none'" style="background: none; border: none; color: var(--sage); cursor: pointer; font-size: 18px; font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
+                    </div>
                 @endif
 
                 {{-- Flash message error global --}}
                 @if(session('error'))
-                    <div class="alert alert-danger" style="margin-bottom:18px;">{{ session('error') }}</div>
+                    <div id="register-error" class="alert-dismiss" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--amber-soft); color: var(--amber); border-radius: 8px; margin-bottom: 18px; font-size: 13px; font-weight: 600; border: 1px solid rgba(220, 53, 69, 0.2); transition: opacity 0.6s ease, transform 0.6s ease;">
+                        <span>{{ session('error') }}</span>
+                        <button type="button" onclick="document.getElementById('register-error').style.display='none'" style="background: none; border: none; color: var(--amber); cursor: pointer; font-size: 18px; font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
+                    </div>
                 @endif
 
                 <form method="POST" action="{{ route('register') }}">
