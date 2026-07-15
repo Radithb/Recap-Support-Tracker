@@ -31,22 +31,20 @@
         <div class="sidebar-menu">
             @if(Auth::check() && Auth::user()->role === \App\Enums\UserRole::SUPPORT)
                 <a href="{{ route('support.dashboard') }}" class="{{ request()->routeIs('support.dashboard') ? 'active' : '' }}">
-                    <span class="ic">🎫</span> Dashboard Support
+                    <span class="ic"><img src="{{ asset('analysis.png') }}" alt=""></span> Dashboard
                 </a>
                 <a href="{{ route('support.master-data.index') }}" class="{{ request()->routeIs('support.master-data.*') ? 'active' : '' }}">
-                    <span class="ic">🗂️</span> Master Data
+                    <span class="ic"><img src="{{ asset('folder.png') }}" alt=""></span> Master Data
                 </a>
                 <a href="{{ route('support.recap') }}" class="{{ request()->routeIs('support.recap') ? 'active' : '' }}">
-                    <span class="ic">📈</span> Rekap Support
+                    <span class="ic"><img src="{{ asset('file.png') }}" alt=""></span> Rekap Support
                 </a>
                 
                 <div style="margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);"></div>
                 <a href="#">
                     <span class="ic"><img src="{{ asset('setting.png') }}" alt=""></span> Pengaturan
                 </a>
-                <a href="#">
-                    <span class="ic">🟢</span> Status Kehadiran
-                </a>
+
             @else
                 @yield('sidebar_menu')
                 

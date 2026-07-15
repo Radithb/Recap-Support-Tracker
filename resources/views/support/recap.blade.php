@@ -33,62 +33,104 @@
 {{-- ═══════════════════════════════════════════ --}}
 <div class="content-wrap" id="actual-content">
 
-<div class="fade-up" style="margin-bottom:18px; animation-delay:0.05s;">
-    <a href="{{ route('support.dashboard') }}" class="btn btn-ghost btn-sm" style="background:#fff; border-color:var(--line);">
-        &larr; Kembali ke Dashboard
-    </a>
-</div>
+@section('page_title', 'Rekap Support')
+@section('page_subtitle', 'internal.ptskk.id')
 
-<div class="panel fade-up" style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; animation-delay: 0.1s;">
+<div class="page-head fade-up" style="animation-delay: 0.1s; margin-bottom: 2.5rem;">
     <div>
-        <h2 style="font-family:var(--font-display); margin:0 0 6px; font-size:22px;">Analytics & Reporting</h2>
-        <p style="margin:0; font-size:13.5px; color:var(--ink-soft);">Rekapitulasi tiket berdasarkan bulan & kategori.</p>
+        <p class="eyebrow" style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600;">REKAP SUPPORT &bull; {{ strtoupper(Auth::user()->nama ?? 'ANDRA W.') }}</p>
+        <h1 style="margin: 0; font-size: 2rem; color: var(--ink);">Rekapan Tiket Tahunan</h1>
+        <p style="color: var(--text-muted); margin-top: 0.5rem; max-width: 600px; line-height: 1.5;">Rekap otomatis dari seluruh tiket yang dilaporkan Pelapor &amp; dikategorikan Tim Support &mdash; bisa ganti tahun kapan saja.</p>
     </div>
-    <form method="GET">
-        <select name="year" onchange="this.form.submit()" style="width: 150px; font-weight: 600; padding: 10px 14px; border-radius: 8px; border: 1.5px solid var(--line); font-family: var(--font-body); color: var(--ink);">
-            @for($y = date('Y'); $y >= 2023; $y--)
-                <option value="{{ $y }}" {{ $year == $y ? 'selected' : '' }}>Tahun {{ $y }}</option>
-            @endfor
-        </select>
-    </form>
 </div>
 
-<div class="grid2">
-    <!-- FR-10A: Bar Chart -->
-    <div class="panel fade-up" style="animation-delay: 0.2s;">
-        <h3 style="font-family:var(--font-display); font-size:16px; margin:0 0 16px;">Tiket Masuk per Bulan ({{ $year }})</h3>
+<div class="glass-panel fade-up" style="animation-delay: 0.15s; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem;">
+        <div>
+            <h3 style="margin: 0; font-size: 1.25rem; color: var(--ink);">Rekap Tiket Bulanan</h3>
+            <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">FR-10 Reporting Analytics &mdash; klik salah satu bulan untuk lihat detail, atau ganti tahun di sebelah kanan</p>
+        </div>
+        <div style="display: flex; gap: 0.5rem;">
+            @for($y = date('Y') - 2; $y <= date('Y'); $y++)
+                <a href="{{ route('support.recap', ['year' => $y]) }}" class="btn {{ $year == $y ? 'btn-primary' : 'btn-outline' }}" style="padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid {{ $year == $y ? 'transparent' : 'var(--line)' }}; {{ $year == $y ? 'background: var(--ink); color: #fff;' : 'background: transparent; color: var(--ink);' }}">{{ $y }}</a>
+            @endfor
+        </div>
+    </div>
+
+    <div style="height: 250px; margin-bottom: 2rem;">
         <canvas id="monthlyChart"></canvas>
     </div>
 
-    <!-- FR-10B: Crosstab Table -->
-    <div class="panel fade-up" style="overflow-x: auto; animation-delay: 0.3s;">
-        <h3 style="font-family:var(--font-display); font-size:16px; margin:0 0 16px;">Sebaran Kategori (Selesai) ({{ $year }})</h3>
-        <table class="verify-table">
-            <thead>
+    @php
+        $totalTickets = array_sum($chartData);
+    @endphp
+    <div style="background: #f1f5f9; border-radius: 8px; padding: 1rem 1.5rem; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">
+        Menampilkan rekap tahun <strong>{{ $year }}</strong> &mdash; total <strong>{{ $totalTickets }}</strong> tiket dari Januari&ndash;Desember.
+    </div>
+
+
+</div>
+
+<div class="glass-panel fade-up" style="animation-delay: 0.2s; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; margin-bottom: 2rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
+        <div>
+            <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">Rekap Support {{ $year }}</h3>
+            <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Terekap otomatis dari tiket yang dilaporkan Pelapor &amp; dikategorikan Tim Support saat penyelesaian (kategori_id, FR-07)</p>
+        </div>
+        <span class="badge" style="background: var(--ink); color: #fff; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">{{ $year }}</span>
+    </div>
+    
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; min-width: 800px;">
+            <thead style="background: #f1f5f9;">
                 <tr>
-                    <th>Kategori</th>
-                    @for($m = 1; $m <= 12; $m++)
-                        <th style="text-align: center;">{{ date('M', mktime(0,0,0,$m,1)) }}</th>
-                    @endfor
-                    <th style="text-align: center; color: var(--indigo);">Total</th>
+                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Kategori</th>
+                    @php $months = ['JAN','FEB','MAR','APR','MAY','JUNE','JULY','AUG','SEPT','OCT','NOV','DEC']; @endphp
+                    @foreach($months as $m)
+                        <th style="padding: 1rem 0.5rem; text-align: center; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 1px;">{{ $m }}</th>
+                    @endforeach
+                    <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Total Keseluruhan</th>
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $colTotals = array_fill(1, 12, 0);
+                    $grandTotal = 0;
+                @endphp
                 @foreach($crosstab as $catData)
-                    <tr>
-                        <td><strong>{{ $catData['nama'] }}</strong></td>
-                        @for($m = 1; $m <= 12; $m++)
-                            <td style="text-align: center; {{ $catData['months'][$m] > 0 ? 'color: var(--sage); font-weight: 700;' : 'color: var(--ink-soft);' }}">
-                                {{ $catData['months'][$m] }}
-                            </td>
-                        @endfor
-                        <td style="text-align: center; font-weight: 700; color: var(--indigo);">
-                            {{ $catData['total_year'] }}
+                <tr style="border-bottom: 1px solid var(--line);">
+                    <td style="padding: 1rem 1.5rem; color: var(--ink); font-size: 0.9rem;">{{ $catData['nama'] }}</td>
+                    @for($m = 1; $m <= 12; $m++)
+                        @php $colTotals[$m] += $catData['months'][$m]; @endphp
+                        <td style="padding: 1rem 0.5rem; text-align: center; color: var(--ink); font-size: 0.9rem;">
+                            {{ $catData['months'][$m] > 0 ? $catData['months'][$m] : '-' }}
                         </td>
-                    </tr>
+                    @endfor
+                    <td style="padding: 1rem 1.5rem; text-align: center; font-weight: 700; color: var(--ink); font-size: 0.9rem; background: #f8fafc;">
+                        {{ $catData['total_year'] }}
+                        @php $grandTotal += $catData['total_year']; @endphp
+                    </td>
+                </tr>
                 @endforeach
+                
+                {{-- Total Row --}}
+                <tr style="background: #1e40af; color: #fff;">
+                    <td style="padding: 1rem 1.5rem; font-weight: 600; font-size: 0.9rem;">Total</td>
+                    @for($m = 1; $m <= 12; $m++)
+                        <td style="padding: 1rem 0.5rem; text-align: center; font-weight: 600; font-size: 0.9rem;">
+                            {{ $colTotals[$m] > 0 ? $colTotals[$m] : '0' }}
+                        </td>
+                    @endfor
+                    <td style="padding: 1rem 1.5rem; text-align: center; font-weight: 700; font-size: 0.9rem; background: #1e3a8a;">
+                        {{ $grandTotal }}
+                    </td>
+                </tr>
             </tbody>
         </table>
+    </div>
+    
+    <div style="padding: 1rem 1.5rem; color: var(--text-muted); font-size: 0.85rem;">
+        Total keseluruhan <strong>{{ $grandTotal }}</strong> tiket &mdash; dihitung otomatis, ikut ter-update begitu Tim Support menyimpan kategori tiket baru dari laporan Pelapor.
     </div>
 </div>
 
@@ -108,24 +150,34 @@
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    labels: ['JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGU', 'SEP', 'OKT', 'NOV', 'DES'],
                     datasets: [{
                         label: 'Jumlah Tiket',
                         data: @json($chartData),
-                        backgroundColor: 'rgba(30, 59, 142, 0.5)',
-                        borderColor: 'rgba(30, 59, 142, 1)',
-                        borderWidth: 1,
+                        backgroundColor: '#e2e8f0',
+                        borderWidth: 0,
                         borderRadius: 4
                     }]
                 },
                 options: {
                     responsive: true,
+                    maintainAspectRatio: false,
                     scales: {
-                        y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.05)' } },
-                        x: { grid: { display: false } }
+                        y: { display: false, beginAtZero: true },
+                        x: { 
+                            grid: { display: false, drawBorder: false },
+                            ticks: { font: { size: 10, weight: 'bold' }, color: '#94a3b8' },
+                            border: { display: false }
+                        }
                     },
                     plugins: {
-                        legend: { labels: { color: '#94a3b8' } }
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1e293b',
+                            padding: 10,
+                            cornerRadius: 6,
+                            displayColors: false
+                        }
                     }
                 }
             });
