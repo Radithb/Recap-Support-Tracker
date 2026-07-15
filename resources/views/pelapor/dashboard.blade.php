@@ -96,21 +96,7 @@
                     <span class="status {{ $statusClass }}">{{ $t->status->value ?? $t->status }}</span>
                 </div>
                 
-                <!-- Modal Detail Ticket (Read Only for Pelapor) -->
-                <div class="overlay" id="modal-ticket-{{ $t->ticket_id }}">
-                    <div class="modal">
-                        <div class="modal-head">
-                            <div><h3>Detail Laporan</h3><p>{{ $t->ticket_id }}</p></div>
-                            <button type="button" class="modal-x" onclick="closeModal('modal-ticket-{{ $t->ticket_id }}'); event.stopPropagation();">✕</button>
-                        </div>
-                        <div class="modal-body">
-                            <div class="field"><label>Aplikasi</label><input type="text" value="{{ $t->aplikasi->nama_aplikasi }}" readonly></div>
-                            <div class="field"><label>Kategori</label><input type="text" value="{{ $t->kategori->nama_kategori ?? '-' }}" readonly></div>
-                            <div class="field"><label>Permasalahan</label><textarea readonly>{{ $t->permasalahan }}</textarea></div>
-                            <div class="field"><label>Penyelesaian Support</label><textarea readonly>{{ $t->penyelesaian }}</textarea></div>
-                        </div>
-                    </div>
-                </div>
+
                 @empty
                 <div class="ticket-card" style="justify-content:center; padding:30px;">
                     <p class="eyebrow">Belum ada tiket laporan.</p>
@@ -131,6 +117,24 @@
         </div>
     </div>
 </div>
+
+<!-- Modals for Tickets -->
+@foreach($tickets as $t)
+<div class="overlay" id="modal-ticket-{{ $t->ticket_id }}">
+    <div class="modal">
+        <div class="modal-head">
+            <div><h3>Detail Laporan</h3><p>{{ $t->ticket_id }}</p></div>
+            <button type="button" class="modal-x" onclick="closeModal('modal-ticket-{{ $t->ticket_id }}'); event.stopPropagation();">✕</button>
+        </div>
+        <div class="modal-body">
+            <div class="field"><label>Aplikasi</label><input type="text" value="{{ $t->aplikasi->nama_aplikasi }}" readonly></div>
+            <div class="field"><label>Kategori</label><input type="text" value="{{ $t->kategori->nama_kategori ?? '-' }}" readonly></div>
+            <div class="field"><label>Permasalahan</label><textarea readonly>{{ $t->permasalahan }}</textarea></div>
+            <div class="field"><label>Penyelesaian Support</label><textarea readonly>{{ $t->penyelesaian }}</textarea></div>
+        </div>
+    </div>
+</div>
+@endforeach
 
 <!-- Modal Create -->
 <div class="overlay" id="modal-create">

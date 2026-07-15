@@ -13,6 +13,15 @@
                 <p class="eyebrow">Masuk ke Akun</p>
                 <h1>Login</h1>
                 <p class="lede">Masukkan email dan kata sandi Anda.</p>
+
+                {{-- Tampilkan error login --}}
+                @if($errors->any())
+                    <div class="alert alert-danger" style="text-align: left; margin-bottom: 18px; font-weight: 500;">
+                        @foreach ($errors->all() as $error)
+                            <div>{{ $error }}</div>
+                        @endforeach
+                    </div>
+                @endif
                 
                 <form method="POST" action="{{ route('login') }}">
                     @csrf

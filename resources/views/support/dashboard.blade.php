@@ -66,9 +66,15 @@
         <span style="opacity:0.5">🔍</span>
         <input type="text" placeholder="Cari tiket, instansi..." style="border:none; background:transparent; width:100%; outline:none;" id="search-input">
     </div>
-    <a href="{{ route('support.dashboard') }}" class="chip-filter {{ !request('status') ? 'active' : '' }}">Semua Tiket</a>
-    <a href="{{ route('support.dashboard', ['status' => 'Open']) }}" class="chip-filter {{ request('status') == 'Open' ? 'active' : '' }}">Open</a>
-    <a href="{{ route('support.dashboard', ['status' => 'Proses']) }}" class="chip-filter {{ request('status') == 'Proses' ? 'active' : '' }}">Proses</a>
+    <form id="filter-form" action="{{ route('support.dashboard') }}" method="GET" style="margin:0;">
+        <select name="status" onchange="document.getElementById('filter-form').submit()" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); font-family: var(--font-body); font-weight: 500; color: var(--ink); background: var(--paper-raised); cursor: pointer; outline:none;">
+            <option value="">Semua Status</option>
+            <option value="Open" {{ request('status') == 'Open' ? 'selected' : '' }}>Open</option>
+            <option value="Proses" {{ request('status') == 'Proses' ? 'selected' : '' }}>Proses</option>
+            <option value="Pending" {{ request('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
+            <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>Selesai</option>
+        </select>
+    </form>
 </div>
 
 @if($pendingUsers->count() > 0)
@@ -122,55 +128,59 @@
             </td>
         </tr>
 
-        <!-- Modal Update Status Support -->
-        <div class="overlay" id="modal-edit-{{ $t->ticket_id }}">
-            <div class="modal">
-                <div class="modal-head">
-                    <div><h3>Tindak Lanjut Tiket</h3><p>{{ $t->ticket_id }}</p></div>
-                    <button type="button" class="modal-x" onclick="closeModal('modal-edit-{{ $t->ticket_id }}')">✕</button>
-                </div>
-                <form action="{{ route('support.tickets.update', $t->ticket_id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="modal-body">
-                        <div class="field"><label>Aplikasi</label><input type="text" value="{{ $t->aplikasi->nama_aplikasi }}" readonly></div>
-                        <div class="field"><label>Permasalahan</label><textarea readonly>{{ $t->permasalahan }}</textarea></div>
-                        <div class="field">
-                            <label>Kategori</label>
-                            <select name="kategori_id" required>
-                                <option value="">Pilih Kategori...</option>
-                                @foreach($kategoris as $kat)
-                                    <option value="{{ $kat->kategori_id }}" {{ $t->kategori_id == $kat->kategori_id ? 'selected' : '' }}>{{ $kat->nama_kategori }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="field">
-                            <label>Status</label>
-                            <select name="status" required>
-                                <option value="Open" {{ $t->status === \App\Enums\TicketStatus::OPEN ? 'selected' : '' }}>Open</option>
-                                <option value="Proses" {{ $t->status === \App\Enums\TicketStatus::PROSES ? 'selected' : '' }}>Proses</option>
-                                <option value="Pending" {{ $t->status === \App\Enums\TicketStatus::PENDING ? 'selected' : '' }}>Pending</option>
-                                <option value="Done" {{ $t->status === \App\Enums\TicketStatus::DONE ? 'selected' : '' }}>Done</option>
-                            </select>
-                        </div>
-                        <div class="field">
-                            <label>Penyelesaian / Catatan</label>
-                            <textarea name="penyelesaian">{{ $t->penyelesaian }}</textarea>
-                        </div>
-                    </div>
-                    <div class="modal-foot">
-                        <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-{{ $t->ticket_id }}')">Batal</button>
-                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+
         @endforeach
     </tbody>
 </table>
 </div>
 
 </div>
+
+<!-- Modals for Tickets -->
+@foreach($tickets as $t)
+<div class="overlay" id="modal-edit-{{ $t->ticket_id }}">
+    <div class="modal">
+        <div class="modal-head">
+            <div><h3>Tindak Lanjut Tiket</h3><p>{{ $t->ticket_id }}</p></div>
+            <button type="button" class="modal-x" onclick="closeModal('modal-edit-{{ $t->ticket_id }}')">✕</button>
+        </div>
+        <form action="{{ route('support.tickets.update', $t->ticket_id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="modal-body">
+                <div class="field"><label>Aplikasi</label><input type="text" value="{{ $t->aplikasi->nama_aplikasi }}" readonly></div>
+                <div class="field"><label>Permasalahan</label><textarea readonly>{{ $t->permasalahan }}</textarea></div>
+                <div class="field">
+                    <label>Kategori</label>
+                    <select name="kategori_id" required>
+                        <option value="">Pilih Kategori...</option>
+                        @foreach($kategoris as $kat)
+                            <option value="{{ $kat->kategori_id }}" {{ $t->kategori_id == $kat->kategori_id ? 'selected' : '' }}>{{ $kat->nama_kategori }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Status</label>
+                    <select name="status" required>
+                        <option value="Open" {{ $t->status === \App\Enums\TicketStatus::OPEN ? 'selected' : '' }}>Open</option>
+                        <option value="Proses" {{ $t->status === \App\Enums\TicketStatus::PROSES ? 'selected' : '' }}>Proses</option>
+                        <option value="Pending" {{ $t->status === \App\Enums\TicketStatus::PENDING ? 'selected' : '' }}>Pending</option>
+                        <option value="Done" {{ $t->status === \App\Enums\TicketStatus::DONE ? 'selected' : '' }}>Done</option>
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Penyelesaian / Catatan</label>
+                    <textarea name="penyelesaian">{{ $t->penyelesaian }}</textarea>
+                </div>
+            </div>
+            <div class="modal-foot">
+                <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-{{ $t->ticket_id }}')">Batal</button>
+                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endforeach
 
 <!-- Modal Verifikasi Akun -->
 @if($pendingUsers->count() > 0)
