@@ -1,7 +1,57 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="page-head">
+
+{{-- ═══════════════════════════════════════════ --}}
+{{-- SKELETON LOADING STATE                      --}}
+{{-- ═══════════════════════════════════════════ --}}
+<div class="skeleton-wrap" id="skeleton-loading">
+    {{-- Page Head Skeleton --}}
+    <div class="skel-page-head">
+        <div>
+            <div class="skel skel-page-head-eyebrow"></div>
+            <div class="skel skel-page-head-title"></div>
+        </div>
+        <div class="skel skel-page-head-btn"></div>
+    </div>
+
+    {{-- Toolbar Skeleton --}}
+    <div class="skel-toolbar">
+        <div class="skel skel-toolbar-search"></div>
+        <div class="skel skel-toolbar-chip"></div>
+        <div class="skel skel-toolbar-chip"></div>
+        <div class="skel skel-toolbar-chip"></div>
+    </div>
+
+    {{-- Table Skeleton --}}
+    <div class="skel-table">
+        <div class="skel-table-head">
+            <div class="skel skel-table-head-cell" style="width:80px;"></div>
+            <div class="skel skel-table-head-cell" style="width:70px;"></div>
+            <div class="skel skel-table-head-cell" style="width:140px;"></div>
+            <div class="skel skel-table-head-cell" style="flex:1;"></div>
+            <div class="skel skel-table-head-cell" style="width:70px;"></div>
+            <div class="skel skel-table-head-cell" style="width:80px;"></div>
+        </div>
+        @for($i = 0; $i < 5; $i++)
+        <div class="skel-table-row">
+            <div class="skel skel-table-cell" style="width:80px;"></div>
+            <div class="skel skel-table-cell" style="width:70px;"></div>
+            <div class="skel skel-table-cell" style="width:140px;"></div>
+            <div class="skel skel-table-cell" style="flex:1;"></div>
+            <div class="skel skel-table-cell" style="width:68px; border-radius:100px;"></div>
+            <div class="skel skel-table-cell" style="width:80px;"></div>
+        </div>
+        @endfor
+    </div>
+</div>
+
+{{-- ═══════════════════════════════════════════ --}}
+{{-- ACTUAL CONTENT                              --}}
+{{-- ═══════════════════════════════════════════ --}}
+<div class="content-wrap" id="actual-content">
+
+<div class="page-head fade-up" style="animation-delay: 0.1s;">
     <div>
         <p class="eyebrow">Dashboard Support</p>
         <h1>Manajemen Laporan</h1>
@@ -11,7 +61,7 @@
     </div>
 </div>
 
-<div class="toolbar">
+<div class="toolbar fade-up" style="animation-delay: 0.15s;">
     <div class="search">
         <span style="opacity:0.5">🔍</span>
         <input type="text" placeholder="Cari tiket, instansi..." style="border:none; background:transparent; width:100%; outline:none;" id="search-input">
@@ -22,7 +72,7 @@
 </div>
 
 @if($pendingUsers->count() > 0)
-<div class="notif-banner">
+<div class="notif-banner fade-up" style="animation-delay: 0.2s;">
     <div class="notif-icon">🔔</div>
     <div class="notif-body">
         <strong>Permintaan Verifikasi Akun <span class="notif-count">{{ $pendingUsers->count() }}</span></strong>
@@ -32,6 +82,7 @@
 </div>
 @endif
 
+<div class="fade-up" style="animation-delay: 0.25s;">
 <table class="tickets" id="tickets-table">
     <thead>
         <tr>
@@ -117,6 +168,9 @@
         @endforeach
     </tbody>
 </table>
+</div>
+
+</div>
 
 <!-- Modal Verifikasi Akun -->
 @if($pendingUsers->count() > 0)
@@ -176,16 +230,25 @@
 @endif
 
 <script>
-    document.getElementById('search-input').addEventListener('keyup', function() {
-        let filter = this.value.toLowerCase();
-        let rows = document.querySelectorAll('#tickets-table tbody tr');
-        rows.forEach(row => {
-            let text = row.innerText.toLowerCase();
-            if(text.includes(filter)) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
+    document.addEventListener('DOMContentLoaded', function () {
+        const skeleton = document.getElementById('skeleton-loading');
+        const content  = document.getElementById('actual-content');
+        setTimeout(function () {
+            skeleton.style.display = 'none';
+            content.classList.add('loaded');
+        }, 1200);
+
+        document.getElementById('search-input').addEventListener('keyup', function() {
+            let filter = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#tickets-table tbody tr');
+            rows.forEach(row => {
+                let text = row.innerText.toLowerCase();
+                if(text.includes(filter)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
         });
     });
 </script>
