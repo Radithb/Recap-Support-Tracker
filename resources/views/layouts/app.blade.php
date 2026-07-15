@@ -12,8 +12,15 @@
 <body>
 
     @if(Auth::check() && !request()->routeIs('login') && !request()->routeIs('register'))
+    @php
+        $dashboardRoute = Auth::user()->role === 'Support' ? route('support.dashboard') : route('pelapor.dashboard');
+    @endphp
     <div class="topnav">
-        <div class="wordmark"><img src="{{ asset('logo.png') }}" alt="Logo" style="width: 24px; height: 24px; object-fit: contain;">Recap Support Tracker</div>
+        <a href="{{ $dashboardRoute }}" class="wordmark" style="text-decoration:none; color:inherit; transition:.15s;" onmouseover="this.style.opacity='0.8'" onmouseout="this.style.opacity='1'">
+            <img src="{{ asset('logo.png') }}" alt="Logo" style="width: 24px; height: 24px; object-fit: contain;">
+            Recap Support Tracker
+        </a>
+
         <div class="topnav-tag">
             {{ Auth::user()->role === 'Support' ? 'internal.ptskk.id' : (Auth::user()->instansi->nama_instansi ?? 'Mitra Eksternal') }}
         </div>

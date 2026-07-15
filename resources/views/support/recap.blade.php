@@ -31,13 +31,19 @@
 {{-- ═══════════════════════════════════════════ --}}
 <div class="content-wrap" id="actual-content">
 
-<div class="glass-panel fade-up" style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; animation-delay: 0.1s;">
+<div class="fade-up" style="margin-bottom:18px; animation-delay:0.05s;">
+    <a href="{{ route('support.dashboard') }}" class="btn btn-ghost btn-sm" style="background:#fff; border-color:var(--line);">
+        &larr; Kembali ke Dashboard
+    </a>
+</div>
+
+<div class="panel fade-up" style="margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; animation-delay: 0.1s;">
     <div>
-        <h2>Analytics & Reporting (FR-10)</h2>
-        <p>Rekapitulasi tiket berdasarkan bulan & kategori.</p>
+        <h2 style="font-family:var(--font-display); margin:0 0 6px; font-size:22px;">Analytics & Reporting</h2>
+        <p style="margin:0; font-size:13.5px; color:var(--ink-soft);">Rekapitulasi tiket berdasarkan bulan & kategori.</p>
     </div>
     <form method="GET">
-        <select name="year" onchange="this.form.submit()" style="width: 150px; font-weight: bold; padding: 0.5rem;">
+        <select name="year" onchange="this.form.submit()" style="width: 150px; font-weight: 600; padding: 10px 14px; border-radius: 8px; border: 1.5px solid var(--line); font-family: var(--font-body); color: var(--ink);">
             @for($y = date('Y'); $y >= 2023; $y--)
                 <option value="{{ $y }}" {{ $year == $y ? 'selected' : '' }}>Tahun {{ $y }}</option>
             @endfor
@@ -45,24 +51,24 @@
     </form>
 </div>
 
-<div class="grid-2">
+<div class="grid2">
     <!-- FR-10A: Bar Chart -->
-    <div class="glass-panel fade-up" style="animation-delay: 0.2s;">
-        <h3>Tiket Masuk per Bulan ({{ $year }})</h3>
+    <div class="panel fade-up" style="animation-delay: 0.2s;">
+        <h3 style="font-family:var(--font-display); font-size:16px; margin:0 0 16px;">Tiket Masuk per Bulan ({{ $year }})</h3>
         <canvas id="monthlyChart"></canvas>
     </div>
 
     <!-- FR-10B: Crosstab Table -->
-    <div class="glass-panel fade-up" style="overflow-x: auto; animation-delay: 0.3s;">
-        <h3>Sebaran Kategori (Done) ({{ $year }})</h3>
-        <table style="font-size: 0.85rem;">
+    <div class="panel fade-up" style="overflow-x: auto; animation-delay: 0.3s;">
+        <h3 style="font-family:var(--font-display); font-size:16px; margin:0 0 16px;">Sebaran Kategori (Selesai) ({{ $year }})</h3>
+        <table class="verify-table">
             <thead>
                 <tr>
                     <th>Kategori</th>
                     @for($m = 1; $m <= 12; $m++)
                         <th style="text-align: center;">{{ date('M', mktime(0,0,0,$m,1)) }}</th>
                     @endfor
-                    <th style="text-align: center; color: var(--primary);">Total</th>
+                    <th style="text-align: center; color: var(--indigo);">Total</th>
                 </tr>
             </thead>
             <tbody>
@@ -70,11 +76,11 @@
                     <tr>
                         <td><strong>{{ $catData['nama'] }}</strong></td>
                         @for($m = 1; $m <= 12; $m++)
-                            <td style="text-align: center; {{ $catData['months'][$m] > 0 ? 'color: var(--success); font-weight: bold;' : 'color: var(--text-muted);' }}">
+                            <td style="text-align: center; {{ $catData['months'][$m] > 0 ? 'color: var(--sage); font-weight: 700;' : 'color: var(--ink-soft);' }}">
                                 {{ $catData['months'][$m] }}
                             </td>
                         @endfor
-                        <td style="text-align: center; font-weight: bold; color: var(--primary);">
+                        <td style="text-align: center; font-weight: 700; color: var(--indigo);">
                             {{ $catData['total_year'] }}
                         </td>
                     </tr>
