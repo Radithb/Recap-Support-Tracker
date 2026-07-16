@@ -175,7 +175,11 @@
                 {{ $t->tanggal_input->format('d M Y') }}
             </td>
             <td>
-                <button class="btn btn-ghost btn-sm" onclick="openModal('modal-edit-{{ $t->ticket_id }}')">Respons</button>
+                @if($t->status === \App\Enums\TicketStatus::DONE)
+                    <button class="btn btn-ghost btn-sm" disabled style="cursor: not-allowed; opacity: 0.5;" title="Tiket sudah diselesaikan">Selesai</button>
+                @else
+                    <button class="btn btn-ghost btn-sm" onclick="openModal('modal-edit-{{ $t->ticket_id }}')">Respons</button>
+                @endif
             </td>
         </tr>
         @endforeach
@@ -215,6 +219,22 @@
                 <div style="font-size: 0.95rem; color: var(--ink); line-height: 1.6; white-space: pre-wrap; background: var(--paper-raised); padding: 16px; border-radius: 8px; border: 1px solid var(--line);">{{ $t->permasalahan }}</div>
             </div>
 
+            @if($t->status === \App\Enums\TicketStatus::DONE)
+                <!-- Tindakan Penyelesaian -->
+                <div style="margin-bottom: 24px;">
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Tindakan Penyelesaian</div>
+                    <div style="font-size: 0.95rem; color: #065f46; line-height: 1.6; white-space: pre-wrap; background: #ecfdf5; padding: 16px; border-radius: 8px; border: 1px solid #a7f3d0;">{{ $t->penyelesaian ?? '-' }}</div>
+                </div>
+
+                <!-- Tindakan Pencegahan -->
+                @if($t->pencegahan)
+                <div style="margin-bottom: 24px;">
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Tindakan Pencegahan</div>
+                    <div style="font-size: 0.95rem; color: #92400e; line-height: 1.6; white-space: pre-wrap; background: #fffbeb; padding: 16px; border-radius: 8px; border: 1px solid #fde68a;">{{ $t->pencegahan }}</div>
+                </div>
+                @endif
+            @endif
+
             <!-- Detail Pelapor & Aplikasi (Grid) -->
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: var(--paper-sunken); padding: 16px; border-radius: 12px; border: 1px solid var(--line);">
                 <div>
@@ -243,7 +263,11 @@
         </div>
         <div class="modal-foot" style="display: flex; gap: 12px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--line);">
             <button type="button" class="btn btn-ghost" onclick="closeModal('modal-preview-{{ $t->ticket_id }}')">Tutup</button>
-            <button type="button" class="btn btn-primary" onclick="closeModal('modal-preview-{{ $t->ticket_id }}'); openModal('modal-edit-{{ $t->ticket_id }}')">Respons Tiket</button>
+            @if($t->status === \App\Enums\TicketStatus::DONE)
+                <button type="button" class="btn btn-primary" disabled style="cursor: not-allowed; opacity: 0.5;" title="Tiket sudah diselesaikan">Selesai</button>
+            @else
+                <button type="button" class="btn btn-primary" onclick="closeModal('modal-preview-{{ $t->ticket_id }}'); openModal('modal-edit-{{ $t->ticket_id }}')">Respons Tiket</button>
+            @endif
         </div>
     </div>
 </div>
