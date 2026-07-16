@@ -153,4 +153,35 @@ class AuthController extends Controller
 
         return back()->with('success', 'Profil Anda berhasil diperbarui!');
     }
+
+    public function pengaturan()
+    {
+        return view('pengaturan');
+    }
+
+    public function updatePengaturan(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'nama' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $user->user_id . ',user_id'],
+            'current_password' => ['nullable', 'required_with:password', 'current_password'],
+            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+        ], [
+            'current_password.required_with' => 'Kata sandi saat ini harus diisi jika Anda ingin mengubah kata sandi.',
+            'current_password.current_password' => 'Kata sandi saat ini yang Anda masukkan salah.',
+        ]);
+
+        $user->nama = $validated['nama'];
+        $user->email = $validated['email'];
+        
+        if (!empty($validated['password'])) {
+            $user->password = Hash::make($validated['password']);
+        }
+
+        $user->save();
+
+        return back()->with('success', 'Pengaturan akun berhasil disimpan!');
+    }
 }

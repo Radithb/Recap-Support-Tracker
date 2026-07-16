@@ -41,15 +41,20 @@
                 </a>
                 
                 <div style="margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);"></div>
-                <a href="#">
+                <a href="{{ route('pengaturan') }}" class="{{ request()->routeIs('pengaturan') ? 'active' : '' }}">
                     <span class="ic"><img src="{{ asset('setting.png') }}" alt=""></span> Pengaturan
                 </a>
 
             @else
-                @yield('sidebar_menu')
+                <a href="{{ route('pelapor.dashboard') }}" class="{{ request()->routeIs('pelapor.dashboard') ? 'active' : '' }}">
+                    <span class="ic"><img src="{{ asset('analysis.png') }}" alt=""></span> Dashboard
+                </a>
+                <a href="{{ route('pelapor.riwayat') }}" class="{{ request()->routeIs('pelapor.riwayat') ? 'active' : '' }}">
+                    <span class="ic"><img src="{{ asset('file.png') }}" alt=""></span> Riwayat Lengkap
+                </a>
                 
                 <div style="margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);"></div>
-                <a href="#">
+                <a href="{{ route('pengaturan') }}" class="{{ request()->routeIs('pengaturan') ? 'active' : '' }}">
                     <span class="ic"><img src="{{ asset('setting.png') }}" alt=""></span> Pengaturan
                 </a>
             @endif

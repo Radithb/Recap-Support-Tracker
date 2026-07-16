@@ -3,14 +3,6 @@
 @section('page_title', 'Dashboard')
 @section('page_subtitle', 'Recap Support Tracker')
 
-@section('sidebar_menu')
-    <a href="{{ route('pelapor.dashboard') }}" class="active">
-        <span class="ic"><img src="{{ asset('analysis.png') }}" alt=""></span> Dashboard
-    </a>
-    <a href="{{ route('pelapor.riwayat') }}">
-        <span class="ic"><img src="{{ asset('file.png') }}" alt=""></span> Riwayat Lengkap
-    </a>
-@endsection
 
 @section('content')
 <div class="pelapor-panel active">

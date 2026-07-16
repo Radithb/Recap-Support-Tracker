@@ -26,6 +26,9 @@ Route::middleware('auth')->group(function () {
     })->name('profil.instansi');
     
     Route::put('/profil-instansi', [AuthController::class, 'updateInstansi'])->name('profil.instansi.update');
+
+    Route::get('/pengaturan', [AuthController::class, 'pengaturan'])->name('pengaturan');
+    Route::put('/pengaturan', [AuthController::class, 'updatePengaturan'])->name('pengaturan.update');
 });
 
 // Akses Pelapor

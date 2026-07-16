@@ -3,14 +3,6 @@
 @section('page_title', 'Riwayat Lengkap Laporan')
 @section('page_subtitle', 'Recap Support Tracker')
 
-@section('sidebar_menu')
-    <a href="{{ route('pelapor.dashboard') }}">
-        <span class="ic"><img src="{{ asset('analysis.png') }}" alt=""></span> Dashboard
-    </a>
-    <a href="{{ route('pelapor.riwayat') }}" class="active">
-        <span class="ic"><img src="{{ asset('file.png') }}" alt=""></span> Riwayat Lengkap
-    </a>
-@endsection
 
 @section('content')
 <div class="pelapor-panel active">
@@ -30,7 +22,7 @@
 
         <div class="toolbar fade-up" style="animation-delay: 0.15s; margin-bottom:20px;">
             <div class="search">
-                <span style="opacity:0.5">🔍</span>
+                <img src="{{ asset('magnifying-glass.png') }}" alt="Search" style="width: 14px; height: 14px; margin-right: 8px; vertical-align: middle; opacity: 0.4; filter: grayscale(100%);">
                 <input type="text" placeholder="Cari laporan..." style="border:none; background:transparent; width:100%; outline:none;" id="search-input">
             </div>
             <form id="filter-form" action="{{ route('pelapor.riwayat') }}" method="GET" style="margin:0;">
