@@ -126,6 +126,7 @@
             </div>
             @endif
             <div class="field"><label>Penyelesaian Support</label><textarea readonly>{{ $t->penyelesaian }}</textarea></div>
+            <div class="field"><label>Tindakan Pencegahan</label><textarea readonly>{{ $t->pencegahan ?? '-' }}</textarea></div>
         </div>
     </div>
 </div>

@@ -179,63 +179,105 @@
 <!-- Modals for Tickets -->
 @foreach($tickets as $t)
 <div class="overlay" id="modal-edit-{{ $t->ticket_id }}">
-    <div class="modal w-sm">
+    <div class="modal" style="width: 800px; max-width: 95vw;">
         <div class="modal-head">
-            <div><h3>Tindak Lanjut Tiket</h3><p>{{ $t->ticket_id }}</p></div>
+            <div>
+                <h3>{{ $t->ticket_id }} &mdash; {{ Str::limit($t->permasalahan, 50) }}</h3>
+                <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;">
+                    {{ $t->pelapor->instansi->nama_instansi ?? '-' }} (PIC: {{ $t->pelapor->nama ?? '-' }}) &middot; Aplikasi: {{ $t->aplikasi->nama_aplikasi ?? '-' }} &middot; Tanggal Masuk: {{ $t->tanggal_input->format('d M Y, H:i') }}
+                </p>
+            </div>
             <button type="button" class="modal-x" onclick="closeModal('modal-edit-{{ $t->ticket_id }}')">✕</button>
         </div>
+        
         <form action="{{ route('support.tickets.update', $t->ticket_id) }}" method="POST">
             @csrf
             @method('PUT')
-            <div class="modal-body">
-                <div class="field"><label>Aplikasi</label><input type="text" value="{{ $t->aplikasi->nama_aplikasi }}" readonly></div>
-                <div class="field"><label>Permasalahan</label><textarea readonly>{{ $t->permasalahan }}</textarea></div>
-                @if($t->lampiran)
-                <div class="field" style="margin-top: 14px;">
-                    <label>Lampiran Bukti</label>
-                    @php $ext = strtolower(pathinfo($t->lampiran, PATHINFO_EXTENSION)); @endphp
-                    @if(in_array($ext, ['jpg', 'jpeg', 'png']))
-                        <a href="{{ Storage::url($t->lampiran) }}" target="_blank">
-                            <img src="{{ Storage::url($t->lampiran) }}" alt="Lampiran" style="max-width: 100%; max-height: 200px; border-radius: 8px; border: 1px solid var(--line); display: block; margin-top: 8px; object-fit: cover;">
-                        </a>
-                        <div class="helper" style="margin-top: 4px;">Klik gambar untuk memperbesar.</div>
-                    @elseif($ext === 'mp4')
-                        <a href="{{ Storage::url($t->lampiran) }}" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; text-decoration: none;">
-                            <span>🎥</span> Lihat Bukti Video
-                        </a>
-                    @elseif($ext === 'pdf')
-                        <a href="{{ Storage::url($t->lampiran) }}" target="_blank" class="btn btn-ghost" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--line); margin-top: 8px; text-decoration: none;">
-                            <span>📄</span> Unduh Dokumen PDF
-                        </a>
+            
+            <div class="modal-body" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                <!-- KOLOM KIRI -->
+                <div>
+                    <div class="field">
+                        <label>Deskripsi Permasalahan</label>
+                        <textarea readonly style="background: var(--paper-raised); min-height: 100px;">{{ $t->permasalahan }}</textarea>
+                    </div>
+
+                    @if($t->lampiran)
+                    <div class="field">
+                        <label>Lampiran Bukti</label>
+                        @php $ext = strtolower(pathinfo($t->lampiran, PATHINFO_EXTENSION)); @endphp
+                        @if(in_array($ext, ['jpg', 'jpeg', 'png']))
+                            <a href="{{ Storage::url($t->lampiran) }}" target="_blank">
+                                <img src="{{ Storage::url($t->lampiran) }}" alt="Lampiran" style="max-width: 100%; max-height: 150px; border-radius: 8px; border: 1px solid var(--line); display: block; margin-top: 8px; object-fit: cover;">
+                            </a>
+                        @elseif($ext === 'mp4')
+                            <a href="{{ Storage::url($t->lampiran) }}" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; text-decoration: none;">
+                                <span>🎥</span> Lihat Bukti Video
+                            </a>
+                        @elseif($ext === 'pdf')
+                            <a href="{{ Storage::url($t->lampiran) }}" target="_blank" class="btn btn-ghost" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--line); margin-top: 8px; text-decoration: none;">
+                                <span>📄</span> Unduh Dokumen PDF
+                            </a>
+                        @endif
+                    </div>
                     @endif
+
+                    <div class="field">
+                        <label>PIC Support (Penyelesaian)</label>
+                        <select name="pic_support_id">
+                            <option value="">Pilih PIC Support...</option>
+                            <option value="{{ auth()->user()->user_id }}" {{ $t->pic_support_id == auth()->user()->user_id ? 'selected' : '' }}>{{ auth()->user()->nama }} (Saya)</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Kategori Tiket</label>
+                        <select name="kategori_id" required>
+                            <option value="">Pilih Kategori...</option>
+                            @foreach($kategoris as $kat)
+                                <option value="{{ $kat->kategori_id }}" {{ $t->kategori_id == $kat->kategori_id ? 'selected' : '' }}>{{ $kat->nama_kategori }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Tautan Eksternal (Opsional)</label>
+                        <input type="text" name="link_ticket" value="{{ $t->link_ticket ?? '' }}" placeholder="https://...">
+                    </div>
                 </div>
-                @endif
-                <div class="field">
-                    <label>Kategori</label>
-                    <select name="kategori_id" required>
-                        <option value="">Pilih Kategori...</option>
-                        @foreach($kategoris as $kat)
-                            <option value="{{ $kat->kategori_id }}" {{ $t->kategori_id == $kat->kategori_id ? 'selected' : '' }}>{{ $kat->nama_kategori }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="field">
-                    <label>Status</label>
-                    <select name="status" required>
-                        <option value="Open" {{ $t->status === \App\Enums\TicketStatus::OPEN ? 'selected' : '' }}>Open</option>
-                        <option value="Proses" {{ $t->status === \App\Enums\TicketStatus::PROSES ? 'selected' : '' }}>Proses</option>
-                        <option value="Pending" {{ $t->status === \App\Enums\TicketStatus::PENDING ? 'selected' : '' }}>Pending</option>
-                        <option value="Done" {{ $t->status === \App\Enums\TicketStatus::DONE ? 'selected' : '' }}>Done</option>
-                    </select>
-                </div>
-                <div class="field">
-                    <label>Penyelesaian / Catatan</label>
-                    <textarea name="penyelesaian">{{ $t->penyelesaian }}</textarea>
+
+                <!-- KOLOM KANAN -->
+                <div>
+                    <div class="field">
+                        <label>Status</label>
+                        <select name="status" required>
+                            <option value="Open" {{ $t->status === \App\Enums\TicketStatus::OPEN ? 'selected' : '' }}>Open</option>
+                            <option value="Proses" {{ $t->status === \App\Enums\TicketStatus::PROSES ? 'selected' : '' }}>Proses</option>
+                            <option value="Pending" {{ $t->status === \App\Enums\TicketStatus::PENDING ? 'selected' : '' }}>Pending</option>
+                            <option value="Done" {{ $t->status === \App\Enums\TicketStatus::DONE ? 'selected' : '' }}>Done</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Tindakan Penyelesaian</label>
+                        <textarea name="penyelesaian" style="min-height: 90px;" placeholder="Langkah perbaikan yang dilakukan...">{{ $t->penyelesaian }}</textarea>
+                    </div>
+
+                    <div class="field">
+                        <label>Tindakan Pencegahan</label>
+                        <textarea name="pencegahan" style="min-height: 90px;" placeholder="Tindakan preventif agar tidak terulang...">{{ $t->pencegahan ?? '' }}</textarea>
+                    </div>
+
+                    <div class="field">
+                        <label>Tanggal Selesai</label>
+                        <input type="text" readonly value="Otomatis terisi saat status &rarr; Done" style="background: var(--paper-raised); color: var(--text-muted); cursor: not-allowed;">
+                    </div>
                 </div>
             </div>
-            <div class="modal-foot">
+            
+            <div class="modal-foot" style="display: flex; justify-content: flex-end; gap: 12px;">
                 <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-{{ $t->ticket_id }}')">Batal</button>
-                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                <button type="submit" class="btn btn-primary">Update Tiket</button>
             </div>
         </form>
     </div>
