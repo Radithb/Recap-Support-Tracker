@@ -136,6 +136,12 @@
                         <input type="email" name="email" value="{{ Auth::user()->email ?? '' }}" required placeholder="Masukkan email aktif Anda">
                     </div>
                     
+                    <div class="field" style="margin-top: 18px; border-top: 1px dashed var(--line); padding-top: 18px;">
+                        <label>Kata Sandi Saat Ini</label>
+                        <input type="password" name="current_password" placeholder="Masukkan kata sandi saat ini (wajib jika ingin mengubah password)">
+                        <div class="helper">Wajib diisi sebagai verifikasi keamanan sebelum Anda mengubah kata sandi.</div>
+                    </div>
+                    
                     <div class="field" style="margin-top: 18px;">
                         <label>Kata Sandi Baru (Opsional)</label>
                         <input type="password" name="password" placeholder="Kosongkan jika tidak ingin mengubah password">
