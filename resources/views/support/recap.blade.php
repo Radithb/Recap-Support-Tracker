@@ -31,7 +31,7 @@
 {{-- ═══════════════════════════════════════════ --}}
 {{-- ACTUAL CONTENT                              --}}
 {{-- ═══════════════════════════════════════════ --}}
-<div class="content-wrap" id="actual-content">
+<div class="content-wrap" id="actual-content" style="display: none;">
 
 @section('page_title', 'Rekap Support')
 @section('page_subtitle', 'internal.ptskk.id')
@@ -40,7 +40,7 @@
     <div>
         <p class="eyebrow" style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600;">REKAP SUPPORT &bull; {{ strtoupper(Auth::user()->nama ?? 'ANDRA W.') }}</p>
         <h1 style="margin: 0; font-size: 2rem; color: var(--ink);">Rekapan Tiket Tahunan</h1>
-        <p style="color: var(--text-muted); margin-top: 0.5rem; max-width: 600px; line-height: 1.5;">Rekap otomatis dari seluruh tiket yang dilaporkan Pelapor &amp; dikategorikan Tim Support &mdash; bisa ganti tahun kapan saja.</p>
+        <p style="color: var(--text-muted); margin-top: 0.5rem; max-width: 600px; line-height: 1.5;">Pantau dan analisis jumlah tiket berdasarkan kategori yang masuk setiap bulannya.</p>
     </div>
 </div>
 
@@ -48,12 +48,16 @@
     <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem;">
         <div>
             <h3 style="margin: 0; font-size: 1.25rem; color: var(--ink);">Rekap Tiket Bulanan</h3>
-            <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">FR-10 Reporting Analytics &mdash; klik salah satu bulan untuk lihat detail, atau ganti tahun di sebelah kanan</p>
+            <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Klik bar pada grafik untuk melihat detail bulanan, atau ganti tahun di sebelah kanan.</p>
         </div>
         <div style="display: flex; gap: 0.5rem;">
-            @for($y = date('Y') - 2; $y <= date('Y'); $y++)
-                <a href="{{ route('support.recap', ['year' => $y]) }}" class="btn {{ $year == $y ? 'btn-primary' : 'btn-outline' }}" style="padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; border: 1px solid {{ $year == $y ? 'transparent' : 'var(--line)' }}; {{ $year == $y ? 'background: var(--ink); color: #fff;' : 'background: transparent; color: var(--ink);' }}">{{ $y }}</a>
-            @endfor
+            <form action="{{ route('support.recap') }}" method="GET" id="yearFilterForm" style="margin: 0;">
+                <select name="year" onchange="document.getElementById('yearFilterForm').submit()" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); font-family: var(--font-body); font-weight: 500; color: var(--ink); background: var(--paper-raised); cursor: pointer; outline:none;">
+                    @for($y = date('Y') - 2; $y <= date('Y'); $y++)
+                        <option value="{{ $y }}" {{ $year == $y ? 'selected' : '' }}>Tahun {{ $y }}</option>
+                    @endfor
+                </select>
+            </form>
         </div>
     </div>
 
@@ -75,7 +79,7 @@
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
         <div>
             <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">Rekap Support {{ $year }}</h3>
-            <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Terekap otomatis dari tiket yang dilaporkan Pelapor &amp; dikategorikan Tim Support saat penyelesaian (kategori_id, FR-07)</p>
+            <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Terekap otomatis berdasarkan kategori tiket yang telah diproses oleh Tim Support.</p>
         </div>
         <span class="badge" style="background: var(--ink); color: #fff; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">{{ $year }}</span>
     </div>
@@ -130,7 +134,7 @@
     </div>
     
     <div style="padding: 1rem 1.5rem; color: var(--text-muted); font-size: 0.85rem;">
-        Total keseluruhan <strong>{{ $grandTotal }}</strong> tiket &mdash; dihitung otomatis, ikut ter-update begitu Tim Support menyimpan kategori tiket baru dari laporan Pelapor.
+        Total keseluruhan <strong>{{ $grandTotal }}</strong> tiket pada tahun {{ $year }}.
     </div>
 </div>
 
@@ -144,6 +148,7 @@
 
         setTimeout(function () {
             skeleton.style.display = 'none';
+            content.style.display = 'block';
             content.classList.add('loaded');
 
             // Render chart after content is visible
