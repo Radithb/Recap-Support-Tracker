@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page_title', 'Profil Instansi')
+@section('page_title', 'Profil Koperasi')
 @section('page_subtitle', 'Recap Support Tracker')
 
 @section('sidebar_menu')
@@ -81,9 +81,9 @@
             <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom: 24px;">
                 <div>
                     <h3 style="display:flex; align-items:center; gap:8px; margin-bottom: 8px;">
-                        <span style="font-size: 24px;"><img src="{{ asset('company.png') }}" alt="Company" style="width: 28px; height: 28px; object-fit: contain; vertical-align: middle;"></span> Profil Instansi
+                        <span style="font-size: 24px;"><img src="{{ asset('company.png') }}" alt="Company" style="width: 28px; height: 28px; object-fit: contain; vertical-align: middle;"></span> Profil Koperasi
                     </h3>
-                    <p class="sub" style="margin-bottom:0;">Data INSTANSI · terhubung ke akun Anda</p>
+                    <p class="sub" style="margin-bottom:0;">Data KOPERASI · terhubung ke akun Anda</p>
                 </div>
             </div>
             
@@ -97,7 +97,7 @@
             <!-- VIEW MODE -->
             <div id="view-mode" class="fade-up" style="animation-delay: 0.25s;">
                 <div style="margin-bottom: 24px;">
-                    <label style="display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Nama Instansi</label>
+                    <label style="display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Nama Koperasi</label>
                     <h4 style="font-size: 16px; color: var(--ink); margin: 0;">{{ Auth::user()->instansi->nama_instansi ?? '-' }}</h4>
                 </div>
                 <div style="margin-bottom: 24px;">
@@ -111,7 +111,7 @@
                 
                 <div style="border-top: 1px solid var(--line); padding-top: 20px;">
                     <button type="button" class="btn btn-ghost" onclick="toggleEditMode(true)" style="padding: 9px 18px;">
-                        <span class="ic"><img src="{{ asset('edit.png') }}" alt="Edit" style="width: 14px; height: 14px; object-fit: contain; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span> Edit Data Instansi
+                        <span class="ic"><img src="{{ asset('edit.png') }}" alt="Edit" style="width: 14px; height: 14px; object-fit: contain; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span> Edit Data Koperasi
                     </button>
                 </div>
             </div>
@@ -123,14 +123,14 @@
                     @method('PUT')
                     
                     <div class="field">
-                        <label>Nama Instansi</label>
-                        <input type="text" value="{{ Auth::user()->instansi->nama_instansi ?? '-' }}" readonly style="background: var(--paper-sunken); color: var(--ink-soft); cursor: not-allowed;" title="Nama Instansi tidak dapat diubah">
-                        <div class="helper">Nama instansi telah ditetapkan saat registrasi. Hubungi Support jika ingin mengubahnya.</div>
+                        <label>Nama Koperasi</label>
+                        <input type="text" value="{{ Auth::user()->instansi->nama_instansi ?? '-' }}" readonly style="background: var(--paper-sunken); color: var(--ink-soft); cursor: not-allowed;" title="Nama Koperasi tidak dapat diubah">
+                        <div class="helper">Nama koperasi telah ditetapkan saat registrasi. Hubungi Support jika ingin mengubahnya.</div>
                     </div>
                     
                     <div class="field" style="margin-top: 18px;">
                         <label>Alamat Lengkap</label>
-                        <textarea name="alamat" rows="3" placeholder="Masukkan alamat lengkap instansi..." required>{{ Auth::user()->instansi->alamat ?? '' }}</textarea>
+                        <textarea name="alamat" rows="3" placeholder="Masukkan alamat lengkap koperasi..." required>{{ Auth::user()->instansi->alamat ?? '' }}</textarea>
                     </div>
                     
                     <div class="field" style="margin-top: 18px;">
