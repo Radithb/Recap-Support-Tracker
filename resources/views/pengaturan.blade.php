@@ -121,5 +121,133 @@
             </div>
         </form>
     </div>
+
+    <!-- TAMPILAN PERSONAL PANEL -->
+    <div class="panel" style="padding: 30px; max-width: 100%; margin-top: 24px;">
+        <style>
+            .segmented-control {
+                display: flex;
+                background: var(--paper-sunken);
+                padding: 4px;
+                border-radius: 8px;
+                border: 1px solid var(--line);
+                gap: 4px;
+                margin-bottom: 24px;
+            }
+            .segmented-control label {
+                flex: 1;
+                text-align: center;
+                padding: 10px 16px;
+                cursor: pointer;
+                border-radius: 6px;
+                font-size: 14px;
+                font-weight: 600;
+                color: var(--ink-soft);
+                transition: all 0.2s ease;
+                border: 1px solid transparent;
+                margin: 0;
+            }
+            .segmented-control input[type="radio"] {
+                display: none;
+            }
+            .segmented-control input[type="radio"]:checked + label {
+                background: var(--paper-raised);
+                color: var(--brand-primary);
+                border-color: rgba(30,59,142,0.15);
+                box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            }
+            html.dark-mode .segmented-control input[type="radio"]:checked + label {
+                color: #fff;
+                border-color: rgba(255,255,255,0.1);
+            }
+        </style>
+
+        <div style="margin-bottom: 24px;">
+            <h3 style="font-size: 18px; display:flex; align-items:center; gap:8px; margin-bottom: 6px; color: var(--ink);">
+                <span style="display:inline-block; width: 20px; height: 20px; background-color: var(--ink); -webkit-mask-image: url('{{ asset('application.png') }}'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; mask-image: url('{{ asset('application.png') }}'); mask-size: contain; mask-repeat: no-repeat;"></span> Tampilan Personal
+            </h3>
+            <p class="sub" style="margin-bottom:0; font-size:14px; color:var(--ink-soft);">Pengaturan ini hanya berdampak pada layar Anda sendiri, tidak mengubah tampilan website untuk pengguna lain.</p>
+        </div>
+
+        <div>
+            <label style="display:block; font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px;">Mode Tema</label>
+            <div class="segmented-control" id="theme-control">
+                <input type="radio" name="theme" id="theme-light" value="light">
+                <label for="theme-light">
+                    <span style="display:inline-block; width: 15px; height: 15px; background-color: currentColor; vertical-align: text-bottom; margin-right: 4px; -webkit-mask-image: url('{{ asset('light-mode.png') }}'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; mask-image: url('{{ asset('light-mode.png') }}'); mask-size: contain; mask-repeat: no-repeat;"></span> Light Mode
+                </label>
+                
+                <input type="radio" name="theme" id="theme-dark" value="dark">
+                <label for="theme-dark">
+                    <span style="display:inline-block; width: 15px; height: 15px; background-color: currentColor; vertical-align: text-bottom; margin-right: 4px; -webkit-mask-image: url('{{ asset('night-mode.png') }}'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; mask-image: url('{{ asset('night-mode.png') }}'); mask-size: contain; mask-repeat: no-repeat;"></span> Dark Mode
+                </label>
+            </div>
+            
+            <label style="display:block; font-size:13px; font-weight:600; color:var(--ink-soft); margin-bottom:8px;">Ukuran Teks</label>
+            <div class="segmented-control" id="font-control" style="margin-bottom: 8px;">
+                <input type="radio" name="font_size" id="font-small" value="small">
+                <label for="font-small">Kecil</label>
+                
+                <input type="radio" name="font_size" id="font-medium" value="medium">
+                <label for="font-medium">Sedang</label>
+
+                <input type="radio" name="font_size" id="font-large" value="large">
+                <label for="font-large">Besar</label>
+            </div>
+            <div class="helper" style="margin-bottom: 32px;">Membantu anggota koperasi yang sudah lanjut usia agar lebih mudah membaca balasan tim support.</div>
+
+            <button type="button" onclick="applyPersonalization()" class="btn btn-amber" style="padding: 10px 24px; font-weight: 600; background: #e11d48; color: white;">
+                Terapkan Tampilan
+            </button>
+        </div>
+    </div>
 </div>
+
+<script>
+    // Initialize radio buttons from localStorage
+    document.addEventListener('DOMContentLoaded', function() {
+        var currentTheme = localStorage.getItem('personal_theme') || 'light';
+        var currentFont = localStorage.getItem('personal_font_size') || 'medium';
+        
+        var themeRadio = document.querySelector('input[name="theme"][value="' + currentTheme + '"]');
+        if (themeRadio) themeRadio.checked = true;
+        
+        var fontRadio = document.querySelector('input[name="font_size"][value="' + currentFont + '"]');
+        if (fontRadio) fontRadio.checked = true;
+    });
+
+    function applyPersonalization() {
+        var theme = document.querySelector('input[name="theme"]:checked').value;
+        var font = document.querySelector('input[name="font_size"]:checked').value;
+        
+        // Save to localStorage
+        localStorage.setItem('personal_theme', theme);
+        localStorage.setItem('personal_font_size', font);
+        
+        // Apply Theme
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark-mode');
+        } else {
+            document.documentElement.classList.remove('dark-mode');
+        }
+        
+        // Apply Font Size
+        document.documentElement.classList.remove('text-small', 'text-medium', 'text-large');
+        if (font !== 'medium') {
+            document.documentElement.classList.add('text-' + font);
+        }
+
+        // Show a brief success alert (optional, using existing alert style)
+        var alertDiv = document.createElement('div');
+        alertDiv.className = 'alert-dismiss fade-up';
+        alertDiv.style.cssText = 'position:fixed; top: 20px; right: 20px; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--sage-soft); color: var(--sage); border-radius: 8px; font-size: 13.5px; font-weight: 600; border: 1px solid rgba(46, 125, 82, 0.2); z-index: 9999; transition: opacity 0.6s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.1);';
+        alertDiv.innerHTML = '<span>Berhasil menerapkan tampilan personal!</span><button type="button" onclick="this.parentElement.remove()" style="background: none; border: none; color: var(--sage); cursor: pointer; font-size: 18px; font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>';
+        document.body.appendChild(alertDiv);
+        
+        setTimeout(function() {
+            alertDiv.style.opacity = '0';
+            setTimeout(function() { alertDiv.remove(); }, 600);
+        }, 3000);
+    }
+</script>
 @endsection

@@ -7,6 +7,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script>
+        // Apply personalization before page render to prevent FOUC
+        (function() {
+            var theme = localStorage.getItem('personal_theme');
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+            }
+            var fontSize = localStorage.getItem('personal_font_size');
+            if (fontSize) {
+                document.documentElement.classList.add('text-' + fontSize);
+            }
+        })();
+    </script>
 </head>
 <body>
 
