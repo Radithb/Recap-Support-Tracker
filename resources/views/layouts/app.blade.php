@@ -138,8 +138,8 @@
         const alerts = document.querySelectorAll('.alert-dismiss');
         alerts.forEach(alert => {
             setTimeout(() => {
-                alert.style.opacity = '0';
-                alert.style.transform = 'translateY(-8px)';
+                alert.classList.add('fade-out-up');
+                
                 setTimeout(() => {
                     alert.style.display = 'none';
                 }, 600);
