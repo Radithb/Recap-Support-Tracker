@@ -18,9 +18,14 @@ class MasterDataSeeder extends Seeder
         ]);
 
         MasterAplikasi::insert([
-            ['nama_aplikasi' => 'SAKTI.Link', 'deskripsi' => 'Aplikasi SAKTI Link', 'is_active' => true],
-            ['nama_aplikasi' => 'SiCUNDO', 'deskripsi' => 'Aplikasi SiCUNDO', 'is_active' => true],
-            ['nama_aplikasi' => 'SAKTI Online', 'deskripsi' => 'Aplikasi SAKTI Online', 'is_active' => true],
+            ['nama_aplikasi' => 'SiCUNDO SAKTI', 'deskripsi' => 'Aplikasi SiCUNDO SAKTI', 'is_active' => true],
+            ['nama_aplikasi' => 'SAKTI Multiusaha', 'deskripsi' => 'Aplikasi SAKTI Multiusaha', 'is_active' => true],
+            ['nama_aplikasi' => 'LACI', 'deskripsi' => 'Aplikasi LACI', 'is_active' => true],
+            ['nama_aplikasi' => 'Transaksi SAKTI.Link', 'deskripsi' => 'Aplikasi Transaksi SAKTI.Link', 'is_active' => true],
+            ['nama_aplikasi' => 'SAKTI.Link', 'deskripsi' => 'Aplikasi SAKTI.Link', 'is_active' => true],
+            ['nama_aplikasi' => 'SAKTI Retail', 'deskripsi' => 'Aplikasi SAKTI Retail', 'is_active' => true],
+            ['nama_aplikasi' => 'SiCUNDO KU', 'deskripsi' => 'Aplikasi SiCUNDO KU', 'is_active' => true],
+            ['nama_aplikasi' => 'Sakti Mobile', 'deskripsi' => 'Aplikasi Sakti Mobile', 'is_active' => true],
         ]);
 
         MasterKategori::insert([
