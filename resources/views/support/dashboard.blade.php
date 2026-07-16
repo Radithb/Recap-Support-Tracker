@@ -65,7 +65,7 @@
 
 <div class="toolbar fade-up" style="animation-delay: 0.15s;">
     <div class="search">
-        <span style="opacity:0.5">🔍</span>
+        <img src="{{ asset('magnifying-glass.png') }}" alt="Search" style="width: 14px; height: 14px; margin-right: 8px; vertical-align: middle; opacity: 0.4; filter: grayscale(100%);">
         <input type="text" placeholder="Cari tiket, instansi..." style="border:none; background:transparent; width:100%; outline:none;" id="search-input">
     </div>
     <form id="filter-form" action="{{ route('support.dashboard') }}" method="GET" style="margin:0;">
