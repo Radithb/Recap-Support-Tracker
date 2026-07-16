@@ -71,7 +71,7 @@
     {{-- ═══════════════════════════════════════════ --}}
     {{-- ACTUAL CONTENT                              --}}
     {{-- ═══════════════════════════════════════════ --}}
-    <div class="content-wrap" id="actual-content">
+    <div class="content-wrap" id="actual-content" style="display: none;">
         {{-- Page Header --}}
         <div class="page-head fade-up" style="animation-delay: 0.1s; margin-bottom: 2.5rem;">
             <div>
@@ -90,19 +90,33 @@
                     </div>
                     <button type="button" onclick="openModal('modal-add-aplikasi')" class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--ink); white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">+ Tambah</button>
                 </div>
-                <table style="width: 100%; border-collapse: collapse;">
-                    <thead style="background: #f1f5f9;">
-                        <tr>
-                            <th style="padding: 0.75rem 1.5rem; text-align: left; font-size: 0.7rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Nama Aplikasi</th>
-                            <th style="padding: 0.75rem 1.5rem; text-align: left; font-size: 0.7rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Deskripsi</th>
-                            <th></th>
-                        </tr>
-                    </thead>
+                <div style="max-height: 350px; overflow-y: auto;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead style="background: #f1f5f9; position: sticky; top: 0; z-index: 10;">
+                            <tr>
+                                <th style="padding: 0.75rem 1.5rem; text-align: left; font-size: 0.7rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Nama Aplikasi</th>
+                                <th style="padding: 0.75rem 1.5rem; text-align: left; font-size: 0.7rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Deskripsi</th>
+                                <th style="padding: 0.75rem 1.5rem; text-align: right; font-size: 0.7rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Status</th>
+                            </tr>
+                        </thead>
                     <tbody>
                         @foreach($aplikasis as $app)
                         <tr style="border-bottom: 1px solid var(--line);">
                             <td style="padding: 1rem 1.5rem; color: var(--ink); font-size: 0.9rem;">{{ $app->nama_aplikasi }}</td>
-                            <td style="padding: 1rem 1.5rem; color: var(--text-muted); font-size: 0.9rem;">{{ $app->deskripsi }}</td>
+                            <td style="padding: 1rem 1.5rem; color: var(--text-muted); font-size: 0.9rem; max-width: 350px; line-height: 1.5;">
+                                @if(strlen($app->deskripsi) > 45)
+                                    <span id="desc-short-{{ $app->aplikasi_id }}">
+                                        {{ Str::limit($app->deskripsi, 45) }}
+                                        <a href="javascript:void(0)" onclick="toggleDesc({{ $app->aplikasi_id }})" style="color: var(--indigo); font-weight: 600; font-size: 0.8rem; text-decoration: none; margin-left: 4px;">Lebih banyak</a>
+                                    </span>
+                                    <span id="desc-full-{{ $app->aplikasi_id }}" style="display: none;">
+                                        {{ $app->deskripsi }}
+                                        <a href="javascript:void(0)" onclick="toggleDesc({{ $app->aplikasi_id }})" style="color: var(--indigo); font-weight: 600; font-size: 0.8rem; text-decoration: none; margin-left: 4px;">Lebih sedikit</a>
+                                    </span>
+                                @else
+                                    {{ $app->deskripsi }}
+                                @endif
+                            </td>
                             <td style="padding: 1rem 1.5rem; text-align: right;">
                                 <span class="badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
                                     {{ $app->is_active ? 'AKTIF' : 'NONAKTIF' }}
@@ -112,6 +126,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
 
             <div class="glass-panel fade-up" style="animation-delay: 0.2s; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden;">
@@ -122,13 +137,14 @@
                     </div>
                     <button type="button" onclick="openModal('modal-add-kategori')" class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--ink); white-space: nowrap; display: inline-flex; align-items: center; gap: 4px;">+ Tambah</button>
                 </div>
-                <table style="width: 100%; border-collapse: collapse;">
-                    <thead style="background: #f1f5f9;">
-                        <tr>
-                            <th style="padding: 0.75rem 1.5rem; text-align: left; font-size: 0.7rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Nama Kategori</th>
-                            <th></th>
-                        </tr>
-                    </thead>
+                <div style="max-height: 350px; overflow-y: auto;">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <thead style="background: #f1f5f9; position: sticky; top: 0; z-index: 10;">
+                            <tr>
+                                <th style="padding: 0.75rem 1.5rem; text-align: left; font-size: 0.7rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Nama Kategori</th>
+                                <th style="padding: 0.75rem 1.5rem; text-align: right; font-size: 0.7rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Jumlah Tiket</th>
+                            </tr>
+                        </thead>
                     <tbody>
                         @foreach($kategoris as $kategori)
                         <tr style="border-bottom: 1px solid var(--line);">
@@ -142,6 +158,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>
     </div>
@@ -204,12 +221,25 @@
 </div>
 
 <script>
+    function toggleDesc(id) {
+        let shortDesc = document.getElementById('desc-short-' + id);
+        let fullDesc = document.getElementById('desc-full-' + id);
+        if (shortDesc.style.display === 'none') {
+            shortDesc.style.display = 'inline';
+            fullDesc.style.display = 'none';
+        } else {
+            shortDesc.style.display = 'none';
+            fullDesc.style.display = 'inline';
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         const skeleton = document.getElementById('skeleton-loading');
         const content  = document.getElementById('actual-content');
         if(skeleton && content) {
             setTimeout(function () {
                 skeleton.style.display = 'none';
+                content.style.display = 'block';
                 content.classList.add('loaded');
             }, 800);
         }

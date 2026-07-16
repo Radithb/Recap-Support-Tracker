@@ -29,10 +29,14 @@ class MasterDataSeeder extends Seeder
         ]);
 
         MasterKategori::insert([
-            ['nama_kategori' => 'Bug / Error'],
-            ['nama_kategori' => 'Kesalahan Data'],
-            ['nama_kategori' => 'Kendala SOP'],
-            ['nama_kategori' => 'Permintaan Fitur'],
+            ['nama_kategori' => 'Migrasi Data'],
+            ['nama_kategori' => 'Support SOP'],
+            ['nama_kategori' => 'Support Data'],
+            ['nama_kategori' => 'Support Teknis Bug/Optimise'],
+            ['nama_kategori' => 'Transaksi SAKTI.Link'],
+            ['nama_kategori' => 'Support Pra'],
+            ['nama_kategori' => 'Setup Datalama'],
+            ['nama_kategori' => 'Fraud'],
         ]);
     }
 }
