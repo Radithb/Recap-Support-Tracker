@@ -66,7 +66,7 @@
     {{-- ═══════════════════════════════════════════ --}}
     {{-- ACTUAL CONTENT                              --}}
     {{-- ═══════════════════════════════════════════ --}}
-    <div class="content-wrap" id="actual-content">
+    <div class="content-wrap" id="actual-content" style="display: none;">
         
         <div class="fade-up" style="margin-bottom: 24px; animation-delay: 0.1s;">
             <a href="{{ Auth::user()->role === 'support' ? route('support.dashboard') : route('pelapor.dashboard') }}" class="btn btn-ghost" style="padding: 8px 16px; border: 1px solid var(--line); background: white;">
@@ -158,6 +158,7 @@
                 if(skeleton && content) {
                     setTimeout(function () {
                         skeleton.style.display = 'none';
+                        content.style.display = 'block';
                         content.classList.add('loaded');
                     }, 800);
                 }

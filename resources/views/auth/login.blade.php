@@ -40,7 +40,7 @@
     {{-- ═══════════════════════════════════════════ --}}
     {{-- ACTUAL CONTENT                              --}}
     {{-- ═══════════════════════════════════════════ --}}
-    <div class="content-wrap" id="actual-content" style="width: 100%; display: flex; flex-direction: column; min-height: 100vh;">
+    <div class="content-wrap" id="actual-content" style="width: 100%; display: none; flex-direction: column; min-height: 100vh;">
         <div class="site-nav fade-up" style="animation-delay: 0.1s;">
             <div class="wm"><img src="{{ asset('logo.png') }}" alt="Logo" style="width: 24px; height: 24px; object-fit: contain;">Recap Support Tracker</div>
             <div class="site-nav-tag">Ekosistem SAKTI.Link / SiCUNDO — PT Sakti Kinerja Kolaborasindo</div>
@@ -107,6 +107,7 @@
         const content  = document.getElementById('actual-content');
         setTimeout(function () {
             skeleton.style.display = 'none';
+            content.style.display = 'flex';
             content.classList.add('loaded');
         }, 800);
     });

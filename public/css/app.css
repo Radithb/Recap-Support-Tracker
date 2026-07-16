@@ -528,6 +528,84 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
 }
 .skeleton-wrap { display: flex; flex-direction: column; gap: 16px; width: 100%; }
 
+/* ── Skeleton: Ticket Card ── */
+.skel-ticket {
+    background: var(--paper-raised); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 18px 20px;
+    display: flex; align-items: center; gap: 18px; margin-bottom: 12px;
+}
+.skel-ticket-id   { height: 14px; width: 78px; flex-shrink: 0; }
+.skel-ticket-main  { flex: 1; }
+.skel-ticket-h3   { height: 15px; width: 70%; margin-bottom: 8px; }
+.skel-ticket-p    { height: 11px; width: 50%; }
+.skel-ticket-meta  { height: 12px; width: 110px; flex-shrink: 0; }
+.skel-ticket-badge { height: 24px; width: 68px; border-radius: 100px; flex-shrink: 0; }
+
+/* ── Skeleton: Panel ── */
+.skel-panel {
+    background: var(--paper-raised); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 16px 18px;
+}
+.skel-panel-title { height: 14px; width: 130px; margin-bottom: 8px; }
+.skel-panel-sub   { height: 10px; width: 200px; margin-bottom: 16px; }
+.skel-panel-line  { height: 12px; width: 100%; margin-bottom: 10px; }
+.skel-panel-line:nth-child(4) { width: 75%; }
+.skel-panel-line:nth-child(5) { width: 55%; }
+
+/* ── Skeleton: Page Head ── */
+.skel-page-head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 26px; gap: 20px;
+}
+.skel-page-head-eyebrow { height: 10px; width: 130px; margin-bottom: 10px; }
+.skel-page-head-title   { height: 28px; width: 260px; }
+.skel-page-head-btn     { height: 44px; width: 200px; border-radius: 8px; }
+
+/* ── Skeleton: Toolbar ── */
+.skel-toolbar {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
+}
+.skel-toolbar-search {
+    flex: 1; height: 38px; border-radius: 8px;
+}
+.skel-toolbar-chip {
+    height: 34px; width: 90px; border-radius: 8px;
+}
+
+/* ── Skeleton: Table ── */
+.skel-table {
+    background: var(--paper-raised); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden;
+}
+.skel-table-head {
+    background: var(--paper-sunken); padding: 11px 14px;
+    display: flex; gap: 14px;
+}
+.skel-table-head-cell { height: 10px; border-radius: 4px; }
+.skel-table-row {
+    padding: 13px 14px; border-bottom: 1px solid var(--line);
+    display: flex; align-items: center; gap: 14px;
+}
+.skel-table-row:last-child { border-bottom: none; }
+.skel-table-cell { height: 14px; border-radius: 4px; }
+
+/* ── Skeleton: Recap ── */
+.skel-recap-header {
+    background: var(--paper-raised); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 22px 26px;
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 28px;
+}
+.skel-recap-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+}
+.skel-recap-chart {
+    background: var(--paper-raised); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 22px;
+}
+.skel-chart-title { height: 16px; width: 200px; margin-bottom: 18px; }
+.skel-chart-area  { height: 200px; border-radius: 8px; }
+
 @media(max-width:860px){
   .login-wrap{flex-direction:column;}
   .login-art{min-height:220px;}

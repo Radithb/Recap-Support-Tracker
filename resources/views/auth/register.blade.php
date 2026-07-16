@@ -53,7 +53,7 @@
     {{-- ═══════════════════════════════════════════ --}}
     {{-- ACTUAL CONTENT                              --}}
     {{-- ═══════════════════════════════════════════ --}}
-    <div class="content-wrap" id="actual-content" style="width: 100%; display: flex; flex-direction: column; min-height: 100vh;">
+    <div class="content-wrap" id="actual-content" style="width: 100%; display: none; flex-direction: column; min-height: 100vh;">
         <div class="login-stage">
             <div class="login-box fade-up" style="max-width:640px; animation-delay: 0.1s;">
                 <div class="login-brandmark">
@@ -168,6 +168,7 @@
         const content  = document.getElementById('actual-content');
         setTimeout(function () {
             skeleton.style.display = 'none';
+            content.style.display = 'flex';
             content.classList.add('loaded');
         }, 800);
     });
