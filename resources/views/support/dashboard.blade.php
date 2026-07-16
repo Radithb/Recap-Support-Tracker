@@ -184,7 +184,7 @@
             <div>
                 <h3>{{ $t->ticket_id }} &mdash; {{ Str::limit($t->permasalahan, 50) }}</h3>
                 <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;">
-                    {{ $t->pelapor->instansi->nama_instansi ?? '-' }} (PIC: {{ $t->pelapor->nama ?? '-' }}) &middot; Aplikasi: {{ $t->aplikasi->nama_aplikasi ?? '-' }} &middot; Tanggal Masuk: {{ $t->tanggal_input->format('d M Y, H:i') }}
+                    {{ $t->pelapor->instansi->nama_instansi ?? '-' }} (PIC: {{ $t->pelapor->nama ?? '-' }}) &middot; Aplikasi: {{ $t->aplikasi->nama_aplikasi ?? '-' }} &middot; Tanggal Masuk: {{ $t->tanggal_input->format('d M Y, H:i') }} <span style="font-weight: 500; color: var(--primary);">&mdash; {{ \Carbon\Carbon::parse($t->tanggal_input->format('Y-m-d H:i:s'), 'Asia/Jakarta')->locale('id')->diffForHumans(['parts' => 2]) }}</span>
                 </p>
             </div>
             <button type="button" class="modal-x" onclick="closeModal('modal-edit-{{ $t->ticket_id }}')">✕</button>
