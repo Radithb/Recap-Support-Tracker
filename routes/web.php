@@ -44,6 +44,8 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
     
     // Master Data
     Route::get('/master-data', [MasterDataController::class, 'index'])->name('master-data.index');
+    Route::post('/master-data/aplikasi', [MasterDataController::class, 'storeAplikasi'])->name('master-data.aplikasi.store');
+    Route::post('/master-data/kategori', [MasterDataController::class, 'storeKategori'])->name('master-data.kategori.store');
 
     // Verifikasi Akun Pelapor
     Route::put('/users/{user}/verify', [UserVerificationController::class, 'verify'])->name('users.verify');

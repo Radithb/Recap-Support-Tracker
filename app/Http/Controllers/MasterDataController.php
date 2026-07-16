@@ -15,5 +15,32 @@ class MasterDataController extends Controller
         return view('support.master-data', compact('aplikasis', 'kategoris'));
     }
     
-    // Create, Update, Delete logic would be here for CRUD Master Data.
+    public function storeAplikasi(Request $request)
+    {
+        $request->validate([
+            'nama_aplikasi' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string'
+        ]);
+
+        MasterAplikasi::create([
+            'nama_aplikasi' => $request->nama_aplikasi,
+            'deskripsi' => $request->deskripsi,
+            'is_active' => true
+        ]);
+
+        return back()->with('success', 'Master Aplikasi berhasil ditambahkan.');
+    }
+
+    public function storeKategori(Request $request)
+    {
+        $request->validate([
+            'nama_kategori' => 'required|string|max:255'
+        ]);
+
+        MasterKategori::create([
+            'nama_kategori' => $request->nama_kategori
+        ]);
+
+        return back()->with('success', 'Master Kategori berhasil ditambahkan.');
+    }
 }
