@@ -51,7 +51,7 @@
 {{-- ═══════════════════════════════════════════ --}}
 {{-- ACTUAL CONTENT                              --}}
 {{-- ═══════════════════════════════════════════ --}}
-<div class="content-wrap" id="actual-content">
+<div class="content-wrap" id="actual-content" style="display: none;">
 
 <div class="page-head fade-up" style="animation-delay: 0.1s;">
     <div>
@@ -90,32 +90,66 @@
 </div>
 @endif
 
-<div class="fade-up" style="animation-delay: 0.25s;">
-<table class="tickets" id="tickets-table">
+<div class="fade-up" style="animation-delay: 0.25s; overflow-x: auto; width: 100%;">
+<table class="tickets" id="tickets-table" style="min-width: 1100px;">
     <thead>
         <tr>
-            <th width="100">Ticket ID</th>
-            <th width="120">Tanggal</th>
-            <th>Pelapor & Aplikasi</th>
-            <th>Permasalahan</th>
-            <th width="100">Status</th>
-            <th width="120">Aksi</th>
+            <th style="text-transform: uppercase;">Tiket</th>
+            <th style="text-transform: uppercase;">Nama Koperasi</th>
+            <th style="text-transform: uppercase;">PIC Koperasi</th>
+            <th style="text-transform: uppercase;">Aplikasi</th>
+            <th style="text-transform: uppercase;">Kategori</th>
+            <th style="text-transform: uppercase;">PIC Support</th>
+            <th width="100" style="text-transform: uppercase;">Status</th>
+            <th width="120" style="text-transform: uppercase;">Tanggal</th>
+            <th width="80"></th>
         </tr>
     </thead>
     <tbody>
         @foreach($tickets as $t)
         <tr>
-            <td class="mono">#{{ $t->ticket_id }}</td>
-            <td class="mono">
-                {{ $t->tanggal_input->format('d M y') }}
-                <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">{{ $t->tanggal_input->format('H:i') }}</div>
+            <td class="mono" style="color: var(--text-muted); font-size: 0.85rem; white-space: nowrap;">{{ $t->ticket_id }}</td>
+            <td style="font-weight: 500; color: var(--ink); font-size: 0.9rem; white-space: nowrap;">{{ $t->pelapor->instansi->nama_instansi ?? '-' }}</td>
+            <td>
+                <div style="display: flex; align-items: center; gap: 8px;">
+                    @php
+                        $nameParts = explode(' ', $t->pelapor->nama ?? 'U');
+                        $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
+                    @endphp
+                    <div style="width: 28px; height: 28px; border-radius: 50%; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600;">
+                        {{ $initials }}
+                    </div>
+                    <div>
+                        <div style="font-weight: 500; color: var(--text-muted); font-size: 0.85rem; white-space: nowrap;">{{ $t->pelapor->nama ?? '-' }}</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); opacity: 0.8;">{{ $t->pelapor->instansi->no_telp ?? '-' }}</div>
+                    </div>
+                </div>
+            </td>
+            <td style="color: var(--text-muted); font-size: 0.9rem; white-space: nowrap;">{{ $t->aplikasi->nama_aplikasi ?? '-' }}</td>
+            <td>
+                @if($t->kategori)
+                    <span style="display: inline-block; white-space: nowrap; background: #ffe4e6; padding: 4px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; color: #be123c; border: none; text-transform: uppercase;">
+                        {{ $t->kategori->nama_kategori }}
+                    </span>
+                @else
+                    -
+                @endif
             </td>
             <td>
-                <div style="font-weight:600; margin-bottom:4px; color:var(--ink)">{{ $t->pelapor->instansi->nama_instansi ?? 'Instansi' }}</div>
-                <div class="cat-tag">{{ $t->aplikasi->nama_aplikasi }}</div>
-            </td>
-            <td>
-                <div style="max-width:250px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:500;">{{ $t->permasalahan }}</div>
+                @if($t->picSupport)
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        @php
+                            $picParts = explode(' ', $t->picSupport->nama);
+                            $picInitials = strtoupper(substr($picParts[0], 0, 1) . (isset($picParts[1]) ? substr($picParts[1], 0, 1) : ''));
+                        @endphp
+                        <div style="width: 28px; height: 28px; border-radius: 50%; background: #fee2e2; color: #ef4444; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600;">
+                            {{ $picInitials }}
+                        </div>
+                        <span style="font-weight: 500; color: var(--text-muted); font-size: 0.85rem; white-space: nowrap;">{{ $t->picSupport->nama }}</span>
+                    </div>
+                @else
+                    -
+                @endif
             </td>
             <td>
                 @php
@@ -128,12 +162,13 @@
                 @endphp
                 <span class="status {{ $statusClass }}">{{ $t->status->value ?? $t->status }}</span>
             </td>
+            <td class="mono" style="color: var(--text-muted); font-size: 0.85rem; white-space: nowrap;">
+                {{ $t->tanggal_input->format('d M Y') }}
+            </td>
             <td>
                 <button class="btn btn-ghost btn-sm" onclick="openModal('modal-edit-{{ $t->ticket_id }}')">Respons</button>
             </td>
         </tr>
-
-
         @endforeach
     </tbody>
 </table>
@@ -270,6 +305,7 @@
         const content  = document.getElementById('actual-content');
         setTimeout(function () {
             skeleton.style.display = 'none';
+            content.style.display = 'block';
             content.classList.add('loaded');
         }, 1200);
 
