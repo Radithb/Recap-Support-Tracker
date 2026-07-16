@@ -107,7 +107,7 @@
     </thead>
     <tbody>
         @foreach($tickets as $t)
-        <tr>
+        <tr class="clickable-row hoverable-row" data-target="modal-edit-{{ $t->ticket_id }}" style="cursor: pointer;">
             <td class="mono" style="color: var(--text-muted); font-size: 0.85rem; white-space: nowrap;">{{ $t->ticket_id }}</td>
             <td style="font-weight: 500; color: var(--ink); font-size: 0.9rem; white-space: nowrap;">{{ $t->pelapor->instansi->nama_instansi ?? '-' }}</td>
             <td>
@@ -360,6 +360,14 @@
                     row.style.display = '';
                 } else {
                     row.style.display = 'none';
+                }
+            });
+        });
+
+        document.querySelectorAll('.clickable-row').forEach(row => {
+            row.addEventListener('click', function(e) {
+                if (!e.target.closest('button') && !e.target.closest('a')) {
+                    openModal(this.getAttribute('data-target'));
                 }
             });
         });
