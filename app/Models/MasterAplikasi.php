@@ -23,4 +23,9 @@ class MasterAplikasi extends Model
     {
         return $this->hasMany(Ticket::class, 'aplikasi_id', 'aplikasi_id');
     }
+
+    public function instansis()
+    {
+        return $this->belongsToMany(Instansi::class, 'instansi_aplikasi', 'aplikasi_id', 'instansi_id');
+    }
 }

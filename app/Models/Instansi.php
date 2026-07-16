@@ -18,4 +18,9 @@ class Instansi extends Model
     {
         return $this->hasMany(User::class, 'instansi_id', 'instansi_id');
     }
+
+    public function aplikasis()
+    {
+        return $this->belongsToMany(MasterAplikasi::class, 'instansi_aplikasi', 'instansi_id', 'aplikasi_id');
+    }
 }

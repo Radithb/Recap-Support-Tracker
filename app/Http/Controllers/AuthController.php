@@ -102,6 +102,8 @@ class AuthController extends Controller
         $request->validate([
             'alamat' => ['nullable', 'string', 'max:255'],
             'no_telp' => ['nullable', 'string', 'max:50'],
+            'aplikasis' => ['nullable', 'array'],
+            'aplikasis.*' => ['exists:master_aplikasis,aplikasi_id'],
         ]);
 
         $user = Auth::user();
@@ -110,9 +112,15 @@ class AuthController extends Controller
                 'alamat' => $request->alamat,
                 'no_telp' => $request->no_telp,
             ]);
+
+            if ($request->has('aplikasis')) {
+                $user->instansi->aplikasis()->sync($request->aplikasis);
+            } else {
+                $user->instansi->aplikasis()->sync([]);
+            }
         }
 
-        return back()->with('success', 'Profil Instansi berhasil diperbarui!');
+        return back()->with('success', 'Profil Koperasi berhasil diperbarui!');
     }
 
     public function showProfilSaya()

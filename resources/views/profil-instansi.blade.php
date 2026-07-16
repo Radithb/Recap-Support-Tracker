@@ -108,6 +108,19 @@
                     <label style="display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Nomor Telepon</label>
                     <div class="mono" style="color: var(--ink); font-size: 14.5px;">{{ Auth::user()->instansi->no_telp ?? '-' }}</div>
                 </div>
+
+                <div style="margin-bottom: 32px;">
+                    <label style="display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:8px;">Aplikasi yang Digunakan</label>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        @if(Auth::user()->instansi && Auth::user()->instansi->aplikasis->count() > 0)
+                            @foreach(Auth::user()->instansi->aplikasis as $app)
+                                <span style="background: #e0f2fe; color: #0284c7; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 600;">{{ $app->nama_aplikasi }}</span>
+                            @endforeach
+                        @else
+                            <span style="color: var(--text-muted); font-size: 14px;">Belum ada aplikasi yang dipilih.</span>
+                        @endif
+                    </div>
+                </div>
                 
                 <div style="border-top: 1px solid var(--line); padding-top: 20px;">
                     <button type="button" class="btn btn-ghost" onclick="toggleEditMode(true)" style="padding: 9px 18px;">
@@ -136,6 +149,24 @@
                     <div class="field" style="margin-top: 18px;">
                         <label>Nomor Telepon</label>
                         <input type="text" name="no_telp" value="{{ Auth::user()->instansi->no_telp ?? '' }}" placeholder="Contoh: 081234567890" required>
+                    </div>
+
+                    <div class="field" style="margin-top: 18px;">
+                        <label>Aplikasi yang Digunakan</label>
+                        <div style="background: var(--paper-sunken); padding: 16px; border-radius: 8px; border: 1px solid var(--line); display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;">
+                            @php
+                                $selectedAplikasi = Auth::user()->instansi ? Auth::user()->instansi->aplikasis->pluck('aplikasi_id')->toArray() : [];
+                            @endphp
+                            @forelse($aplikasis ?? [] as $app)
+                                <label style="display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer; color: var(--ink);">
+                                    <input type="checkbox" name="aplikasis[]" value="{{ $app->aplikasi_id }}" {{ in_array($app->aplikasi_id, $selectedAplikasi) ? 'checked' : '' }} style="width: 16px; height: 16px; cursor: pointer;">
+                                    {{ $app->nama_aplikasi }}
+                                </label>
+                            @empty
+                                <div style="color: var(--text-muted); font-size: 13px;">Belum ada master aplikasi tersedia.</div>
+                            @endforelse
+                        </div>
+                        <div class="helper">Pilih aplikasi yang digunakan oleh Koperasi Anda.</div>
                     </div>
                     
                     <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line);">

@@ -21,7 +21,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profil-instansi', function () {
-        return view('profil-instansi');
+        $aplikasis = \App\Models\MasterAplikasi::where('is_active', true)->get();
+        return view('profil-instansi', compact('aplikasis'));
     })->name('profil.instansi');
     
     Route::put('/profil-instansi', [AuthController::class, 'updateInstansi'])->name('profil.instansi.update');
