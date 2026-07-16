@@ -280,7 +280,9 @@ body{
 .profile-popover button .ic, .profile-popover a .ic{font-size:14.5px; width:18px; text-align:center; flex:none;}
 .profile-popover button:hover, .profile-popover a:hover{background:rgba(255,255,255,0.1); color:#fff;}
 .profile-popover button.danger, .profile-popover a.danger{color:#FF9FAA;}
+.profile-popover button.danger img{filter: invert(77%) sepia(21%) saturate(967%) hue-rotate(307deg) brightness(102%) contrast(101%); opacity: 0.9; transition: filter .12s;}
 .profile-popover button.danger:hover, .profile-popover a.danger:hover{background:rgba(220,53,69,0.22); color:#fff;}
+.profile-popover button.danger:hover img{filter: brightness(0) invert(1); opacity: 1;}
 .profile-popover .pop-div{height:1px; background:rgba(255,255,255,0.12); margin:6px 3px;}
 @media(max-width:900px){
   .profile-popover{left:auto; right:0; bottom:auto; top:calc(100% + 10px);}
