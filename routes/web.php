@@ -50,4 +50,8 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
     // Verifikasi Akun Pelapor
     Route::put('/users/{user}/verify', [UserVerificationController::class, 'verify'])->name('users.verify');
     Route::delete('/users/{user}/reject', [UserVerificationController::class, 'reject'])->name('users.reject');
+    
+    // Profil Saya (Support)
+    Route::get('/profil-saya', [AuthController::class, 'showProfilSaya'])->name('profil.saya');
+    Route::put('/profil-saya', [AuthController::class, 'updateProfilSaya'])->name('profil.saya.update');
 });

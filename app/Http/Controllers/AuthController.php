@@ -114,4 +114,31 @@ class AuthController extends Controller
 
         return back()->with('success', 'Profil Instansi berhasil diperbarui!');
     }
+
+    public function showProfilSaya()
+    {
+        return view('support.profil-saya');
+    }
+
+    public function updateProfilSaya(Request $request)
+    {
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'nama' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $user->user_id . ',user_id'],
+            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user->nama = $validated['nama'];
+        $user->email = $validated['email'];
+        
+        if (!empty($validated['password'])) {
+            $user->password = Hash::make($validated['password']);
+        }
+
+        $user->save();
+
+        return back()->with('success', 'Profil Anda berhasil diperbarui!');
+    }
 }
