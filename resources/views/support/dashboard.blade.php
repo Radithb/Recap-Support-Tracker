@@ -53,6 +53,13 @@
 {{-- ═══════════════════════════════════════════ --}}
 <div class="content-wrap" id="actual-content" style="display: none;">
 
+@if(session('success'))
+    <div id="success-alert" class="alert-dismiss fade-up" style="animation-delay: 0.1s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--sage-soft); color: var(--sage); border-radius: 8px; margin-bottom: 24px; font-size: calc(13.5px * var(--text-scale, 1)); font-weight: 600; border: 1px solid rgba(46, 125, 82, 0.2); transition: opacity 0.6s ease, transform 0.6s ease;">
+        <span>{{ session('success') }}</span>
+        <button type="button" onclick="document.getElementById('success-alert').style.display='none'" style="background: none; border: none; color: var(--sage); cursor: pointer; font-size: calc(18px * var(--text-scale, 1)); font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
+    </div>
+@endif
+
 <div class="page-head fade-up" style="animation-delay: 0.1s;">
     <div>
         <p class="eyebrow">{{ __('messages.dashboard_support') }}</p>
