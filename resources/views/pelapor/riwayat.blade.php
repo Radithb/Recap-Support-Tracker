@@ -50,7 +50,7 @@
                 </thead>
                 <tbody>
                     @forelse($tickets as $t)
-                    <tr>
+                    <tr class="clickable-row hoverable-row" data-target="modal-preview-{{ $t->ticket_id }}" style="cursor: pointer;">
                         <td class="mono">#{{ $t->ticket_id }}</td>
                         <td class="mono">
                             {{ $t->tanggal_input->format('d M y') }}
@@ -70,7 +70,7 @@
                             <span class="status {{ $statusClass }}">{{ $t->status->value ?? $t->status }}</span>
                         </td>
                         <td>
-                            <button class="btn btn-ghost btn-sm" onclick="openModal('modal-ticket-{{ $t->ticket_id }}')">Detail</button>
+                            <button class="btn btn-ghost btn-sm" onclick="openModal('modal-detail-{{ $t->ticket_id }}')">Detail</button>
                         </td>
                     </tr>
                     @empty
@@ -88,11 +88,69 @@
 
 <!-- Modals for Tickets -->
 @foreach($tickets as $t)
-<div class="overlay" id="modal-ticket-{{ $t->ticket_id }}">
+<div class="overlay" id="modal-preview-{{ $t->ticket_id }}">
+    <div class="modal w-sm">
+        <div class="modal-head" style="border-bottom: 1px solid var(--line); padding-bottom: 16px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="background: var(--brand-primary-soft); color: var(--primary); padding: 8px; border-radius: 8px; display: flex;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </div>
+                <div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 2px; color: var(--ink);">Preview Tiket</h3>
+                    <p class="mono" style="font-size: 0.8rem; color: var(--text-muted);">{{ $t->ticket_id }}</p>
+                </div>
+            </div>
+            <button type="button" class="modal-x" onclick="closeModal('modal-preview-{{ $t->ticket_id }}'); event.stopPropagation();">✕</button>
+        </div>
+        
+        <div class="modal-body" style="padding: 24px;">
+            <div style="display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; color: #1d4ed8; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-bottom: 20px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                Disubmit {{ \Carbon\Carbon::parse($t->tanggal_input->format('Y-m-d H:i:s'), 'Asia/Jakarta')->locale('id')->diffForHumans(['parts' => 2]) }} &middot; {{ $t->tanggal_input->format('d M Y, H:i') }}
+            </div>
+
+            <div style="margin-bottom: 24px;">
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Deskripsi Permasalahan</div>
+                <div style="font-size: 0.95rem; color: var(--ink); line-height: 1.6; white-space: pre-wrap; background: var(--paper-raised); padding: 16px; border-radius: 8px; border: 1px solid var(--line);">{{ $t->permasalahan }}</div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: var(--paper-sunken); padding: 16px; border-radius: 12px; border: 1px solid var(--line);">
+                <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Instansi</div>
+                    <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">{{ Auth::user()->instansi->nama_instansi ?? '-' }}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">PIC Pelapor</div>
+                    <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">{{ Auth::user()->nama ?? '-' }}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Aplikasi</div>
+                    <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">{{ $t->aplikasi->nama_aplikasi ?? '-' }}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Kategori</div>
+                    <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">
+                        @if($t->kategori)
+                            <span style="color: #be123c;">{{ $t->kategori->nama_kategori }}</span>
+                        @else
+                            -
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-foot" style="display: flex; gap: 12px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--line);">
+            <button type="button" class="btn btn-ghost" onclick="closeModal('modal-preview-{{ $t->ticket_id }}')">Tutup</button>
+            <button type="button" class="btn btn-primary" onclick="closeModal('modal-preview-{{ $t->ticket_id }}'); openModal('modal-detail-{{ $t->ticket_id }}')">Detail Tiket</button>
+        </div>
+    </div>
+</div>
+
+<div class="overlay" id="modal-detail-{{ $t->ticket_id }}">
     <div class="modal w-sm">
         <div class="modal-head">
             <div><h3>Detail Laporan</h3><p>{{ $t->ticket_id }}</p></div>
-            <button type="button" class="modal-x" onclick="closeModal('modal-ticket-{{ $t->ticket_id }}'); event.stopPropagation();">✕</button>
+            <button type="button" class="modal-x" onclick="closeModal('modal-detail-{{ $t->ticket_id }}'); event.stopPropagation();">✕</button>
         </div>
         <div class="modal-body">
             <div class="field"><label>Aplikasi</label><input type="text" value="{{ $t->aplikasi->nama_aplikasi }}" readonly></div>
@@ -135,6 +193,14 @@
             if(skeleton) skeleton.style.display = 'none';
             if(content) content.style.display = 'block';
         }, 800);
+
+        document.querySelectorAll('.clickable-row').forEach(row => {
+            row.addEventListener('click', function(e) {
+                if (!e.target.closest('button') && !e.target.closest('a')) {
+                    openModal(this.getAttribute('data-target'));
+                }
+            });
+        });
     });
 </script>
 @endsection
