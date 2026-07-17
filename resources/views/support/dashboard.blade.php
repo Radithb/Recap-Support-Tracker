@@ -324,14 +324,6 @@
                     @endif
 
                     <div class="field">
-                        <label>PIC Support (Penyelesaian)</label>
-                        <select name="pic_support_id">
-                            <option value="">Pilih PIC Support...</option>
-                            <option value="{{ auth()->user()->user_id }}" {{ $t->pic_support_id == auth()->user()->user_id ? 'selected' : '' }}>{{ auth()->user()->nama }} (Saya)</option>
-                        </select>
-                    </div>
-
-                    <div class="field">
                         <label>Kategori Tiket</label>
                         <select name="kategori_id" required>
                             <option value="">Pilih Kategori...</option>
