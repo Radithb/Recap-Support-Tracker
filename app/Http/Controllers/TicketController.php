@@ -97,14 +97,17 @@ class TicketController extends Controller
             'pencegahan' => 'nullable|string',
             'link_ticket' => 'nullable|string',
             'is_faq' => 'nullable|boolean',
+            'pic_support_id' => 'nullable|exists:users,user_id',
         ]);
 
-        $data = $request->only(['status', 'kategori_id', 'penyelesaian', 'pencegahan', 'link_ticket']);
+        $data = $request->only(['status', 'kategori_id', 'penyelesaian', 'pencegahan', 'link_ticket', 'pic_support_id']);
         $data['is_faq'] = $request->has('is_faq');
         
         if ($data['status'] === TicketStatus::DONE->value && $ticket->status !== TicketStatus::DONE) {
             $data['tanggal_penyelesaian'] = now();
-            $data['pic_support_id'] = Auth::id(); // Assign current support user
+            if (empty($data['pic_support_id'])) {
+                $data['pic_support_id'] = Auth::id(); // Assign current support user
+            }
         }
 
         $ticket->update($data);
