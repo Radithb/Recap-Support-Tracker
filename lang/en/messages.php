@@ -197,7 +197,7 @@ return [
     'akun_verified' => 'Account ":name" successfully verified.',
     'invalid_reject' => 'Account is invalid for rejection.',
     'akun_rejected' => 'Account ":name" successfully rejected and deleted.',
-    'd2_master_data' => 'D2 — CATEGORY & APPLICATION MASTER DATA',
+    'd2_master_data' => 'CATEGORY & APPLICATION MASTER DATA',
     'kelola_master_data' => 'Manage Master Data',
     'referensi_dipakai' => 'Reference used when Reporter creates a ticket (Application validation) and when Support Team classifies tickets (Category).',
     'divalidasi_proses_1' => 'Validated during Process 1.0 — New Ticket Management',
