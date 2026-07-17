@@ -1,4 +1,4 @@
-:root{
+﻿:root{
   --ink:#1F2937;
   --ink-soft:#5B6B85;
   --paper:#F2F6FC;
@@ -27,6 +27,7 @@
 
 /* Dark Theme Overrides */
 html.dark-mode {
+  color-scheme: dark;
   --ink: #F1F5F9;
   --ink-soft: #94A3B8;
   --paper: #18181C;
@@ -56,8 +57,7 @@ html.dark-mode img[src*=".png"]:not([src*="logo.png"]):not([src*="storage"]) {
     opacity: 0.9;
 }
 
-html.dark-mode table.tickets tbody tr:hover,
-html.dark-mode table.cat-recap-table tbody tr:hover {
+html.dark-mode table tbody tr:hover {
   background: rgba(255, 255, 255, 0.08) !important;
 }
 
@@ -157,7 +157,7 @@ input, select, textarea {
   background:
     radial-gradient(1100px 480px at 85% -10%, #E1EBFB 0%, transparent 60%),
     radial-gradient(900px 420px at -10% 110%, #FDE7E9 0%, transparent 55%),
-    #FFFFFF;
+    var(--paper);
   display:flex; flex-direction:column;
 }
 .site-nav{
@@ -581,7 +581,7 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
 }
 .skeleton-wrap { display: flex; flex-direction: column; gap: 16px; width: 100%; }
 
-/* ── Skeleton: Ticket Card ── */
+/* â”€â”€ Skeleton: Ticket Card â”€â”€ */
 .skel-ticket {
     background: var(--paper-raised); border: 1px solid var(--line);
     border-radius: var(--radius); padding: 18px 20px;
@@ -594,7 +594,7 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
 .skel-ticket-meta  { height: 12px; width: 110px; flex-shrink: 0; }
 .skel-ticket-badge { height: 24px; width: 68px; border-radius: 100px; flex-shrink: 0; }
 
-/* ── Skeleton: Panel ── */
+/* â”€â”€ Skeleton: Panel â”€â”€ */
 .skel-panel {
     background: var(--paper-raised); border: 1px solid var(--line);
     border-radius: var(--radius); padding: 16px 18px;
@@ -605,7 +605,7 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
 .skel-panel-line:nth-child(4) { width: 75%; }
 .skel-panel-line:nth-child(5) { width: 55%; }
 
-/* ── Skeleton: Page Head ── */
+/* â”€â”€ Skeleton: Page Head â”€â”€ */
 .skel-page-head {
     display: flex; align-items: flex-end; justify-content: space-between;
     margin-bottom: 26px; gap: 20px;
@@ -614,7 +614,7 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
 .skel-page-head-title   { height: 28px; width: 260px; }
 .skel-page-head-btn     { height: 44px; width: 200px; border-radius: 8px; }
 
-/* ── Skeleton: Toolbar ── */
+/* â”€â”€ Skeleton: Toolbar â”€â”€ */
 .skel-toolbar {
     display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
 }
@@ -625,7 +625,7 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
     height: 34px; width: 90px; border-radius: 8px;
 }
 
-/* ── Skeleton: Table ── */
+/* â”€â”€ Skeleton: Table â”€â”€ */
 .skel-table {
     background: var(--paper-raised); border: 1px solid var(--line);
     border-radius: var(--radius); overflow: hidden;
@@ -642,7 +642,7 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
 .skel-table-row:last-child { border-bottom: none; }
 .skel-table-cell { height: 14px; border-radius: 4px; }
 
-/* ── Skeleton: Recap ── */
+/* â”€â”€ Skeleton: Recap â”€â”€ */
 .skel-recap-header {
     background: var(--paper-raised); border: 1px solid var(--line);
     border-radius: var(--radius); padding: 22px 26px;
@@ -669,6 +669,7 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
   .month-bars{grid-template-columns:repeat(6,1fr); row-gap:16px; height:auto;}
   .month-cell{height:90px;}
 }
+
 
 
 

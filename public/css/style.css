@@ -1,4 +1,4 @@
-  :root{
+﻿  :root{
     --ink:#1C2539;
     --ink-soft:#586580;
     --paper:#F8F9FA;
@@ -141,7 +141,7 @@
   }
   .site-nav{
     display:flex; align-items:center; gap:32px;
-    padding:18px 44px; background:#fff; border-bottom:1px solid var(--line);
+    padding:18px 44px; background: var(--paper-raised); border-bottom:1px solid var(--line);
   }
   .site-nav .wm{
     display:flex; align-items:center; gap:9px;
@@ -169,7 +169,7 @@
   .login-brandmark .tx strong{display:block; font-family:var(--font-display); font-size: calc(17px * var(--text-scale, 1)); color:var(--ink);}
   .login-brandmark .tx span{display:block; font-size: calc(11px * var(--text-scale, 1)); color:var(--ink-soft); font-family:var(--font-mono); letter-spacing:.03em;}
   .login-panel-card{
-    background:#fff; border:1px solid var(--line); border-radius:16px; padding:38px 36px;
+    background: var(--paper-raised); border:1px solid var(--line); border-radius:16px; padding:38px 36px;
     box-shadow:0 1px 3px rgba(30,59,142,0.04), 0 20px 45px -25px rgba(30,59,142,0.18);
     text-align:center;
   }
@@ -180,7 +180,7 @@
   .field label{display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;}
   .field input, .field select, .field textarea {
     width:100%; padding:11px 12px; border-radius:8px; border:1.5px solid var(--line);
-    font-family:var(--font-body); font-size: calc(14px * var(--text-scale, 1)); background:#fff;
+    font-family:var(--font-body); font-size: calc(14px * var(--text-scale, 1)); background: var(--paper-raised); color: var(--ink);
   }
   .field textarea { min-height:80px; resize:vertical; }
   .field input:focus, .field select:focus, .field textarea:focus {outline:2px solid var(--brand-primary); outline-offset:1px; border-color:var(--brand-primary);}
@@ -220,12 +220,12 @@
   .toolbar{display:flex; align-items:center; gap:10px; margin-bottom:18px; flex-wrap:wrap;}
   .search{
     flex:1; min-width:220px; display:flex; align-items:center; gap:8px;
-    background:#fff; border:1.5px solid var(--line); border-radius:8px; padding:9px 12px;
+    background: var(--paper-raised); border:1.5px solid var(--line); border-radius:8px; padding:9px 12px;
     font-size: calc(13px * var(--text-scale, 1)); color:var(--ink-soft);
   }
   .chip-filter{
     font-size: calc(12px * var(--text-scale, 1)); font-weight:600; padding:8px 13px; border-radius:8px; border:1.5px solid var(--line);
-    background:#fff; color:var(--ink-soft); cursor:pointer; text-decoration:none;
+    background: var(--paper-raised); color:var(--ink-soft); cursor:pointer; text-decoration:none;
   }
   .chip-filter.active{background:var(--indigo); color:#fff; border-color:var(--indigo);}
 
@@ -269,7 +269,7 @@
   .alert-success { background:var(--sage-soft); color:var(--sage); border:1px solid var(--sage); }
   .alert-danger { background:var(--clay-soft); color:var(--clay); border:1px solid var(--clay); }
 
-  /* ── Register Page ── */
+  /* â”€â”€ Register Page â”€â”€ */
   .register-grid{
     display:grid; grid-template-columns:1fr 1fr; gap:0 16px;
   }
@@ -277,7 +277,7 @@
   .field-error select,
   .field-error textarea{
     border-color:var(--clay) !important;
-    background:#FFF9F7;
+    background: var(--paper-raised)9F7;
   }
   .field-error input:focus,
   .field-error select:focus,
@@ -303,7 +303,7 @@
     .register-actions{flex-direction:column;}
   }
 
-  /* ── Notification Banner ── */
+  /* â”€â”€ Notification Banner â”€â”€ */
   .notif-banner{
     display:flex; align-items:center; justify-content:space-between; gap:16px;
     background:linear-gradient(135deg, var(--brand-primary-soft) 0%, #D4E0F4 100%);
@@ -332,7 +332,7 @@
     margin-left:6px;
   }
 
-  /* ── Verification Action Buttons ── */
+  /* â”€â”€ Verification Action Buttons â”€â”€ */
   .btn-success{
     background:var(--sage); color:#fff;
     border:none;
@@ -344,7 +344,7 @@
   }
   .btn-danger:hover{filter:brightness(1.1);}
 
-  /* ── Verification Modal Table ── */
+  /* â”€â”€ Verification Modal Table â”€â”€ */
   .verify-table{
     width:100%; border-collapse:collapse; font-size: calc(13px * var(--text-scale, 1));
   }
@@ -366,9 +366,9 @@
   }
   .verify-actions form{margin:0;}
 
-  /* ═══════════════════════════════════════════ */
+  /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
   /* SHARED: Skeleton Pulse + Fade-Up Animations */
-  /* ═══════════════════════════════════════════ */
+  /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
   @keyframes skeletonPulse {
       0%   { background-position: 200% 0; }
       100% { background-position: -200% 0; }
@@ -413,7 +413,7 @@
       opacity: 0;
   }
 
-  /* ── Skeleton: CTA Band ── */
+  /* â”€â”€ Skeleton: CTA Band â”€â”€ */
   .skel-cta {
       border-radius: 14px; padding: 26px 30px; margin-bottom: 28px;
       display: flex; align-items: center; justify-content: space-between; gap: 20px;
@@ -424,7 +424,7 @@
   .skel-cta-line-sm { height: 12px; width: 85%; }
   .skel-cta-btn     { width: 170px; height: 44px; border-radius: 8px; flex-shrink: 0; }
 
-  /* ── Skeleton: Stat Row ── */
+  /* â”€â”€ Skeleton: Stat Row â”€â”€ */
   .skel-stat-row {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px;
   }
@@ -435,14 +435,14 @@
   .skel-stat-n { height: 30px; width: 45px; margin-bottom: 8px; }
   .skel-stat-l { height: 12px; width: 90px; }
 
-  /* ── Skeleton: Grid ── */
+  /* â”€â”€ Skeleton: Grid â”€â”€ */
   .skel-grid {
       display: grid; grid-template-columns: 2fr 1fr; align-items: start; gap: 20px;
   }
   .skel-head-eyebrow { height: 10px; width: 120px; margin-bottom: 10px; }
   .skel-head-title   { height: 22px; width: 220px; margin-bottom: 18px; }
 
-  /* ── Skeleton: Ticket Card ── */
+  /* â”€â”€ Skeleton: Ticket Card â”€â”€ */
   .skel-ticket {
       background: var(--paper-raised); border: 1px solid var(--line);
       border-radius: var(--radius); padding: 18px 20px;
@@ -455,7 +455,7 @@
   .skel-ticket-meta  { height: 12px; width: 110px; flex-shrink: 0; }
   .skel-ticket-badge { height: 24px; width: 68px; border-radius: 100px; flex-shrink: 0; }
 
-  /* ── Skeleton: Panel ── */
+  /* â”€â”€ Skeleton: Panel â”€â”€ */
   .skel-panel {
       background: var(--paper-raised); border: 1px solid var(--line);
       border-radius: var(--radius); padding: 16px 18px;
@@ -466,7 +466,7 @@
   .skel-panel-line:nth-child(4) { width: 75%; }
   .skel-panel-line:nth-child(5) { width: 55%; }
 
-  /* ── Skeleton: Page Head ── */
+  /* â”€â”€ Skeleton: Page Head â”€â”€ */
   .skel-page-head {
       display: flex; align-items: flex-end; justify-content: space-between;
       margin-bottom: 26px; gap: 20px;
@@ -475,7 +475,7 @@
   .skel-page-head-title   { height: 28px; width: 260px; }
   .skel-page-head-btn     { height: 44px; width: 200px; border-radius: 8px; }
 
-  /* ── Skeleton: Toolbar ── */
+  /* â”€â”€ Skeleton: Toolbar â”€â”€ */
   .skel-toolbar {
       display: flex; align-items: center; gap: 10px; margin-bottom: 18px;
   }
@@ -486,7 +486,7 @@
       height: 34px; width: 90px; border-radius: 8px;
   }
 
-  /* ── Skeleton: Table ── */
+  /* â”€â”€ Skeleton: Table â”€â”€ */
   .skel-table {
       background: var(--paper-raised); border: 1px solid var(--line);
       border-radius: var(--radius); overflow: hidden;
@@ -503,7 +503,7 @@
   .skel-table-row:last-child { border-bottom: none; }
   .skel-table-cell { height: 14px; border-radius: 4px; }
 
-  /* ── Skeleton: Recap ── */
+  /* â”€â”€ Skeleton: Recap â”€â”€ */
   .skel-recap-header {
       background: var(--paper-raised); border: 1px solid var(--line);
       border-radius: var(--radius); padding: 22px 26px;
@@ -519,4 +519,5 @@
   }
   .skel-chart-title { height: 16px; width: 200px; margin-bottom: 18px; }
   .skel-chart-area  { height: 200px; border-radius: 8px; }
+
 

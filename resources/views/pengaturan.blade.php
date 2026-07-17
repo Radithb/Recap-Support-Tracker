@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('page_title', 'Pengaturan')
-@section('page_subtitle', 'Kelola Keamanan dan Preferensi Akun')
+@section('page_subtitle', 'Notifikasi, tampilan, bahasa & privasi akun Anda — terpisah dari Profil Saya.')
 
 @section('content')
-<div class="fade-up" style="animation-delay: 0.1s;">
+<div class="pelapor-panel fade-up" style="animation-delay: 0.1s;">
     
     @if(session('success'))
         <div id="success-alert" class="alert-dismiss fade-up" style="animation-delay: 0.2s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--sage-soft); color: var(--sage); border-radius: 8px; margin-bottom: 24px; font-size: calc(13.5px * var(--text-scale, 1)); font-weight: 600; border: 1px solid rgba(46, 125, 82, 0.2); transition: opacity 0.6s ease, transform 0.6s ease;">
@@ -53,12 +53,78 @@
         .toggle-switch:checked::after {
             transform: translateX(20px);
         }
+        .pill-filter {
+            font-size: calc(13px * var(--text-scale, 1));
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 9999px;
+            border: 1px solid var(--line);
+            background: var(--paper-raised);
+            color: var(--ink-soft);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+        .pill-filter.active {
+            background: var(--indigo);
+            color: #fff;
+            border-color: var(--indigo);
+            font-weight: 600;
+        }
+        .dark .pill-filter.active, html.dark-mode .pill-filter.active {
+            background: var(--brand-primary);
+            border-color: var(--brand-primary);
+        }
+        .icon-mask {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-color: currentColor;
+            -webkit-mask-image: var(--mask-url);
+            -webkit-mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            mask-image: var(--mask-url);
+            mask-size: contain;
+            mask-repeat: no-repeat;
+            vertical-align: middle;
+            opacity: 0.9;
+        }
     </style>
 
-    <div class="panel" style="padding: 30px; max-width: 100%;">
+    <div style="margin-bottom: 32px; display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;">
+        <button type="button" class="pill-filter active" id="btn-notifikasi" onclick="switchSettingTab('notifikasi')"><span class="icon-mask" style="--mask-url: url('{{ asset('bell.png') }}');"></span> Notifikasi</button>
+        <button type="button" class="pill-filter" id="btn-tampilan" onclick="switchSettingTab('tampilan')"><span class="icon-mask" style="--mask-url: url('{{ asset('application.png') }}');"></span> Personalisasi</button>
+        <button type="button" class="pill-filter" id="btn-bahasa" onclick="switchSettingTab('bahasa')"><span class="icon-mask" style="--mask-url: url('{{ asset('world.png') }}');"></span> Bahasa</button>
+        <button type="button" class="pill-filter" id="btn-akun" onclick="switchSettingTab('akun')"><span class="icon-mask" style="--mask-url: url('{{ asset('padlock.png') }}');"></span> Privasi & Akun</button>
+    </div>
+    
+    <div class="panel" id="panel-notifikasi" style="padding: 30px; max-width: 100%;">
+        <div style="margin-bottom: 32px;">
+            <h3 style="font-size: calc(20px * var(--text-scale, 1)); display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                <span class="icon-mask" style="--mask-url: url('{{ asset('bell.png') }}'); width: 22px; height: 22px;"></span> Pengaturan Notifikasi
+            </h3>
+            <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">Atur bagaimana dan kapan Anda ingin menerima pemberitahuan.</p>
+        </div>
+        <div style="color: var(--ink-soft); font-style: italic; background: var(--paper-sunken); padding: 16px; border-radius: 8px;">Fitur notifikasi sedang dalam tahap pengembangan...</div>
+    </div>
+    
+    <div class="panel" id="panel-bahasa" style="padding: 30px; max-width: 100%; display: none;">
+        <div style="margin-bottom: 32px;">
+            <h3 style="font-size: calc(20px * var(--text-scale, 1)); display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+                <span class="icon-mask" style="--mask-url: url('{{ asset('world.png') }}'); width: 22px; height: 22px;"></span> Pengaturan Bahasa
+            </h3>
+            <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">Pilih bahasa utama untuk antarmuka aplikasi.</p>
+        </div>
+        <div style="color: var(--ink-soft); font-style: italic; background: var(--paper-sunken); padding: 16px; border-radius: 8px;">Fitur bahasa sedang dalam tahap pengembangan...</div>
+    </div>
+
+    <div class="panel" id="panel-akun" style="padding: 30px; max-width: 100%; display: none;">
         <div style="margin-bottom: 32px;">
             <h3 style="font-size: calc(20px * var(--text-scale, 1)); display:flex; align-items:center; gap:8px;">
-                <span style="font-size: calc(24px * var(--text-scale, 1));"><img src="{{ asset('setting.png') }}" alt="Settings" style="width: 24px; height: 24px; object-fit: contain; vertical-align: middle;"></span> Pengaturan Akun
+                <span class="icon-mask" style="--mask-url: url('{{ asset('padlock.png') }}'); width: 22px; height: 22px;"></span> Pengaturan Akun
             </h3>
             <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">Perbarui informasi profil dan amankan akun Anda dengan kata sandi yang kuat.</p>
         </div>
@@ -123,7 +189,7 @@
     </div>
 
     <!-- TAMPILAN PERSONAL PANEL -->
-    <div class="panel" style="padding: 30px; max-width: 100%; margin-top: 24px;">
+    <div class="panel" id="panel-tampilan-personal" style="padding: 30px; max-width: 100%; margin-top: 0; display: none;">
         <style>
             .segmented-control {
                 display: flex;
@@ -160,11 +226,25 @@
                 color: #fff;
                 border-color: rgba(255,255,255,0.1);
             }
-        </style>
+            .icon-mask {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-color: currentColor;
+            -webkit-mask-image: var(--mask-url);
+            -webkit-mask-size: contain;
+            -webkit-mask-repeat: no-repeat;
+            mask-image: var(--mask-url);
+            mask-size: contain;
+            mask-repeat: no-repeat;
+            vertical-align: middle;
+            opacity: 0.9;
+        }
+    </style>
 
         <div style="margin-bottom: 24px;">
             <h3 style="font-size: calc(18px * var(--text-scale, 1)); display:flex; align-items:center; gap:8px; margin-bottom: 6px; color: var(--ink);">
-                <span style="display:inline-block; width: 20px; height: 20px; background-color: var(--ink); -webkit-mask-image: url('{{ asset('application.png') }}'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; mask-image: url('{{ asset('application.png') }}'); mask-size: contain; mask-repeat: no-repeat;"></span> Tampilan Personal
+                <span style="display:inline-block; width: 20px; height: 20px; background-color: var(--ink); -webkit-mask-image: url('{{ asset('application.png') }}'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; mask-image: url('{{ asset('application.png') }}'); mask-size: contain; mask-repeat: no-repeat;"></span> Personalisasi
             </h3>
             <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">Pengaturan ini hanya berdampak pada layar Anda sendiri, tidak mengubah tampilan website untuk pengguna lain.</p>
         </div>
@@ -214,7 +294,32 @@
         
         var fontRadio = document.querySelector('input[name="font_size"][value="' + currentFont + '"]');
         if (fontRadio) fontRadio.checked = true;
+
+        // Initialize active settings tab
+        var activeTab = localStorage.getItem('settings_active_tab') || 'notifikasi';
+        switchSettingTab(activeTab);
     });
+
+    function switchSettingTab(tab) {
+        var tabs = ['notifikasi', 'tampilan', 'bahasa', 'akun'];
+        tabs.forEach(function(t) {
+            var panel = document.getElementById('panel-' + t);
+            if (!panel && t === 'tampilan') panel = document.getElementById('panel-tampilan-personal');
+            
+            var btn = document.getElementById('btn-' + t);
+            
+            if (panel && btn) {
+                if (tab === t) {
+                    panel.style.display = 'block';
+                    btn.classList.add('active');
+                } else {
+                    panel.style.display = 'none';
+                    btn.classList.remove('active');
+                }
+            }
+        });
+        localStorage.setItem('settings_active_tab', tab);
+    }
 
     function applyPersonalization() {
         var theme = document.querySelector('input[name="theme"]:checked').value;
