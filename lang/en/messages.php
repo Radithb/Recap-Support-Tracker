@@ -272,4 +272,5 @@ return [
     'pemberitahuan_email' => 'Email Notifications',
     'kirim_pemberitahuan' => 'Send notifications to email when there are ticket updates.',
     'simpan_pengaturan' => 'Save Settings',
+    'keluar_singkat' => 'Sign Out',
 ];

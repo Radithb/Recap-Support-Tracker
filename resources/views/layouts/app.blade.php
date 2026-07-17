@@ -94,11 +94,14 @@
                         <span class="ic"><img src="{{ asset('company.png') }}" alt="Company" style="width: 16px; height: 16px; object-fit: contain; vertical-align: middle; filter: brightness(0) invert(1); opacity: 0.9;"></span> {{ __('messages.profil_koperasi') }}
                     @endif
                 </button>
+                <button onclick="window.location.href='{{ route('pengaturan') }}'">
+                    <span class="ic"><img src="{{ asset('setting.png') }}" alt="Settings" style="width: 16px; height: 16px; object-fit: contain; vertical-align: middle; filter: brightness(0) invert(1); opacity: 0.9;"></span> {{ __('messages.pengaturan') }}
+                </button>
                 <div class="pop-div"></div>
                 <form action="{{ route('logout') }}" method="POST" style="margin:0;">
                     @csrf
                     <button type="submit" class="danger">
-                        <span class="ic"><img src="{{ asset('logout.png') }}" alt="Logout" style="width: 16px; height: 16px; object-fit: contain; vertical-align: middle;"></span> Keluar
+                        <span class="ic"><img src="{{ asset('logout.png') }}" alt="Logout" style="width: 16px; height: 16px; object-fit: contain; vertical-align: middle;"></span> {{ __('messages.keluar_singkat') }}
                     </button>
                 </form>
             </div>

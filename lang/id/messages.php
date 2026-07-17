@@ -272,4 +272,5 @@ return [
     'pemberitahuan_email' => 'Pemberitahuan Email',
     'kirim_pemberitahuan' => 'Kirim pemberitahuan ke email saat ada pembaruan tiket.',
     'simpan_pengaturan' => 'Simpan Pengaturan',
+    'keluar_singkat' => 'Keluar',
 ];
