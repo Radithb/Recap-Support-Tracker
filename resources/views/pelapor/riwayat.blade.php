@@ -114,30 +114,6 @@
                 <div style="font-size: 0.95rem; color: var(--ink); line-height: 1.6; white-space: pre-wrap; background: var(--paper-raised); padding: 16px; border-radius: 8px; border: 1px solid var(--line);">{{ $t->permasalahan }}</div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: var(--paper-sunken); padding: 16px; border-radius: 12px; border: 1px solid var(--line);">
-                <div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Instansi</div>
-                    <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">{{ Auth::user()->instansi->nama_instansi ?? '-' }}</div>
-                </div>
-                <div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">PIC Pelapor</div>
-                    <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">{{ Auth::user()->nama ?? '-' }}</div>
-                </div>
-                <div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Aplikasi</div>
-                    <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">{{ $t->aplikasi->nama_aplikasi ?? '-' }}</div>
-                </div>
-                <div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Kategori</div>
-                    <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">
-                        @if($t->kategori)
-                            <span style="color: #be123c;">{{ $t->kategori->nama_kategori }}</span>
-                        @else
-                            -
-                        @endif
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="modal-foot" style="display: flex; gap: 12px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--line);">
             <button type="button" class="btn btn-ghost" onclick="closeModal('modal-preview-{{ $t->ticket_id }}')">Tutup</button>
