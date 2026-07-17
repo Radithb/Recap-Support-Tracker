@@ -184,4 +184,17 @@ class AuthController extends Controller
 
         return back()->with('success', 'Pengaturan akun berhasil disimpan!');
     }
+
+    public function updateLanguage(Request $request)
+    {
+        $validated = $request->validate([
+            'locale' => ['required', 'string', 'in:id,en'],
+        ]);
+
+        $user = Auth::user();
+        $user->locale = $validated['locale'];
+        $user->save();
+
+        return back()->with('success', 'Preferensi bahasa berhasil diperbarui!');
+    }
 }

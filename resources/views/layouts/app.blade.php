@@ -44,31 +44,31 @@
         <div class="sidebar-menu">
             @if(Auth::check() && Auth::user()->role === \App\Enums\UserRole::SUPPORT)
                 <a href="{{ route('support.dashboard') }}" class="{{ request()->routeIs('support.dashboard') ? 'active' : '' }}">
-                    <span class="ic"><img src="{{ asset('analysis.png') }}" alt=""></span> Dashboard
+                    <span class="ic"><img src="{{ asset('analysis.png') }}" alt=""></span> {{ __('messages.dashboard') }}
                 </a>
                 <a href="{{ route('support.master-data.index') }}" class="{{ request()->routeIs('support.master-data.*') ? 'active' : '' }}">
-                    <span class="ic"><img src="{{ asset('folder.png') }}" alt=""></span> Master Data
+                    <span class="ic"><img src="{{ asset('folder.png') }}" alt=""></span> {{ __('messages.master_data') }}
                 </a>
                 <a href="{{ route('support.recap') }}" class="{{ request()->routeIs('support.recap') ? 'active' : '' }}">
-                    <span class="ic"><img src="{{ asset('file.png') }}" alt=""></span> Rekap Support
+                    <span class="ic"><img src="{{ asset('file.png') }}" alt=""></span> {{ __('messages.recap_laporan') }}
                 </a>
                 
                 <div style="margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);"></div>
                 <a href="{{ route('pengaturan') }}" class="{{ request()->routeIs('pengaturan') ? 'active' : '' }}">
-                    <span class="ic"><img src="{{ asset('setting.png') }}" alt=""></span> Pengaturan
+                    <span class="ic"><img src="{{ asset('setting.png') }}" alt=""></span> {{ __('messages.pengaturan') }}
                 </a>
 
             @else
                 <a href="{{ route('pelapor.dashboard') }}" class="{{ request()->routeIs('pelapor.dashboard') ? 'active' : '' }}">
-                    <span class="ic"><img src="{{ asset('analysis.png') }}" alt=""></span> Dashboard
+                    <span class="ic"><img src="{{ asset('analysis.png') }}" alt=""></span> {{ __('messages.dashboard') }}
                 </a>
                 <a href="{{ route('pelapor.riwayat') }}" class="{{ request()->routeIs('pelapor.riwayat') ? 'active' : '' }}">
-                    <span class="ic"><img src="{{ asset('file.png') }}" alt=""></span> Riwayat Lengkap
+                    <span class="ic"><img src="{{ asset('file.png') }}" alt=""></span> {{ __('messages.riwayat_lengkap') }}
                 </a>
                 
                 <div style="margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);"></div>
                 <a href="{{ route('pengaturan') }}" class="{{ request()->routeIs('pengaturan') ? 'active' : '' }}">
-                    <span class="ic"><img src="{{ asset('setting.png') }}" alt=""></span> Pengaturan
+                    <span class="ic"><img src="{{ asset('setting.png') }}" alt=""></span> {{ __('messages.pengaturan') }}
                 </a>
             @endif
         </div>
@@ -89,7 +89,7 @@
                 </div>
                 <button onclick="window.location.href='{{ Auth::check() && Auth::user()->role === \App\Enums\UserRole::SUPPORT ? route('support.profil.saya') : route('profil.instansi') }}'">
                     @if(Auth::check() && Auth::user()->role === \App\Enums\UserRole::SUPPORT)
-                        <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; opacity: 0.9;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span> Profil Saya
+                        <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; opacity: 0.9;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span> {{ __('messages.profil_saya') }}
                     @else
                         <span class="ic"><img src="{{ asset('company.png') }}" alt="Company" style="width: 16px; height: 16px; object-fit: contain; vertical-align: middle; filter: brightness(0) invert(1); opacity: 0.9;"></span> Profil Koperasi
                     @endif

@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/pengaturan', [AuthController::class, 'pengaturan'])->name('pengaturan');
     Route::put('/pengaturan', [AuthController::class, 'updatePengaturan'])->name('pengaturan.update');
+    Route::post('/pengaturan/bahasa', [AuthController::class, 'updateLanguage'])->name('pengaturan.bahasa');
 });
 
 // Akses Pelapor

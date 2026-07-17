@@ -17,6 +17,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'locale',
         'instansi_id',
         'is_verified',
     ];

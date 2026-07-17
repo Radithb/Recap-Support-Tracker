@@ -28,30 +28,30 @@
         <div class="welcome-banner fade-up" style="animation-delay: 0.1s;">
             <div class="wave">👋</div>
             <div>
-                <h2>Halo, {{ Auth::user()->nama ?? 'User' }}!</h2>
-                <p>Selamat datang di Recap Support Tracker. Bagaimana kami bisa membantu hari ini?</p>
+                <h2>{{ __('messages.halo') }}, {{ Auth::user()->nama ?? 'User' }}!</h2>
+                <p>{{ __('messages.selamat_datang') }}</p>
             </div>
         </div>
 
         <div class="cta-band fade-up" style="animation-delay: 0.15s;">
             <div>
-                <h2>Ada kendala aplikasi hari ini?</h2>
-                <p>Laporkan sekali, pantau statusnya real-time — tim kami menindaklanjuti setiap tiket dari lapor hingga selesai.</p>
+                <h2>{{ __('messages.ada_kendala') }}</h2>
+                <p>{{ __('messages.laporkan_sekali') }}</p>
             </div>
-            <button class="btn btn-amber" onclick="openModal('modal-create')">＋ Buat Laporan Baru</button>
+            <button class="btn btn-amber" onclick="openModal('modal-create')">＋ {{ __('messages.buat_laporan_baru') }}</button>
         </div>
 
         <!-- Statistik Sederhana -->
         <div class="stat-row fade-up" style="animation-delay: 0.2s;">
-            <div class="stat-card"><div class="n" style="color:var(--clay)">{{ $totalOpen }}</div><div class="l">Open / Proses</div></div>
-            <div class="stat-card"><div class="n" style="color:#B8923F">{{ $totalPending }}</div><div class="l">Pending — butuh info</div></div>
-            <div class="stat-card"><div class="n" style="color:var(--sage)">{{ $totalDone }}</div><div class="l">Selesai Total</div></div>
+            <div class="stat-card"><div class="n" style="color:var(--clay)">{{ $totalOpen }}</div><div class="l">{{ __('messages.open_proses') }}</div></div>
+            <div class="stat-card"><div class="n" style="color:#B8923F">{{ $totalPending }}</div><div class="l">{{ __('messages.pending_butuh_info') }}</div></div>
+            <div class="stat-card"><div class="n" style="color:var(--sage)">{{ $totalDone }}</div><div class="l">{{ __('messages.selesai_total') }}</div></div>
         </div>
 
         <div class="fade-up" style="animation-delay: 0.25s;">
             <div>
                 <div class="page-head" style="margin-bottom:14px;">
-                    <div><h1 style="font-size: calc(22px * var(--text-scale, 1));">Riwayat Laporan Anda</h1></div>
+                    <div><h1 style="font-size: calc(22px * var(--text-scale, 1));">{{ __('messages.riwayat_laporan_anda') }}</h1></div>
                 </div>
                 
                 <div class="ticket-list">
@@ -60,7 +60,7 @@
                         <div class="tid">{{ $t->ticket_id }}</div>
                         <div class="main">
                             <h3>{{ $t->permasalahan }}</h3>
-                            <p>{{ $t->penyelesaian ?? 'Belum ada catatan penyelesaian.' }}</p>
+                            <p>{{ $t->penyelesaian ?? __('messages.belum_ada_catatan') }}</p>
                         </div>
                         <div class="meta">{{ $t->aplikasi->nama_aplikasi }} &middot; {{ $t->tanggal_input->format('d M Y') }} &middot; {{ $t->tanggal_input->format('H:i') }}</div>
                         
@@ -76,7 +76,7 @@
                     </div>
                     @empty
                     <div class="ticket-card" style="justify-content:center; padding:30px;">
-                        <p class="eyebrow">Belum ada tiket laporan.</p>
+                        <p class="eyebrow">{{ __('messages.belum_ada_tiket_laporan') }}</p>
                     </div>
                     @endforelse
                 </div>
@@ -90,35 +90,35 @@
 <div class="overlay" id="modal-ticket-{{ $t->ticket_id }}">
     <div class="modal w-sm">
         <div class="modal-head">
-            <div><h3>Detail Laporan</h3><p>{{ $t->ticket_id }}</p></div>
+            <div><h3>{{ __('messages.detail_laporan') }}</h3><p>{{ $t->ticket_id }}</p></div>
             <button type="button" class="modal-x" onclick="closeModal('modal-ticket-{{ $t->ticket_id }}'); event.stopPropagation();">✕</button>
         </div>
         <div class="modal-body">
-            <div class="field"><label>Aplikasi</label><input type="text" value="{{ $t->aplikasi->nama_aplikasi }}" readonly></div>
-            <div class="field"><label>Kategori</label><input type="text" value="{{ $t->kategori->nama_kategori ?? '-' }}" readonly></div>
-            <div class="field"><label>Permasalahan</label><textarea readonly>{{ $t->permasalahan }}</textarea></div>
+            <div class="field"><label>{{ __('messages.aplikasi') }}</label><input type="text" value="{{ $t->aplikasi->nama_aplikasi }}" readonly></div>
+            <div class="field"><label>{{ __('messages.kategori') }}</label><input type="text" value="{{ $t->kategori->nama_kategori ?? '-' }}" readonly></div>
+            <div class="field"><label>{{ __('messages.permasalahan') }}</label><textarea readonly>{{ $t->permasalahan }}</textarea></div>
             @if($t->lampiran)
             <div class="field" style="margin-top: 14px;">
-                <label>Lampiran Bukti</label>
+                <label>{{ __('messages.lampiran_bukti') }}</label>
                 @php $ext = strtolower(pathinfo($t->lampiran, PATHINFO_EXTENSION)); @endphp
                 @if(in_array($ext, ['jpg', 'jpeg', 'png']))
                     <a href="{{ Storage::url($t->lampiran) }}" target="_blank">
                         <img src="{{ Storage::url($t->lampiran) }}" alt="Lampiran" style="max-width: 100%; max-height: 200px; border-radius: 8px; border: 1px solid var(--line); display: block; margin-top: 8px; object-fit: cover;">
                     </a>
-                    <div class="helper" style="margin-top: 4px;">Klik gambar untuk memperbesar.</div>
+                    <div class="helper" style="margin-top: 4px;">{{ __('messages.klik_gambar') }}</div>
                 @elseif($ext === 'mp4')
                     <a href="{{ Storage::url($t->lampiran) }}" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; text-decoration: none;">
-                        <span>🎥</span> Lihat Bukti Video
+                        <span>🎥</span> {{ __('messages.lihat_video') }}
                     </a>
                 @elseif($ext === 'pdf')
                     <a href="{{ Storage::url($t->lampiran) }}" target="_blank" class="btn btn-ghost" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--line); margin-top: 8px; text-decoration: none;">
-                        <span>📄</span> Unduh Dokumen PDF
+                        <span>📄</span> {{ __('messages.unduh_pdf') }}
                     </a>
                 @endif
             </div>
             @endif
-            <div class="field"><label>Penyelesaian Support</label><textarea readonly>{{ $t->penyelesaian }}</textarea></div>
-            <div class="field"><label>Tindakan Pencegahan</label><textarea readonly>{{ $t->pencegahan ?? '-' }}</textarea></div>
+            <div class="field"><label>{{ __('messages.penyelesaian_support') }}</label><textarea readonly>{{ $t->penyelesaian }}</textarea></div>
+            <div class="field"><label>{{ __('messages.tindakan_pencegahan') }}</label><textarea readonly>{{ $t->pencegahan ?? '-' }}</textarea></div>
         </div>
     </div>
 </div>
@@ -128,24 +128,24 @@
 <div class="overlay" id="modal-create">
     <div class="modal w-sm">
         <div class="modal-head">
-            <div><h3>Buat Laporan Baru</h3><p>Jelaskan kendala Anda</p></div>
+            <div><h3>{{ __('messages.buat_laporan_baru') }}</h3><p>{{ __('messages.jelaskan_kendala') }}</p></div>
             <button type="button" class="modal-x" onclick="closeModal('modal-create')">✕</button>
         </div>
         <form action="{{ route('pelapor.tickets.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="modal-body">
                 <div class="field">
-                    <label>Aplikasi Bermasalah</label>
+                    <label>{{ __('messages.aplikasi_bermasalah') }}</label>
                     <select name="aplikasi_id" required>
-                        <option value="">Pilih Aplikasi...</option>
+                        <option value="">{{ __('messages.pilih_aplikasi') }}</option>
                         @foreach($aplikasis as $app)
                             <option value="{{ $app->aplikasi_id }}">{{ $app->nama_aplikasi }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="field">
-                    <label>Deskripsi Kendala</label>
-                    <textarea name="permasalahan" required placeholder="Tuliskan secara detail..."></textarea>
+                    <label>{{ __('messages.deskripsi_kendala') }}</label>
+                    <textarea name="permasalahan" required placeholder="{{ __('messages.tuliskan_detail') }}"></textarea>
                 </div>
                 <div class="field" style="margin-top: 14px;">
                     <label>Upload Lampiran (Opsional)</label>

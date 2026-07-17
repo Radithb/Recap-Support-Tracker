@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page_title', 'Pengaturan')
-@section('page_subtitle', 'Notifikasi, tampilan, bahasa & privasi akun Anda — terpisah dari Profil Saya.')
+@section('page_subtitle', __('messages.subtitle_pengaturan'))
 
 @section('content')
 <div class="pelapor-panel fade-up" style="animation-delay: 0.1s;">
@@ -95,78 +95,99 @@
     </style>
 
     <div style="margin-bottom: 32px; display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;">
-        <button type="button" class="pill-filter active" id="btn-notifikasi" onclick="switchSettingTab('notifikasi')"><span class="icon-mask" style="--mask-url: url('{{ asset('bell.png') }}');"></span> Notifikasi</button>
-        <button type="button" class="pill-filter" id="btn-tampilan" onclick="switchSettingTab('tampilan')"><span class="icon-mask" style="--mask-url: url('{{ asset('application.png') }}');"></span> Personalisasi</button>
-        <button type="button" class="pill-filter" id="btn-bahasa" onclick="switchSettingTab('bahasa')"><span class="icon-mask" style="--mask-url: url('{{ asset('world.png') }}');"></span> Bahasa</button>
-        <button type="button" class="pill-filter" id="btn-akun" onclick="switchSettingTab('akun')"><span class="icon-mask" style="--mask-url: url('{{ asset('padlock.png') }}');"></span> Privasi & Akun</button>
+        <button type="button" class="pill-filter active" id="btn-notifikasi" onclick="switchSettingTab('notifikasi')"><span class="icon-mask" style="--mask-url: url('{{ asset('bell.png') }}');"></span> {{ __('messages.tab_notifikasi') }}</button>
+        <button type="button" class="pill-filter" id="btn-tampilan" onclick="switchSettingTab('tampilan')"><span class="icon-mask" style="--mask-url: url('{{ asset('application.png') }}');"></span> {{ __('messages.tab_personalisasi') }}</button>
+        <button type="button" class="pill-filter" id="btn-bahasa" onclick="switchSettingTab('bahasa')"><span class="icon-mask" style="--mask-url: url('{{ asset('world.png') }}');"></span> {{ __('messages.tab_bahasa') }}</button>
+        <button type="button" class="pill-filter" id="btn-akun" onclick="switchSettingTab('akun')"><span class="icon-mask" style="--mask-url: url('{{ asset('padlock.png') }}');"></span> {{ __('messages.tab_privasi') }}</button>
     </div>
     
     <div class="panel" id="panel-notifikasi" style="padding: 30px; max-width: 100%;">
         <div style="margin-bottom: 32px;">
             <h3 style="font-size: calc(20px * var(--text-scale, 1)); display:flex; align-items:center; gap:8px; margin-bottom:6px;">
-                <span class="icon-mask" style="--mask-url: url('{{ asset('bell.png') }}'); width: 22px; height: 22px;"></span> Pengaturan Notifikasi
+                <span class="icon-mask" style="--mask-url: url('{{ asset('bell.png') }}'); width: 22px; height: 22px;"></span> Pengaturan {{ __('messages.tab_notifikasi') }}
             </h3>
             <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">Atur bagaimana dan kapan Anda ingin menerima pemberitahuan.</p>
         </div>
-        <div style="color: var(--ink-soft); font-style: italic; background: var(--paper-sunken); padding: 16px; border-radius: 8px;">Fitur notifikasi sedang dalam tahap pengembangan...</div>
+        <div style="color: var(--ink-soft); font-style: italic; background: var(--paper-sunken); padding: 16px; border-radius: 8px;">{{ __('messages.desc_notifikasi') }}</div>
     </div>
     
     <div class="panel" id="panel-bahasa" style="padding: 30px; max-width: 100%; display: none;">
         <div style="margin-bottom: 32px;">
             <h3 style="font-size: calc(20px * var(--text-scale, 1)); display:flex; align-items:center; gap:8px; margin-bottom:6px;">
-                <span class="icon-mask" style="--mask-url: url('{{ asset('world.png') }}'); width: 22px; height: 22px;"></span> Pengaturan Bahasa
+                <span class="icon-mask" style="--mask-url: url('{{ asset('world.png') }}'); width: 22px; height: 22px;"></span> {{ __('messages.title_bahasa') }}
             </h3>
-            <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">Pilih bahasa utama untuk antarmuka aplikasi.</p>
+            <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">{{ __('messages.subtitle_bahasa') }}</p>
         </div>
-        <div style="color: var(--ink-soft); font-style: italic; background: var(--paper-sunken); padding: 16px; border-radius: 8px;">Fitur bahasa sedang dalam tahap pengembangan...</div>
+        <form action="{{ route('pengaturan.bahasa') }}" method="POST">
+            @csrf
+            <div style="background: var(--paper-sunken); padding: 20px; border-radius: 12px; border: 1px solid var(--line);">
+                <div class="field" style="margin-bottom: 20px;">
+                    <label style="display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-raised); margin-bottom: 12px; {{ Auth::user()->locale !== 'en' ? 'border-color: var(--primary);' : '' }}">
+                        <input type="radio" name="locale" value="id" {{ Auth::user()->locale !== 'en' ? 'checked' : '' }} style="width: 20px; height: 20px; accent-color: var(--primary);">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; color: var(--ink);">{{ __('messages.tab_bahasa') }} Indonesia</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">{{ __('messages.lang_id_desc') }}</div>
+                        </div>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-raised); {{ Auth::user()->locale === 'en' ? 'border-color: var(--primary);' : '' }}">
+                        <input type="radio" name="locale" value="en" {{ Auth::user()->locale === 'en' ? 'checked' : '' }} style="width: 20px; height: 20px; accent-color: var(--primary);">
+                        <div style="flex: 1;">
+                            <div style="font-weight: 600; color: var(--ink);">{{ __('messages.lang_en') }}</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">Use the interface in {{ __('messages.lang_en') }}</div>
+                        </div>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary" style="padding: 10px 24px;">{{ __('messages.btn_simpan_pref') }}</button>
+            </div>
+        </form>
     </div>
 
     <div class="panel" id="panel-akun" style="padding: 30px; max-width: 100%; display: none;">
         <div style="margin-bottom: 32px;">
             <h3 style="font-size: calc(20px * var(--text-scale, 1)); display:flex; align-items:center; gap:8px;">
-                <span class="icon-mask" style="--mask-url: url('{{ asset('padlock.png') }}'); width: 22px; height: 22px;"></span> Pengaturan Akun
+                <span class="icon-mask" style="--mask-url: url('{{ asset('padlock.png') }}'); width: 22px; height: 22px;"></span> {{ __('messages.title_akun') }}
             </h3>
-            <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">Perbarui informasi profil dan amankan akun Anda dengan kata sandi yang kuat.</p>
+            <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">{{ __('messages.subtitle_akun') }}</p>
         </div>
 
         <form action="{{ route('pengaturan.update') }}" method="POST">
             @csrf
             @method('PUT')
             
-            <h4 style="font-size: calc(16px * var(--text-scale, 1)); margin-bottom: 16px; color:var(--ink); border-bottom: 1px solid var(--line); padding-bottom:12px;">Profil Pengguna</h4>
+            <h4 style="font-size: calc(16px * var(--text-scale, 1)); margin-bottom: 16px; color:var(--ink); border-bottom: 1px solid var(--line); padding-bottom:12px;">{{ __('messages.profil_pengguna') }}</h4>
             
             <div class="field" style="margin-bottom: 18px;">
-                <label>Nama Lengkap (PIC)</label>
-                <input type="text" name="nama" value="{{ old('nama', Auth::user()->nama) }}" placeholder="Masukkan nama lengkap" required>
+                <label>{{ __('messages.label_nama') }}</label>
+                <input type="text" name="nama" value="{{ old('nama', Auth::user()->nama) }}" placeholder="{{ __('messages.placeholder_nama') }}" required>
             </div>
             
             <div class="field" style="margin-bottom: 24px;">
-                <label>Email Akses</label>
-                <input type="email" name="email" value="{{ old('email', Auth::user()->email) }}" placeholder="contoh@koperasi.com" required>
-                <div class="helper">Email ini digunakan untuk login ke sistem Recap Support Tracker.</div>
+                <label>{{ __('messages.label_email') }}</label>
+                <input type="email" name="email" value="{{ old('email', Auth::user()->email) }}" placeholder="{{ __('messages.placeholder_email') }}" required>
+                <div class="helper">{{ __('messages.helper_email') }}</div>
             </div>
 
-            <h4 style="font-size: calc(16px * var(--text-scale, 1)); margin-bottom: 16px; margin-top: 32px; color:var(--ink); border-bottom: 1px solid var(--line); padding-bottom:12px;">Keamanan (Opsional)</h4>
+            <h4 style="font-size: calc(16px * var(--text-scale, 1)); margin-bottom: 16px; margin-top: 32px; color:var(--ink); border-bottom: 1px solid var(--line); padding-bottom:12px;">{{ __('messages.title_keamanan') }}</h4>
             
             <div class="field" style="margin-bottom: 18px;">
-                <label>Kata Sandi Saat Ini</label>
-                <input type="password" name="current_password" placeholder="Masukkan kata sandi lama">
-                <div class="helper">Kosongkan jika Anda tidak ingin mengubah kata sandi.</div>
+                <label>{{ __('messages.label_pass_lama') }}</label>
+                <input type="password" name="current_password" placeholder="{{ __('messages.placeholder_pass_lama') }}">
+                <div class="helper">{{ __('messages.helper_pass_lama') }}</div>
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
                 <div class="field">
-                    <label>Kata Sandi Baru</label>
-                    <input type="password" name="password" placeholder="Minimal 8 karakter">
+                    <label>{{ __('messages.label_pass_baru') }}</label>
+                    <input type="password" name="password" placeholder="{{ __('messages.placeholder_pass_baru') }}">
                 </div>
                 
                 <div class="field">
-                    <label>Konfirmasi Kata Sandi Baru</label>
-                    <input type="password" name="password_confirmation" placeholder="Ulangi kata sandi baru">
+                    <label>Konfirmasi {{ __('messages.label_pass_baru') }}</label>
+                    <input type="password" name="password_confirmation" placeholder="{{ __('messages.placeholder_konfirmasi') }}">
                 </div>
             </div>
 
-            <h4 style="font-size: calc(16px * var(--text-scale, 1)); margin-bottom: 16px; margin-top: 32px; color:var(--ink); border-bottom: 1px solid var(--line); padding-bottom:12px;">Preferensi Notifikasi</h4>
+            <h4 style="font-size: calc(16px * var(--text-scale, 1)); margin-bottom: 16px; margin-top: 32px; color:var(--ink); border-bottom: 1px solid var(--line); padding-bottom:12px;">Preferensi {{ __('messages.tab_notifikasi') }}</h4>
             
             <div style="background: var(--paper-sunken); padding: 16px; border-radius: 8px; border: 1px solid var(--line); margin-bottom: 32px;">
                 <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
@@ -244,7 +265,7 @@
 
         <div style="margin-bottom: 24px;">
             <h3 style="font-size: calc(18px * var(--text-scale, 1)); display:flex; align-items:center; gap:8px; margin-bottom: 6px; color: var(--ink);">
-                <span style="display:inline-block; width: 20px; height: 20px; background-color: var(--ink); -webkit-mask-image: url('{{ asset('application.png') }}'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; mask-image: url('{{ asset('application.png') }}'); mask-size: contain; mask-repeat: no-repeat;"></span> Personalisasi
+                <span style="display:inline-block; width: 20px; height: 20px; background-color: var(--ink); -webkit-mask-image: url('{{ asset('application.png') }}'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; mask-image: url('{{ asset('application.png') }}'); mask-size: contain; mask-repeat: no-repeat;"></span> {{ __('messages.tab_personalisasi') }}
             </h3>
             <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">Pengaturan ini hanya berdampak pada layar Anda sendiri, tidak mengubah tampilan website untuk pengguna lain.</p>
         </div>
