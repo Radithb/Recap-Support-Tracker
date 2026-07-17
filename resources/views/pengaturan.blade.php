@@ -192,8 +192,8 @@
             <div style="background: var(--paper-sunken); padding: 16px; border-radius: 8px; border: 1px solid var(--line); margin-bottom: 32px;">
                 <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
                     <div>
-                        <div style="font-weight: 600; color: var(--ink); font-size: calc(14.5px * var(--text-scale, 1));">Pemberitahuan Email</div>
-                        <div style="font-size: calc(13px * var(--text-scale, 1)); color: var(--text-muted); margin-top:4px;">Kirim pemberitahuan ke email saat ada pembaruan tiket.</div>
+                        <div style="font-weight: 600; color: var(--ink); font-size: calc(14.5px * var(--text-scale, 1));">{{ __('messages.pemberitahuan_email') }}</div>
+                        <div style="font-size: calc(13px * var(--text-scale, 1)); color: var(--text-muted); margin-top:4px;">{{ __('messages.kirim_pemberitahuan') }}</div>
                     </div>
                     <div>
                         <input type="checkbox" checked class="toggle-switch">
@@ -203,7 +203,7 @@
 
             <div style="border-top: 1px solid var(--line); padding-top: 20px; display: flex; justify-content: flex-end;">
                 <button type="submit" class="btn btn-primary" style="padding: 10px 24px; font-weight: 600;">
-                    Simpan Pengaturan
+                    {{ __('messages.simpan_pengaturan') }}
                 </button>
             </div>
         </form>
@@ -267,11 +267,11 @@
             <h3 style="font-size: calc(18px * var(--text-scale, 1)); display:flex; align-items:center; gap:8px; margin-bottom: 6px; color: var(--ink);">
                 <span style="display:inline-block; width: 20px; height: 20px; background-color: var(--ink); -webkit-mask-image: url('{{ asset('application.png') }}'); -webkit-mask-size: contain; -webkit-mask-repeat: no-repeat; mask-image: url('{{ asset('application.png') }}'); mask-size: contain; mask-repeat: no-repeat;"></span> {{ __('messages.tab_personalisasi') }}
             </h3>
-            <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">Pengaturan ini hanya berdampak pada layar Anda sendiri, tidak mengubah tampilan website untuk pengguna lain.</p>
+            <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">{{ __('messages.personalisasi_desc') }}</p>
         </div>
 
         <div>
-            <label style="display:block; font-size: calc(13px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:8px;">Mode Tema</label>
+            <label style="display:block; font-size: calc(13px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:8px;">{{ __('messages.mode_tema') }}</label>
             <div class="segmented-control" id="theme-control">
                 <input type="radio" name="theme" id="theme-light" value="light">
                 <label for="theme-light">
@@ -284,21 +284,21 @@
                 </label>
             </div>
             
-            <label style="display:block; font-size: calc(13px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:8px;">Ukuran Teks</label>
+            <label style="display:block; font-size: calc(13px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:8px;">{{ __('messages.ukuran_teks') }}</label>
             <div class="segmented-control" id="font-control" style="margin-bottom: 8px;">
                 <input type="radio" name="font_size" id="font-small" value="small">
-                <label for="font-small">Kecil</label>
+                <label for="font-small">{{ __('messages.kecil') }}</label>
                 
                 <input type="radio" name="font_size" id="font-medium" value="medium">
-                <label for="font-medium">Sedang</label>
+                <label for="font-medium">{{ __('messages.sedang') }}</label>
 
                 <input type="radio" name="font_size" id="font-large" value="large">
-                <label for="font-large">Besar</label>
+                <label for="font-large">{{ __('messages.besar') }}</label>
             </div>
-            <div class="helper" style="margin-bottom: 32px;">Membantu anggota koperasi yang sudah lanjut usia agar lebih mudah membaca balasan tim support.</div>
+            <div class="helper" style="margin-bottom: 32px;">{{ __('messages.membantu_anggota') }}</div>
 
             <button type="button" onclick="applyPersonalization()" class="btn btn-amber" style="padding: 10px 24px; font-weight: 600; background: #e11d48; color: white;">
-                Terapkan Tampilan
+                {{ __('messages.terapkan_tampilan') }}
             </button>
         </div>
     </div>
@@ -367,7 +367,7 @@
         var alertDiv = document.createElement('div');
         alertDiv.className = 'alert-dismiss fade-up';
         alertDiv.style.cssText = 'position:fixed; top: 20px; right: 20px; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--sage-soft); color: var(--sage); border-radius: 8px; font-size: calc(13.5px * var(--text-scale, 1)); font-weight: 600; border: 1px solid rgba(46, 125, 82, 0.2); z-index: 9999; transition: opacity 0.6s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.1);';
-        alertDiv.innerHTML = '<span>Berhasil menerapkan tampilan personal!</span><button type="button" onclick="this.parentElement.remove()" style="background: none; border: none; color: var(--sage); cursor: pointer; font-size: calc(18px * var(--text-scale, 1)); font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>';
+        alertDiv.innerHTML = '<span>{{ __('messages.berhasil_terapkan') }}</span><button type="button" onclick="this.parentElement.remove()" style="background: none; border: none; color: var(--sage); cursor: pointer; font-size: calc(18px * var(--text-scale, 1)); font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>';
         document.body.appendChild(alertDiv);
         
         setTimeout(function() {

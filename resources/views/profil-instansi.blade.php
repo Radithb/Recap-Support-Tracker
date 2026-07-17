@@ -116,13 +116,13 @@
                     @method('PUT')
                     
                     <div class="field">
-                        <label>Nama Koperasi</label>
+                        <label>{{ __('messages.nama_koperasi') }}</label>
                         <input type="text" value="{{ Auth::user()->instansi->nama_instansi ?? '-' }}" readonly style="background: var(--paper-sunken); color: var(--ink-soft); cursor: not-allowed;" title="Nama Koperasi tidak dapat diubah">
                         <div class="helper">Nama koperasi telah ditetapkan saat registrasi. Hubungi Support jika ingin mengubahnya.</div>
                     </div>
                     
                     <div class="field" style="margin-top: 18px;">
-                        <label>Alamat Lengkap</label>
+                        <label>{{ __('messages.alamat_lengkap') }}</label>
                         <textarea name="alamat" rows="3" placeholder="Masukkan alamat lengkap koperasi..." required>{{ Auth::user()->instansi->alamat ?? '' }}</textarea>
                     </div>
                     

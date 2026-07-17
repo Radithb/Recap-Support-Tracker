@@ -16,12 +16,12 @@ class UserVerificationController extends Controller
     {
         // Hanya user pelapor yang belum diverifikasi yang bisa diverifikasi
         if ($user->role !== UserRole::PELAPOR || $user->is_verified) {
-            return back()->with('error', 'Akun tidak valid untuk diverifikasi.');
+            return back()->with('error', __('messages.invalid_verify'));
         }
 
         $user->update(['is_verified' => true]);
 
-        return back()->with('success', "Akun \"{$user->nama}\" berhasil diverifikasi.");
+        return back()->with('success', __('messages.akun_verified', ['name' => $user->nama]));
     }
 
     /**
@@ -31,7 +31,7 @@ class UserVerificationController extends Controller
     {
         // Hanya user pelapor yang belum diverifikasi yang bisa ditolak
         if ($user->role !== UserRole::PELAPOR || $user->is_verified) {
-            return back()->with('error', 'Akun tidak valid untuk ditolak.');
+            return back()->with('error', __('messages.invalid_reject'));
         }
 
         $userName = $user->nama;
@@ -46,6 +46,6 @@ class UserVerificationController extends Controller
             }
         });
 
-        return back()->with('success', "Akun \"{$userName}\" berhasil ditolak dan dihapus.");
+        return back()->with('success', __('messages.akun_rejected', ['name' => $userName]));
     }
 }

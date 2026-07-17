@@ -101,7 +101,7 @@
             <!-- VIEW MODE -->
             <div id="view-mode" class="fade-up" style="animation-delay: 0.25s;">
                 <div style="margin-bottom: 24px;">
-                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Nama Lengkap</label>
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.nama_lengkap') }}</label>
                     <h4 style="font-size: calc(16px * var(--text-scale, 1)); color: var(--ink); margin: 0;">{{ Auth::user()->nama ?? '-' }}</h4>
                 </div>
                 <div style="margin-bottom: 24px;">
@@ -127,7 +127,7 @@
                     @method('PUT')
                     
                     <div class="field">
-                        <label>Nama Lengkap</label>
+                        <label>{{ __('messages.nama_lengkap') }}</label>
                         <input type="text" name="nama" value="{{ Auth::user()->nama ?? '' }}" required placeholder="Masukkan nama lengkap Anda">
                     </div>
                     
@@ -137,7 +137,7 @@
                     </div>
                     
                     <div class="field" style="margin-top: 18px; border-top: 1px dashed var(--line); padding-top: 18px;">
-                        <label>Kata Sandi Saat Ini</label>
+                        <label>{{ __('messages.kata_sandi_saat_ini') }}</label>
                         <input type="password" name="current_password" placeholder="Masukkan kata sandi saat ini (wajib jika ingin mengubah password)">
                         <div class="helper">Wajib diisi sebagai verifikasi keamanan sebelum Anda mengubah kata sandi.</div>
                     </div>
@@ -149,13 +149,13 @@
                     </div>
                     
                     <div class="field" style="margin-top: 18px;">
-                        <label>Konfirmasi Kata Sandi Baru</label>
+                        <label>{{ __('messages.konfirmasi_sandi_baru') }}</label>
                         <input type="password" name="password_confirmation" placeholder="Ulangi kata sandi baru">
                     </div>
                     
                     <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line);">
                         <button type="button" class="btn btn-ghost" onclick="toggleEditMode(false)" style="padding: 10px 20px;">Batal</button>
-                        <button type="submit" class="btn btn-primary" style="padding: 10px 20px;">Simpan Perubahan</button>
+                        <button type="submit" class="btn btn-primary" style="padding: 10px 20px;">{{ __('messages.simpan_perubahan') }}</button>
                     </div>
                 </form>
             </div>

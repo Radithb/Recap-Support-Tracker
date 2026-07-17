@@ -55,7 +55,7 @@ class TicketController extends Controller
             'status' => TicketStatus::OPEN->value,
         ]);
 
-        return back()->with('success', 'Tiket berhasil dibuat!');
+        return back()->with('success', __('messages.ticket_created'));
     }
 
     // --- SUPPORT METHODS ---
@@ -109,6 +109,6 @@ class TicketController extends Controller
 
         $ticket->update($data);
 
-        return back()->with('success', 'Status tiket diperbarui.');
+        return back()->with('success', __('messages.ticket_updated'));
     }
 }

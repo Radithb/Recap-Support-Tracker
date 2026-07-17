@@ -28,7 +28,7 @@ class MasterDataController extends Controller
             'is_active' => true
         ]);
 
-        return back()->with('success', 'Master Aplikasi berhasil ditambahkan.');
+        return back()->with('success', __('messages.app_added'));
     }
 
     public function storeKategori(Request $request)
@@ -41,6 +41,6 @@ class MasterDataController extends Controller
             'nama_kategori' => $request->nama_kategori
         ]);
 
-        return back()->with('success', 'Master Kategori berhasil ditambahkan.');
+        return back()->with('success', __('messages.cat_added'));
     }
 }

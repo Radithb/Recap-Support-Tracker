@@ -87,7 +87,7 @@ class AuthController extends Controller
             ]);
         });
 
-        return redirect('/login')->with('success', 'Pendaftaran berhasil! Akun Anda akan diverifikasi oleh Tim Support sebelum dapat digunakan.');
+        return redirect('/login')->with('success', __('messages.reg_success'));
     }
 
     public function logout(Request $request)
@@ -120,7 +120,7 @@ class AuthController extends Controller
             }
         }
 
-        return back()->with('success', 'Profil Koperasi berhasil diperbarui!');
+        return back()->with('success', __('messages.koperasi_updated'));
     }
 
     public function showProfilSaya()
@@ -151,7 +151,7 @@ class AuthController extends Controller
 
         $user->save();
 
-        return back()->with('success', 'Profil Anda berhasil diperbarui!');
+        return back()->with('success', __('messages.profil_updated'));
     }
 
     public function pengaturan()
@@ -182,7 +182,7 @@ class AuthController extends Controller
 
         $user->save();
 
-        return back()->with('success', 'Pengaturan akun berhasil disimpan!');
+        return back()->with('success', __('messages.akun_saved'));
     }
 
     public function updateLanguage(Request $request)
@@ -195,6 +195,6 @@ class AuthController extends Controller
         $user->locale = $validated['locale'];
         $user->save();
 
-        return back()->with('success', 'Preferensi bahasa berhasil diperbarui!');
+        return back()->with('success', __('messages.bahasa_updated'));
     }
 }

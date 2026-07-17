@@ -55,26 +55,26 @@
 
 <div class="page-head fade-up" style="animation-delay: 0.1s;">
     <div>
-        <p class="eyebrow">Dashboard Support</p>
-        <h1>Manajemen Laporan</h1>
+        <p class="eyebrow">{{ __('messages.dashboard_support') }}</p>
+        <h1>{{ __('messages.manajemen_laporan') }}</h1>
     </div>
     <div>
-        <a href="{{ route('support.recap') }}" class="btn btn-amber">Buka Menu Rekapitulasi</a>
+        <a href="{{ route('support.recap') }}" class="btn btn-amber">{{ __('messages.buka_rekapitulasi') }}</a>
     </div>
 </div>
 
 <div class="toolbar fade-up" style="animation-delay: 0.15s;">
     <div class="search">
         <img src="{{ asset('magnifying-glass.png') }}" alt="Search" style="width: 14px; height: 14px; margin-right: 8px; vertical-align: middle; opacity: 0.4; filter: grayscale(100%);">
-        <input type="text" placeholder="Cari tiket, instansi..." style="border:none; background:transparent; width:100%; outline:none;" id="search-input">
+        <input type="text" placeholder="{{ __('messages.cari_tiket') }}" style="border:none; background:transparent; width:100%; outline:none;" id="search-input">
     </div>
     <form id="filter-form" action="{{ route('support.dashboard') }}" method="GET" style="margin:0;">
         <select name="status" onchange="document.getElementById('filter-form').submit()" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); font-family: var(--font-body); font-weight: 500; color: var(--ink); background: var(--paper-raised); cursor: pointer; outline:none;">
-            <option value="">Semua Status</option>
+            <option value="">{{ __('messages.semua_status') }}</option>
             <option value="Open" {{ request('status') == 'Open' ? 'selected' : '' }}>Open</option>
             <option value="Proses" {{ request('status') == 'Proses' ? 'selected' : '' }}>Proses</option>
             <option value="Pending" {{ request('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
-            <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>Selesai</option>
+            <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>{{ __('messages.selesai') }}</option>
         </select>
     </form>
 </div>
@@ -87,14 +87,14 @@
         </div>
         <div style="display: flex; flex-direction: column; gap: 4px;">
             <div style="font-weight: 700; color: #92400e; font-size: 1.1rem; display: flex; align-items: center; gap: 8px;">
-                Permintaan Verifikasi Akun
-                <span style="background: #ef4444; color: white; font-size: 0.75rem; padding: 2px 8px; border-radius: 12px; font-weight: 600; letter-spacing: 0.5px;">{{ $pendingUsers->count() }} BARU</span>
+                {{ __('messages.permintaan_verifikasi') }}
+                <span style="background: #ef4444; color: white; font-size: 0.75rem; padding: 2px 8px; border-radius: 12px; font-weight: 600; letter-spacing: 0.5px;">{{ $pendingUsers->count() }} {{ __('messages.baru') }}</span>
             </div>
-            <div style="color: #b45309; font-size: 0.9rem;">Ada {{ $pendingUsers->count() }} akun pelapor baru yang sedang menunggu persetujuan Anda.</div>
+            <div style="color: #b45309; font-size: 0.9rem;">{{ __('messages.akun_menunggu', ['count' => $pendingUsers->count()]) }}</div>
         </div>
     </div>
     <button class="btn" style="background: #f59e0b; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(245, 158, 11, 0.3);" onmouseover="this.style.background='#d97706'" onmouseout="this.style.background='#f59e0b'" onclick="openModal('modal-verify')">
-        Lihat & Verifikasi
+        {{ __('messages.lihat_verifikasi') }}
     </button>
 </div>
 @endif
@@ -103,14 +103,14 @@
 <table class="tickets" id="tickets-table" style="min-width: 1100px;">
     <thead>
         <tr>
-            <th style="text-transform: uppercase;">Tiket</th>
-            <th style="text-transform: uppercase;">Nama Koperasi</th>
-            <th style="text-transform: uppercase;">PIC Koperasi</th>
-            <th style="text-transform: uppercase;">Aplikasi</th>
-            <th style="text-transform: uppercase;">Kategori</th>
-            <th style="text-transform: uppercase;">PIC Support</th>
-            <th width="100" style="text-transform: uppercase;">Status</th>
-            <th width="120" style="text-transform: uppercase;">Tanggal</th>
+            <th style="text-transform: uppercase;">{{ __('messages.col_tiket') }}</th>
+            <th style="text-transform: uppercase;">{{ __('messages.col_nama_koperasi') }}</th>
+            <th style="text-transform: uppercase;">{{ __('messages.col_pic_koperasi') }}</th>
+            <th style="text-transform: uppercase;">{{ __('messages.col_aplikasi') }}</th>
+            <th style="text-transform: uppercase;">{{ __('messages.col_kategori') }}</th>
+            <th style="text-transform: uppercase;">{{ __('messages.col_pic_support') }}</th>
+            <th width="100" style="text-transform: uppercase;">{{ __('messages.col_status') }}</th>
+            <th width="120" style="text-transform: uppercase;">{{ __('messages.col_tanggal') }}</th>
             <th width="80"></th>
         </tr>
     </thead>
@@ -176,9 +176,9 @@
             </td>
             <td>
                 @if($t->status === \App\Enums\TicketStatus::DONE)
-                    <button class="btn btn-ghost btn-sm" disabled style="cursor: not-allowed; opacity: 0.5;" title="Tiket sudah diselesaikan">Selesai</button>
+                    <button class="btn btn-ghost btn-sm" disabled style="cursor: not-allowed; opacity: 0.5;" title="{{ __('messages.tiket_selesai_desc') }}">{{ __('messages.selesai') }}</button>
                 @else
-                    <button class="btn btn-ghost btn-sm" onclick="openModal('modal-edit-{{ $t->ticket_id }}')">Respons</button>
+                    <button class="btn btn-ghost btn-sm" onclick="openModal('modal-edit-{{ $t->ticket_id }}')">{{ __('messages.respons') }}</button>
                 @endif
             </td>
         </tr>
@@ -262,11 +262,11 @@
             </div>
         </div>
         <div class="modal-foot" style="display: flex; gap: 12px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--line);">
-            <button type="button" class="btn btn-ghost" onclick="closeModal('modal-preview-{{ $t->ticket_id }}')">Tutup</button>
+            <button type="button" class="btn btn-ghost" onclick="closeModal('modal-preview-{{ $t->ticket_id }}')">{{ __('messages.tutup') }}</button>
             @if($t->status === \App\Enums\TicketStatus::DONE)
-                <button type="button" class="btn btn-primary" disabled style="cursor: not-allowed; opacity: 0.5;" title="Tiket sudah diselesaikan">Selesai</button>
+                <button type="button" class="btn btn-primary" disabled style="cursor: not-allowed; opacity: 0.5;" title="{{ __('messages.tiket_selesai_desc') }}">{{ __('messages.selesai') }}</button>
             @else
-                <button type="button" class="btn btn-primary" onclick="closeModal('modal-preview-{{ $t->ticket_id }}'); openModal('modal-edit-{{ $t->ticket_id }}')">Respons Tiket</button>
+                <button type="button" class="btn btn-primary" onclick="closeModal('modal-preview-{{ $t->ticket_id }}'); openModal('modal-edit-{{ $t->ticket_id }}')">{{ __('messages.respons_tiket') }}</button>
             @endif
         </div>
     </div>
@@ -388,7 +388,7 @@
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><line x1="19" y1="8" x2="19" y2="14"></line><line x1="22" y1="11" x2="16" y2="11"></line></svg>
                 </div>
                 <div>
-                    <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--ink); margin-bottom: 4px;">Verifikasi Akun Pelapor</h3>
+                    <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--ink); margin-bottom: 4px;">{{ __('messages.verifikasi_akun') }}</h3>
                     <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0; font-family: inherit;">Setujui atau tolak akun pelapor baru yang baru saja mendaftar.</p>
                 </div>
             </div>
@@ -442,7 +442,7 @@
             </table>
         </div>
         <div class="modal-foot">
-            <button type="button" class="btn btn-ghost" onclick="closeModal('modal-verify')">Tutup</button>
+            <button type="button" class="btn btn-ghost" onclick="closeModal('modal-verify')">{{ __('messages.tutup') }}</button>
         </div>
     </div>
 </div>

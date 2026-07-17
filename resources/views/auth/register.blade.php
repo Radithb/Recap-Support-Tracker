@@ -65,10 +65,10 @@
                     {{-- Header --}}
                     <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:22px;">
                         <div>
-                            <h1 style="font-family:var(--font-display); font-size: calc(22px * var(--text-scale, 1)); font-weight:600; margin:0 0 4px; color:var(--ink);">Daftar Akun Baru</h1>
-                            <p style="margin:0; font-size: calc(13px * var(--text-scale, 1)); color:var(--ink-soft); font-family:var(--font-mono);">Untuk perwakilan koperasi / instansi mitra (Pelapor)</p>
+                            <h1 style="font-family:var(--font-display); font-size: calc(22px * var(--text-scale, 1)); font-weight:600; margin:0 0 4px; color:var(--ink);">{{ __('messages.daftar_akun_baru') }}</h1>
+                            <p style="margin:0; font-size: calc(13px * var(--text-scale, 1)); color:var(--ink-soft); font-family:var(--font-mono);">{{ __('messages.untuk_perwakilan') }}</p>
                         </div>
-                        <a href="{{ route('login') }}" style="color:var(--ink-soft); font-size: calc(20px * var(--text-scale, 1)); text-decoration:none; line-height:1;" title="Kembali ke Login">&times;</a>
+                        <a href="{{ route('login') }}" style="color:var(--ink-soft); font-size: calc(20px * var(--text-scale, 1)); text-decoration:none; line-height:1;" title="{{ __('messages.kembali_ke_login') }}">&times;</a>
                     </div>
 
                     {{-- Flash message sukses --}}
@@ -93,8 +93,8 @@
                         {{-- Baris 1: Nama Koperasi & Nama PIC --}}
                         <div class="register-grid">
                             <div class="field {{ $errors->has('nama_instansi') ? 'field-error' : '' }}">
-                                <label for="nama_instansi">Nama Koperasi / Instansi</label>
-                                <input type="text" id="nama_instansi" name="nama_instansi" value="{{ old('nama_instansi') }}" placeholder="cth. Koperasi Kredit Sejahtera" required>
+                                <label for="nama_instansi">{{ __('messages.nama_koperasi_instansi') }}</label>
+                                <input type="text" id="nama_instansi" name="nama_instansi" value="{{ old('nama_instansi') }}" placeholder="{{ __('messages.cth_koperasi') }}" required>
                                 @error('nama_instansi')
                                     <span class="field-error-msg">{{ $message }}</span>
                                 @enderror
@@ -118,7 +118,7 @@
                                 @enderror
                             </div>
                             <div class="field {{ $errors->has('no_hp') ? 'field-error' : '' }}">
-                                <label for="no_hp">No. HP / WhatsApp</label>
+                                <label for="no_hp">{{ __('messages.no_hp_whatsapp') }}</label>
                                 <input type="text" id="no_hp" name="no_hp" value="{{ old('no_hp') }}" placeholder="08xx-xxxx-xxxx" required>
                                 @error('no_hp')
                                     <span class="field-error-msg">{{ $message }}</span>
@@ -126,17 +126,17 @@
                             </div>
                         </div>
 
-                        {{-- Baris 3: Kata Sandi & Konfirmasi --}}
+                        {{-- Baris 3: {{ __('messages.password') }} & Konfirmasi --}}
                         <div class="register-grid">
                             <div class="field {{ $errors->has('password') ? 'field-error' : '' }}">
-                                <label for="password">Kata Sandi</label>
-                                <input type="password" id="password" name="password" placeholder="Minimal 8 karakter" required>
+                                <label for="password">{{ __('messages.password') }}</label>
+                                <input type="password" id="password" name="password" placeholder="{{ __('messages.min_8_karakter') }}" required>
                                 @error('password')
                                     <span class="field-error-msg">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="field {{ $errors->has('password_confirmation') ? 'field-error' : '' }}">
-                                <label for="password_confirmation">Konfirmasi Kata Sandi</label>
+                                <label for="password_confirmation">Konfirmasi {{ __('messages.password') }}</label>
                                 <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Ulangi kata sandi" required>
                                 @error('password_confirmation')
                                     <span class="field-error-msg">{{ $message }}</span>
@@ -151,7 +151,7 @@
 
                         {{-- Tombol aksi --}}
                         <div class="register-actions">
-                            <a href="{{ route('login') }}" class="btn btn-ghost" style="flex:1; justify-content:center;">Sudah punya akun? Masuk</a>
+                            <a href="{{ route('login') }}" class="btn btn-ghost" style="flex:1; justify-content:center;">{{ __('messages.sudah_punya_akun') }} Masuk</a>
                             <button type="submit" class="btn btn-primary" style="flex:1; justify-content:center;">Daftar Akun</button>
                         </div>
                     </form>

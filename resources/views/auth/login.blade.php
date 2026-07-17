@@ -43,7 +43,7 @@
     <div class="content-wrap" id="actual-content" style="width: 100%; display: none; flex-direction: column; min-height: 100vh;">
         <div class="site-nav fade-up" style="animation-delay: 0.1s;">
             <div class="wm"><img src="{{ asset('logo.png') }}" alt="Logo" style="width: 24px; height: 24px; object-fit: contain;">Recap Support Tracker</div>
-            <div class="site-nav-tag">Ekosistem SAKTI.Link / SiCUNDO — PT Sakti Kinerja Kolaborasindo</div>
+            <div class="site-nav-tag">{{ __('messages.ekosistem') }}</div>
         </div>
 
         <div class="login-stage">
@@ -59,9 +59,9 @@
                 </div>
 
                 <div class="login-panel-card fade-up" style="animation-delay: 0.2s;">
-                    <p class="eyebrow">Masuk ke Akun</p>
+                    <p class="eyebrow">{{ __('messages.masuk_ke_akun') }}</p>
                     <h1>Login</h1>
-                    <p class="lede">Masukkan email dan kata sandi Anda.</p>
+                    <p class="lede">{{ __('messages.masukkan_email_sandi') }}</p>
 
                     {{-- Tampilkan error login --}}
                     @if($errors->any())
@@ -82,14 +82,14 @@
                             <input type="email" name="email" placeholder="nama@koperasi.id" required>
                         </div>
                         <div class="field">
-                            <label>Kata Sandi</label>
+                            <label>{{ __('messages.password') }}</label>
                             <input type="password" name="password" placeholder="••••••••" required>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Masuk ke Dashboard</button>
+                        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">{{ __('messages.masuk_ke_dashboard') }}</button>
                     </form>
 
                     <div class="register-prompt">
-                        Sudah mempunyai akun? Jika belum, <a href="{{ route('register') }}">segera daftar</a>
+                        {{ __('messages.sudah_mempunyai_akun') }}<a href="{{ route('register') }}">{{ __('messages.segera_daftar') }}</a>
                     </div>
                 </div>
                 
