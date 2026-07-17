@@ -156,9 +156,9 @@
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: [__('messages.jan'), __('messages.feb'), __('messages.mar'), __('messages.apr'), 'MEI', 'JUN', 'JUL', 'AGU', 'SEP', 'OKT', __('messages.nov'), 'DES'],
+                    labels: ["{{ __('messages.jan') }}", "{{ __('messages.feb') }}", "{{ __('messages.mar') }}", "{{ __('messages.apr') }}", "{{ __('messages.may') }}", "{{ __('messages.jun') }}", "{{ __('messages.jul') }}", "{{ __('messages.aug') }}", "{{ __('messages.sep') }}", "{{ __('messages.oct') }}", "{{ __('messages.nov') }}", "{{ __('messages.dec') }}"],
                     datasets: [{
-                        label: 'Jumlah Tiket',
+                        label: "{{ __('messages.jumlah_tiket') }}",
                         data: @json($chartData),
                         backgroundColor: document.documentElement.classList.contains('dark-mode') ? '#3A3A40' : '#e2e8f0',
                         borderWidth: 0,
