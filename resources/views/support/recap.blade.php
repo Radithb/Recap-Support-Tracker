@@ -44,7 +44,7 @@
     </div>
 </div>
 
-<div class="glass-panel fade-up" style="animation-delay: 0.15s; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+<div class="glass-panel fade-up" style="animation-delay: 0.15s; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
     <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem;">
         <div>
             <h3 style="margin: 0; font-size: 1.25rem; color: var(--ink);">Rekap Tiket Bulanan</h3>
@@ -68,25 +68,25 @@
     @php
         $totalTickets = array_sum($chartData);
     @endphp
-    <div style="background: #f1f5f9; border-radius: 8px; padding: 1rem 1.5rem; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">
+    <div style="background: var(--paper-sunken); border-radius: 8px; padding: 1rem 1.5rem; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 2rem;">
         Menampilkan rekap tahun <strong>{{ $year }}</strong> &mdash; total <strong>{{ $totalTickets }}</strong> tiket dari Januari&ndash;Desember.
     </div>
 
 
 </div>
 
-<div class="glass-panel fade-up" style="animation-delay: 0.2s; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; margin-bottom: 2rem;">
+<div class="glass-panel fade-up" style="animation-delay: 0.2s; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; margin-bottom: 2rem;">
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
         <div>
             <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">Rekap Support {{ $year }}</h3>
             <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Terekap otomatis berdasarkan kategori tiket yang telah diproses oleh Tim Support.</p>
         </div>
-        <span class="badge" style="background: var(--ink); color: #fff; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">{{ $year }}</span>
+        <span class="badge" style="background: var(--ink); color: var(--paper-raised); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">{{ $year }}</span>
     </div>
     
     <div style="overflow-x: auto;">
         <table style="width: 100%; border-collapse: collapse; min-width: 800px;">
-            <thead style="background: #f1f5f9;">
+            <thead style="background: var(--paper-sunken);">
                 <tr>
                     <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Kategori</th>
                     @php $months = ['JAN','FEB','MAR','APR','MAY','JUNE','JULY','AUG','SEPT','OCT','NOV','DEC']; @endphp
@@ -110,7 +110,7 @@
                             {{ $catData['months'][$m] > 0 ? $catData['months'][$m] : '-' }}
                         </td>
                     @endfor
-                    <td style="padding: 1rem 1.5rem; text-align: center; font-weight: 700; color: var(--ink); font-size: 0.9rem; background: #f8fafc;">
+                    <td style="padding: 1rem 1.5rem; text-align: center; font-weight: 700; color: var(--ink); font-size: 0.9rem; background: var(--paper-sunken);">
                         {{ $catData['total_year'] }}
                         @php $grandTotal += $catData['total_year']; @endphp
                     </td>
@@ -160,7 +160,7 @@
                     datasets: [{
                         label: 'Jumlah Tiket',
                         data: @json($chartData),
-                        backgroundColor: '#e2e8f0',
+                        backgroundColor: document.documentElement.classList.contains('dark-mode') ? '#3A3A40' : '#e2e8f0',
                         borderWidth: 0,
                         borderRadius: 4
                     }]

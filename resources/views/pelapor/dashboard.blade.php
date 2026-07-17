@@ -51,7 +51,7 @@
         <div class="fade-up" style="animation-delay: 0.25s;">
             <div>
                 <div class="page-head" style="margin-bottom:14px;">
-                    <div><h1 style="font-size:22px;">Riwayat Laporan Anda</h1></div>
+                    <div><h1 style="font-size: calc(22px * var(--text-scale, 1));">Riwayat Laporan Anda</h1></div>
                 </div>
                 
                 <div class="ticket-list">
@@ -149,7 +149,7 @@
                 </div>
                 <div class="field" style="margin-top: 14px;">
                     <label>Upload Lampiran (Opsional)</label>
-                    <input type="file" name="lampiran" accept=".jpg,.jpeg,.png,.mp4,.pdf" style="width:100%; font-size:13px; font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;">
+                    <input type="file" name="lampiran" accept=".jpg,.jpeg,.png,.mp4,.pdf" style="width:100%; font-size: calc(13px * var(--text-scale, 1)); font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;">
                     <div class="helper">Format: JPG, PNG, MP4, PDF (Maksimal 5MB)</div>
                 </div>
             </div>

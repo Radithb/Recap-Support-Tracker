@@ -16,7 +16,7 @@
     <div class="content-wrap" id="actual-content" style="display:none;">
         <div class="page-head fade-up" style="animation-delay: 0.1s; margin-bottom:24px;">
             <div>
-                <h1 style="font-size:24px;">Semua Riwayat Laporan</h1>
+                <h1 style="font-size: calc(24px * var(--text-scale, 1));">Semua Riwayat Laporan</h1>
             </div>
         </div>
 

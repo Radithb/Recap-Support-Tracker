@@ -65,25 +65,25 @@
                     {{-- Header --}}
                     <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:22px;">
                         <div>
-                            <h1 style="font-family:var(--font-display); font-size:22px; font-weight:600; margin:0 0 4px; color:var(--ink);">Daftar Akun Baru</h1>
-                            <p style="margin:0; font-size:13px; color:var(--ink-soft); font-family:var(--font-mono);">Untuk perwakilan koperasi / instansi mitra (Pelapor)</p>
+                            <h1 style="font-family:var(--font-display); font-size: calc(22px * var(--text-scale, 1)); font-weight:600; margin:0 0 4px; color:var(--ink);">Daftar Akun Baru</h1>
+                            <p style="margin:0; font-size: calc(13px * var(--text-scale, 1)); color:var(--ink-soft); font-family:var(--font-mono);">Untuk perwakilan koperasi / instansi mitra (Pelapor)</p>
                         </div>
-                        <a href="{{ route('login') }}" style="color:var(--ink-soft); font-size:20px; text-decoration:none; line-height:1;" title="Kembali ke Login">&times;</a>
+                        <a href="{{ route('login') }}" style="color:var(--ink-soft); font-size: calc(20px * var(--text-scale, 1)); text-decoration:none; line-height:1;" title="Kembali ke Login">&times;</a>
                     </div>
 
                     {{-- Flash message sukses --}}
                     @if(session('success'))
-                        <div id="register-success" class="alert-dismiss" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--sage-soft); color: var(--sage); border-radius: 8px; margin-bottom: 18px; font-size: 13px; font-weight: 600; border: 1px solid rgba(46, 125, 82, 0.2); transition: opacity 0.6s ease, transform 0.6s ease;">
+                        <div id="register-success" class="alert-dismiss" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--sage-soft); color: var(--sage); border-radius: 8px; margin-bottom: 18px; font-size: calc(13px * var(--text-scale, 1)); font-weight: 600; border: 1px solid rgba(46, 125, 82, 0.2); transition: opacity 0.6s ease, transform 0.6s ease;">
                             <span>{{ session('success') }}</span>
-                            <button type="button" onclick="document.getElementById('register-success').style.display='none'" style="background: none; border: none; color: var(--sage); cursor: pointer; font-size: 18px; font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
+                            <button type="button" onclick="document.getElementById('register-success').style.display='none'" style="background: none; border: none; color: var(--sage); cursor: pointer; font-size: calc(18px * var(--text-scale, 1)); font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
                         </div>
                     @endif
 
                     {{-- Flash message error global --}}
                     @if(session('error'))
-                        <div id="register-error" class="alert-dismiss" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--amber-soft); color: var(--amber); border-radius: 8px; margin-bottom: 18px; font-size: 13px; font-weight: 600; border: 1px solid rgba(220, 53, 69, 0.2); transition: opacity 0.6s ease, transform 0.6s ease;">
+                        <div id="register-error" class="alert-dismiss" style="display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--amber-soft); color: var(--amber); border-radius: 8px; margin-bottom: 18px; font-size: calc(13px * var(--text-scale, 1)); font-weight: 600; border: 1px solid rgba(220, 53, 69, 0.2); transition: opacity 0.6s ease, transform 0.6s ease;">
                             <span>{{ session('error') }}</span>
-                            <button type="button" onclick="document.getElementById('register-error').style.display='none'" style="background: none; border: none; color: var(--amber); cursor: pointer; font-size: 18px; font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
+                            <button type="button" onclick="document.getElementById('register-error').style.display='none'" style="background: none; border: none; color: var(--amber); cursor: pointer; font-size: calc(18px * var(--text-scale, 1)); font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
                         </div>
                     @endif
 

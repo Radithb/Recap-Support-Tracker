@@ -49,7 +49,7 @@
     <div class="content-wrap" id="actual-content" style="display: none;">
         
         <div class="fade-up" style="margin-bottom: 24px; animation-delay: 0.1s;">
-            <a href="{{ Auth::user()->role === 'support' ? route('support.dashboard') : route('pelapor.dashboard') }}" class="btn btn-ghost" style="padding: 8px 16px; border: 1px solid var(--line); background: white;">
+            <a href="{{ Auth::user()->role === 'support' ? route('support.dashboard') : route('pelapor.dashboard') }}" class="btn btn-ghost" style="padding: 8px 16px; border: 1px solid var(--line); background: var(--paper-raised);">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="display:inline-block; margin-right: 6px; vertical-align:-2px;">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
@@ -61,43 +61,43 @@
             <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom: 24px;">
                 <div>
                     <h3 style="display:flex; align-items:center; gap:8px; margin-bottom: 8px;">
-                        <span style="font-size: 24px;"><img src="{{ asset('company.png') }}" alt="Company" style="width: 28px; height: 28px; object-fit: contain; vertical-align: middle;"></span> Profil Koperasi
+                        <span style="font-size: calc(24px * var(--text-scale, 1));"><img src="{{ asset('company.png') }}" alt="Company" style="width: 28px; height: 28px; object-fit: contain; vertical-align: middle;"></span> Profil Koperasi
                     </h3>
                     <p class="sub" style="margin-bottom:0;">Data KOPERASI · terhubung ke akun Anda</p>
                 </div>
             </div>
             
             @if(session('success'))
-                <div id="success-alert" class="alert-dismiss fade-up" style="animation-delay: 0.2s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--sage-soft); color: var(--sage); border-radius: 8px; margin-bottom: 24px; font-size: 13.5px; font-weight: 600; border: 1px solid rgba(46, 125, 82, 0.2); transition: opacity 0.6s ease, transform 0.6s ease;">
+                <div id="success-alert" class="alert-dismiss fade-up" style="animation-delay: 0.2s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--sage-soft); color: var(--sage); border-radius: 8px; margin-bottom: 24px; font-size: calc(13.5px * var(--text-scale, 1)); font-weight: 600; border: 1px solid rgba(46, 125, 82, 0.2); transition: opacity 0.6s ease, transform 0.6s ease;">
                     <span>{{ session('success') }}</span>
-                    <button type="button" onclick="document.getElementById('success-alert').style.display='none'" style="background: none; border: none; color: var(--sage); cursor: pointer; font-size: 18px; font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
+                    <button type="button" onclick="document.getElementById('success-alert').style.display='none'" style="background: none; border: none; color: var(--sage); cursor: pointer; font-size: calc(18px * var(--text-scale, 1)); font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
                 </div>
             @endif
 
             <!-- VIEW MODE -->
             <div id="view-mode" class="fade-up" style="animation-delay: 0.25s;">
                 <div style="margin-bottom: 24px;">
-                    <label style="display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Nama Koperasi</label>
-                    <h4 style="font-size: 16px; color: var(--ink); margin: 0;">{{ Auth::user()->instansi->nama_instansi ?? '-' }}</h4>
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Nama Koperasi</label>
+                    <h4 style="font-size: calc(16px * var(--text-scale, 1)); color: var(--ink); margin: 0;">{{ Auth::user()->instansi->nama_instansi ?? '-' }}</h4>
                 </div>
                 <div style="margin-bottom: 24px;">
-                    <label style="display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Alamat Lengkap</label>
-                    <p style="color: var(--ink); line-height: 1.6; margin: 0; font-size: 14.5px;">{{ Auth::user()->instansi->alamat ?? '-' }}</p>
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Alamat Lengkap</label>
+                    <p style="color: var(--ink); line-height: 1.6; margin: 0; font-size: calc(14.5px * var(--text-scale, 1));">{{ Auth::user()->instansi->alamat ?? '-' }}</p>
                 </div>
                 <div style="margin-bottom: 32px;">
-                    <label style="display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Nomor Telepon</label>
-                    <div class="mono" style="color: var(--ink); font-size: 14.5px;">{{ Auth::user()->instansi->no_telp ?? '-' }}</div>
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Nomor Telepon</label>
+                    <div class="mono" style="color: var(--ink); font-size: calc(14.5px * var(--text-scale, 1));">{{ Auth::user()->instansi->no_telp ?? '-' }}</div>
                 </div>
 
                 <div style="margin-bottom: 32px;">
-                    <label style="display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:8px;">Aplikasi yang Digunakan</label>
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:8px;">Aplikasi yang Digunakan</label>
                     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                         @if(Auth::user()->instansi && Auth::user()->instansi->aplikasis->count() > 0)
                             @foreach(Auth::user()->instansi->aplikasis as $app)
-                                <span style="background: #e0f2fe; color: #0284c7; padding: 6px 12px; border-radius: 20px; font-size: 13px; font-weight: 600;">{{ $app->nama_aplikasi }}</span>
+                                <span style="background: #e0f2fe; color: #0284c7; padding: 6px 12px; border-radius: 20px; font-size: calc(13px * var(--text-scale, 1)); font-weight: 600;">{{ $app->nama_aplikasi }}</span>
                             @endforeach
                         @else
-                            <span style="color: var(--text-muted); font-size: 14px;">Belum ada aplikasi yang dipilih.</span>
+                            <span style="color: var(--text-muted); font-size: calc(14px * var(--text-scale, 1));">Belum ada aplikasi yang dipilih.</span>
                         @endif
                     </div>
                 </div>
@@ -143,7 +143,7 @@
                                     {{ $app->nama_aplikasi }}
                                 </label>
                             @empty
-                                <div style="color: var(--text-muted); font-size: 13px;">Belum ada master aplikasi tersedia.</div>
+                                <div style="color: var(--text-muted); font-size: calc(13px * var(--text-scale, 1));">Belum ada master aplikasi tersedia.</div>
                             @endforelse
                         </div>
                         <div class="helper">Pilih aplikasi yang digunakan oleh Koperasi Anda.</div>

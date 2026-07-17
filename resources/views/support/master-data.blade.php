@@ -19,7 +19,7 @@
         </div>
         
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start;">
-            <div class="skel-panel" style="padding: 0; background: #fff; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;">
+            <div class="skel-panel" style="padding: 0; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; overflow: hidden;">
                 <div style="padding: 1.5rem; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center;">
                     <div>
                         <div class="skel" style="width: 140px; height: 16px; border-radius: 4px; margin-bottom: 8px;"></div>
@@ -42,7 +42,7 @@
                     @endfor
                 </div>
             </div>
-            <div class="skel-panel" style="padding: 0; background: #fff; border: 1px solid var(--line); border-radius: 12px; overflow: hidden;">
+            <div class="skel-panel" style="padding: 0; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; overflow: hidden;">
                 <div style="padding: 1.5rem; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center;">
                     <div>
                         <div class="skel" style="width: 140px; height: 16px; border-radius: 4px; margin-bottom: 8px;"></div>
@@ -82,7 +82,7 @@
         </div>
 
         <div class="grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start;">
-            <div class="glass-panel fade-up" style="animation-delay: 0.15s; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden;">
+            <div class="glass-panel fade-up" style="animation-delay: 0.15s; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden;">
                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
                     <div>
                         <h3 style="margin: 0; font-size: 1rem; color: var(--ink);">Master Aplikasi</h3>
@@ -92,7 +92,7 @@
                 </div>
                 <div style="max-height: 350px; overflow-y: auto;">
                     <table style="width: 100%; border-collapse: collapse;">
-                        <thead style="background: #f1f5f9; position: sticky; top: 0; z-index: 10;">
+                        <thead style="background: var(--paper-sunken); position: sticky; top: 0; z-index: 10;">
                             <tr>
                                 <th style="padding: 0.75rem 1.5rem; text-align: left; font-size: 0.7rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Nama Aplikasi</th>
                                 <th style="padding: 0.75rem 1.5rem; text-align: left; font-size: 0.7rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Deskripsi</th>
@@ -129,7 +129,7 @@
                 </div>
             </div>
 
-            <div class="glass-panel fade-up" style="animation-delay: 0.2s; background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden;">
+            <div class="glass-panel fade-up" style="animation-delay: 0.2s; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden;">
                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
                     <div>
                         <h3 style="margin: 0; font-size: 1rem; color: var(--ink);">Master Kategori</h3>
@@ -139,7 +139,7 @@
                 </div>
                 <div style="max-height: 350px; overflow-y: auto;">
                     <table style="width: 100%; border-collapse: collapse;">
-                        <thead style="background: #f1f5f9; position: sticky; top: 0; z-index: 10;">
+                        <thead style="background: var(--paper-sunken); position: sticky; top: 0; z-index: 10;">
                             <tr>
                                 <th style="padding: 0.75rem 1.5rem; text-align: left; font-size: 0.7rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Nama Kategori</th>
                                 <th style="padding: 0.75rem 1.5rem; text-align: right; font-size: 0.7rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Jumlah Tiket</th>

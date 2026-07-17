@@ -60,7 +60,7 @@
     <div class="content-wrap" id="actual-content" style="display: none;">
         
         <div class="fade-up" style="margin-bottom: 24px; animation-delay: 0.1s;">
-            <a href="{{ route('support.dashboard') }}" class="btn btn-ghost" style="padding: 8px 16px; border: 1px solid var(--line); background: white;">
+            <a href="{{ route('support.dashboard') }}" class="btn btn-ghost" style="padding: 8px 16px; border: 1px solid var(--line); background: var(--paper-raised);">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="display:inline-block; margin-right: 6px; vertical-align:-2px;">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
@@ -72,7 +72,7 @@
             <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom: 24px;">
                 <div>
                     <h3 style="display:flex; align-items:center; gap:8px; margin-bottom: 8px;">
-                        <span style="font-size: 24px;">
+                        <span style="font-size: calc(24px * var(--text-scale, 1));">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                         </span> Profil Saya
                     </h3>
@@ -81,36 +81,36 @@
             </div>
             
             @if(session('success'))
-                <div id="success-alert" class="alert-dismiss fade-up" style="animation-delay: 0.2s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--sage-soft); color: var(--sage); border-radius: 8px; margin-bottom: 24px; font-size: 13.5px; font-weight: 600; border: 1px solid rgba(46, 125, 82, 0.2); transition: opacity 0.6s ease, transform 0.6s ease;">
+                <div id="success-alert" class="alert-dismiss fade-up" style="animation-delay: 0.2s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--sage-soft); color: var(--sage); border-radius: 8px; margin-bottom: 24px; font-size: calc(13.5px * var(--text-scale, 1)); font-weight: 600; border: 1px solid rgba(46, 125, 82, 0.2); transition: opacity 0.6s ease, transform 0.6s ease;">
                     <span>{{ session('success') }}</span>
-                    <button type="button" onclick="document.getElementById('success-alert').style.display='none'" style="background: none; border: none; color: var(--sage); cursor: pointer; font-size: 18px; font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
+                    <button type="button" onclick="document.getElementById('success-alert').style.display='none'" style="background: none; border: none; color: var(--sage); cursor: pointer; font-size: calc(18px * var(--text-scale, 1)); font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
                 </div>
             @endif
             
             @if($errors->any())
-                <div id="error-alert" class="alert-dismiss fade-up" style="animation-delay: 0.2s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: #fee2e2; color: #dc2626; border-radius: 8px; margin-bottom: 24px; font-size: 13.5px; font-weight: 600; border: 1px solid rgba(220, 38, 38, 0.2);">
+                <div id="error-alert" class="alert-dismiss fade-up" style="animation-delay: 0.2s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: #fee2e2; color: #dc2626; border-radius: 8px; margin-bottom: 24px; font-size: calc(13.5px * var(--text-scale, 1)); font-weight: 600; border: 1px solid rgba(220, 38, 38, 0.2);">
                     <ul style="margin: 0; padding-left: 20px;">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
                         @endforeach
                     </ul>
-                    <button type="button" onclick="document.getElementById('error-alert').style.display='none'" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: 18px; font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
+                    <button type="button" onclick="document.getElementById('error-alert').style.display='none'" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: calc(18px * var(--text-scale, 1)); font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
                 </div>
             @endif
 
             <!-- VIEW MODE -->
             <div id="view-mode" class="fade-up" style="animation-delay: 0.25s;">
                 <div style="margin-bottom: 24px;">
-                    <label style="display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Nama Lengkap</label>
-                    <h4 style="font-size: 16px; color: var(--ink); margin: 0;">{{ Auth::user()->nama ?? '-' }}</h4>
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Nama Lengkap</label>
+                    <h4 style="font-size: calc(16px * var(--text-scale, 1)); color: var(--ink); margin: 0;">{{ Auth::user()->nama ?? '-' }}</h4>
                 </div>
                 <div style="margin-bottom: 24px;">
-                    <label style="display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Email Utama</label>
-                    <p class="mono" style="color: var(--ink); line-height: 1.6; margin: 0; font-size: 14.5px;">{{ Auth::user()->email ?? '-' }}</p>
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Email Utama</label>
+                    <p class="mono" style="color: var(--ink); line-height: 1.6; margin: 0; font-size: calc(14.5px * var(--text-scale, 1));">{{ Auth::user()->email ?? '-' }}</p>
                 </div>
                 <div style="margin-bottom: 32px;">
-                    <label style="display:block; font-size:12px; font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Kata Sandi (Password)</label>
-                    <div style="color: var(--text-muted); font-size: 14.5px; font-style: italic;">******** (Tersembunyi)</div>
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Kata Sandi (Password)</label>
+                    <div style="color: var(--text-muted); font-size: calc(14.5px * var(--text-scale, 1)); font-style: italic;">******** (Tersembunyi)</div>
                 </div>
                 
                 <div style="border-top: 1px solid var(--line); padding-top: 20px;">
