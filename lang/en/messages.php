@@ -223,7 +223,7 @@ return [
     'email_salah' => 'Incorrect email or password.',
     'masuk_ke_dashboard' => 'Enter Dashboard',
     'sudah_mempunyai_akun' => 'Don\'t have an account yet? ',
-    'segera_daftar' => 'register now',
+    'segera_daftar' => 'Register now',
     'daftar_akun_baru' => 'Register New Account',
     'untuk_perwakilan' => 'For partner cooperative / company representatives (Reporter)',
     'kembali_ke_login' => 'Back to Login',
