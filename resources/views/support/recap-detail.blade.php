@@ -67,7 +67,7 @@
                         
                         <td style="padding: 12px 16px; text-align: center;">
                             @if($t->kategori)
-                                <span style="background: rgba(217, 119, 108, 0.15); color: #c0564a; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">
+                                <span style="background: rgba(217, 119, 108, 0.15); color: #c0564a; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; display: inline-block;">
                                     {{ $t->kategori->nama_kategori }}
                                 </span>
                             @else
@@ -97,19 +97,23 @@
                         </td>
                         
                         <td style="padding: 12px 16px; text-align: center;">
-                            @if($t->status->value === 'Done' || $t->status === 'Done')
-                                <span style="background: #dcfce7; color: #16a34a; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
-                                    <span style="width: 6px; height: 6px; border-radius: 50%; background: #16a34a;"></span> Done
-                                </span>
-                            @elseif($t->status->value === 'On Progress' || $t->status === 'On Progress')
-                                <span style="background: #fef9c3; color: #ca8a04; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
-                                    <span style="width: 6px; height: 6px; border-radius: 50%; background: #ca8a04;"></span> Progress
-                                </span>
-                            @else
-                                <span style="background: var(--paper-sunken); color: var(--text-muted); padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
-                                    <span style="width: 6px; height: 6px; border-radius: 50%; background: var(--text-muted);"></span> {{ $t->status->value ?? $t->status }}
-                                </span>
-                            @endif
+                            @php
+                                $statusVal = $t->status->value ?? $t->status;
+                                $statusLower = strtolower($statusVal);
+                                
+                                if ($statusLower === 'done') {
+                                    $bg = '#dcfce7'; $color = '#16a34a'; // Hijau
+                                } elseif ($statusLower === 'pending') {
+                                    $bg = '#fef9c3'; $color = '#ca8a04'; // Kuning
+                                } elseif ($statusLower === 'proses' || $statusLower === 'on progress' || $statusLower === 'open') {
+                                    $bg = '#fee2e2'; $color = '#dc2626'; // Merah
+                                } else {
+                                    $bg = 'var(--paper-sunken)'; $color = 'var(--text-muted)'; // Default abu-abu
+                                }
+                            @endphp
+                            <span style="background: {{ $bg }}; color: {{ $color }}; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;">
+                                <span style="width: 6px; height: 6px; border-radius: 50%; background: {{ $color }};"></span> {{ $statusVal }}
+                            </span>
                         </td>
                         
                         <td style="padding: 12px 16px;">
