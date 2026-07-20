@@ -4,8 +4,33 @@
 @section('page_subtitle', 'internal.ptskk.id')
 
 @section('content')
-<div class="pelapor-panel active fade-up" style="animation-delay: 0.1s;">
-    <div class="glass-panel" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
+<div class="pelapor-panel">
+    {{-- SKELETON LOADING STATE --}}
+    <div class="skeleton-wrap" id="skeleton-loading">
+        <div class="skel-panel" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; max-width: 100%;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+                <div>
+                    <div class="skel" style="width: 250px; height: 28px; border-radius: 6px; margin-bottom: 12px;"></div>
+                    <div class="skel" style="width: 450px; height: 14px; border-radius: 4px;"></div>
+                </div>
+                <div style="display: flex; gap: 1rem;">
+                    <div class="skel" style="width: 100px; height: 32px; border-radius: 20px;"></div>
+                    <div class="skel" style="width: 100px; height: 32px; border-radius: 20px;"></div>
+                    <div class="skel" style="width: 120px; height: 32px; border-radius: 20px;"></div>
+                </div>
+            </div>
+            
+            <div class="skel" style="width: 100%; height: 400px; border-radius: 8px; margin-bottom: 1.5rem;"></div>
+            
+            <div>
+                <div class="skel" style="width: 180px; height: 32px; border-radius: 6px;"></div>
+            </div>
+        </div>
+    </div>
+
+    {{-- ACTUAL CONTENT --}}
+    <div class="content-wrap" id="actual-content" style="display: none;">
+        <div class="glass-panel fade-up" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; animation-delay: 0.1s;">
         
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
             <div>
@@ -141,5 +166,19 @@
             <a href="{{ route('support.recap') }}" class="btn btn-ghost" style="padding: 8px 16px; font-size: 0.85rem;">&larr; Kembali ke Rekap Support</a>
         </div>
     </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const skeleton = document.getElementById('skeleton-loading');
+            const content  = document.getElementById('actual-content');
+            if(skeleton && content) {
+                setTimeout(function () {
+                    skeleton.style.display = 'none';
+                    content.style.display = 'block';
+                    content.classList.add('loaded');
+                }, 800);
+            }
+        });
+    </script>
 </div>
 @endsection
