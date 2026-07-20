@@ -16,8 +16,8 @@
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
             <!-- Telepon -->
             <div style="border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 16px;">
-                <div style="background: var(--brand-primary-soft); width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px;">
-                    📞
+                <div style="background: var(--brand-primary-soft); width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                    <img src="{{ asset('telephone.png') }}" alt="Telepon" style="width: 22px; height: 22px; object-fit: contain;">
                 </div>
                 <div>
                     <div style="font-weight: 700; font-size: 14px; color: var(--ink);">Telepon</div>
@@ -27,8 +27,8 @@
             
             <!-- Email -->
             <div style="border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 16px;">
-                <div style="background: var(--brand-primary-soft); width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px;">
-                    ✉️
+                <div style="background: var(--brand-primary-soft); width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                    <img src="{{ asset('mail.png') }}" alt="Email" style="width: 22px; height: 22px; object-fit: contain;">
                 </div>
                 <div>
                     <div style="font-weight: 700; font-size: 14px; color: var(--ink);">Email</div>
@@ -38,8 +38,8 @@
             
             <!-- WhatsApp -->
             <div style="border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 16px;">
-                <div style="background: var(--brand-primary-soft); width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px;">
-                    🟢
+                <div style="background: var(--brand-primary-soft); width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+                    <img src="{{ asset('whatsapp.png') }}" alt="WhatsApp" style="width: 22px; height: 22px; object-fit: contain;">
                 </div>
                 <div>
                     <div style="font-weight: 700; font-size: 14px; color: var(--ink);">WhatsApp</div>
