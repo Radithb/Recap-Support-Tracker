@@ -95,20 +95,9 @@
     </style>
 
     <div style="margin-bottom: 32px; display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;">
-        <button type="button" class="pill-filter active" id="btn-notifikasi" onclick="switchSettingTab('notifikasi')"><span class="icon-mask" style="--mask-url: url('{{ asset('bell.png') }}');"></span> {{ __('messages.tab_notifikasi') }}</button>
-        <button type="button" class="pill-filter" id="btn-tampilan" onclick="switchSettingTab('tampilan')"><span class="icon-mask" style="--mask-url: url('{{ asset('application.png') }}');"></span> {{ __('messages.tab_personalisasi') }}</button>
+        <button type="button" class="pill-filter active" id="btn-tampilan" onclick="switchSettingTab('tampilan')"><span class="icon-mask" style="--mask-url: url('{{ asset('application.png') }}');"></span> {{ __('messages.tab_personalisasi') }}</button>
         <button type="button" class="pill-filter" id="btn-bahasa" onclick="switchSettingTab('bahasa')"><span class="icon-mask" style="--mask-url: url('{{ asset('world.png') }}');"></span> {{ __('messages.tab_bahasa') }}</button>
         <button type="button" class="pill-filter" id="btn-akun" onclick="switchSettingTab('akun')"><span class="icon-mask" style="--mask-url: url('{{ asset('padlock.png') }}');"></span> {{ __('messages.tab_privasi') }}</button>
-    </div>
-    
-    <div class="panel" id="panel-notifikasi" style="padding: 30px; max-width: 100%;">
-        <div style="margin-bottom: 32px;">
-            <h3 style="font-size: calc(20px * var(--text-scale, 1)); display:flex; align-items:center; gap:8px; margin-bottom:6px;">
-                <span class="icon-mask" style="--mask-url: url('{{ asset('bell.png') }}'); width: 22px; height: 22px;"></span> {{ __('messages.title_notifikasi') }}
-            </h3>
-            <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">{{ __('messages.subtitle_notifikasi') }}</p>
-        </div>
-        <div style="color: var(--ink-soft); font-style: italic; background: var(--paper-sunken); padding: 16px; border-radius: 8px;">{{ __('messages.desc_notifikasi') }}</div>
     </div>
     
     <div class="panel" id="panel-bahasa" style="padding: 30px; max-width: 100%; display: none;">
@@ -185,20 +174,6 @@
                     <label>Konfirmasi {{ __('messages.label_pass_baru') }}</label>
                     <input type="password" name="password_confirmation" placeholder="{{ __('messages.placeholder_konfirmasi') }}">
                 </div>
-            </div>
-
-            <h4 style="font-size: calc(16px * var(--text-scale, 1)); margin-bottom: 16px; margin-top: 32px; color:var(--ink); border-bottom: 1px solid var(--line); padding-bottom:12px;">Preferensi {{ __('messages.tab_notifikasi') }}</h4>
-            
-            <div style="background: var(--paper-sunken); padding: 16px; border-radius: 8px; border: 1px solid var(--line); margin-bottom: 32px;">
-                <label style="display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
-                    <div>
-                        <div style="font-weight: 600; color: var(--ink); font-size: calc(14.5px * var(--text-scale, 1));">{{ __('messages.pemberitahuan_email') }}</div>
-                        <div style="font-size: calc(13px * var(--text-scale, 1)); color: var(--text-muted); margin-top:4px;">{{ __('messages.kirim_pemberitahuan') }}</div>
-                    </div>
-                    <div>
-                        <input type="checkbox" checked class="toggle-switch">
-                    </div>
-                </label>
             </div>
 
             <div style="border-top: 1px solid var(--line); padding-top: 20px; display: flex; justify-content: flex-end;">
@@ -317,12 +292,12 @@
         if (fontRadio) fontRadio.checked = true;
 
         // Initialize active settings tab
-        var activeTab = localStorage.getItem('settings_active_tab') || 'notifikasi';
+        var activeTab = localStorage.getItem('settings_active_tab') || 'tampilan';
         switchSettingTab(activeTab);
     });
 
     function switchSettingTab(tab) {
-        var tabs = ['notifikasi', 'tampilan', 'bahasa', 'akun'];
+        var tabs = ['tampilan', 'bahasa', 'akun'];
         tabs.forEach(function(t) {
             var panel = document.getElementById('panel-' + t);
             if (!panel && t === 'tampilan') panel = document.getElementById('panel-tampilan-personal');
