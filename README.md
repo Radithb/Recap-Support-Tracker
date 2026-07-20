@@ -53,7 +53,7 @@ Untuk menjalankan proyek ini di lingkungan lokal Anda, ikuti langkah-langkah ber
    Aplikasi akan berjalan di `http://localhost:8000`.
 
 ## 🎨 Cuplikan Antarmuka (Screenshots)
-*(Tambahkan gambar screenshot aplikasi di sini nantinya)*
+*()*
 
 ---
 *Dibuat untuk mempermudah operasional pengelolaan tiket layanan bantuan.*
