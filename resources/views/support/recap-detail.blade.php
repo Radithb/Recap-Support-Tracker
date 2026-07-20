@@ -27,7 +27,7 @@
                     </select>
                 </form>
                 
-                <div style="background: #1e3a8a; color: white; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">
+                <div style="background: #1e3a8a; color: white; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 600; white-space: nowrap;">
                     Jumlah Data: {{ count($tickets) }}
                 </div>
             </div>
