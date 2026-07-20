@@ -68,38 +68,13 @@ class MasterDataController extends Controller
             count($statuses)
         );
 
-        $filename = "Master_Data_Export_" . date('Ymd_His') . ".csv";
-        $headers = [
-            "Content-type"        => "text/csv",
-            "Content-Disposition" => "attachment; filename=$filename",
-            "Pragma"              => "no-cache",
-            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
-            "Expires"             => "0"
-        ];
+        $filename = "Master_Data_Export_" . date('Ymd_His') . ".xls";
 
-        $columns = ['Nama Koperasi', 'Jenis Case', 'Jenis Aplikasi', 'PIC TIM SUPPORT', 'Status'];
-
-        $callback = function() use($aplikasis, $kategoris, $instansis, $supportPics, $statuses, $columns, $maxRows) {
-            $file = fopen('php://output', 'w');
-            
-            // Add BOM for Excel UTF-8 compatibility
-            fputs($file, "\xEF\xBB\xBF");
-            fputcsv($file, $columns, ';');
-
-            for ($i = 0; $i < $maxRows; $i++) {
-                $row = [
-                    isset($instansis[$i]) ? $instansis[$i]->nama_instansi : '',
-                    isset($kategoris[$i]) ? $kategoris[$i]->nama_kategori : '',
-                    isset($aplikasis[$i]) ? $aplikasis[$i]->nama_aplikasi : '',
-                    isset($supportPics[$i]) ? $supportPics[$i]->nama : '',
-                    isset($statuses[$i]) ? $statuses[$i]->value : ''
-                ];
-                fputcsv($file, $row, ';');
-            }
-
-            fclose($file);
-        };
-
-        return response()->stream($callback, 200, $headers);
+        return response(view('support.exports.master-data', compact(
+            'aplikasis', 'kategoris', 'instansis', 'supportPics', 'statuses', 'maxRows'
+        )))->withHeaders([
+            'Content-Type' => 'application/vnd.ms-excel',
+            'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+        ]);
     }
 }
