@@ -121,6 +121,7 @@ return [
     'tidak_ada_kategori' => 'No category data.',
     'rekap_support' => 'Support Recap',
     'total_keseluruhan' => 'Grand Total',
+    'total_keseluruhan_tiket_tahun' => 'Grand total of <strong>:total</strong> tickets in the year :year.',
     'kategori_head' => 'Category',
     'jan' => 'JAN',
     'feb' => 'FEB',

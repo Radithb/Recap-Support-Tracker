@@ -134,7 +134,7 @@
     </div>
     
     <div style="padding: 1rem 1.5rem; color: var(--text-muted); font-size: 0.85rem;">
-        Total keseluruhan <strong>{{ $grandTotal }}</strong> tiket pada tahun {{ $year }}.
+        {!! __('messages.total_keseluruhan_tiket_tahun', ['total' => $grandTotal, 'year' => $year]) !!}
     </div>
 </div>
 
