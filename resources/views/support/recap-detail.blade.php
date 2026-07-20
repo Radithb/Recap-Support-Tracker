@@ -59,7 +59,7 @@
         </div>
 
         <div style="overflow-x: auto; border: 1px solid var(--line); border-radius: 8px;">
-            <table style="width: 100%; border-collapse: collapse; min-width: 1500px; font-size: 0.85rem;">
+            <table id="recap-table" style="width: 100%; border-collapse: collapse; min-width: 1500px; font-size: 0.85rem;">
                 <thead>
                     <tr style="background: #1e3a8a; color: white;">
                         <th style="padding: 12px 16px; text-align: center; font-weight: 600; text-transform: uppercase;">NO</th>
@@ -162,12 +162,177 @@
             </table>
         </div>
         
-        <div style="margin-top: 1.5rem;">
+        <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
             <a href="{{ route('support.recap') }}" class="btn btn-ghost" style="padding: 8px 16px; font-size: 0.85rem;">&larr; Kembali ke Rekap Support</a>
+            
+            <button onclick="exportTableToExcel('recap-table', 'Laporan_Detail_Support_{{ $monthName }}_{{ $year }}')" class="btn btn-primary" style="background: #10b981; color: white; border: none; padding: 8px 16px; font-size: 0.85rem; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-weight: 600; cursor: pointer; transition: background 0.3s ease;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
+                </svg>
+                Export Excel
+            </button>
         </div>
     </div>
     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script>
+        function exportTableToExcel(tableID, filename = ''){
+            const workbook = new ExcelJS.Workbook();
+            const sheet = workbook.addWorksheet("{{ strtoupper($monthName) }} {{ $year }}");
+
+            // 1. Add Title & Subtitle
+            sheet.mergeCells('A1:N1');
+            const titleCell = sheet.getCell('A1');
+            titleCell.value = "Laporan Detail Support {{ $monthName }} {{ $year }}";
+            titleCell.font = { bold: true, size: 12 };
+            titleCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFD9EAD3' } }; // Light green background
+            titleCell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
+
+            sheet.mergeCells('A2:N2');
+            const subCell = sheet.getCell('A2');
+            subCell.value = "Jumlah Data: {{ count($tickets) }}";
+            subCell.font = { bold: true };
+            subCell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
+
+            // 2. Add Main Table Headers
+            const mainHeaders = ["NO", "NAMA KOPERASI", "PIC KOPERASI", "TANGGAL", "PERMASALAHAN", "PENYELESAIAN", "PENCEGAHAN", "TANGGAL", "KATEGORI", "PIC", "FAQ", "STATUS CASE", "LINK TICKET", "KET"];
+            
+            for(let i=1; i<=14; i++) {
+                let cell = sheet.getRow(3).getCell(i);
+                cell.value = mainHeaders[i-1];
+                cell.font = { bold: true };
+                cell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
+                cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFEFEFEF' } };
+                cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+            }
+
+            // 3. Add Main Data
+            var mainData = [];
+            @foreach($tickets as $index => $t)
+                @php
+                    $statusVal = $t->status->value ?? $t->status;
+                    $kategoriVal = $t->kategori ? $t->kategori->nama_kategori : '-';
+                    $picVal = $t->picSupport ? $t->picSupport->nama : '-';
+                    $isFaq = $t->is_faq ? 'TRUE' : 'FALSE';
+                @endphp
+                mainData.push([
+                    "{{ $index + 1 }}",
+                    "{!! addslashes(str_replace(["\r", "\n"], " ", $t->pelapor->instansi->nama_instansi ?? ($t->pelapor->nama ?? '-'))) !!}",
+                    "{!! addslashes(str_replace(["\r", "\n"], " ", $t->pelapor->nama ?? '-')) !!}",
+                    "{{ $t->tanggal_input ? $t->tanggal_input->format('d-m-Y') : '-' }}",
+                    "{!! addslashes(str_replace(["\r", "\n"], " ", $t->permasalahan ?? '-')) !!}",
+                    "{!! addslashes(str_replace(["\r", "\n"], " ", $t->penyelesaian ?? '-')) !!}",
+                    "{!! addslashes(str_replace(["\r", "\n"], " ", $t->pencegahan ?? '-')) !!}",
+                    "{{ $t->tanggal_penyelesaian ? $t->tanggal_penyelesaian->format('d-m-Y') : '-' }}",
+                    "{{ $kategoriVal }}",
+                    "{{ $picVal }}",
+                    "{{ $isFaq }}",
+                    "{{ $statusVal }}",
+                    "{!! addslashes($t->link_ticket ?? '-') !!}",
+                    "-"
+                ]);
+            @endforeach
+
+            for(let i=0; i<mainData.length; i++) {
+                let row = sheet.getRow(4+i);
+                for(let c=0; c<14; c++) {
+                    let cell = row.getCell(c+1);
+                    cell.value = mainData[i][c];
+                    cell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
+                    cell.alignment = { vertical: 'top', wrapText: true };
+                }
+            }
+
+            // 4. Add Summary Table (Starting at column P = 16)
+            @php
+                $rekapKategori = [];
+                foreach($tickets as $t) {
+                    $kat = $t->kategori ? $t->kategori->nama_kategori : '-';
+                    $stat = strtolower($t->status->value ?? $t->status);
+                    
+                    if(!isset($rekapKategori[$kat])) {
+                        $rekapKategori[$kat] = ['total' => 0, 'done' => 0, 'pending' => 0, 'proses' => 0];
+                    }
+                    
+                    $rekapKategori[$kat]['total']++;
+                    if($stat === 'done') $rekapKategori[$kat]['done']++;
+                    elseif($stat === 'pending') $rekapKategori[$kat]['pending']++;
+                    elseif(in_array($stat, ['proses', 'on progress', 'open'])) $rekapKategori[$kat]['proses']++;
+                }
+            @endphp
+
+            var summaryData = [];
+            var sumTotal = 0, sumDone = 0, sumPending = 0, sumProses = 0;
+            @foreach($rekapKategori as $kat => $data)
+                summaryData.push(["{!! addslashes($kat) !!}", {{ $data['total'] }}, {{ $data['done'] }}, {{ $data['pending'] }}, {{ $data['proses'] }}]);
+                sumTotal += {{ $data['total'] }};
+                sumDone += {{ $data['done'] }};
+                sumPending += {{ $data['pending'] }};
+                sumProses += {{ $data['proses'] }};
+            @endforeach
+            
+            // Add summary headers at P3..T3
+            const sumHeaders = ["KATEGORI", "TOTAL", "DONE", "PENDING", "PROSES"];
+            for(let c=0; c<5; c++) {
+                let cell = sheet.getRow(3).getCell(16+c);
+                cell.value = sumHeaders[c];
+                cell.font = { bold: true };
+                cell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
+                cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFEFEFEF' } }; 
+                cell.alignment = { horizontal: 'center' };
+            }
+
+            // Add summary data rows
+            for(let i=0; i<summaryData.length; i++) {
+                let row = sheet.getRow(4+i);
+                for(let c=0; c<5; c++) {
+                    let cell = row.getCell(16+c);
+                    cell.value = summaryData[i][c];
+                    cell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
+                }
+            }
+            
+            // Add summary total row
+            let totalRowIdx = 4 + summaryData.length;
+            let totalRow = sheet.getRow(totalRowIdx);
+            let totals = ["Total", sumTotal, sumDone, sumPending, sumProses];
+            for(let c=0; c<5; c++) {
+                let cell = totalRow.getCell(16+c);
+                cell.value = totals[c];
+                cell.font = { bold: true };
+                cell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
+                cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFD9EAD3' } }; 
+            }
+            
+            // 5. Column Widths Setup
+            sheet.getColumn(1).width = 5;   // NO
+            sheet.getColumn(2).width = 25;  // NAMA KOPERASI
+            sheet.getColumn(3).width = 20;  // PIC KOPERASI
+            sheet.getColumn(4).width = 12;  // TANGGAL
+            sheet.getColumn(5).width = 35;  // PERMASALAHAN
+            sheet.getColumn(6).width = 35;  // PENYELESAIAN
+            sheet.getColumn(7).width = 30;  // PENCEGAHAN
+            sheet.getColumn(8).width = 12;  // TANGGAL
+            sheet.getColumn(9).width = 15;  // KATEGORI
+            sheet.getColumn(10).width = 15; // PIC
+            sheet.getColumn(11).width = 10; // FAQ
+            sheet.getColumn(12).width = 15; // STATUS CASE
+            sheet.getColumn(13).width = 25; // LINK TICKET
+            sheet.getColumn(14).width = 10; // KET
+            
+            sheet.getColumn(16).width = 20; // P (KATEGORI)
+            sheet.getColumn(17).width = 10; // Q
+            sheet.getColumn(18).width = 10; // R
+            sheet.getColumn(19).width = 10; // S
+            sheet.getColumn(20).width = 10; // T
+
+            // 6. Download the file
+            workbook.xlsx.writeBuffer().then(function(buffer) {
+                saveAs(new Blob([buffer], { type: "application/octet-stream" }), filename + '.xlsx');
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             const skeleton = document.getElementById('skeleton-loading');
             const content  = document.getElementById('actual-content');
