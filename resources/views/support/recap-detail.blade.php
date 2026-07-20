@@ -64,6 +64,7 @@
                     <tr style="background: #1e3a8a; color: white;">
                         <th style="padding: 12px 16px; text-align: center; font-weight: 600; text-transform: uppercase;">NO</th>
                         <th style="padding: 12px 16px; text-align: left; font-weight: 600; text-transform: uppercase;">NAMA KOPERASI</th>
+                        <th style="padding: 12px 16px; text-align: left; font-weight: 600; text-transform: uppercase;">NO TELEPON</th>
                         <th style="padding: 12px 16px; text-align: left; font-weight: 600; text-transform: uppercase;">PIC KOPERASI</th>
                         <th style="padding: 12px 16px; text-align: left; font-weight: 600; text-transform: uppercase;">TANGGAL</th>
                         <th style="padding: 12px 16px; text-align: left; font-weight: 600; text-transform: uppercase;">PERMASALAHAN</th>
@@ -83,6 +84,7 @@
                     <tr style="border-bottom: 1px solid var(--line);">
                         <td style="padding: 12px 16px; text-align: center; color: var(--text-muted);">{{ $index + 1 }}</td>
                         <td style="padding: 12px 16px; color: var(--ink); font-weight: 500;">{{ $t->pelapor->instansi->nama_instansi ?? ($t->pelapor->nama ?? '-') }}</td>
+                        <td style="padding: 12px 16px; color: var(--text-muted);">{{ $t->pelapor->instansi->no_telp ?? '-' }}</td>
                         <td style="padding: 12px 16px; color: var(--text-muted);">{{ $t->pelapor->nama ?? '-' }}</td>
                         <td style="padding: 12px 16px; color: var(--text-muted);">{{ $t->tanggal_input ? $t->tanggal_input->format('d-m-Y') : '-' }}</td>
                         <td style="padding: 12px 16px; color: var(--text-muted); max-width: 250px;">{{ $t->permasalahan ?? '-' }}</td>
@@ -153,7 +155,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="14" style="padding: 3rem; text-align: center; color: var(--text-muted);">
+                        <td colspan="15" style="padding: 3rem; text-align: center; color: var(--text-muted);">
                             Belum ada data tiket pada bulan dan tahun terpilih.
                         </td>
                     </tr>
@@ -182,23 +184,23 @@
             const sheet = workbook.addWorksheet("{{ strtoupper($monthName) }} {{ $year }}");
 
             // 1. Add Title & Subtitle
-            sheet.mergeCells('A1:N1');
+            sheet.mergeCells('A1:O1');
             const titleCell = sheet.getCell('A1');
             titleCell.value = "Laporan Detail Support {{ $monthName }} {{ $year }}";
             titleCell.font = { bold: true, size: 12 };
             titleCell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFD9EAD3' } }; // Light green background
             titleCell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
 
-            sheet.mergeCells('A2:N2');
+            sheet.mergeCells('A2:O2');
             const subCell = sheet.getCell('A2');
             subCell.value = "Jumlah Data: {{ count($tickets) }}";
             subCell.font = { bold: true };
             subCell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
 
             // 2. Add Main Table Headers
-            const mainHeaders = ["NO", "NAMA KOPERASI", "PIC KOPERASI", "TANGGAL", "PERMASALAHAN", "PENYELESAIAN", "PENCEGAHAN", "TANGGAL", "KATEGORI", "PIC", "FAQ", "STATUS CASE", "LINK TICKET", "KET"];
+            const mainHeaders = ["NO", "NAMA KOPERASI", "NO TELEPON", "PIC KOPERASI", "TANGGAL", "PERMASALAHAN", "PENYELESAIAN", "PENCEGAHAN", "TANGGAL", "KATEGORI", "PIC", "FAQ", "STATUS CASE", "LINK TICKET", "KET"];
             
-            for(let i=1; i<=14; i++) {
+            for(let i=1; i<=15; i++) {
                 let cell = sheet.getRow(3).getCell(i);
                 cell.value = mainHeaders[i-1];
                 cell.font = { bold: true };
@@ -219,6 +221,7 @@
                 mainData.push([
                     "{{ $index + 1 }}",
                     "{!! addslashes(str_replace(["\r", "\n"], " ", $t->pelapor->instansi->nama_instansi ?? ($t->pelapor->nama ?? '-'))) !!}",
+                    "{!! addslashes(str_replace(["\r", "\n"], " ", $t->pelapor->instansi->no_telp ?? '-')) !!}",
                     "{!! addslashes(str_replace(["\r", "\n"], " ", $t->pelapor->nama ?? '-')) !!}",
                     "{{ $t->tanggal_input ? $t->tanggal_input->format('d-m-Y') : '-' }}",
                     "{!! addslashes(str_replace(["\r", "\n"], " ", $t->permasalahan ?? '-')) !!}",
@@ -236,7 +239,7 @@
 
             for(let i=0; i<mainData.length; i++) {
                 let row = sheet.getRow(4+i);
-                for(let c=0; c<14; c++) {
+                for(let c=0; c<15; c++) {
                     let cell = row.getCell(c+1);
                     cell.value = mainData[i][c];
                     cell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
@@ -272,10 +275,10 @@
                 sumProses += {{ $data['proses'] }};
             @endforeach
             
-            // Add summary headers at P3..T3
+            // Add summary headers at Q3..U3
             const sumHeaders = ["KATEGORI", "TOTAL", "DONE", "PENDING", "PROSES"];
             for(let c=0; c<5; c++) {
-                let cell = sheet.getRow(3).getCell(16+c);
+                let cell = sheet.getRow(3).getCell(17+c);
                 cell.value = sumHeaders[c];
                 cell.font = { bold: true };
                 cell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
@@ -287,7 +290,7 @@
             for(let i=0; i<summaryData.length; i++) {
                 let row = sheet.getRow(4+i);
                 for(let c=0; c<5; c++) {
-                    let cell = row.getCell(16+c);
+                    let cell = row.getCell(17+c);
                     cell.value = summaryData[i][c];
                     cell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
                 }
@@ -298,7 +301,7 @@
             let totalRow = sheet.getRow(totalRowIdx);
             let totals = ["Total", sumTotal, sumDone, sumPending, sumProses];
             for(let c=0; c<5; c++) {
-                let cell = totalRow.getCell(16+c);
+                let cell = totalRow.getCell(17+c);
                 cell.value = totals[c];
                 cell.font = { bold: true };
                 cell.border = { top: {style:'thin'}, left: {style:'thin'}, bottom: {style:'thin'}, right: {style:'thin'} };
@@ -308,24 +311,25 @@
             // 5. Column Widths Setup
             sheet.getColumn(1).width = 5;   // NO
             sheet.getColumn(2).width = 25;  // NAMA KOPERASI
-            sheet.getColumn(3).width = 20;  // PIC KOPERASI
-            sheet.getColumn(4).width = 12;  // TANGGAL
-            sheet.getColumn(5).width = 35;  // PERMASALAHAN
-            sheet.getColumn(6).width = 35;  // PENYELESAIAN
-            sheet.getColumn(7).width = 30;  // PENCEGAHAN
-            sheet.getColumn(8).width = 12;  // TANGGAL
-            sheet.getColumn(9).width = 15;  // KATEGORI
-            sheet.getColumn(10).width = 15; // PIC
-            sheet.getColumn(11).width = 10; // FAQ
-            sheet.getColumn(12).width = 15; // STATUS CASE
-            sheet.getColumn(13).width = 25; // LINK TICKET
-            sheet.getColumn(14).width = 10; // KET
+            sheet.getColumn(3).width = 16;  // NO TELEPON
+            sheet.getColumn(4).width = 20;  // PIC KOPERASI
+            sheet.getColumn(5).width = 12;  // TANGGAL
+            sheet.getColumn(6).width = 35;  // PERMASALAHAN
+            sheet.getColumn(7).width = 35;  // PENYELESAIAN
+            sheet.getColumn(8).width = 30;  // PENCEGAHAN
+            sheet.getColumn(9).width = 12;  // TANGGAL
+            sheet.getColumn(10).width = 15; // KATEGORI
+            sheet.getColumn(11).width = 15; // PIC
+            sheet.getColumn(12).width = 10; // FAQ
+            sheet.getColumn(13).width = 15; // STATUS CASE
+            sheet.getColumn(14).width = 25; // LINK TICKET
+            sheet.getColumn(15).width = 10; // KET
             
-            sheet.getColumn(16).width = 20; // P (KATEGORI)
-            sheet.getColumn(17).width = 10; // Q
+            sheet.getColumn(17).width = 20; // Q (KATEGORI)
             sheet.getColumn(18).width = 10; // R
             sheet.getColumn(19).width = 10; // S
             sheet.getColumn(20).width = 10; // T
+            sheet.getColumn(21).width = 10; // U
 
             // 6. Download the file
             workbook.xlsx.writeBuffer().then(function(buffer) {
