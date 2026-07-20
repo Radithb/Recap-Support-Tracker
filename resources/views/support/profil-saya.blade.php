@@ -18,6 +18,37 @@
 @section('content')
 <div class="pelapor-panel">
 
+    <style>
+        .toggle-switch {
+            appearance: none;
+            width: 40px;
+            height: 20px;
+            background: #cbd5e1;
+            border-radius: 20px;
+            position: relative;
+            cursor: pointer;
+            outline: none;
+            transition: background 0.3s ease;
+        }
+        .toggle-switch:checked {
+            background: var(--sage, #22c55e);
+        }
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background: var(--paper-raised, #fff);
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+        .toggle-switch:checked::after {
+            transform: translateX(20px);
+        }
+    </style>
+
     {{-- ═══════════════════════════════════════════ --}}
     {{-- SKELETON LOADING STATE                      --}}
     {{-- ═══════════════════════════════════════════ --}}
@@ -67,113 +98,189 @@
                 {{ __('messages.kembali_ke_dashboard') }}
             </a>
         </div>
+
+        <!-- HEADER -->
+        <div class="fade-up" style="margin-bottom: 24px; animation-delay: 0.12s;">
+            <div style="font-size: 11px; letter-spacing: 1px; color: var(--ink-soft); text-transform: uppercase; margin-bottom: 4px; font-weight: 600;">
+                TIM SUPPORT &middot; {{ Auth::user()->nama }}
+            </div>
+            <h2 style="margin: 0; font-size: 28px; font-weight: 700; color: var(--ink);">
+                Profil Saya
+            </h2>
+        </div>
         
-        <div class="panel fade-up" style="padding: 30px; max-width: 100%; animation-delay: 0.15s;" id="instansi-panel">
-            <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom: 24px;">
-                <div>
-                    <h3 style="display:flex; align-items:center; gap:8px; margin-bottom: 8px;">
-                        <span style="font-size: calc(24px * var(--text-scale, 1));">
-                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                        </span> {{ __('messages.profil_saya') }}
-                    </h3>
-                    <p class="sub" style="margin-bottom:0;">{{ __('messages.data_informasi_akun') }}</p>
-                </div>
+        @if(session('success'))
+            <div id="success-alert" class="alert-dismiss fade-up" style="animation-delay: 0.14s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--sage-soft); color: var(--sage); border-radius: 8px; margin-bottom: 24px; font-size: calc(13.5px * var(--text-scale, 1)); font-weight: 600; border: 1px solid rgba(46, 125, 82, 0.2); transition: opacity 0.6s ease, transform 0.6s ease;">
+                <span>{{ session('success') }}</span>
+                <button type="button" onclick="document.getElementById('success-alert').style.display='none'" style="background: none; border: none; color: var(--sage); cursor: pointer; font-size: calc(18px * var(--text-scale, 1)); font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
             </div>
-            
-            @if(session('success'))
-                <div id="success-alert" class="alert-dismiss fade-up" style="animation-delay: 0.2s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--sage-soft); color: var(--sage); border-radius: 8px; margin-bottom: 24px; font-size: calc(13.5px * var(--text-scale, 1)); font-weight: 600; border: 1px solid rgba(46, 125, 82, 0.2); transition: opacity 0.6s ease, transform 0.6s ease;">
-                    <span>{{ session('success') }}</span>
-                    <button type="button" onclick="document.getElementById('success-alert').style.display='none'" style="background: none; border: none; color: var(--sage); cursor: pointer; font-size: calc(18px * var(--text-scale, 1)); font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
-                </div>
-            @endif
-            
-            @if($errors->any())
-                <div id="error-alert" class="alert-dismiss fade-up" style="animation-delay: 0.2s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: #fee2e2; color: #dc2626; border-radius: 8px; margin-bottom: 24px; font-size: calc(13.5px * var(--text-scale, 1)); font-weight: 600; border: 1px solid rgba(220, 38, 38, 0.2);">
-                    <ul style="margin: 0; padding-left: 20px;">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                    <button type="button" onclick="document.getElementById('error-alert').style.display='none'" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: calc(18px * var(--text-scale, 1)); font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
-                </div>
-            @endif
-
-            <!-- VIEW MODE -->
-            <div id="view-mode" class="fade-up" style="animation-delay: 0.25s;">
-                <div style="margin-bottom: 24px;">
-                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.nama_lengkap') }}</label>
-                    <h4 style="font-size: calc(16px * var(--text-scale, 1)); color: var(--ink); margin: 0;">{{ Auth::user()->nama ?? '-' }}</h4>
-                </div>
-                <div style="margin-bottom: 24px;">
-                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.email_utama') }}</label>
-                    <p class="mono" style="color: var(--ink); line-height: 1.6; margin: 0; font-size: calc(14.5px * var(--text-scale, 1));">{{ Auth::user()->email ?? '-' }}</p>
-                </div>
-                <div style="margin-bottom: 32px;">
-                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.kata_sandi_password') }}</label>
-                    <div style="color: var(--text-muted); font-size: calc(14.5px * var(--text-scale, 1)); font-style: italic;">******** {{ __('messages.tersembunyi') }}</div>
-                </div>
-                
-                <div style="border-top: 1px solid var(--line); padding-top: 20px;">
-                    <button type="button" class="btn btn-ghost" onclick="toggleEditMode(true)" style="padding: 9px 18px;">
-                        <span class="ic"><img src="{{ asset('edit.png') }}" alt="Edit" style="width: 14px; height: 14px; object-fit: contain; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span> {{ __('messages.edit_profil_saya') }}
-                    </button>
-                </div>
+        @endif
+        
+        @if($errors->any())
+            <div id="error-alert" class="alert-dismiss fade-up" style="animation-delay: 0.14s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: #fee2e2; color: #dc2626; border-radius: 8px; margin-bottom: 24px; font-size: calc(13.5px * var(--text-scale, 1)); font-weight: 600; border: 1px solid rgba(220, 38, 38, 0.2);">
+                <ul style="margin: 0; padding-left: 20px;">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button type="button" onclick="document.getElementById('error-alert').style.display='none'" style="background: none; border: none; color: #dc2626; cursor: pointer; font-size: calc(18px * var(--text-scale, 1)); font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
             </div>
+        @endif
 
-            <!-- EDIT MODE -->
-            <div id="edit-mode" style="display: none;">
-                <form action="{{ route('support.profil.saya.update') }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    
+        <!-- PANEL 1: INFORMASI IDENTITAS DIRI -->
+        <div class="panel fade-up" style="padding: 30px; max-width: 100%; animation-delay: 0.15s; margin-bottom: 24px;">
+            <h3 style="display:flex; align-items:center; gap:8px; margin-bottom: 6px; font-size: calc(16px * var(--text-scale, 1)); color: var(--ink);">
+                🪪 {{ __('messages.informasi_identitas_diri') }}
+            </h3>
+            <p class="sub" style="margin-bottom: 24px; color: var(--ink-soft); font-size: calc(13px * var(--text-scale, 1));">
+                {{ __('messages.data_pribadi_koperasi') }}
+            </p>
+
+            <form action="{{ route('support.profil.saya.update') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+
+                <!-- Avatar Upload Section -->
+                <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 28px;">
+                    <div style="position: relative; width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--line); background: var(--paper-sunken); overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                        @php
+                            $nama = Auth::user()->nama ?? 'User';
+                            $initials = collect(explode(' ', $nama))->map(function($w){return strtoupper(substr($w,0,1));})->take(2)->join('');
+                        @endphp
+                        @if(Auth::user()->avatar)
+                            <img id="avatar-preview" src="{{ asset('storage/' . Auth::user()->avatar) }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        @else
+                            <img id="avatar-preview" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                            <span id="avatar-placeholder" style="font-size: 28px; font-weight: bold; color: var(--ink-soft);">{{ $initials }}</span>
+                        @endif
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-ghost" style="border: 1px solid var(--line); background: var(--paper-raised); padding: 6px 12px; font-size: 13px;" onclick="document.getElementById('avatar-input').click()">
+                            📷 {{ __('messages.ganti_foto_profil') }}
+                        </button>
+                        <div style="font-size: 11px; color: var(--ink-soft); margin-top: 6px;">{{ __('messages.belum_ada_foto_format') }}</div>
+                        <input type="file" name="avatar" id="avatar-input" style="display: none;" accept="image/*" onchange="previewAvatar(this)">
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
                     <div class="field">
                         <label>{{ __('messages.nama_lengkap') }}</label>
-                        <input type="text" name="nama" value="{{ Auth::user()->nama ?? '' }}" required placeholder="{{ __('messages.masukkan_nama_lengkap') }}">
+                        <input type="text" name="nama" value="{{ Auth::user()->nama }}" required style="background: var(--paper-sunken);">
                     </div>
-                    
-                    <div class="field" style="margin-top: 18px;">
-                        <label>{{ __('messages.email_utama') }}</label>
-                        <input type="email" name="email" value="{{ Auth::user()->email ?? '' }}" required placeholder="{{ __('messages.masukkan_email_aktif') }}">
+                    <div class="field">
+                        <label>{{ __('messages.nik_id_agen') }}</label>
+                        <input type="text" name="nik" value="{{ Auth::user()->nik }}" placeholder="Contoh: SKK-EMP-0417" style="background: var(--paper-sunken);">
                     </div>
-                    
-                    <div class="field" style="margin-top: 18px; border-top: 1px dashed var(--line); padding-top: 18px;">
-                        <label>{{ __('messages.kata_sandi_saat_ini') }}</label>
-                        <input type="password" name="current_password" placeholder="{{ __('messages.placeholder_pass_lama') }}">
-                        <div class="helper">{{ __('messages.wajib_verifikasi_sandi') }}</div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+                    <div class="field">
+                        <label>{{ __('messages.no_whatsapp_hp') }}</label>
+                        <input type="text" name="whatsapp" value="{{ Auth::user()->whatsapp }}" placeholder="Contoh: +62 812 3300 4455" style="background: var(--paper-sunken);">
                     </div>
-                    
-                    <div class="field" style="margin-top: 18px;">
-                        <label>{{ __('messages.kata_sandi_baru_ops') }}</label>
-                        <input type="password" name="password" placeholder="{{ __('messages.kosongkan_jika_tidak') }}">
-                        <div class="helper">{{ __('messages.minimal_8_kosongkan') }}</div>
+                    <div class="field">
+                        <label>{{ __('messages.alamat_email') }}</label>
+                        <input type="email" name="email" value="{{ Auth::user()->email }}" required style="background: var(--paper-sunken);">
                     </div>
-                    
-                    <div class="field" style="margin-top: 18px;">
-                        <label>{{ __('messages.konfirmasi_sandi_baru') }}</label>
-                        <input type="password" name="password_confirmation" placeholder="{{ __('messages.placeholder_konfirmasi') }}">
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="padding: 10px 20px; background: #dc2626; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">{{ __('messages.simpan_perubahan') }}</button>
+            </form>
+        </div>
+
+        <!-- PANEL 2: KEAMANAN AKUN -->
+        <div class="panel fade-up" style="padding: 30px; max-width: 100%; animation-delay: 0.2s; margin-bottom: 24px;">
+            <h3 style="display:flex; align-items:center; gap:8px; margin-bottom: 6px; font-size: calc(16px * var(--text-scale, 1)); color: var(--ink);">
+                🔒 {{ __('messages.keamanan_akun') }}
+            </h3>
+            <p class="sub" style="margin-bottom: 24px; color: var(--ink-soft); font-size: calc(13px * var(--text-scale, 1));">
+                {{ __('messages.keamanan_akun_support_desc') }}
+            </p>
+
+            <form action="{{ route('support.profil.saya.update') }}" method="POST">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="two_factor_present" value="1">
+
+                <div class="field" style="margin-bottom: 18px;">
+                    <label>{{ __('messages.kata_sandi_saat_ini') }}</label>
+                    <input type="password" name="current_password" style="background: var(--paper-sunken);" placeholder="••••••••">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+                    <div class="field">
+                        <label>{{ __('messages.kata_sandi_baru') }}</label>
+                        <input type="password" name="password" style="background: var(--paper-sunken);" placeholder="••••••••">
                     </div>
-                    
-                    <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line);">
-                        <button type="button" class="btn btn-ghost" onclick="toggleEditMode(false)" style="padding: 10px 20px;">{{ __('messages.batal') }}</button>
-                        <button type="submit" class="btn btn-primary" style="padding: 10px 20px;">{{ __('messages.simpan_perubahan') }}</button>
+                    <div class="field">
+                        <label>{{ __('messages.konfirmasi_kata_sandi') }}</label>
+                        <input type="password" name="password_confirmation" style="background: var(--paper-sunken);" placeholder="••••••••">
                     </div>
-                </form>
-            </div>
+                </div>
+
+                <button type="submit" class="btn btn-ghost" style="border: 1px solid var(--line); background: var(--paper-sunken); padding: 10px 20px; margin-bottom: 24px;">{{ __('messages.perbarui_kata_sandi') }}</button>
+
+                <div style="border-top: 1px solid var(--line); padding-top: 24px;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
+                        <div>
+                            <div style="font-weight: 600; color: var(--ink); font-size: 14px;">{{ __('messages.verifikasi_dua_langkah') }}</div>
+                            <div style="font-size: 12px; color: var(--ink-soft);">{{ __('messages.dua_langkah_desc') }}</div>
+                        </div>
+                        <input type="checkbox" name="two_factor" class="toggle-switch" {{ Auth::user()->two_factor ? 'checked' : '' }} value="1">
+                    </div>
+
+                    <div class="field">
+                        <label>{{ __('messages.metode_kirim_otp') }}</label>
+                        <select name="otp_method" style="background: var(--paper-sunken); width: 100%; padding: 10px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink);">
+                            <option value="WhatsApp" {{ Auth::user()->otp_method === 'WhatsApp' ? 'selected' : '' }}>OTP via WhatsApp</option>
+                            <option value="Email" {{ Auth::user()->otp_method === 'Email' ? 'selected' : '' }}>OTP via Email</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- PANEL 3: INFORMASI PERAN — TIM SUPPORT -->
+        <div class="panel fade-up" style="padding: 30px; max-width: 100%; animation-delay: 0.25s;">
+            <h3 style="display:flex; align-items:center; gap:8px; margin-bottom: 6px; font-size: calc(16px * var(--text-scale, 1)); color: var(--ink);">
+                🛠️ {{ __('messages.informasi_peran_support') }}
+            </h3>
+            <p class="sub" style="margin-bottom: 24px; color: var(--ink-soft); font-size: calc(13px * var(--text-scale, 1));">
+                {{ __('messages.informasi_peran_support_desc') }}
+            </p>
+
+            <form action="{{ route('support.profil.saya.update') }}" method="POST">
+                @csrf
+                @method('PUT')
+
+                <div class="field" style="margin-bottom: 24px;">
+                    <label>{{ __('messages.spesialisasi_cs') }}</label>
+                    <input type="text" name="spesialisasi" value="{{ Auth::user()->spesialisasi }}" placeholder="{{ __('messages.cs_specialization_example') }}" style="background: var(--paper-sunken);">
+                </div>
+
+                <button type="submit" class="btn btn-ghost" style="border: 1px solid var(--line); background: var(--paper-sunken); padding: 10px 20px;">{{ __('messages.simpan_informasi_peran') }}</button>
+            </form>
         </div>
 
         <script>
-            function toggleEditMode(showEdit) {
-                document.getElementById('view-mode').style.display = showEdit ? 'none' : 'block';
-                document.getElementById('edit-mode').style.display = showEdit ? 'block' : 'none';
+            function previewAvatar(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        const preview = document.getElementById('avatar-preview');
+                        const placeholder = document.getElementById('avatar-placeholder');
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                        if (placeholder) placeholder.style.display = 'none';
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
             }
 
             document.addEventListener('DOMContentLoaded', function () {
                 const skeleton = document.getElementById('skeleton-loading');
                 const content  = document.getElementById('actual-content');
-                // Auto show edit mode if there are errors
-                @if($errors->any())
-                    toggleEditMode(true);
-                @endif
                 
                 if(skeleton && content) {
                     setTimeout(function () {

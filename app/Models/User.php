@@ -20,6 +20,12 @@ class User extends Authenticatable
         'locale',
         'instansi_id',
         'is_verified',
+        'avatar',
+        'nik',
+        'whatsapp',
+        'spesialisasi',
+        'two_factor',
+        'otp_method',
     ];
 
     protected $hidden = [
@@ -29,6 +35,7 @@ class User extends Authenticatable
     protected $casts = [
         'role' => UserRole::class,
         'is_verified' => 'boolean',
+        'two_factor' => 'boolean',
     ];
 
     public function instansi()

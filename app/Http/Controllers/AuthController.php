@@ -163,19 +163,46 @@ class AuthController extends Controller
     {
         $user = Auth::user();
 
-        $validated = $request->validate([
-            'nama' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email,' . $user->user_id . ',user_id'],
-            'current_password' => ['nullable', 'required_with:password', 'current_password'],
-            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
-        ], [
-            'current_password.required_with' => 'Kata sandi saat ini harus diisi jika Anda ingin mengubah kata sandi.',
+        $rules = [];
+        if ($request->has('nama') || $request->has('email')) {
+            $rules['nama'] = ['required', 'string', 'max:255'];
+            $rules['email'] = ['required', 'email', 'max:255', 'unique:users,email,' . $user->user_id . ',user_id'];
+            $rules['nik'] = ['nullable', 'string', 'max:50'];
+            $rules['whatsapp'] = ['nullable', 'string', 'max:50'];
+            $rules['avatar'] = ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'];
+        }
+        if ($request->filled('password') || $request->filled('current_password')) {
+            $rules['current_password'] = ['required', 'current_password'];
+            $rules['password'] = ['required', 'string', 'min:8', 'confirmed'];
+        }
+        if ($request->has('spesialisasi')) {
+            $rules['spesialisasi'] = ['nullable', 'string', 'max:255'];
+        }
+
+        $validated = $request->validate($rules, [
+            'current_password.required' => 'Kata sandi saat ini harus diisi.',
             'current_password.current_password' => 'Kata sandi saat ini yang Anda masukkan salah.',
         ]);
 
-        $user->nama = $validated['nama'];
-        $user->email = $validated['email'];
-        
+        if (isset($validated['nama'])) $user->nama = $validated['nama'];
+        if (isset($validated['email'])) $user->email = $validated['email'];
+        if (isset($validated['nik'])) $user->nik = $validated['nik'];
+        if (isset($validated['whatsapp'])) $user->whatsapp = $validated['whatsapp'];
+        if (isset($validated['spesialisasi'])) $user->spesialisasi = $validated['spesialisasi'];
+
+        if ($request->has('two_factor_present')) {
+            $user->two_factor = $request->has('two_factor');
+            $user->otp_method = $request->input('otp_method', 'WhatsApp');
+        }
+
+        if ($request->hasFile('avatar')) {
+            if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+            }
+            $path = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $path;
+        }
+
         if (!empty($validated['password'])) {
             $user->password = Hash::make($validated['password']);
         }
