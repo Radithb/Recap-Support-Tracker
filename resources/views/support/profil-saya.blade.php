@@ -5,13 +5,13 @@
 
 @section('sidebar_menu')
     <a href="{{ route('support.dashboard') }}">
-        <span class="ic"><img src="{{ asset('analysis.png') }}" alt=""></span> Beranda Support
+        <span class="ic"><img src="{{ asset('analysis.png') }}" alt=""></span> {{ __('messages.beranda_support') }}
     </a>
     <a href="{{ route('support.recap') }}">
-        <span class="ic"><img src="{{ asset('file.png') }}" alt=""></span> Rekapitulasi
+        <span class="ic"><img src="{{ asset('file.png') }}" alt=""></span> {{ __('messages.rekapitulasi') }}
     </a>
     <a href="{{ route('support.master-data.index') }}">
-        <span class="ic"><img src="{{ asset('folder.png') }}" alt=""></span> Master Data
+        <span class="ic"><img src="{{ asset('folder.png') }}" alt=""></span> {{ __('messages.master_data') }}
     </a>
 @endsection
 
@@ -64,7 +64,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="display:inline-block; margin-right: 6px; vertical-align:-2px;">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
-                Kembali ke Dashboard
+                {{ __('messages.kembali_ke_dashboard') }}
             </a>
         </div>
         
@@ -74,9 +74,9 @@
                     <h3 style="display:flex; align-items:center; gap:8px; margin-bottom: 8px;">
                         <span style="font-size: calc(24px * var(--text-scale, 1));">
                             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                        </span> Profil Saya
+                        </span> {{ __('messages.profil_saya') }}
                     </h3>
-                    <p class="sub" style="margin-bottom:0;">Data dan Informasi Akun Support Anda</p>
+                    <p class="sub" style="margin-bottom:0;">{{ __('messages.data_informasi_akun') }}</p>
                 </div>
             </div>
             
@@ -105,17 +105,17 @@
                     <h4 style="font-size: calc(16px * var(--text-scale, 1)); color: var(--ink); margin: 0;">{{ Auth::user()->nama ?? '-' }}</h4>
                 </div>
                 <div style="margin-bottom: 24px;">
-                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Email Utama</label>
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.email_utama') }}</label>
                     <p class="mono" style="color: var(--ink); line-height: 1.6; margin: 0; font-size: calc(14.5px * var(--text-scale, 1));">{{ Auth::user()->email ?? '-' }}</p>
                 </div>
                 <div style="margin-bottom: 32px;">
-                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Kata Sandi (Password)</label>
-                    <div style="color: var(--text-muted); font-size: calc(14.5px * var(--text-scale, 1)); font-style: italic;">******** (Tersembunyi)</div>
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.kata_sandi_password') }}</label>
+                    <div style="color: var(--text-muted); font-size: calc(14.5px * var(--text-scale, 1)); font-style: italic;">******** {{ __('messages.tersembunyi') }}</div>
                 </div>
                 
                 <div style="border-top: 1px solid var(--line); padding-top: 20px;">
                     <button type="button" class="btn btn-ghost" onclick="toggleEditMode(true)" style="padding: 9px 18px;">
-                        <span class="ic"><img src="{{ asset('edit.png') }}" alt="Edit" style="width: 14px; height: 14px; object-fit: contain; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span> Edit Profil Saya
+                        <span class="ic"><img src="{{ asset('edit.png') }}" alt="Edit" style="width: 14px; height: 14px; object-fit: contain; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span> {{ __('messages.edit_profil_saya') }}
                     </button>
                 </div>
             </div>
@@ -128,33 +128,33 @@
                     
                     <div class="field">
                         <label>{{ __('messages.nama_lengkap') }}</label>
-                        <input type="text" name="nama" value="{{ Auth::user()->nama ?? '' }}" required placeholder="Masukkan nama lengkap Anda">
+                        <input type="text" name="nama" value="{{ Auth::user()->nama ?? '' }}" required placeholder="{{ __('messages.masukkan_nama_lengkap') }}">
                     </div>
                     
                     <div class="field" style="margin-top: 18px;">
-                        <label>Email Utama</label>
-                        <input type="email" name="email" value="{{ Auth::user()->email ?? '' }}" required placeholder="Masukkan email aktif Anda">
+                        <label>{{ __('messages.email_utama') }}</label>
+                        <input type="email" name="email" value="{{ Auth::user()->email ?? '' }}" required placeholder="{{ __('messages.masukkan_email_aktif') }}">
                     </div>
                     
                     <div class="field" style="margin-top: 18px; border-top: 1px dashed var(--line); padding-top: 18px;">
                         <label>{{ __('messages.kata_sandi_saat_ini') }}</label>
-                        <input type="password" name="current_password" placeholder="Masukkan kata sandi saat ini (wajib jika ingin mengubah password)">
-                        <div class="helper">Wajib diisi sebagai verifikasi keamanan sebelum Anda mengubah kata sandi.</div>
+                        <input type="password" name="current_password" placeholder="{{ __('messages.placeholder_pass_lama') }}">
+                        <div class="helper">{{ __('messages.wajib_verifikasi_sandi') }}</div>
                     </div>
                     
                     <div class="field" style="margin-top: 18px;">
-                        <label>Kata Sandi Baru (Opsional)</label>
-                        <input type="password" name="password" placeholder="Kosongkan jika tidak ingin mengubah password">
-                        <div class="helper">Minimal 8 karakter. Biarkan kosong jika tidak ada perubahan.</div>
+                        <label>{{ __('messages.kata_sandi_baru_ops') }}</label>
+                        <input type="password" name="password" placeholder="{{ __('messages.kosongkan_jika_tidak') }}">
+                        <div class="helper">{{ __('messages.minimal_8_kosongkan') }}</div>
                     </div>
                     
                     <div class="field" style="margin-top: 18px;">
                         <label>{{ __('messages.konfirmasi_sandi_baru') }}</label>
-                        <input type="password" name="password_confirmation" placeholder="Ulangi kata sandi baru">
+                        <input type="password" name="password_confirmation" placeholder="{{ __('messages.placeholder_konfirmasi') }}">
                     </div>
                     
                     <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line);">
-                        <button type="button" class="btn btn-ghost" onclick="toggleEditMode(false)" style="padding: 10px 20px;">Batal</button>
+                        <button type="button" class="btn btn-ghost" onclick="toggleEditMode(false)" style="padding: 10px 20px;">{{ __('messages.batal') }}</button>
                         <button type="submit" class="btn btn-primary" style="padding: 10px 20px;">{{ __('messages.simpan_perubahan') }}</button>
                     </div>
                 </form>
