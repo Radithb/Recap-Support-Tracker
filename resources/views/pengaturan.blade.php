@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page_title', 'Pengaturan')
+@section('page_title', __('messages.title_pengaturan'))
 @section('page_subtitle', __('messages.subtitle_pengaturan'))
 
 @section('content')
