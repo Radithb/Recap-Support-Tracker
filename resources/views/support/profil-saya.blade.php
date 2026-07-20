@@ -201,7 +201,7 @@
             <form action="{{ route('support.profil.saya.update') }}" method="POST">
                 @csrf
                 @method('PUT')
-                <input type="hidden" name="two_factor_present" value="1">
+
 
                 <div class="field" style="margin-bottom: 18px;">
                     <label>{{ __('messages.kata_sandi_saat_ini') }}</label>
@@ -221,47 +221,11 @@
 
                 <button type="submit" class="btn btn-ghost" style="border: 1px solid var(--line); background: var(--paper-sunken); padding: 10px 20px; margin-bottom: 24px;">{{ __('messages.perbarui_kata_sandi') }}</button>
 
-                <div style="border-top: 1px solid var(--line); padding-top: 24px;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px;">
-                        <div>
-                            <div style="font-weight: 600; color: var(--ink); font-size: 14px;">{{ __('messages.verifikasi_dua_langkah') }}</div>
-                            <div style="font-size: 12px; color: var(--ink-soft);">{{ __('messages.dua_langkah_desc') }}</div>
-                        </div>
-                        <input type="checkbox" name="two_factor" class="toggle-switch" {{ Auth::user()->two_factor ? 'checked' : '' }} value="1">
-                    </div>
 
-                    <div class="field">
-                        <label>{{ __('messages.metode_kirim_otp') }}</label>
-                        <select name="otp_method" style="background: var(--paper-sunken); width: 100%; padding: 10px; border: 1px solid var(--line); border-radius: 8px; color: var(--ink);">
-                            <option value="WhatsApp" {{ Auth::user()->otp_method === 'WhatsApp' ? 'selected' : '' }}>OTP via WhatsApp</option>
-                            <option value="Email" {{ Auth::user()->otp_method === 'Email' ? 'selected' : '' }}>OTP via Email</option>
-                        </select>
-                    </div>
-                </div>
             </form>
         </div>
 
-        <!-- PANEL 3: INFORMASI PERAN — TIM SUPPORT -->
-        <div class="panel fade-up" style="padding: 30px; max-width: 100%; animation-delay: 0.25s;">
-            <h3 style="display:flex; align-items:center; gap:8px; margin-bottom: 6px; font-size: calc(16px * var(--text-scale, 1)); color: var(--ink);">
-                🛠️ {{ __('messages.informasi_peran_support') }}
-            </h3>
-            <p class="sub" style="margin-bottom: 24px; color: var(--ink-soft); font-size: calc(13px * var(--text-scale, 1));">
-                {{ __('messages.informasi_peran_support_desc') }}
-            </p>
 
-            <form action="{{ route('support.profil.saya.update') }}" method="POST">
-                @csrf
-                @method('PUT')
-
-                <div class="field" style="margin-bottom: 24px;">
-                    <label>{{ __('messages.spesialisasi_cs') }}</label>
-                    <input type="text" name="spesialisasi" value="{{ Auth::user()->spesialisasi }}" placeholder="{{ __('messages.cs_specialization_example') }}" style="background: var(--paper-sunken);">
-                </div>
-
-                <button type="submit" class="btn btn-ghost" style="border: 1px solid var(--line); background: var(--paper-sunken); padding: 10px 20px;">{{ __('messages.simpan_informasi_peran') }}</button>
-            </form>
-        </div>
 
         <script>
             function previewAvatar(input) {
