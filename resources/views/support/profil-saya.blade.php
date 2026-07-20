@@ -130,7 +130,7 @@
         <!-- PANEL 1: INFORMASI IDENTITAS DIRI -->
         <div class="panel fade-up" style="padding: 30px; max-width: 100%; animation-delay: 0.15s; margin-bottom: 24px;">
             <h3 style="display:flex; align-items:center; gap:8px; margin-bottom: 6px; font-size: calc(16px * var(--text-scale, 1)); color: var(--ink);">
-                🪪 {{ __('messages.informasi_identitas_diri') }}
+                {{ __('messages.informasi_identitas_diri') }}
             </h3>
             <p class="sub" style="margin-bottom: 24px; color: var(--ink-soft); font-size: calc(13px * var(--text-scale, 1));">
                 {{ __('messages.data_pribadi_koperasi') }}
@@ -156,7 +156,7 @@
                     </div>
                     <div>
                         <button type="button" class="btn btn-ghost" style="border: 1px solid var(--line); background: var(--paper-raised); padding: 6px 12px; font-size: 13px;" onclick="document.getElementById('avatar-input').click()">
-                            📷 {{ __('messages.ganti_foto_profil') }}
+                            {{ __('messages.ganti_foto_profil') }}
                         </button>
                         <div style="font-size: 11px; color: var(--ink-soft); margin-top: 6px;">{{ __('messages.belum_ada_foto_format') }}</div>
                         <input type="file" name="avatar" id="avatar-input" style="display: none;" accept="image/*" onchange="previewAvatar(this)">
@@ -192,7 +192,7 @@
         <!-- PANEL 2: KEAMANAN AKUN -->
         <div class="panel fade-up" style="padding: 30px; max-width: 100%; animation-delay: 0.2s; margin-bottom: 24px;">
             <h3 style="display:flex; align-items:center; gap:8px; margin-bottom: 6px; font-size: calc(16px * var(--text-scale, 1)); color: var(--ink);">
-                🔒 {{ __('messages.keamanan_akun') }}
+                {{ __('messages.keamanan_akun') }}
             </h3>
             <p class="sub" style="margin-bottom: 24px; color: var(--ink-soft); font-size: calc(13px * var(--text-scale, 1));">
                 {{ __('messages.keamanan_akun_support_desc') }}
