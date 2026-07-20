@@ -29,6 +29,8 @@ return [
     'title_pengaturan' => 'Settings',
     'subtitle_pengaturan' => 'Your notifications, appearance, language & account privacy — separate from My Profile.',
     'tab_notifikasi' => 'Notifications',
+    'title_notifikasi' => 'Notification Settings',
+    'subtitle_notifikasi' => 'Set how and when you want to receive notifications.',
     'tab_personalisasi' => 'Personalization',
     'tab_bahasa' => 'Language',
     'tab_privasi' => 'Privacy & Account',

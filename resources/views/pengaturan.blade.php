@@ -104,9 +104,9 @@
     <div class="panel" id="panel-notifikasi" style="padding: 30px; max-width: 100%;">
         <div style="margin-bottom: 32px;">
             <h3 style="font-size: calc(20px * var(--text-scale, 1)); display:flex; align-items:center; gap:8px; margin-bottom:6px;">
-                <span class="icon-mask" style="--mask-url: url('{{ asset('bell.png') }}'); width: 22px; height: 22px;"></span> Pengaturan {{ __('messages.tab_notifikasi') }}
+                <span class="icon-mask" style="--mask-url: url('{{ asset('bell.png') }}'); width: 22px; height: 22px;"></span> {{ __('messages.title_notifikasi') }}
             </h3>
-            <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">Atur bagaimana dan kapan Anda ingin menerima pemberitahuan.</p>
+            <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">{{ __('messages.subtitle_notifikasi') }}</p>
         </div>
         <div style="color: var(--ink-soft); font-style: italic; background: var(--paper-sunken); padding: 16px; border-radius: 8px;">{{ __('messages.desc_notifikasi') }}</div>
     </div>

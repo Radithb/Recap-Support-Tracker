@@ -29,6 +29,8 @@ return [
     'title_pengaturan' => 'Pengaturan',
     'subtitle_pengaturan' => 'Notifikasi, tampilan, bahasa & privasi akun Anda — terpisah dari Profil Saya.',
     'tab_notifikasi' => 'Notifikasi',
+    'title_notifikasi' => 'Pengaturan Notifikasi',
+    'subtitle_notifikasi' => 'Atur bagaimana dan kapan Anda ingin menerima pemberitahuan.',
     'tab_personalisasi' => 'Personalisasi',
     'tab_bahasa' => 'Bahasa',
     'tab_privasi' => 'Privasi & Akun',
