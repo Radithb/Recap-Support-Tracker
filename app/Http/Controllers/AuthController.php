@@ -212,6 +212,11 @@ class AuthController extends Controller
         return back()->with('success', __('messages.profil_updated'));
     }
 
+    public function showPelaporProfile(User $user)
+    {
+        return view('support.pelapor-profile', compact('user'));
+    }
+
     public function pengaturan()
     {
         return view('pengaturan');

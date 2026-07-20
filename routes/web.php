@@ -62,4 +62,7 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
     // Profil Saya (Support)
     Route::get('/profil-saya', [AuthController::class, 'showProfilSaya'])->name('profil.saya');
     Route::put('/profil-saya', [AuthController::class, 'updateProfilSaya'])->name('profil.saya.update');
+
+    // Profil Lengkap Pelapor
+    Route::get('/pelapor/{user}/profil', [AuthController::class, 'showPelaporProfile'])->name('pelapor.profile');
 });

@@ -251,6 +251,12 @@
                 <div>
                     <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.pic_pelapor') }}</div>
                     <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">{{ $t->pelapor->nama ?? '-' }}</div>
+                    @if($t->pelapor)
+                    <a href="{{ route('support.pelapor.profile', $t->pelapor->user_id) }}" class="btn btn-ghost" style="padding: 4px 10px; font-size: 0.7rem; margin-top: 8px; border: 1px solid var(--line); display: inline-flex; align-items: center; gap: 4px; border-radius: 6px; text-decoration: none;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        Lihat Profil
+                    </a>
+                    @endif
                 </div>
                 <div>
                     <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.aplikasi') }}</div>
