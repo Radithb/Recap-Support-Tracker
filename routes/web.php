@@ -37,6 +37,7 @@ Route::middleware(['auth', IsPelapor::class])->prefix('pelapor')->name('pelapor.
     Route::get('/dashboard', [TicketController::class, 'pelaporDashboard'])->name('dashboard');
     Route::get('/riwayat', [TicketController::class, 'pelaporRiwayat'])->name('riwayat');
     Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+    Route::view('/bantuan', 'pelapor.bantuan')->name('bantuan');
 });
 
 // Akses Support
