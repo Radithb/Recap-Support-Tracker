@@ -206,7 +206,7 @@
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                 </div>
                 <div>
-                    <h3 style="font-size: 1.1rem; margin-bottom: 2px;">Preview Tiket</h3>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 2px;">{{ __('messages.modal_preview_title') }}</h3>
                     <p class="mono" style="font-size: 0.8rem; color: var(--text-muted);">{{ $t->ticket_id }}</p>
                 </div>
             </div>
@@ -217,26 +217,26 @@
             <!-- Informasi Waktu -->
             <div style="display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; color: #1d4ed8; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-bottom: 20px;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                Disubmit {{ \Carbon\Carbon::parse($t->tanggal_input->format('Y-m-d H:i:s'), 'Asia/Jakarta')->locale('id')->diffForHumans(['parts' => 2]) }} &middot; {{ $t->tanggal_input->format('d M Y, H:i') }}
+                {{ __('messages.disubmit') }} {{ \Carbon\Carbon::parse($t->tanggal_input->format('Y-m-d H:i:s'), 'Asia/Jakarta')->locale(app()->getLocale())->diffForHumans(['parts' => 2]) }} &middot; {{ $t->tanggal_input->format('d M Y, H:i') }}
             </div>
 
             <!-- Kendala Utama -->
             <div style="margin-bottom: 24px;">
-                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Deskripsi Permasalahan</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">{{ __('messages.deskripsi_permasalahan') }}</div>
                 <div style="font-size: 0.95rem; color: var(--ink); line-height: 1.6; white-space: pre-wrap; background: var(--paper-raised); padding: 16px; border-radius: 8px; border: 1px solid var(--line);">{{ $t->permasalahan }}</div>
             </div>
 
             @if($t->status === \App\Enums\TicketStatus::DONE)
                 <!-- Tindakan Penyelesaian -->
                 <div style="margin-bottom: 24px;">
-                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Tindakan Penyelesaian</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">{{ __('messages.tindakan_penyelesaian') }}</div>
                     <div style="font-size: 0.95rem; color: #065f46; line-height: 1.6; white-space: pre-wrap; background: #ecfdf5; padding: 16px; border-radius: 8px; border: 1px solid #a7f3d0;">{{ $t->penyelesaian ?? '-' }}</div>
                 </div>
 
                 <!-- Tindakan Pencegahan -->
                 @if($t->pencegahan)
                 <div style="margin-bottom: 24px;">
-                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Tindakan Pencegahan</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">{{ __('messages.tindakan_pencegahan') }}</div>
                     <div style="font-size: 0.95rem; color: #92400e; line-height: 1.6; white-space: pre-wrap; background: #fffbeb; padding: 16px; border-radius: 8px; border: 1px solid #fde68a;">{{ $t->pencegahan }}</div>
                 </div>
                 @endif
@@ -245,19 +245,19 @@
             <!-- Detail Pelapor & Aplikasi (Grid) -->
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: var(--paper-sunken); padding: 16px; border-radius: 12px; border: 1px solid var(--line);">
                 <div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Instansi</div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.instansi') }}</div>
                     <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">{{ $t->pelapor->instansi->nama_instansi ?? '-' }}</div>
                 </div>
                 <div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">PIC Pelapor</div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.pic_pelapor') }}</div>
                     <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">{{ $t->pelapor->nama ?? '-' }}</div>
                 </div>
                 <div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Aplikasi</div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.aplikasi') }}</div>
                     <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">{{ $t->aplikasi->nama_aplikasi ?? '-' }}</div>
                 </div>
                 <div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Kategori</div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.kategori') }}</div>
                     <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">
                         @if($t->kategori)
                             <span style="color: #be123c;">{{ $t->kategori->nama_kategori }}</span>
@@ -285,7 +285,7 @@
             <div>
                 <h3>{{ $t->ticket_id }} &mdash; {{ Str::limit($t->permasalahan, 50) }}</h3>
                 <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;">
-                    {{ $t->pelapor->instansi->nama_instansi ?? '-' }} (PIC: {{ $t->pelapor->nama ?? '-' }}) &middot; Aplikasi: {{ $t->aplikasi->nama_aplikasi ?? '-' }} &middot; Tanggal Masuk: {{ $t->tanggal_input->format('d M Y, H:i') }} <span style="font-weight: 500; color: var(--primary);">&mdash; {{ \Carbon\Carbon::parse($t->tanggal_input->format('Y-m-d H:i:s'), 'Asia/Jakarta')->locale('id')->diffForHumans(['parts' => 2]) }}</span>
+                    {{ $t->pelapor->instansi->nama_instansi ?? '-' }} (PIC: {{ $t->pelapor->nama ?? '-' }}) &middot; {{ __('messages.aplikasi') }}: {{ $t->aplikasi->nama_aplikasi ?? '-' }} &middot; {{ __('messages.col_tanggal') }}: {{ $t->tanggal_input->format('d M Y, H:i') }} <span style="font-weight: 500; color: var(--primary);">&mdash; {{ \Carbon\Carbon::parse($t->tanggal_input->format('Y-m-d H:i:s'), 'Asia/Jakarta')->locale(app()->getLocale())->diffForHumans(['parts' => 2]) }}</span>
                 </p>
             </div>
             <button type="button" class="modal-x" onclick="closeModal('modal-edit-{{ $t->ticket_id }}')">✕</button>

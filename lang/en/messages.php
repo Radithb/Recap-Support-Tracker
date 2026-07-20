@@ -276,4 +276,9 @@ return [
     'kirim_pemberitahuan' => 'Send notifications to email when there are ticket updates.',
     'simpan_pengaturan' => 'Save Settings',
     'keluar_singkat' => 'Sign Out',
+    'disubmit' => 'Submitted',
+    'deskripsi_permasalahan' => 'Problem Description',
+    'tindakan_penyelesaian' => 'Resolution Action',
+    'instansi' => 'Company',
+    'pic_pelapor' => 'Reporter PIC',
 ];

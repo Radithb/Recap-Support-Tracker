@@ -276,4 +276,9 @@ return [
     'kirim_pemberitahuan' => 'Kirim pemberitahuan ke email saat ada pembaruan tiket.',
     'simpan_pengaturan' => 'Simpan Pengaturan',
     'keluar_singkat' => 'Keluar',
+    'disubmit' => 'Disubmit',
+    'deskripsi_permasalahan' => 'Deskripsi Permasalahan',
+    'tindakan_penyelesaian' => 'Tindakan Penyelesaian',
+    'instansi' => 'Instansi',
+    'pic_pelapor' => 'PIC Pelapor',
 ];
