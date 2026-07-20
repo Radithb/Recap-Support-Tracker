@@ -10,7 +10,7 @@
             <span>💬</span> Hubungi Tim Support
         </h3>
         <p style="color: var(--ink-soft); font-size: 14px; margin-bottom: 24px; margin-top: 0;">
-            Butuh bantuan cepat di luar tiket? Sapa kami lewat kanal berikut.
+            Butuh bantuan cepat di luar tiket? Sapa kami lewat alamat berikut.
         </p>
         
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
