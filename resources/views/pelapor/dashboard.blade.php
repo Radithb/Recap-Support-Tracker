@@ -139,18 +139,21 @@
                     <select name="aplikasi_id" required>
                         <option value="">{{ __('messages.pilih_aplikasi') }}</option>
                         @foreach($aplikasis as $app)
-                            <option value="{{ $app->aplikasi_id }}">{{ $app->nama_aplikasi }}</option>
+                            <option value="{{ $app->aplikasi_id }}" {{ old('aplikasi_id') == $app->aplikasi_id ? 'selected' : '' }}>{{ $app->nama_aplikasi }}</option>
                         @endforeach
                     </select>
+                    @error('aplikasi_id') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
                 </div>
                 <div class="field">
                     <label>{{ __('messages.deskripsi_kendala') }}</label>
-                    <textarea name="permasalahan" required placeholder="{{ __('messages.tuliskan_detail') }}"></textarea>
+                    <textarea name="permasalahan" required placeholder="{{ __('messages.tuliskan_detail') }}">{{ old('permasalahan') }}</textarea>
+                    @error('permasalahan') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
                 </div>
                 <div class="field" style="margin-top: 14px;">
                     <label>Upload Lampiran (Opsional)</label>
                     <input type="file" name="lampiran" accept=".jpg,.jpeg,.png,.mp4,.pdf" style="width:100%; font-size: calc(13px * var(--text-scale, 1)); font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;">
                     <div class="helper">Format: JPG, PNG, MP4, PDF (Maksimal 5MB)</div>
+                    @error('lampiran') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
                 </div>
             </div>
             <div class="modal-foot">
@@ -171,6 +174,10 @@
             if(skeleton) skeleton.style.display = 'none';
             if(content) content.style.display = 'block';
         }, 1200);
+
+        @if($errors->any())
+            openModal('modal-create');
+        @endif
     });
 </script>
 @endsection

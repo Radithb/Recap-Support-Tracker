@@ -68,7 +68,7 @@ class Ticket extends Model
                                   ->first();
                 
                 if ($lastTicket) {
-                    $lastNumber = (int) substr($lastTicket->ticket_id, 11);
+                    $lastNumber = (int) substr($lastTicket->ticket_id, 10);
                     $newNumber = str_pad($lastNumber + 1, 4, '0', STR_PAD_LEFT);
                 } else {
                     $newNumber = '0001';
