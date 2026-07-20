@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MasterAplikasi;
 use App\Models\MasterKategori;
+use App\Models\Instansi;
+use App\Models\User;
+use App\Enums\UserRole;
+use App\Enums\TicketStatus;
 
 class MasterDataController extends Controller
 {
@@ -12,7 +16,11 @@ class MasterDataController extends Controller
     {
         $aplikasis = MasterAplikasi::all();
         $kategoris = MasterKategori::all();
-        return view('support.master-data', compact('aplikasis', 'kategoris'));
+        $instansis = Instansi::withCount('users')->get();
+        $supportPics = User::where('role', UserRole::SUPPORT)->get();
+        $statuses = TicketStatus::cases();
+
+        return view('support.master-data', compact('aplikasis', 'kategoris', 'instansis', 'supportPics', 'statuses'));
     }
     
     public function storeAplikasi(Request $request)
