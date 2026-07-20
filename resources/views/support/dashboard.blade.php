@@ -299,13 +299,13 @@
                 <!-- KOLOM KIRI -->
                 <div>
                     <div class="field">
-                        <label>Deskripsi Permasalahan</label>
+                        <label>{{ __('messages.deskripsi_permasalahan') }}</label>
                         <textarea readonly style="background: var(--paper-raised); min-height: 100px;">{{ $t->permasalahan }}</textarea>
                     </div>
 
                     @if($t->lampiran)
                     <div class="field">
-                        <label>Lampiran Bukti</label>
+                        <label>{{ __('messages.lampiran_bukti') }}</label>
                         @php $ext = strtolower(pathinfo($t->lampiran, PATHINFO_EXTENSION)); @endphp
                         @if(in_array($ext, ['jpg', 'jpeg', 'png']))
                             <a href="{{ Storage::url($t->lampiran) }}" target="_blank">
@@ -313,20 +313,20 @@
                             </a>
                         @elseif($ext === 'mp4')
                             <a href="{{ Storage::url($t->lampiran) }}" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; text-decoration: none;">
-                                <span>🎥</span> Lihat Bukti Video
+                                <span>🎥</span> {{ __('messages.lihat_video') }}
                             </a>
                         @elseif($ext === 'pdf')
                             <a href="{{ Storage::url($t->lampiran) }}" target="_blank" class="btn btn-ghost" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--line); margin-top: 8px; text-decoration: none;">
-                                <span>📄</span> Unduh Dokumen PDF
+                                <span>📄</span> {{ __('messages.unduh_pdf') }}
                             </a>
                         @endif
                     </div>
                     @endif
 
                     <div class="field">
-                        <label>Kategori Tiket</label>
+                        <label>{{ __('messages.kategori_tiket') }}</label>
                         <select name="kategori_id" required>
-                            <option value="">Pilih Kategori...</option>
+                            <option value="">{{ __('messages.pilih_kategori') }}</option>
                             @foreach($kategoris as $kat)
                                 <option value="{{ $kat->kategori_id }}" {{ $t->kategori_id == $kat->kategori_id ? 'selected' : '' }}>{{ $kat->nama_kategori }}</option>
                             @endforeach
@@ -334,7 +334,7 @@
                     </div>
 
                     <div class="field">
-                        <label>Tautan Eksternal (Opsional)</label>
+                        <label>{{ __('messages.tautan_eksternal_opsional') }}</label>
                         <input type="text" name="link_ticket" value="{{ $t->link_ticket ?? '' }}" placeholder="https://...">
                     </div>
                 </div>
@@ -342,7 +342,7 @@
                 <!-- KOLOM KANAN -->
                 <div>
                     <div class="field">
-                        <label>Status</label>
+                        <label>{{ __('messages.status') }}</label>
                         <select name="status" required>
                             <option value="Open" {{ $t->status === \App\Enums\TicketStatus::OPEN ? 'selected' : '' }}>Open</option>
                             <option value="Proses" {{ $t->status === \App\Enums\TicketStatus::PROSES ? 'selected' : '' }}>Proses</option>
@@ -352,25 +352,25 @@
                     </div>
 
                     <div class="field">
-                        <label>Tindakan Penyelesaian</label>
-                        <textarea name="penyelesaian" style="min-height: 90px;" placeholder="Langkah perbaikan yang dilakukan...">{{ $t->penyelesaian }}</textarea>
+                        <label>{{ __('messages.tindakan_penyelesaian') }}</label>
+                        <textarea name="penyelesaian" style="min-height: 90px;" placeholder="{{ __('messages.langkah_perbaikan') }}">{{ $t->penyelesaian }}</textarea>
                     </div>
 
                     <div class="field">
-                        <label>Tindakan Pencegahan</label>
-                        <textarea name="pencegahan" style="min-height: 90px;" placeholder="Tindakan preventif agar tidak terulang...">{{ $t->pencegahan ?? '' }}</textarea>
+                        <label>{{ __('messages.tindakan_pencegahan') }}</label>
+                        <textarea name="pencegahan" style="min-height: 90px;" placeholder="{{ __('messages.langkah_preventif') }}">{{ $t->pencegahan ?? '' }}</textarea>
                     </div>
 
                     <div class="field">
-                        <label>Tanggal Selesai</label>
-                        <input type="text" readonly value="Otomatis terisi saat status &rarr; Done" style="background: var(--paper-raised); color: var(--text-muted); cursor: not-allowed;">
+                        <label>{{ __('messages.tanggal_selesai') }}</label>
+                        <input type="text" readonly value="{{ __('messages.otomatis_selesai') }}" style="background: var(--paper-raised); color: var(--text-muted); cursor: not-allowed;">
                     </div>
                 </div>
             </div>
             
             <div class="modal-foot" style="display: flex; justify-content: flex-end; gap: 12px;">
-                <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-{{ $t->ticket_id }}')">Batal</button>
-                <button type="submit" class="btn btn-primary">Update Tiket</button>
+                <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-{{ $t->ticket_id }}')">{{ __('messages.batal') }}</button>
+                <button type="submit" class="btn btn-primary">{{ __('messages.update_tiket') }}</button>
             </div>
         </form>
     </div>
