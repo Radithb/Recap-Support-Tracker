@@ -297,4 +297,7 @@ return [
     'minimal_8_kosongkan' => 'Minimal 8 karakter. Biarkan kosong jika tidak ada perubahan.',
     'id_laporan' => 'ID Laporan',
     'cari_laporan' => 'Cari laporan...',
+    'upload_lampiran_opsional' => 'Upload Lampiran (Opsional)',
+    'format_lampiran' => 'Format: JPG, PNG, MP4, PDF (Maksimal 5MB)',
+    'kirim_laporan' => 'Kirim Laporan',
 ];

@@ -297,4 +297,7 @@ return [
     'minimal_8_kosongkan' => 'Minimum 8 characters. Leave blank if no changes.',
     'id_laporan' => 'Report ID',
     'cari_laporan' => 'Search reports...',
+    'upload_lampiran_opsional' => 'Upload Attachment (Optional)',
+    'format_lampiran' => 'Format: JPG, PNG, MP4, PDF (Max 5MB)',
+    'kirim_laporan' => 'Submit Report',
 ];

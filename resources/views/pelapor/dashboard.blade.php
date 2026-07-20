@@ -150,15 +150,15 @@
                     @error('permasalahan') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
                 </div>
                 <div class="field" style="margin-top: 14px;">
-                    <label>Upload Lampiran (Opsional)</label>
+                    <label>{{ __('messages.upload_lampiran_opsional') }}</label>
                     <input type="file" name="lampiran" accept=".jpg,.jpeg,.png,.mp4,.pdf" style="width:100%; font-size: calc(13px * var(--text-scale, 1)); font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;">
-                    <div class="helper">Format: JPG, PNG, MP4, PDF (Maksimal 5MB)</div>
+                    <div class="helper">{{ __('messages.format_lampiran') }}</div>
                     @error('lampiran') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
                 </div>
             </div>
             <div class="modal-foot">
-                <button type="button" class="btn btn-ghost" onclick="closeModal('modal-create')">Batal</button>
-                <button type="submit" class="btn btn-primary">Kirim Laporan</button>
+                <button type="button" class="btn btn-ghost" onclick="closeModal('modal-create')">{{ __('messages.batal') }}</button>
+                <button type="submit" class="btn btn-primary">{{ __('messages.kirim_laporan') }}</button>
             </div>
         </form>
     </div>
