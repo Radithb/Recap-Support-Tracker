@@ -109,11 +109,17 @@
     {{-- ═══════════════════════════════════════════ --}}
     <div class="content-wrap" id="actual-content" style="display: none; max-width: 1100px; margin: 0 auto;">
         {{-- Page Header --}}
-        <div class="page-head fade-up" style="animation-delay: 0.1s; margin-bottom: 2.5rem;">
+        <div class="page-head fade-up" style="animation-delay: 0.1s; margin-bottom: 2.5rem; display: flex; justify-content: space-between; align-items: flex-start;">
             <div>
                 <p class="eyebrow" style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600;">{{ __('messages.d2_master_data') }}</p>
                 <h1 style="margin: 0; font-size: 2rem; color: var(--ink);">{{ __('messages.kelola_master_data') }}</h1>
                 <p style="color: var(--text-muted); margin-top: 0.5rem; max-width: 600px; line-height: 1.5;">{{ __('messages.referensi_dipakai') }}</p>
+            </div>
+            <div>
+                <a href="{{ route('support.master-data.export') }}" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 600; text-decoration: none;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                    Export Excel
+                </a>
             </div>
         </div>
 

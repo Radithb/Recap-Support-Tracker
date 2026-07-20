@@ -52,6 +52,7 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
     
     // Master Data
     Route::get('/master-data', [MasterDataController::class, 'index'])->name('master-data.index');
+    Route::get('/master-data/export', [MasterDataController::class, 'export'])->name('master-data.export');
     Route::post('/master-data/aplikasi', [MasterDataController::class, 'storeAplikasi'])->name('master-data.aplikasi.store');
     Route::post('/master-data/kategori', [MasterDataController::class, 'storeKategori'])->name('master-data.kategori.store');
 

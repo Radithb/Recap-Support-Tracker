@@ -51,4 +51,55 @@ class MasterDataController extends Controller
 
         return back()->with('success', __('messages.cat_added'));
     }
+
+    public function export()
+    {
+        $aplikasis = MasterAplikasi::all();
+        $kategoris = MasterKategori::all();
+        $instansis = Instansi::all();
+        $supportPics = User::where('role', UserRole::SUPPORT)->get();
+        $statuses = TicketStatus::cases();
+
+        $maxRows = max(
+            count($aplikasis),
+            count($kategoris),
+            count($instansis),
+            count($supportPics),
+            count($statuses)
+        );
+
+        $filename = "Master_Data_Export_" . date('Ymd_His') . ".csv";
+        $headers = [
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$filename",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        ];
+
+        $columns = ['Nama Koperasi', 'Jenis Case', 'Jenis Aplikasi', 'PIC TIM SUPPORT', 'Status'];
+
+        $callback = function() use($aplikasis, $kategoris, $instansis, $supportPics, $statuses, $columns, $maxRows) {
+            $file = fopen('php://output', 'w');
+            
+            // Add BOM for Excel UTF-8 compatibility
+            fputs($file, "\xEF\xBB\xBF");
+            fputcsv($file, $columns, ';');
+
+            for ($i = 0; $i < $maxRows; $i++) {
+                $row = [
+                    isset($instansis[$i]) ? $instansis[$i]->nama_instansi : '',
+                    isset($kategoris[$i]) ? $kategoris[$i]->nama_kategori : '',
+                    isset($aplikasis[$i]) ? $aplikasis[$i]->nama_aplikasi : '',
+                    isset($supportPics[$i]) ? $supportPics[$i]->nama : '',
+                    isset($statuses[$i]) ? $statuses[$i]->value : ''
+                ];
+                fputcsv($file, $row, ';');
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
 }
