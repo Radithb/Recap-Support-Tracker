@@ -104,19 +104,32 @@ class AuthController extends Controller
             'no_telp' => ['nullable', 'string', 'max:50'],
             'aplikasis' => ['nullable', 'array'],
             'aplikasis.*' => ['exists:master_aplikasis,aplikasi_id'],
+            'avatar' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
         $user = Auth::user();
-        if ($user && $user->instansi) {
-            $user->instansi->update([
-                'alamat' => $request->alamat,
-                'no_telp' => $request->no_telp,
-            ]);
+        if ($user) {
+            if ($request->hasFile('avatar')) {
+                // Hapus avatar lama jika ada
+                if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+                }
+                $path = $request->file('avatar')->store('avatars', 'public');
+                $user->avatar = $path;
+                $user->save();
+            }
 
-            if ($request->has('aplikasis')) {
-                $user->instansi->aplikasis()->sync($request->aplikasis);
-            } else {
-                $user->instansi->aplikasis()->sync([]);
+            if ($user->instansi) {
+                $user->instansi->update([
+                    'alamat' => $request->alamat,
+                    'no_telp' => $request->no_telp,
+                ]);
+
+                if ($request->has('aplikasis')) {
+                    $user->instansi->aplikasis()->sync($request->aplikasis);
+                } else {
+                    $user->instansi->aplikasis()->sync([]);
+                }
             }
         }
 

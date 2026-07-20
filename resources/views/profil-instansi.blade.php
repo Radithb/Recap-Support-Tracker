@@ -67,13 +67,17 @@
                         <div style="display: flex; align-items: center; gap: 20px;">
                             <!-- Avatar -->
                             <div style="position: relative; flex-shrink: 0;">
-                                <div style="width: 70px; height: 70px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); font-size: 28px; font-weight: bold; color: white;">
-                                    @php
-                                        $nama = Auth::user()->nama ?? 'User';
-                                        $initials = collect(explode(' ', $nama))->map(function($w){return strtoupper(substr($w,0,1));})->take(2)->join('');
-                                    @endphp
-                                    {{ $initials }}
-                                </div>
+                                @php
+                                    $nama = Auth::user()->nama ?? 'User';
+                                    $initials = collect(explode(' ', $nama))->map(function($w){return strtoupper(substr($w,0,1));})->take(2)->join('');
+                                @endphp
+                                @if(Auth::user()->avatar)
+                                    <img src="{{ asset('storage/' . Auth::user()->avatar) }}" style="width: 70px; height: 70px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.4); object-fit: cover; display: block;">
+                                @else
+                                    <div style="width: 70px; height: 70px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); font-size: 28px; font-weight: bold; color: white;">
+                                        {{ $initials }}
+                                    </div>
+                                @endif
                                 <div style="position: absolute; bottom: 0; right: -4px; background: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: #1e3a8a;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                                 </div>
@@ -168,9 +172,26 @@
 
             <!-- EDIT MODE -->
             <div id="edit-mode" style="display: none;">
-                <form action="{{ route('profil.instansi.update') }}" method="POST">
+                <form action="{{ route('profil.instansi.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
+                    
+                    <!-- FOTO PROFIL UPLOAD -->
+                    <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 28px;">
+                        <div style="position: relative; width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--line); background: var(--paper-sunken); overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.05);" onclick="document.getElementById('avatar-input').click()">
+                            @if(Auth::user()->avatar)
+                                <img id="avatar-preview" src="{{ asset('storage/' . Auth::user()->avatar) }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                            @else
+                                <img id="avatar-preview" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                <span id="avatar-placeholder" style="font-size: 36px; font-weight: bold; color: var(--ink-soft);">{{ $initials }}</span>
+                            @endif
+                            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); padding: 4px 0; text-align: center; color: white; font-size: 10px; font-weight: 700; letter-spacing: 0.5px;">
+                                UBAH
+                            </div>
+                        </div>
+                        <input type="file" name="avatar" id="avatar-input" style="display: none;" accept="image/*" onchange="previewAvatar(this)">
+                        <div style="font-size: 11px; color: var(--ink-soft); margin-top: 8px;">Maks. 2MB (JPG, PNG)</div>
+                    </div>
                     
                     <div class="field">
                         <label>{{ __('messages.nama_koperasi') }}</label>
@@ -227,7 +248,7 @@
                 <!-- FORM KEAMANAN AKUN (Hanya tampil di Edit Mode) -->
                 <div style="margin-top: 32px; border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--paper-raised);">
                     <h4 style="font-size: calc(16px * var(--text-scale, 1)); margin: 0 0 6px 0; color: var(--ink); display: flex; align-items: center; gap: 8px;">
-                        🔒 {{ __('messages.keamanan_akun') }}
+                        {{ __('messages.keamanan_akun') }}
                     </h4>
                     <p class="sub" style="margin-bottom: 24px; color: var(--ink-soft); font-size: calc(13px * var(--text-scale, 1));">
                         {{ __('messages.keamanan_akun_desc') }}
@@ -263,6 +284,20 @@
                 
                 const kartu = document.getElementById('kartu-identitas');
                 if (kartu) kartu.style.display = showEdit ? 'none' : 'block';
+            }
+
+            function previewAvatar(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        const preview = document.getElementById('avatar-preview');
+                        const placeholder = document.getElementById('avatar-placeholder');
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                        if (placeholder) placeholder.style.display = 'none';
+                    }
+                    reader.readAsDataURL(input.files[0]);
+                }
             }
 
             document.addEventListener('DOMContentLoaded', function () {
