@@ -61,7 +61,7 @@
 
             
             <!-- KARTU IDENTITAS ANGGOTA DIGITAL -->
-            <div style="margin-bottom: 32px; background: linear-gradient(135deg, #1e3a8a, #1e40af); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);">
+            <div id="kartu-identitas" style="margin-bottom: 32px; background: linear-gradient(135deg, #1e3a8a, #1e40af); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);">
                 <div style="padding: 24px; position: relative; color: white;">
                     <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
                         <div style="display: flex; align-items: center; gap: 20px;">
@@ -230,6 +230,9 @@
             function toggleEditMode(showEdit) {
                 document.getElementById('view-mode').style.display = showEdit ? 'none' : 'block';
                 document.getElementById('edit-mode').style.display = showEdit ? 'block' : 'none';
+                
+                const kartu = document.getElementById('kartu-identitas');
+                if (kartu) kartu.style.display = showEdit ? 'none' : 'block';
             }
 
             document.addEventListener('DOMContentLoaded', function () {
