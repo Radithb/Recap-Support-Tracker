@@ -4,7 +4,41 @@
 @section('page_subtitle', __('messages.subtitle_pengaturan'))
 
 @section('content')
-<div class="pelapor-panel fade-up" style="animation-delay: 0.1s;">
+<div class="pelapor-panel">
+    
+    {{-- SKELETON LOADING STATE --}}
+    <div class="skeleton-wrap" id="skeleton-loading">
+        <div style="margin-bottom: 32px; display: flex; gap: 10px;">
+            <div class="skel" style="width: 150px; height: 36px; border-radius: 9999px;"></div>
+            <div class="skel" style="width: 110px; height: 36px; border-radius: 9999px;"></div>
+            <div class="skel" style="width: 110px; height: 36px; border-radius: 9999px;"></div>
+        </div>
+        
+        <div class="skel-panel" style="padding: 30px; max-width: 100%;">
+            <div style="margin-bottom: 24px;">
+                <div class="skel" style="width: 150px; height: 24px; border-radius: 6px; margin-bottom: 8px;"></div>
+                <div class="skel" style="width: 250px; height: 14px; border-radius: 4px;"></div>
+            </div>
+            
+            <div style="margin-bottom: 24px;">
+                <div class="skel" style="width: 120px; height: 14px; border-radius: 4px; margin-bottom: 8px;"></div>
+                <div style="display: flex; gap: 8px;">
+                    <div class="skel" style="width: 120px; height: 36px; border-radius: 6px;"></div>
+                    <div class="skel" style="width: 120px; height: 36px; border-radius: 6px;"></div>
+                </div>
+            </div>
+            
+            <div style="margin-bottom: 32px;">
+                <div class="skel" style="width: 120px; height: 14px; border-radius: 4px; margin-bottom: 8px;"></div>
+                <div class="skel" style="width: 200px; height: 36px; border-radius: 6px;"></div>
+            </div>
+
+            <div class="skel" style="width: 160px; height: 40px; border-radius: 6px;"></div>
+        </div>
+    </div>
+
+    {{-- ACTUAL CONTENT --}}
+    <div class="content-wrap fade-up" id="actual-content" style="display: none; animation-delay: 0.1s;">
     
     @if(session('success'))
         <div id="success-alert" class="alert-dismiss fade-up" style="animation-delay: 0.2s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--sage-soft); color: var(--sage); border-radius: 8px; margin-bottom: 24px; font-size: calc(13.5px * var(--text-scale, 1)); font-weight: 600; border: 1px solid rgba(46, 125, 82, 0.2); transition: opacity 0.6s ease, transform 0.6s ease;">
@@ -282,6 +316,18 @@
 <script>
     // Initialize radio buttons from localStorage
     document.addEventListener('DOMContentLoaded', function() {
+        // Skeleton Loading Transition
+        const skeleton = document.getElementById('skeleton-loading');
+        const content  = document.getElementById('actual-content');
+        if(skeleton && content) {
+            setTimeout(function () {
+                skeleton.style.display = 'none';
+                content.style.display = 'block';
+                content.classList.add('loaded');
+            }, 800);
+        }
+
+        // Initialize radio buttons from localStorage
         var currentTheme = localStorage.getItem('personal_theme') || 'light';
         var currentFont = localStorage.getItem('personal_font_size') || 'medium';
         
@@ -351,4 +397,5 @@
         }, 3000);
     }
 </script>
+</div>
 @endsection
