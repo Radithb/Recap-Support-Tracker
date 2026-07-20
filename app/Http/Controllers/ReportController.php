@@ -63,4 +63,26 @@ class ReportController extends Controller
 
         return view('support.recap', compact('year', 'chartData', 'crosstab'));
     }
+
+    public function detail(Request $request)
+    {
+        $year = $request->input('year', date('Y'));
+        $month = $request->input('month', date('n'));
+
+        // Ambil tiket berdasarkan tanggal_input pada bulan dan tahun terpilih
+        $tickets = Ticket::with(['pelapor.instansi', 'kategori', 'picSupport'])
+            ->whereYear('tanggal_input', $year)
+            ->whereMonth('tanggal_input', $month)
+            ->orderBy('tanggal_input', 'asc')
+            ->get();
+
+        $months = [
+            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April', 5 => 'Mei', 6 => 'Juni',
+            7 => 'Juli', 8 => 'Agustus', 9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+        ];
+        
+        $monthName = $months[(int)$month] ?? '';
+
+        return view('support.recap-detail', compact('tickets', 'year', 'month', 'monthName'));
+    }
 }
