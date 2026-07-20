@@ -127,107 +127,135 @@
             </div>
         @endif
 
-        <!-- PANEL 1: INFORMASI IDENTITAS DIRI -->
+        <!-- MAIN PROFILE PANEL -->
         <div class="panel fade-up" style="padding: 30px; max-width: 100%; animation-delay: 0.15s; margin-bottom: 24px;">
-            <h3 style="display:flex; align-items:center; gap:8px; margin-bottom: 6px; font-size: calc(16px * var(--text-scale, 1)); color: var(--ink);">
-                {{ __('messages.informasi_identitas_diri') }}
-            </h3>
-            <p class="sub" style="margin-bottom: 24px; color: var(--ink-soft); font-size: calc(13px * var(--text-scale, 1));">
-                {{ __('messages.data_pribadi_koperasi') }}
-            </p>
 
-            <form action="{{ route('support.profil.saya.update') }}" method="POST" enctype="multipart/form-data">
-                @csrf
-                @method('PUT')
 
-                <!-- Avatar Upload Section -->
-                <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 28px;">
-                    <div style="position: relative; width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--line); background: var(--paper-sunken); overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+
+            <!-- VIEW MODE -->
+            <div id="view-mode" class="fade-up" style="animation-delay: 0.25s;">
+                <div style="margin-bottom: 24px;">
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.nama_lengkap') }}</label>
+                    <h4 style="font-size: calc(16px * var(--text-scale, 1)); color: var(--ink); margin: 0;">{{ Auth::user()->nama ?? '-' }}</h4>
+                </div>
+                <div style="margin-bottom: 24px;">
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.nik_id_agen') }}</label>
+                    <p class="mono" style="color: var(--ink); line-height: 1.6; margin: 0; font-size: calc(14.5px * var(--text-scale, 1));">{{ Auth::user()->nik ?? '-' }}</p>
+                </div>
+                <div style="margin-bottom: 32px;">
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.no_whatsapp_hp') }}</label>
+                    <div class="mono" style="color: var(--ink); font-size: calc(14.5px * var(--text-scale, 1));">{{ Auth::user()->whatsapp ?? '-' }}</div>
+                </div>
+                <div style="margin-bottom: 32px;">
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.alamat_email') }}</label>
+                    <div class="mono" style="color: var(--ink); font-size: calc(14.5px * var(--text-scale, 1));">{{ Auth::user()->email ?? '-' }}</div>
+                </div>
+                
+                <div style="border-top: 1px solid var(--line); padding-top: 20px;">
+                    <button type="button" class="btn btn-ghost" onclick="toggleEditMode(true)" style="padding: 9px 18px;">
+                        <span class="ic"><img src="{{ asset('edit.png') }}" alt="Edit" style="width: 14px; height: 14px; object-fit: contain; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span> Edit Data Diri
+                    </button>
+                </div>
+            </div>
+
+            <!-- EDIT MODE -->
+            <div id="edit-mode" style="display: none;">
+                <form action="{{ route('support.profil.saya.update') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+
+                    <!-- Avatar Upload Section -->
+                    <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 28px;">
                         @php
                             $nama = Auth::user()->nama ?? 'User';
                             $initials = collect(explode(' ', $nama))->map(function($w){return strtoupper(substr($w,0,1));})->take(2)->join('');
                         @endphp
-                        @if(Auth::user()->avatar)
-                            <img id="avatar-preview" src="{{ asset('storage/' . Auth::user()->avatar) }}" style="width: 100%; height: 100%; object-fit: cover;">
-                        @else
-                            <img id="avatar-preview" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
-                            <span id="avatar-placeholder" style="font-size: 28px; font-weight: bold; color: var(--ink-soft);">{{ $initials }}</span>
-                        @endif
-                    </div>
-                    <div>
-                        <button type="button" class="btn btn-ghost" style="border: 1px solid var(--line); background: var(--paper-raised); padding: 6px 12px; font-size: 13px;" onclick="document.getElementById('avatar-input').click()">
-                            {{ __('messages.ganti_foto_profil') }}
-                        </button>
-                        <div style="font-size: 11px; color: var(--ink-soft); margin-top: 6px;">{{ __('messages.belum_ada_foto_format') }}</div>
+                        <div style="position: relative; width: 100px; height: 100px; border-radius: 50%; border: 3px solid var(--line); background: var(--paper-sunken); overflow: hidden; display: flex; align-items: center; justify-content: center; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.05);" onclick="document.getElementById('avatar-input').click()">
+                            @if(Auth::user()->avatar)
+                                <img id="avatar-preview" src="{{ asset('storage/' . Auth::user()->avatar) }}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                            @else
+                                <img id="avatar-preview" src="" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                                <span id="avatar-placeholder" style="font-size: 36px; font-weight: bold; color: var(--ink-soft);">{{ $initials }}</span>
+                            @endif
+                            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); padding: 4px 0; text-align: center; color: white; font-size: 10px; font-weight: 700; letter-spacing: 0.5px;">
+                                UBAH
+                            </div>
+                        </div>
                         <input type="file" name="avatar" id="avatar-input" style="display: none;" accept="image/*" onchange="previewAvatar(this)">
+                        <div style="font-size: 11px; color: var(--ink-soft); margin-top: 8px;">Maks. 2MB (JPG, PNG)</div>
                     </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+                        <div class="field">
+                            <label>{{ __('messages.nama_lengkap') }}</label>
+                            <input type="text" name="nama" value="{{ Auth::user()->nama }}" required style="background: var(--paper-sunken);">
+                        </div>
+                        <div class="field">
+                            <label>{{ __('messages.nik_id_agen') }}</label>
+                            <input type="text" name="nik" value="{{ Auth::user()->nik }}" placeholder="Contoh: SKK-EMP-0417" style="background: var(--paper-sunken);">
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+                        <div class="field">
+                            <label>{{ __('messages.no_whatsapp_hp') }}</label>
+                            <input type="text" name="whatsapp" value="{{ Auth::user()->whatsapp }}" placeholder="Contoh: +62 812 3300 4455" style="background: var(--paper-sunken);">
+                        </div>
+                        <div class="field">
+                            <label>{{ __('messages.alamat_email') }}</label>
+                            <input type="email" name="email" value="{{ Auth::user()->email }}" required style="background: var(--paper-sunken);">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line);">
+                        <button type="button" class="btn btn-ghost" onclick="toggleEditMode(false)" style="padding: 10px 20px;">{{ __('messages.batal') }}</button>
+                        <button type="submit" class="btn btn-primary" style="padding: 10px 20px;">{{ __('messages.simpan_perubahan') }}</button>
+                    </div>
+                </form>
+
+                <!-- FORM KEAMANAN AKUN (Hanya tampil di Edit Mode) -->
+                <div style="margin-top: 32px; border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--paper-raised);">
+                    <h4 style="font-size: calc(16px * var(--text-scale, 1)); margin: 0 0 6px 0; color: var(--ink); display: flex; align-items: center; gap: 8px;">
+                        {{ __('messages.keamanan_akun') }}
+                    </h4>
+                    <p class="sub" style="margin-bottom: 24px; color: var(--ink-soft); font-size: calc(13px * var(--text-scale, 1));">
+                        {{ __('messages.keamanan_akun_support_desc') }}
+                    </p>
+
+                    <form action="{{ route('support.profil.saya.update') }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="field" style="margin-bottom: 18px;">
+                            <label>{{ __('messages.kata_sandi_saat_ini') }}</label>
+                            <input type="password" name="current_password" required style="background: var(--paper-sunken);" placeholder="••••••••">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
+                            <div class="field">
+                                <label>{{ __('messages.kata_sandi_baru') }}</label>
+                                <input type="password" name="password" required style="background: var(--paper-sunken);" placeholder="••••••••">
+                            </div>
+                            <div class="field">
+                                <label>{{ __('messages.konfirmasi_kata_sandi') }}</label>
+                                <input type="password" name="password_confirmation" required style="background: var(--paper-sunken);" placeholder="••••••••">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-ghost" style="border: 1px solid var(--line); background: var(--paper-sunken); padding: 10px 20px;">{{ __('messages.perbarui_kata_sandi') }}</button>
+                    </form>
                 </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
-                    <div class="field">
-                        <label>{{ __('messages.nama_lengkap') }}</label>
-                        <input type="text" name="nama" value="{{ Auth::user()->nama }}" required style="background: var(--paper-sunken);">
-                    </div>
-                    <div class="field">
-                        <label>{{ __('messages.nik_id_agen') }}</label>
-                        <input type="text" name="nik" value="{{ Auth::user()->nik }}" placeholder="Contoh: SKK-EMP-0417" style="background: var(--paper-sunken);">
-                    </div>
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
-                    <div class="field">
-                        <label>{{ __('messages.no_whatsapp_hp') }}</label>
-                        <input type="text" name="whatsapp" value="{{ Auth::user()->whatsapp }}" placeholder="Contoh: +62 812 3300 4455" style="background: var(--paper-sunken);">
-                    </div>
-                    <div class="field">
-                        <label>{{ __('messages.alamat_email') }}</label>
-                        <input type="email" name="email" value="{{ Auth::user()->email }}" required style="background: var(--paper-sunken);">
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="padding: 10px 20px; background: #dc2626; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">{{ __('messages.simpan_perubahan') }}</button>
-            </form>
-        </div>
-
-        <!-- PANEL 2: KEAMANAN AKUN -->
-        <div class="panel fade-up" style="padding: 30px; max-width: 100%; animation-delay: 0.2s; margin-bottom: 24px;">
-            <h3 style="display:flex; align-items:center; gap:8px; margin-bottom: 6px; font-size: calc(16px * var(--text-scale, 1)); color: var(--ink);">
-                {{ __('messages.keamanan_akun') }}
-            </h3>
-            <p class="sub" style="margin-bottom: 24px; color: var(--ink-soft); font-size: calc(13px * var(--text-scale, 1));">
-                {{ __('messages.keamanan_akun_support_desc') }}
-            </p>
-
-            <form action="{{ route('support.profil.saya.update') }}" method="POST">
-                @csrf
-                @method('PUT')
-
-
-                <div class="field" style="margin-bottom: 18px;">
-                    <label>{{ __('messages.kata_sandi_saat_ini') }}</label>
-                    <input type="password" name="current_password" style="background: var(--paper-sunken);" placeholder="••••••••">
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
-                    <div class="field">
-                        <label>{{ __('messages.kata_sandi_baru') }}</label>
-                        <input type="password" name="password" style="background: var(--paper-sunken);" placeholder="••••••••">
-                    </div>
-                    <div class="field">
-                        <label>{{ __('messages.konfirmasi_kata_sandi') }}</label>
-                        <input type="password" name="password_confirmation" style="background: var(--paper-sunken);" placeholder="••••••••">
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-ghost" style="border: 1px solid var(--line); background: var(--paper-sunken); padding: 10px 20px; margin-bottom: 24px;">{{ __('messages.perbarui_kata_sandi') }}</button>
-
-
-            </form>
+            </div>
         </div>
 
 
 
         <script>
+            function toggleEditMode(showEdit) {
+                document.getElementById('view-mode').style.display = showEdit ? 'none' : 'block';
+                document.getElementById('edit-mode').style.display = showEdit ? 'block' : 'none';
+                
+                const kartu = document.getElementById('kartu-identitas');
+                if (kartu) kartu.style.display = showEdit ? 'none' : 'block';
+            }
+
             function previewAvatar(input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
