@@ -11,7 +11,6 @@
         <div style="margin-bottom: 32px; display: flex; gap: 10px;">
             <div class="skel" style="width: 150px; height: 36px; border-radius: 9999px;"></div>
             <div class="skel" style="width: 110px; height: 36px; border-radius: 9999px;"></div>
-            <div class="skel" style="width: 110px; height: 36px; border-radius: 9999px;"></div>
         </div>
         
         <div class="skel-panel" style="padding: 30px; max-width: 100%;">
@@ -131,7 +130,6 @@
     <div style="margin-bottom: 32px; display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;">
         <button type="button" class="pill-filter active" id="btn-tampilan" onclick="switchSettingTab('tampilan')"><span class="icon-mask" style="--mask-url: url('{{ asset('application.png') }}');"></span> {{ __('messages.tab_personalisasi') }}</button>
         <button type="button" class="pill-filter" id="btn-bahasa" onclick="switchSettingTab('bahasa')"><span class="icon-mask" style="--mask-url: url('{{ asset('world.png') }}');"></span> {{ __('messages.tab_bahasa') }}</button>
-        <button type="button" class="pill-filter" id="btn-akun" onclick="switchSettingTab('akun')"><span class="icon-mask" style="--mask-url: url('{{ asset('padlock.png') }}');"></span> {{ __('messages.tab_privasi') }}</button>
     </div>
     
     <div class="panel" id="panel-bahasa" style="padding: 30px; max-width: 100%; display: none;">
@@ -165,58 +163,7 @@
         </form>
     </div>
 
-    <div class="panel" id="panel-akun" style="padding: 30px; max-width: 100%; display: none;">
-        <div style="margin-bottom: 32px;">
-            <h3 style="font-size: calc(20px * var(--text-scale, 1)); display:flex; align-items:center; gap:8px;">
-                <span class="icon-mask" style="--mask-url: url('{{ asset('padlock.png') }}'); width: 22px; height: 22px;"></span> {{ __('messages.title_akun') }}
-            </h3>
-            <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">{{ __('messages.subtitle_akun') }}</p>
-        </div>
 
-        <form action="{{ route('pengaturan.update') }}" method="POST">
-            @csrf
-            @method('PUT')
-            
-            <h4 style="font-size: calc(16px * var(--text-scale, 1)); margin-bottom: 16px; color:var(--ink); border-bottom: 1px solid var(--line); padding-bottom:12px;">{{ __('messages.profil_pengguna') }}</h4>
-            
-            <div class="field" style="margin-bottom: 18px;">
-                <label>{{ __('messages.label_nama') }}</label>
-                <input type="text" name="nama" value="{{ old('nama', Auth::user()->nama) }}" placeholder="{{ __('messages.placeholder_nama') }}" required>
-            </div>
-            
-            <div class="field" style="margin-bottom: 24px;">
-                <label>{{ __('messages.label_email') }}</label>
-                <input type="email" name="email" value="{{ old('email', Auth::user()->email) }}" placeholder="{{ __('messages.placeholder_email') }}" required>
-                <div class="helper">{{ __('messages.helper_email') }}</div>
-            </div>
-
-            <h4 style="font-size: calc(16px * var(--text-scale, 1)); margin-bottom: 16px; margin-top: 32px; color:var(--ink); border-bottom: 1px solid var(--line); padding-bottom:12px;">{{ __('messages.title_keamanan') }}</h4>
-            
-            <div class="field" style="margin-bottom: 18px;">
-                <label>{{ __('messages.label_pass_lama') }}</label>
-                <input type="password" name="current_password" placeholder="{{ __('messages.placeholder_pass_lama') }}">
-                <div class="helper">{{ __('messages.helper_pass_lama') }}</div>
-            </div>
-
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
-                <div class="field">
-                    <label>{{ __('messages.label_pass_baru') }}</label>
-                    <input type="password" name="password" placeholder="{{ __('messages.placeholder_pass_baru') }}">
-                </div>
-                
-                <div class="field">
-                    <label>{{ __('messages.label_konfirmasi') }}</label>
-                    <input type="password" name="password_confirmation" placeholder="{{ __('messages.placeholder_konfirmasi') }}">
-                </div>
-            </div>
-
-            <div style="border-top: 1px solid var(--line); padding-top: 20px; display: flex; justify-content: flex-end;">
-                <button type="submit" class="btn btn-primary" style="padding: 10px 24px; font-weight: 600;">
-                    {{ __('messages.simpan_pengaturan') }}
-                </button>
-            </div>
-        </form>
-    </div>
 
     <!-- TAMPILAN PERSONAL PANEL -->
     <div class="panel" id="panel-tampilan-personal" style="padding: 30px; max-width: 100%; margin-top: 0; display: none;">
@@ -339,11 +286,14 @@
 
         // Initialize active settings tab
         var activeTab = localStorage.getItem('settings_active_tab') || 'tampilan';
+        if (activeTab === 'akun') {
+            activeTab = 'tampilan'; // Fallback if user had 'akun' saved
+        }
         switchSettingTab(activeTab);
     });
 
     function switchSettingTab(tab) {
-        var tabs = ['tampilan', 'bahasa', 'akun'];
+        var tabs = ['tampilan', 'bahasa'];
         tabs.forEach(function(t) {
             var panel = document.getElementById('panel-' + t);
             if (!panel && t === 'tampilan') panel = document.getElementById('panel-tampilan-personal');
