@@ -119,7 +119,7 @@
                             </td>
                             <td style="padding: 1rem 1.5rem; text-align: right;">
                                 <span class="badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">
-                                    {{ $app->is_active ? 'AKTIF' : 'NONAKTIF' }}
+                                    {{ $app->is_active ? __('messages.aktif') : __('messages.nonaktif') }}
                                 </span>
                             </td>
                         </tr>
@@ -168,7 +168,7 @@
         <div class="modal w-sm">
             <div class="modal-head">
                 <div>
-                    <h3>Tambah {{ __('messages.master_aplikasi') }}</h3>
+                    <h3>{{ __('messages.tambah_master_aplikasi') }}</h3>
                     <p>{{ __('messages.aplikasi_muncul_pelapor') }}</p>
                 </div>
                 <button type="button" class="modal-x" onclick="closeModal('modal-add-aplikasi')">✕</button>
@@ -177,7 +177,7 @@
                 @csrf
                 <div class="modal-body">
                     <div class="field">
-                        <label>Nama Aplikasi <span style="color:var(--danger)">*</span></label>
+                        <label>{{ __('messages.nama_aplikasi') }} <span style="color:var(--danger)">*</span></label>
                         <input type="text" name="nama_aplikasi" required placeholder="{{ __('messages.contoh_sakti') }}">
                     </div>
                     <div class="field">
@@ -199,7 +199,7 @@
             <div class="modal-head">
                 <div>
                     <h3>{{ __('messages.tambah_master_kategori') }}</h3>
-                    <p>Kategori untuk mengklasifikasikan {{ __('messages.tiket') }}</p>
+                    <p>{{ __('messages.kategori_klasifikasi') }}</p>
                 </div>
                 <button type="button" class="modal-x" onclick="closeModal('modal-add-kategori')">✕</button>
             </div>
@@ -207,7 +207,7 @@
                 @csrf
                 <div class="modal-body">
                     <div class="field">
-                        <label>Nama Kategori <span style="color:var(--danger)">*</span></label>
+                        <label>{{ __('messages.nama_kategori') }} <span style="color:var(--danger)">*</span></label>
                         <input type="text" name="nama_kategori" required placeholder="{{ __('messages.contoh_bug') }}">
                     </div>
                 </div>
