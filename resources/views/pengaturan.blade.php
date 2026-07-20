@@ -171,7 +171,7 @@
                 </div>
                 
                 <div class="field">
-                    <label>Konfirmasi {{ __('messages.label_pass_baru') }}</label>
+                    <label>{{ __('messages.label_konfirmasi') }}</label>
                     <input type="password" name="password_confirmation" placeholder="{{ __('messages.placeholder_konfirmasi') }}">
                 </div>
             </div>
