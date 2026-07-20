@@ -58,12 +58,59 @@
         </div>
         
         <div class="panel fade-up" style="padding: 30px; max-width: 100%; animation-delay: 0.15s;" id="instansi-panel">
-            <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom: 24px;">
-                <div>
-                    <h3 style="display:flex; align-items:center; gap:8px; margin-bottom: 8px;">
-                        <span style="font-size: calc(24px * var(--text-scale, 1));"><img src="{{ asset('company.png') }}" alt="Company" style="width: 28px; height: 28px; object-fit: contain; vertical-align: middle;"></span> {{ __('messages.profil_koperasi') }}
-                    </h3>
-                    <p class="sub" style="margin-bottom:0;">{{ __('messages.data_koperasi_terhubung') }}</p>
+
+            
+            <!-- KARTU IDENTITAS ANGGOTA DIGITAL -->
+            <div style="margin-bottom: 32px; background: linear-gradient(135deg, #1e3a8a, #1e40af); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);">
+                <div style="padding: 24px; position: relative; color: white;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+                        <div style="display: flex; align-items: center; gap: 20px;">
+                            <!-- Avatar -->
+                            <div style="position: relative; flex-shrink: 0;">
+                                <div style="width: 70px; height: 70px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.4); display: flex; align-items: center; justify-content: center; background: rgba(255,255,255,0.1); font-size: 28px; font-weight: bold; color: white;">
+                                    @php
+                                        $nama = Auth::user()->nama ?? 'User';
+                                        $initials = collect(explode(' ', $nama))->map(function($w){return strtoupper(substr($w,0,1));})->take(2)->join('');
+                                    @endphp
+                                    {{ $initials }}
+                                </div>
+                                <div style="position: absolute; bottom: 0; right: -4px; background: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color: #1e3a8a;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                </div>
+                            </div>
+                            <!-- Info -->
+                            <div>
+                                <div style="font-size: 11px; letter-spacing: 1px; color: rgba(255,255,255,0.7); text-transform: uppercase; margin-bottom: 4px; font-weight: 600;">
+                                    {{ __('messages.kartu_identitas_digital') }}
+                                </div>
+                                <h2 style="margin: 0; font-size: 22px; font-weight: 700; color: white; margin-bottom: 6px;">
+                                    {{ Auth::user()->nama }}
+                                </h2>
+                                <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.9); font-family: monospace;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #fcd34d;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                                    {{ __('messages.no_anggota') }}: KSS-{{ date('Y') }}-{{ str_pad(Auth::user()->user_id, 5, '0', STR_PAD_LEFT) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Badge Status -->
+                        <div>
+                            @if(Auth::user()->is_verified)
+                                <div style="background: rgba(255,255,255,0.9); color: #15803d; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                    <span style="width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block;"></span>
+                                    {{ __('messages.aktif_terverifikasi') }}
+                                </div>
+                            @else
+                                <div style="background: rgba(255,255,255,0.9); color: #b45309; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                    <span style="width: 8px; height: 8px; background: #f59e0b; border-radius: 50%; display: inline-block;"></span>
+                                    {{ __('messages.menunggu_verifikasi') }}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div style="background: #f1f5f9; padding: 12px 24px; font-size: 12px; color: #64748b; border-top: 1px dashed rgba(0,0,0,0.1);">
+                    {{ __('messages.footer_kartu') }}
                 </div>
             </div>
             
