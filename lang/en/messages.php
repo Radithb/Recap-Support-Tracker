@@ -27,7 +27,7 @@ return [
     'btn_tutup' => 'Close',
     'empty_riwayat' => 'No tickets have been created yet.',
     'title_pengaturan' => 'Settings',
-    'subtitle_pengaturan' => 'Your notifications, appearance, language & account privacy — separate from My Profile.',
+    'subtitle_pengaturan' => 'Your appearance, language & account privacy — separate from My Profile.',
     'tab_notifikasi' => 'Notifications',
     'title_notifikasi' => 'Notification Settings',
     'subtitle_notifikasi' => 'Set how and when you want to receive notifications.',
