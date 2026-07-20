@@ -1,4 +1,4 @@
-﻿:root{
+:root{
   --ink:#1F2937;
   --ink-soft:#5B6B85;
   --paper:#F2F6FC;
@@ -512,7 +512,7 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
 .mono{font-family:var(--font-mono); font-size: calc(11.5px * var(--text-scale, 1)); color:var(--ink-soft);}
 .pic-badge{display:inline-flex; align-items:center; gap:6px; font-size: calc(12px * var(--text-scale, 1));}
 .pic-badge .dot{width:20px; height:20px; border-radius:50%; background:var(--amber-soft); color:#8A1420; font-size: calc(10px * var(--text-scale, 1)); font-weight:700; display:flex; align-items:center; justify-content:center;}
-.cat-tag{font-size: calc(10.5px * var(--text-scale, 1)); font-weight:700; padding:3px 8px; border-radius:5px; background:#F5EBE9; color:#7D6561; font-family:var(--font-mono);}
+.cat-tag{display: inline-block; font-size: calc(10.5px * var(--text-scale, 1)); font-weight:700; padding:3px 8px; border-radius:5px; background:#F5EBE9; color:#7D6561; font-family:var(--font-mono);}
 
 /* =================== MODALS =================== */
 .overlay{
