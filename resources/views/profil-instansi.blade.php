@@ -88,6 +88,16 @@
                     <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.nomor_telepon') }}</label>
                     <div class="mono" style="color: var(--ink); font-size: calc(14.5px * var(--text-scale, 1));">{{ Auth::user()->instansi->no_telp ?? '-' }}</div>
                 </div>
+                
+                <div style="margin-bottom: 32px;">
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.nama_pic') }}</label>
+                    <div class="mono" style="color: var(--ink); font-size: calc(14.5px * var(--text-scale, 1));">{{ Auth::user()->nama ?? '-' }}</div>
+                </div>
+
+                <div style="margin-bottom: 32px;">
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.email_pic') }}</label>
+                    <div class="mono" style="color: var(--ink); font-size: calc(14.5px * var(--text-scale, 1));">{{ Auth::user()->email ?? '-' }}</div>
+                </div>
 
                 <div style="margin-bottom: 32px;">
                     <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:8px;">{{ __('messages.aplikasi_digunakan') }}</label>
@@ -129,6 +139,18 @@
                     <div class="field" style="margin-top: 18px;">
                         <label>{{ __('messages.nomor_telepon') }}</label>
                         <input type="text" name="no_telp" value="{{ Auth::user()->instansi->no_telp ?? '' }}" placeholder="{{ __('messages.contoh_nomor') }}" required>
+                    </div>
+
+                    <div class="field" style="margin-top: 18px;">
+                        <label>{{ __('messages.nama_pic') }}</label>
+                        <input type="text" value="{{ Auth::user()->nama ?? '' }}" readonly style="background: var(--paper-sunken); color: var(--ink-soft); cursor: not-allowed;" title="{{ __('messages.nama_pic_ubah_pengaturan') }}">
+                        <div class="helper">{{ __('messages.nama_pic_ubah_pengaturan') }}</div>
+                    </div>
+
+                    <div class="field" style="margin-top: 18px;">
+                        <label>{{ __('messages.email_pic') }}</label>
+                        <input type="email" value="{{ Auth::user()->email ?? '' }}" readonly style="background: var(--paper-sunken); color: var(--ink-soft); cursor: not-allowed;" title="{{ __('messages.email_pic_ubah_pengaturan') }}">
+                        <div class="helper">{{ __('messages.email_pic_ubah_pengaturan') }}</div>
                     </div>
 
                     <div class="field" style="margin-top: 18px;">
