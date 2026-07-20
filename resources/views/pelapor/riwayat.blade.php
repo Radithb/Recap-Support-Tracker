@@ -16,14 +16,14 @@
     <div class="content-wrap" id="actual-content" style="display:none;">
         <div class="page-head fade-up" style="animation-delay: 0.1s; margin-bottom:24px;">
             <div>
-                <h1 style="font-size: calc(24px * var(--text-scale, 1));">Semua Riwayat Laporan</h1>
+                <h1 style="font-size: calc(24px * var(--text-scale, 1));">{{ __('messages.title_riwayat') }}</h1>
             </div>
         </div>
 
         <div class="toolbar fade-up" style="animation-delay: 0.15s; margin-bottom:20px;">
             <div class="search">
                 <img src="{{ asset('magnifying-glass.png') }}" alt="Search" style="width: 14px; height: 14px; margin-right: 8px; vertical-align: middle; opacity: 0.4; filter: grayscale(100%);">
-                <input type="text" placeholder="Cari laporan..." style="border:none; background:transparent; width:100%; outline:none;" id="search-input">
+                <input type="text" placeholder="{{ __('messages.cari_laporan') }}" style="border:none; background:transparent; width:100%; outline:none;" id="search-input">
             </div>
             <form id="filter-form" action="{{ route('pelapor.riwayat') }}" method="GET" style="margin:0;">
                 <select name="status" onchange="document.getElementById('filter-form').submit()" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); font-family: var(--font-body); font-weight: 500; color: var(--ink); background: var(--paper-raised); cursor: pointer; outline:none;">
@@ -40,12 +40,12 @@
             <table class="tickets">
                 <thead>
                     <tr>
-                        <th width="120">ID Laporan</th>
-                        <th width="120">Tanggal</th>
-                        <th width="180">Aplikasi</th>
-                        <th>Permasalahan</th>
-                        <th width="120">Status</th>
-                        <th width="100">Aksi</th>
+                        <th width="120">{{ __('messages.id_laporan') }}</th>
+                        <th width="120">{{ __('messages.col_tanggal') }}</th>
+                        <th width="180">{{ __('messages.aplikasi') }}</th>
+                        <th>{{ __('messages.permasalahan') }}</th>
+                        <th width="120">{{ __('messages.status') }}</th>
+                        <th width="100">{{ __('messages.aksi') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -70,7 +70,7 @@
                             <span class="status {{ $statusClass }}">{{ $t->status->value ?? $t->status }}</span>
                         </td>
                         <td>
-                            <button class="btn btn-ghost btn-sm" onclick="openModal('modal-detail-{{ $t->ticket_id }}')">Detail</button>
+                            <button class="btn btn-ghost btn-sm" onclick="openModal('modal-detail-{{ $t->ticket_id }}')">{{ __('messages.btn_detail') }}</button>
                         </td>
                     </tr>
                     @empty

@@ -295,4 +295,6 @@ return [
     'kata_sandi_baru_ops' => 'New Password (Optional)',
     'kosongkan_jika_tidak' => 'Leave blank if you do not want to change the password',
     'minimal_8_kosongkan' => 'Minimum 8 characters. Leave blank if no changes.',
+    'id_laporan' => 'Report ID',
+    'cari_laporan' => 'Search reports...',
 ];
