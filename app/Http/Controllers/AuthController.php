@@ -123,6 +123,24 @@ class AuthController extends Controller
         return back()->with('success', __('messages.koperasi_updated'));
     }
 
+    public function updatePassword(Request $request)
+    {
+        $user = Auth::user();
+
+        $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'current_password.required' => 'Kata sandi saat ini harus diisi.',
+            'current_password.current_password' => 'Kata sandi saat ini yang Anda masukkan salah.',
+        ]);
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return back()->with('success', __('messages.password_updated'));
+    }
+
     public function showProfilSaya()
     {
         return view('support.profil-saya');

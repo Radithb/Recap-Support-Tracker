@@ -223,6 +223,36 @@
                         <button type="submit" class="btn btn-primary" style="padding: 10px 20px;">{{ __('messages.simpan_perubahan') }}</button>
                     </div>
                 </form>
+
+                <!-- FORM KEAMANAN AKUN (Hanya tampil di Edit Mode) -->
+                <div style="margin-top: 32px; border: 1px solid var(--line); border-radius: 12px; padding: 24px; background: var(--paper-raised);">
+                    <h4 style="font-size: calc(16px * var(--text-scale, 1)); margin: 0 0 6px 0; color: var(--ink); display: flex; align-items: center; gap: 8px;">
+                        🔒 {{ __('messages.keamanan_akun') }}
+                    </h4>
+                    <p class="sub" style="margin-bottom: 24px; color: var(--ink-soft); font-size: calc(13px * var(--text-scale, 1));">
+                        {{ __('messages.keamanan_akun_desc') }}
+                    </p>
+
+                    <form action="{{ route('profil.password.update') }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="field" style="margin-bottom: 18px;">
+                            <label>{{ __('messages.kata_sandi_saat_ini') }}</label>
+                            <input type="password" name="current_password" required style="background: var(--paper-sunken);">
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+                            <div class="field">
+                                <label>{{ __('messages.kata_sandi_baru') }}</label>
+                                <input type="password" name="password" required style="background: var(--paper-sunken);">
+                            </div>
+                            <div class="field">
+                                <label>{{ __('messages.konfirmasi_kata_sandi') }}</label>
+                                <input type="password" name="password_confirmation" required style="background: var(--paper-sunken);">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-ghost" style="border: 1px solid var(--line); background: var(--paper-sunken);">{{ __('messages.ubah_password') }}</button>
+                    </form>
+                </div>
             </div>
         </div>
 
