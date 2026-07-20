@@ -133,8 +133,13 @@
         </table>
     </div>
     
-    <div style="padding: 1rem 1.5rem; color: var(--text-muted); font-size: 0.85rem;">
-        {!! __('messages.total_keseluruhan_tiket_tahun', ['total' => $grandTotal, 'year' => $year]) !!}
+    <div style="padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <div style="color: var(--text-muted); font-size: 0.85rem;">
+            {!! __('messages.total_keseluruhan_tiket_tahun', ['total' => $grandTotal, 'year' => $year]) !!}
+        </div>
+        <a href="{{ route('support.recap.detail') }}" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem; font-weight: 600; text-decoration: none;">
+            Laporan Detail Support {{ $year }}
+        </a>
     </div>
 </div>
 
