@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page_title', 'Profil Koperasi')
+@section('page_title', __('messages.profil_koperasi'))
 @section('page_subtitle', 'Recap Support Tracker')
 
 
@@ -53,7 +53,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" style="display:inline-block; margin-right: 6px; vertical-align:-2px;">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                 </svg>
-                Kembali ke Dashboard
+                {{ __('messages.kembali_ke_dashboard') }}
             </a>
         </div>
         
@@ -61,9 +61,9 @@
             <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom: 24px;">
                 <div>
                     <h3 style="display:flex; align-items:center; gap:8px; margin-bottom: 8px;">
-                        <span style="font-size: calc(24px * var(--text-scale, 1));"><img src="{{ asset('company.png') }}" alt="Company" style="width: 28px; height: 28px; object-fit: contain; vertical-align: middle;"></span> Profil Koperasi
+                        <span style="font-size: calc(24px * var(--text-scale, 1));"><img src="{{ asset('company.png') }}" alt="Company" style="width: 28px; height: 28px; object-fit: contain; vertical-align: middle;"></span> {{ __('messages.profil_koperasi') }}
                     </h3>
-                    <p class="sub" style="margin-bottom:0;">Data KOPERASI · terhubung ke akun Anda</p>
+                    <p class="sub" style="margin-bottom:0;">{{ __('messages.data_koperasi_terhubung') }}</p>
                 </div>
             </div>
             
@@ -77,34 +77,34 @@
             <!-- VIEW MODE -->
             <div id="view-mode" class="fade-up" style="animation-delay: 0.25s;">
                 <div style="margin-bottom: 24px;">
-                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Nama Koperasi</label>
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.nama_koperasi') }}</label>
                     <h4 style="font-size: calc(16px * var(--text-scale, 1)); color: var(--ink); margin: 0;">{{ Auth::user()->instansi->nama_instansi ?? '-' }}</h4>
                 </div>
                 <div style="margin-bottom: 24px;">
-                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Alamat Lengkap</label>
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.alamat_lengkap') }}</label>
                     <p style="color: var(--ink); line-height: 1.6; margin: 0; font-size: calc(14.5px * var(--text-scale, 1));">{{ Auth::user()->instansi->alamat ?? '-' }}</p>
                 </div>
                 <div style="margin-bottom: 32px;">
-                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Nomor Telepon</label>
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.nomor_telepon') }}</label>
                     <div class="mono" style="color: var(--ink); font-size: calc(14.5px * var(--text-scale, 1));">{{ Auth::user()->instansi->no_telp ?? '-' }}</div>
                 </div>
 
                 <div style="margin-bottom: 32px;">
-                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:8px;">Aplikasi yang Digunakan</label>
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:8px;">{{ __('messages.aplikasi_digunakan') }}</label>
                     <div style="display: flex; gap: 8px; flex-wrap: wrap;">
                         @if(Auth::user()->instansi && Auth::user()->instansi->aplikasis->count() > 0)
                             @foreach(Auth::user()->instansi->aplikasis as $app)
                                 <span style="background: #e0f2fe; color: #0284c7; padding: 6px 12px; border-radius: 20px; font-size: calc(13px * var(--text-scale, 1)); font-weight: 600;">{{ $app->nama_aplikasi }}</span>
                             @endforeach
                         @else
-                            <span style="color: var(--text-muted); font-size: calc(14px * var(--text-scale, 1));">Belum ada aplikasi yang dipilih.</span>
+                            <span style="color: var(--text-muted); font-size: calc(14px * var(--text-scale, 1));">{{ __('messages.belum_ada_aplikasi_dipilih') }}</span>
                         @endif
                     </div>
                 </div>
                 
                 <div style="border-top: 1px solid var(--line); padding-top: 20px;">
                     <button type="button" class="btn btn-ghost" onclick="toggleEditMode(true)" style="padding: 9px 18px;">
-                        <span class="ic"><img src="{{ asset('edit.png') }}" alt="Edit" style="width: 14px; height: 14px; object-fit: contain; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span> Edit Data Koperasi
+                        <span class="ic"><img src="{{ asset('edit.png') }}" alt="Edit" style="width: 14px; height: 14px; object-fit: contain; vertical-align: middle; margin-right: 4px; margin-top: -2px;"></span> {{ __('messages.edit_data_koperasi') }}
                     </button>
                 </div>
             </div>
@@ -118,21 +118,21 @@
                     <div class="field">
                         <label>{{ __('messages.nama_koperasi') }}</label>
                         <input type="text" value="{{ Auth::user()->instansi->nama_instansi ?? '-' }}" readonly style="background: var(--paper-sunken); color: var(--ink-soft); cursor: not-allowed;" title="Nama Koperasi tidak dapat diubah">
-                        <div class="helper">Nama koperasi telah ditetapkan saat registrasi. Hubungi Support jika ingin mengubahnya.</div>
+                        <div class="helper">{{ __('messages.nama_koperasi_tetap') }}</div>
                     </div>
                     
                     <div class="field" style="margin-top: 18px;">
                         <label>{{ __('messages.alamat_lengkap') }}</label>
-                        <textarea name="alamat" rows="3" placeholder="Masukkan alamat lengkap koperasi..." required>{{ Auth::user()->instansi->alamat ?? '' }}</textarea>
+                        <textarea name="alamat" rows="3" placeholder="{{ __('messages.masukkan_alamat_koperasi') }}" required>{{ Auth::user()->instansi->alamat ?? '' }}</textarea>
                     </div>
                     
                     <div class="field" style="margin-top: 18px;">
-                        <label>Nomor Telepon</label>
-                        <input type="text" name="no_telp" value="{{ Auth::user()->instansi->no_telp ?? '' }}" placeholder="Contoh: 081234567890" required>
+                        <label>{{ __('messages.nomor_telepon') }}</label>
+                        <input type="text" name="no_telp" value="{{ Auth::user()->instansi->no_telp ?? '' }}" placeholder="{{ __('messages.contoh_nomor') }}" required>
                     </div>
 
                     <div class="field" style="margin-top: 18px;">
-                        <label>Aplikasi yang Digunakan</label>
+                        <label>{{ __('messages.aplikasi_digunakan') }}</label>
                         <div style="background: var(--paper-sunken); padding: 16px; border-radius: 8px; border: 1px solid var(--line); display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px;">
                             @php
                                 $selectedAplikasi = Auth::user()->instansi ? Auth::user()->instansi->aplikasis->pluck('aplikasi_id')->toArray() : [];
@@ -143,15 +143,15 @@
                                     {{ $app->nama_aplikasi }}
                                 </label>
                             @empty
-                                <div style="color: var(--text-muted); font-size: calc(13px * var(--text-scale, 1));">Belum ada master aplikasi tersedia.</div>
+                                <div style="color: var(--text-muted); font-size: calc(13px * var(--text-scale, 1));">{{ __('messages.belum_ada_master_aplikasi') }}</div>
                             @endforelse
                         </div>
-                        <div class="helper">Pilih aplikasi yang digunakan oleh Koperasi Anda.</div>
+                        <div class="helper">{{ __('messages.pilih_aplikasi_koperasi') }}</div>
                     </div>
                     
                     <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line);">
-                        <button type="button" class="btn btn-ghost" onclick="toggleEditMode(false)" style="padding: 10px 20px;">Batal</button>
-                        <button type="submit" class="btn btn-primary" style="padding: 10px 20px;">Simpan Perubahan</button>
+                        <button type="button" class="btn btn-ghost" onclick="toggleEditMode(false)" style="padding: 10px 20px;">{{ __('messages.batal') }}</button>
+                        <button type="submit" class="btn btn-primary" style="padding: 10px 20px;">{{ __('messages.simpan_perubahan') }}</button>
                     </div>
                 </form>
             </div>
