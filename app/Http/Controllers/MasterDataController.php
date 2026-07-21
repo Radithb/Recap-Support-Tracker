@@ -69,7 +69,7 @@ class MasterDataController extends Controller
         );
 
         $data = [
-            ['<center><b>Nama Koperasi</b></center>', '<center><b>Jenis Case</b></center>', '<center><b>Jenis Aplikasi</b></center>', '<center><b>PIC TIM SUPPORT</b></center>', '<center><b>Status</b></center>']
+            ['<b>Nama Koperasi</b>', '<b>Jenis Case</b>', '<b>Jenis Aplikasi</b>', '<b>PIC TIM SUPPORT</b>', '<b>Status</b>']
         ];
 
         for ($i = 0; $i < $maxRows; $i++) {
