@@ -21,7 +21,7 @@
                 </div>
                 <div>
                     <div style="font-weight: 700; font-size: 14px; color: var(--ink);">Telepon</div>
-                    <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); margin-top: 4px;">+62 22 8888 0101</div>
+                    <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); margin-top: 4px;">+6281223182828</div>
                 </div>
             </div>
             
@@ -32,7 +32,7 @@
                 </div>
                 <div>
                     <div style="font-weight: 700; font-size: 14px; color: var(--ink);">Email</div>
-                    <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); margin-top: 4px;">support@saktikinerja.id</div>
+                    <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); margin-top: 4px;">info@ptskk.id</div>
                 </div>
             </div>
             
@@ -43,7 +43,7 @@
                 </div>
                 <div>
                     <div style="font-weight: 700; font-size: 14px; color: var(--ink);">WhatsApp</div>
-                    <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); margin-top: 4px;">+62 812 3456 7890</div>
+                    <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); margin-top: 4px;">+62 812-2318-2828</div>
                 </div>
             </div>
         </div>
