@@ -359,4 +359,13 @@ return [
     'cannot_delete_ticket' => 'Hanya tiket berstatus Open yang dapat dihapus.',
     'konfirmasi_hapus_tiket' => 'Apakah Anda yakin ingin menghapus tiket laporan ini?',
     'lihat_profil' => 'Lihat Profil',
+    'profil_lengkap_pelapor' => 'Profil Lengkap Pelapor',
+    'terverifikasi' => 'Terverifikasi',
+    'belum_diverifikasi' => 'Belum Diverifikasi',
+    'pic_koperasi_pelapor' => 'PIC Koperasi / Pelapor',
+    'email_label' => 'Email',
+    'koperasi_label' => 'Koperasi',
+    'bergabung_sejak' => 'Bergabung Sejak',
+    'alamat_koperasi_label' => 'Alamat Koperasi',
+    'belum_ada_data_alamat' => 'Belum ada data alamat',
 ];

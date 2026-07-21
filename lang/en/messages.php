@@ -358,4 +358,13 @@ return [
     'cannot_delete_ticket' => 'Only tickets with Open status can be deleted.',
     'konfirmasi_hapus_tiket' => 'Are you sure you want to delete this report ticket?',
     'lihat_profil' => 'View Profile',
+    'profil_lengkap_pelapor' => 'Complete Reporter Profile',
+    'terverifikasi' => 'Verified',
+    'belum_diverifikasi' => 'Unverified',
+    'pic_koperasi_pelapor' => 'Cooperative PIC / Reporter',
+    'email_label' => 'Email',
+    'koperasi_label' => 'Cooperative',
+    'bergabung_sejak' => 'Joined Since',
+    'alamat_koperasi_label' => 'Cooperative Address',
+    'belum_ada_data_alamat' => 'No address data available',
 ];
