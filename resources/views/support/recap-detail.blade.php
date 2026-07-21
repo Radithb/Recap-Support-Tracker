@@ -104,16 +104,7 @@
                         
                         <td style="padding: 12px 16px; white-space: nowrap;">
                             @if($t->picSupport)
-                                @php
-                                    $words = explode(' ', $t->picSupport->nama);
-                                    $initials = strtoupper(substr($words[0], 0, 1) . (isset($words[1]) ? substr($words[1], 0, 1) : substr($words[0], 1, 1)));
-                                @endphp
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    <div style="width: 24px; height: 24px; border-radius: 50%; background: #fee2e2; color: #ef4444; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 700;">
-                                        {{ $initials }}
-                                    </div>
-                                    <span style="color: var(--text-muted);">{{ $t->picSupport->nama }}</span>
-                                </div>
+                                <span style="color: var(--text-muted);">{{ $t->picSupport->nama }}</span>
                             @else
                                 -
                             @endif
