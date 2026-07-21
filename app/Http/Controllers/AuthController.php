@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -255,8 +256,13 @@ class AuthController extends Controller
         ]);
 
         $user = Auth::user();
-        $user->locale = $validated['locale'];
-        $user->save();
+        if ($user) {
+            $user->locale = $validated['locale'];
+            $user->save();
+        }
+        session()->put('locale', $validated['locale']);
+
+        App::setLocale($validated['locale']);
 
         return back()->with('success', __('messages.bahasa_updated'));
     }
