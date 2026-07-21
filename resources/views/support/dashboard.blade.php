@@ -234,7 +234,7 @@
                 <div style="font-size: 0.95rem; color: var(--ink); line-height: 1.6; white-space: pre-wrap; background: var(--paper-raised); padding: 16px; border-radius: 8px; border: 1px solid var(--line);">{{ $t->permasalahan }}</div>
             </div>
 
-            @if($t->status === \App\Enums\TicketStatus::DONE)
+            @if($t->status === \App\Enums\TicketStatus::DONE || $t->penyelesaian)
                 <!-- Tindakan Penyelesaian -->
                 <div style="margin-bottom: 24px;">
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">{{ __('messages.tindakan_penyelesaian') }}</div>
@@ -248,6 +248,26 @@
                     <div style="font-size: 0.95rem; color: #92400e; line-height: 1.6; white-space: pre-wrap; background: #fffbeb; padding: 16px; border-radius: 8px; border: 1px solid #fde68a;">{{ $t->pencegahan }}</div>
                 </div>
                 @endif
+            @endif
+
+            @if($t->lampiran_support)
+            <div style="margin-bottom: 24px;">
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Lampiran Respons Support</div>
+                @php $extSupp = strtolower(pathinfo($t->lampiran_support, PATHINFO_EXTENSION)); @endphp
+                @if(in_array($extSupp, ['jpg', 'jpeg', 'png']))
+                    <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank">
+                        <img src="{{ Storage::url($t->lampiran_support) }}" alt="Lampiran Support" style="max-width: 100%; max-height: 140px; border-radius: 8px; border: 1px solid var(--line); display: block; object-fit: cover;">
+                    </a>
+                @elseif($extSupp === 'mp4')
+                    <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+                        <span>🎥</span> Lihat Video
+                    </a>
+                @elseif($extSupp === 'pdf')
+                    <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); text-decoration: none;">
+                        <span>📄</span> Unduh PDF
+                    </a>
+                @endif
+            </div>
             @endif
 
             <!-- Detail Pelapor & Aplikasi (Grid) -->
@@ -305,7 +325,7 @@
             <button type="button" class="modal-x" onclick="closeModal('modal-edit-{{ $t->ticket_id }}')">✕</button>
         </div>
         
-        <form action="{{ route('support.tickets.update', $t->ticket_id) }}" method="POST">
+        <form action="{{ route('support.tickets.update', $t->ticket_id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             
@@ -373,6 +393,33 @@
                     <div class="field">
                         <label>{{ __('messages.tindakan_pencegahan') }}</label>
                         <textarea name="pencegahan" style="min-height: 90px;" placeholder="{{ __('messages.langkah_preventif') }}">{{ $t->pencegahan ?? '' }}</textarea>
+                    </div>
+
+                    <div class="field" style="margin-top: 14px;">
+                        <label>Lampiran Respons (Opsional)</label>
+                        <input type="file" name="lampiran_support" accept=".jpg,.jpeg,.png,.mp4,.pdf" style="width:100%; font-size: calc(13px * var(--text-scale, 1)); font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;">
+                        <div class="helper">Format: JPG, PNG, MP4, PDF. Max: 10MB</div>
+                        @error('lampiran_support') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
+                        
+                        @if($t->lampiran_support)
+                            <div style="margin-top: 8px;">
+                                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Lampiran Saat Ini:</div>
+                                @php $extSupp = strtolower(pathinfo($t->lampiran_support, PATHINFO_EXTENSION)); @endphp
+                                @if(in_array($extSupp, ['jpg', 'jpeg', 'png']))
+                                    <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank">
+                                        <img src="{{ Storage::url($t->lampiran_support) }}" alt="Lampiran Support" style="max-width: 100%; max-height: 100px; border-radius: 8px; border: 1px solid var(--line); display: block; object-fit: cover;">
+                                    </a>
+                                @elseif($extSupp === 'mp4')
+                                    <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+                                        <span>🎥</span> Lihat Video
+                                    </a>
+                                @elseif($extSupp === 'pdf')
+                                    <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); text-decoration: none;">
+                                        <span>📄</span> Unduh PDF
+                                    </a>
+                                @endif
+                            </div>
+                        @endif
                     </div>
 
                     <div class="field">

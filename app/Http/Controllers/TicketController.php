@@ -116,6 +116,7 @@ class TicketController extends Controller
             'pencegahan' => 'nullable|string',
             'link_ticket' => 'nullable|string',
             'is_faq' => 'nullable|boolean',
+            'lampiran_support' => 'nullable|file|mimes:jpg,jpeg,png,mp4,pdf|max:10240',
         ]);
 
         $data = $request->only(['status', 'kategori_id', 'penyelesaian', 'pencegahan', 'link_ticket']);
@@ -126,6 +127,13 @@ class TicketController extends Controller
         
         if ($data['status'] === TicketStatus::DONE->value && $ticket->status !== TicketStatus::DONE) {
             $data['tanggal_penyelesaian'] = now();
+        }
+
+        if ($request->hasFile('lampiran_support')) {
+            if ($ticket->lampiran_support && \Illuminate\Support\Facades\Storage::disk('public')->exists($ticket->lampiran_support)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($ticket->lampiran_support);
+            }
+            $data['lampiran_support'] = $request->file('lampiran_support')->store('lampiran_tiket', 'public');
         }
 
         $ticket->update($data);

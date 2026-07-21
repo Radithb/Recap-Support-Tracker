@@ -19,6 +19,7 @@ class Ticket extends Model
         'pic_support_id',
         'permasalahan',
         'lampiran',
+        'lampiran_support',
         'penyelesaian',
         'pencegahan',
         'status',
