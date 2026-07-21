@@ -68,12 +68,25 @@ class MasterDataController extends Controller
             count($statuses)
         );
 
-        $filename = "Master_Data_Export_" . date('Ymd_His') . ".xls";
+        $data = [
+            ['<center><b>Nama Koperasi</b></center>', '<center><b>Jenis Case</b></center>', '<center><b>Jenis Aplikasi</b></center>', '<center><b>PIC TIM SUPPORT</b></center>', '<center><b>Status</b></center>']
+        ];
 
-        return response(view('support.exports.master-data', compact(
-            'aplikasis', 'kategoris', 'instansis', 'supportPics', 'statuses', 'maxRows'
-        )))->withHeaders([
-            'Content-Type' => 'application/vnd.ms-excel',
+        for ($i = 0; $i < $maxRows; $i++) {
+            $data[] = [
+                isset($instansis[$i]) ? $instansis[$i]->nama_instansi : '',
+                isset($kategoris[$i]) ? $kategoris[$i]->nama_kategori : '',
+                isset($aplikasis[$i]) ? $aplikasis[$i]->nama_aplikasi : '',
+                isset($supportPics[$i]) ? $supportPics[$i]->nama : '',
+                isset($statuses[$i]) ? $statuses[$i]->value : '',
+            ];
+        }
+
+        $filename = "Master_Data_Export_" . date('Ymd_His') . ".xlsx";
+        $xlsx = \App\Helpers\SimpleXLSXGen::fromArray($data);
+
+        return response((string) $xlsx)->withHeaders([
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             'Content-Disposition' => 'attachment; filename="' . $filename . '"',
         ]);
     }
