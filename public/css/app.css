@@ -131,6 +131,8 @@ input, select, textarea {
 .btn-primary:hover{background:var(--indigo-deep); color:#fff;}
 .btn-amber{background:var(--amber); color:#fff;}
 .btn-amber:hover{background:var(--indigo-deep); color:#fff;}
+.btn-danger{background:#ef4444; color:#fff;}
+.btn-danger:hover{background:#dc2626; color:#fff;}
 .btn-ghost{background:transparent; color:var(--ink); border:1px solid var(--line);}
 .btn-ghost:hover{border-color:var(--indigo); color:var(--indigo);}
 .btn-sm{padding:7px 12px; font-size: calc(12.5px * var(--text-scale, 1)); border-radius:7px;}

@@ -353,4 +353,8 @@ return [
     'contoh_nomor' => 'Example: 081234567890',
     'belum_ada_master_aplikasi' => 'No master applications available.',
     'pilih_aplikasi_koperasi' => 'Select applications used by your Cooperative.',
+    'hapus_laporan' => 'Delete Report',
+    'ticket_deleted' => 'Report ticket successfully deleted.',
+    'cannot_delete_ticket' => 'Only tickets with Open status can be deleted.',
+    'konfirmasi_hapus_tiket' => 'Are you sure you want to delete this report ticket?',
 ];

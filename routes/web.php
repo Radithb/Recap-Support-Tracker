@@ -38,6 +38,7 @@ Route::middleware(['auth', IsPelapor::class])->prefix('pelapor')->name('pelapor.
     Route::get('/dashboard', [TicketController::class, 'pelaporDashboard'])->name('dashboard');
     Route::get('/riwayat', [TicketController::class, 'pelaporRiwayat'])->name('riwayat');
     Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+    Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('tickets.destroy');
     Route::view('/bantuan', 'pelapor.bantuan')->name('bantuan');
 });
 

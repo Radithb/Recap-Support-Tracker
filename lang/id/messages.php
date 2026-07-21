@@ -354,4 +354,8 @@ return [
     'contoh_nomor' => 'Contoh: 081234567890',
     'belum_ada_master_aplikasi' => 'Belum ada master aplikasi tersedia.',
     'pilih_aplikasi_koperasi' => 'Pilih aplikasi yang digunakan oleh Koperasi Anda.',
+    'hapus_laporan' => 'Hapus Laporan',
+    'ticket_deleted' => 'Tiket laporan berhasil dihapus.',
+    'cannot_delete_ticket' => 'Hanya tiket berstatus Open yang dapat dihapus.',
+    'konfirmasi_hapus_tiket' => 'Apakah Anda yakin ingin menghapus tiket laporan ini?',
 ];

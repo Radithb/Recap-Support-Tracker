@@ -155,6 +155,21 @@
             <div class="field"><label>{{ __('messages.penyelesaian_support') }}</label><textarea readonly>{{ $t->penyelesaian ?? __('messages.belum_ada_catatan') }}</textarea></div>
             <div class="field"><label>{{ __('messages.tindakan_pencegahan') }}</label><textarea readonly>{{ $t->pencegahan ?? '-' }}</textarea></div>
         </div>
+        <div class="modal-foot" style="display: flex; gap: 12px; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--line);">
+            @if($t->status === \App\Enums\TicketStatus::OPEN)
+                <form action="{{ route('pelapor.tickets.destroy', $t->ticket_id) }}" method="POST" onsubmit="return confirm('{{ __('messages.konfirmasi_hapus_tiket') }}');" style="margin:0;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                        {{ __('messages.hapus_laporan') }}
+                    </button>
+                </form>
+            @else
+                <div></div>
+            @endif
+            <button type="button" class="btn btn-ghost" onclick="closeModal('modal-detail-{{ $t->ticket_id }}')">{{ __('messages.btn_tutup') }}</button>
+        </div>
     </div>
 </div>
 @endforeach

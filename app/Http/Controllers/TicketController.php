@@ -58,6 +58,25 @@ class TicketController extends Controller
         return back()->with('success', __('messages.ticket_created'));
     }
 
+    public function destroy(Ticket $ticket)
+    {
+        if ($ticket->pelapor_id !== Auth::id()) {
+            abort(403);
+        }
+
+        if ($ticket->status !== TicketStatus::OPEN) {
+            return back()->with('error', __('messages.cannot_delete_ticket'));
+        }
+
+        if ($ticket->lampiran && \Illuminate\Support\Facades\Storage::disk('public')->exists($ticket->lampiran)) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($ticket->lampiran);
+        }
+
+        $ticket->delete();
+
+        return back()->with('success', __('messages.ticket_deleted'));
+    }
+
     // --- SUPPORT METHODS ---
     public function supportDashboard(Request $request)
     {
