@@ -357,4 +357,5 @@ return [
     'ticket_deleted' => 'Report ticket successfully deleted.',
     'cannot_delete_ticket' => 'Only tickets with Open status can be deleted.',
     'konfirmasi_hapus_tiket' => 'Are you sure you want to delete this report ticket?',
+    'lihat_profil' => 'View Profile',
 ];

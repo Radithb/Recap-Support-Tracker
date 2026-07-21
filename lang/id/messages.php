@@ -358,4 +358,5 @@ return [
     'ticket_deleted' => 'Tiket laporan berhasil dihapus.',
     'cannot_delete_ticket' => 'Hanya tiket berstatus Open yang dapat dihapus.',
     'konfirmasi_hapus_tiket' => 'Apakah Anda yakin ingin menghapus tiket laporan ini?',
+    'lihat_profil' => 'Lihat Profil',
 ];
