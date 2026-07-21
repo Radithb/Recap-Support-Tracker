@@ -242,7 +242,7 @@
                     <div class="glass-panel" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; min-width: 0;">
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
                             <div>
-                                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">Master Data Nama Koperasi</h3>
+                                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">Nama Koperasi</h3>
                                 <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Daftar koperasi yang pernah dilaporkan</p>
                             </div>
                         </div>
@@ -286,7 +286,7 @@
                     <div class="glass-panel" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; min-width: 0;">
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
                             <div>
-                                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">Master Data PIC Tim Support</h3>
+                                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">PIC Tim Support</h3>
                                 <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Daftar user tim support aplikasi</p>
                             </div>
                         </div>
@@ -339,7 +339,7 @@
                     <div class="glass-panel" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; min-width: 0;">
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
                             <div>
-                                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">Master Data Status Tiket</h3>
+                                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">Status Tiket</h3>
                                 <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Referensi status laporan tiket (Read Only)</p>
                             </div>
                         </div>
