@@ -70,11 +70,11 @@ class AuthController extends Controller
         $validated = $request->validated();
 
         DB::transaction(function () use ($validated) {
-            // Langkah 1: Buat Instansi baru
-            $instansi = Instansi::create([
-                'nama_instansi' => $validated['nama_instansi'],
-                'no_telp'       => $validated['no_hp'],
-            ]);
+            // Langkah 1: Cari Instansi yang sudah ada, atau buat baru jika belum ada
+            $instansi = Instansi::firstOrCreate(
+                ['nama_instansi' => $validated['nama_instansi']],
+                ['no_telp'       => $validated['no_hp']]
+            );
 
             // Langkah 2: Buat User (Pelapor) terhubung dengan Instansi
             User::create([
