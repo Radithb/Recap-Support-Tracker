@@ -128,13 +128,17 @@
             <td style="font-weight: 500; color: var(--ink); font-size: 0.9rem; white-space: nowrap;">{{ $t->pelapor->instansi->nama_instansi ?? '-' }}</td>
             <td>
                 <div style="display: flex; align-items: center; gap: 8px;">
-                    @php
-                        $nameParts = explode(' ', $t->pelapor->nama ?? 'U');
-                        $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
-                    @endphp
-                    <div style="width: 28px; height: 28px; border-radius: 50%; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600;">
-                        {{ $initials }}
-                    </div>
+                    @if($t->pelapor && $t->pelapor->avatar)
+                        <img src="{{ asset('storage/' . $t->pelapor->avatar) }}" alt="Avatar" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; display: block;">
+                    @else
+                        @php
+                            $nameParts = explode(' ', $t->pelapor->nama ?? 'U');
+                            $initials = strtoupper(substr($nameParts[0], 0, 1) . (isset($nameParts[1]) ? substr($nameParts[1], 0, 1) : ''));
+                        @endphp
+                        <div style="width: 28px; height: 28px; border-radius: 50%; background: #dcfce7; color: #16a34a; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600;">
+                            {{ $initials }}
+                        </div>
+                    @endif
                     <div>
                         <div style="font-weight: 500; color: var(--text-muted); font-size: 0.85rem; white-space: nowrap;">{{ $t->pelapor->nama ?? '-' }}</div>
                         <div style="font-size: 0.75rem; color: var(--text-muted); opacity: 0.8;">{{ $t->pelapor->instansi->no_telp ?? '-' }}</div>
@@ -154,13 +158,17 @@
             <td>
                 @if($t->picSupport)
                     <div style="display: flex; align-items: center; gap: 8px;">
-                        @php
-                            $picParts = explode(' ', $t->picSupport->nama);
-                            $picInitials = strtoupper(substr($picParts[0], 0, 1) . (isset($picParts[1]) ? substr($picParts[1], 0, 1) : ''));
-                        @endphp
-                        <div style="width: 28px; height: 28px; border-radius: 50%; background: #fee2e2; color: #ef4444; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600;">
-                            {{ $picInitials }}
-                        </div>
+                        @if($t->picSupport->avatar)
+                            <img src="{{ asset('storage/' . $t->picSupport->avatar) }}" alt="Avatar" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover; display: block;">
+                        @else
+                            @php
+                                $picParts = explode(' ', $t->picSupport->nama);
+                                $picInitials = strtoupper(substr($picParts[0], 0, 1) . (isset($picParts[1]) ? substr($picParts[1], 0, 1) : ''));
+                            @endphp
+                            <div style="width: 28px; height: 28px; border-radius: 50%; background: #fee2e2; color: #ef4444; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 600;">
+                                {{ $picInitials }}
+                            </div>
+                        @endif
                         <span style="font-weight: 500; color: var(--text-muted); font-size: 0.85rem; white-space: nowrap;">{{ $t->picSupport->nama }}</span>
                     </div>
                 @else
