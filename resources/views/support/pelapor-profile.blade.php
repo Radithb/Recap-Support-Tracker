@@ -64,7 +64,7 @@
                         </div>
                         
                         <div>
-                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Instansi / Koperasi</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Koperasi</div>
                             <div style="font-weight: 500; color: var(--ink); font-size: 0.95rem; display: flex; align-items: center; gap: 8px;">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.6;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                                 {{ $user->instansi->nama_instansi ?? '-' }}
@@ -88,7 +88,7 @@
                         </div>
 
                         <div style="grid-column: 1 / -1;">
-                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Alamat Instansi</div>
+                            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Alamat Koperasi</div>
                             <div style="font-weight: 500; color: var(--ink); font-size: 0.95rem; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.6; margin-top: 2px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                                 {{ $user->instansi->alamat ?? 'Belum ada data alamat' }}

@@ -404,7 +404,7 @@
                 <thead>
                     <tr style="background: var(--paper-sunken); border-bottom: 1px solid var(--line);">
                         <th style="padding: 16px; text-transform: uppercase; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; text-align: left;">Nama Pelapor</th>
-                        <th style="padding: 16px; text-transform: uppercase; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; text-align: left;">Instansi / Koperasi</th>
+                        <th style="padding: 16px; text-transform: uppercase; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; text-align: left;">Koperasi</th>
                         <th style="padding: 16px; text-transform: uppercase; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; text-align: left;">Kontak</th>
                         <th style="padding: 16px; text-transform: uppercase; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; text-align: left;">Tgl Daftar</th>
                         <th style="padding: 16px; text-transform: uppercase; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; text-align: center;">Aksi</th>
