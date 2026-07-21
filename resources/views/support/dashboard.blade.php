@@ -418,6 +418,11 @@
                                         <span>📄</span> Unduh PDF
                                     </a>
                                 @endif
+                                
+                                <label style="display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 0.8rem; color: #ef4444; cursor: pointer; background: #fef2f2; padding: 6px 10px; border-radius: 6px; border: 1px solid #fecaca; width: fit-content;">
+                                    <input type="checkbox" name="hapus_lampiran_support" value="1">
+                                    Hapus lampiran saat ini
+                                </label>
                             </div>
                         @endif
                     </div>

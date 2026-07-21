@@ -129,6 +129,13 @@ class TicketController extends Controller
             $data['tanggal_penyelesaian'] = now();
         }
 
+        if ($request->has('hapus_lampiran_support') && $request->hapus_lampiran_support == '1') {
+            if ($ticket->lampiran_support && \Illuminate\Support\Facades\Storage::disk('public')->exists($ticket->lampiran_support)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($ticket->lampiran_support);
+            }
+            $data['lampiran_support'] = null;
+        }
+
         if ($request->hasFile('lampiran_support')) {
             if ($ticket->lampiran_support && \Illuminate\Support\Facades\Storage::disk('public')->exists($ticket->lampiran_support)) {
                 \Illuminate\Support\Facades\Storage::disk('public')->delete($ticket->lampiran_support);
