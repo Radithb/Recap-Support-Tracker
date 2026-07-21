@@ -122,23 +122,23 @@
             <div class="md-sidebar">
                 <button class="md-tab-btn active" onclick="switchMdTab('aplikasi', this)">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-                    Aplikasi
+                    {{ __('messages.aplikasi') }}
                 </button>
                 <button class="md-tab-btn" onclick="switchMdTab('kategori', this)">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
-                    Kategori
+                    {{ __('messages.kategori') }}
                 </button>
                 <button class="md-tab-btn" onclick="switchMdTab('koperasi', this)">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                    Nama Koperasi
+                    {{ __('messages.nama_koperasi') }}
                 </button>
                 <button class="md-tab-btn" onclick="switchMdTab('picsupport', this)">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-                    PIC Tim Support
+                    {{ __('messages.pic_tim_support') }}
                 </button>
                 <button class="md-tab-btn" onclick="switchMdTab('status', this)">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                    Status Tiket
+                    {{ __('messages.status_tiket') }}
                 </button>
 
                 <div style="margin-top: 1rem; border-top: 1px solid var(--line); padding-top: 1rem;">

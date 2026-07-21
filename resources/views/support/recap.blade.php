@@ -138,7 +138,7 @@
             {!! __('messages.total_keseluruhan_tiket_tahun', ['total' => $grandTotal, 'year' => $year]) !!}
         </div>
         <a href="{{ route('support.recap.detail') }}" class="btn btn-primary" style="padding: 8px 16px; font-size: 0.85rem; font-weight: 600; text-decoration: none;">
-            Laporan Detail Support {{ $year }}
+            {{ __('messages.laporan_detail_support', ['year' => $year]) }}
         </a>
     </div>
 </div>

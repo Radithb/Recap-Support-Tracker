@@ -368,4 +368,9 @@ return [
     'bergabung_sejak' => 'Bergabung Sejak',
     'alamat_koperasi_label' => 'Alamat Koperasi',
     'belum_ada_data_alamat' => 'Belum ada data alamat',
+    'laporan_detail_support' => 'Laporan Detail Support :year',
+    'laporan_detail_support_title' => 'Laporan Detail Support',
+    'laporan_detail_support_bulan' => 'Laporan Detail Support :month :year',
+    'pic_tim_support' => 'PIC Tim Support',
+    'status_tiket' => 'Status Tiket',
 ];

@@ -367,4 +367,9 @@ return [
     'bergabung_sejak' => 'Joined Since',
     'alamat_koperasi_label' => 'Cooperative Address',
     'belum_ada_data_alamat' => 'No address data available',
+    'laporan_detail_support' => 'Detailed Support Report :year',
+    'laporan_detail_support_title' => 'Detailed Support Report',
+    'laporan_detail_support_bulan' => 'Detailed Support Report :month :year',
+    'pic_tim_support' => 'Support Team PIC',
+    'status_tiket' => 'Ticket Status',
 ];

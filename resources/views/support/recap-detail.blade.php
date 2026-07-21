@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page_title', 'Laporan Detail Support')
+@section('page_title', __('messages.laporan_detail_support_title'))
 @section('page_subtitle', 'internal.ptskk.id')
 
 @section('content')
@@ -34,7 +34,7 @@
         
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
             <div>
-                <h3 style="margin: 0; font-size: 1.25rem; color: var(--ink);">Laporan Detail Support {{ $monthName }} {{ $year }}</h3>
+                <h3 style="margin: 0; font-size: 1.25rem; color: var(--ink);">{{ __('messages.laporan_detail_support_bulan', ['month' => $monthName, 'year' => $year]) }}</h3>
                 <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Rincian per tiket — sumber data untuk kedua rekap di atas (Kategori & PIC). Kolom sama seperti file Excel Tim Support.</p>
             </div>
             
