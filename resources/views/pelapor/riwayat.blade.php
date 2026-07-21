@@ -157,14 +157,10 @@
         </div>
         <div class="modal-foot" style="display: flex; gap: 12px; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--line);">
             @if($t->status === \App\Enums\TicketStatus::OPEN)
-                <form action="{{ route('pelapor.tickets.destroy', $t->ticket_id) }}" method="POST" onsubmit="return confirm('{{ __('messages.konfirmasi_hapus_tiket') }}');" style="margin:0;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger">
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                        {{ __('messages.hapus_laporan') }}
-                    </button>
-                </form>
+                <button type="button" class="btn btn-danger" onclick="closeModal('modal-detail-{{ $t->ticket_id }}'); openModal('modal-delete-{{ $t->ticket_id }}')">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                    {{ __('messages.hapus_laporan') }}
+                </button>
             @else
                 <div></div>
             @endif
@@ -172,6 +168,40 @@
         </div>
     </div>
 </div>
+
+@if($t->status === \App\Enums\TicketStatus::OPEN)
+<div class="overlay" id="modal-delete-{{ $t->ticket_id }}">
+    <div class="modal w-sm">
+        <div class="modal-head" style="border-bottom: 1px solid var(--line); padding-bottom: 16px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="background: #fef2f2; color: #ef4444; padding: 8px; border-radius: 8px; display: flex;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                </div>
+                <div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 2px; color: var(--ink);">Konfirmasi Hapus</h3>
+                    <p class="mono" style="font-size: 0.8rem; color: var(--text-muted);">{{ $t->ticket_id }}</p>
+                </div>
+            </div>
+            <button type="button" class="modal-x" onclick="closeModal('modal-delete-{{ $t->ticket_id }}'); event.stopPropagation();">✕</button>
+        </div>
+        <div class="modal-body" style="padding: 24px;">
+            <p style="margin: 0; font-size: 0.95rem; line-height: 1.5; color: var(--ink-soft);">
+                {{ __('messages.konfirmasi_hapus_tiket') }} Tindakan ini tidak dapat dibatalkan.
+            </p>
+        </div>
+        <div class="modal-foot" style="display: flex; gap: 12px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--line);">
+            <button type="button" class="btn btn-ghost" onclick="closeModal('modal-delete-{{ $t->ticket_id }}'); openModal('modal-detail-{{ $t->ticket_id }}')">{{ __('messages.batal') }}</button>
+            <form action="{{ route('pelapor.tickets.destroy', $t->ticket_id) }}" method="POST" style="margin:0;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-danger">
+                    {{ __('messages.hapus_laporan') }}
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+@endif
 @endforeach
 
 <script>
