@@ -75,7 +75,13 @@
         
         <div class="sidebar-foot">
             <button class="sidebar-foot-trigger" onclick="toggleProfilePopover(event)">
-                <div class="av">{{ substr(Auth::user()->nama ?? 'A', 0, 1) }}</div>
+                <div class="av" style="overflow: hidden;">
+                    @if(Auth::user()->avatar)
+                        <img src="{{ asset('storage/' . Auth::user()->avatar) }}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">
+                    @else
+                        {{ substr(Auth::user()->nama ?? 'A', 0, 1) }}
+                    @endif
+                </div>
                 <div class="nm">
                     <strong>{{ Auth::user()->nama ?? 'User' }}</strong>
                     <span>{{ Auth::user()->instansi->nama_instansi ?? 'Administrator' }}</span>
