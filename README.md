@@ -101,7 +101,7 @@ Sebelum memulai, pastikan Anda memiliki:
 
 <br>
 
-#### 📁 Manajemen Master Data
+#### <img src="public/folder-white.png" width="22" height="22" valign="middle"> Manajemen Master Data
 ![Master Data](https://github.com/user-attachments/assets/f18c08cf-35ad-4395-b466-3b5e7a415c61) 
 *Halaman kelola data master aplikasi, kategori kendala, daftar instansi/koperasi, serta hak akses PIC support secara terpusat.*
 
