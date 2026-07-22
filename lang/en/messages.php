@@ -373,6 +373,8 @@ return [
     'telepon' => 'Phone',
     'email' => 'Email',
     'klik_untuk_chat' => 'Click to Chat',
+    'ubah_foto' => 'CHANGE',
+    'maks_2mb' => 'Max. 2MB (JPG, PNG)',
     'profil_lengkap_pelapor' => 'Complete Reporter Profile',
     'terverifikasi' => 'Verified',
     'belum_diverifikasi' => 'Unverified',

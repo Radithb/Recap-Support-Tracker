@@ -374,6 +374,8 @@ return [
     'telepon' => 'Telepon',
     'email' => 'Email',
     'klik_untuk_chat' => 'Klik untuk Chat',
+    'ubah_foto' => 'UBAH',
+    'maks_2mb' => 'Maks. 2MB (JPG, PNG)',
     'profil_lengkap_pelapor' => 'Profil Lengkap Pelapor',
     'terverifikasi' => 'Terverifikasi',
     'belum_diverifikasi' => 'Belum Diverifikasi',

@@ -178,11 +178,11 @@
                                 <span id="avatar-placeholder" style="font-size: 36px; font-weight: bold; color: var(--ink-soft);">{{ $initials }}</span>
                             @endif
                             <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); padding: 4px 0; text-align: center; color: white; font-size: 10px; font-weight: 700; letter-spacing: 0.5px;">
-                                UBAH
+                                {{ __('messages.ubah_foto') }}
                             </div>
                         </div>
                         <input type="file" name="avatar" id="avatar-input" style="display: none;" accept="image/*" onchange="previewAvatar(this)">
-                        <div style="font-size: 11px; color: var(--ink-soft); margin-top: 8px;">Maks. 2MB (JPG, PNG)</div>
+                        <div style="font-size: 11px; color: var(--ink-soft); margin-top: 8px;">{{ __('messages.maks_2mb') }}</div>
                     </div>
 
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px;">
