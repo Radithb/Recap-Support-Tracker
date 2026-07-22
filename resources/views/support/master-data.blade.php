@@ -209,15 +209,57 @@
                                             {{ $app->is_active ? __('messages.aktif') : __('messages.nonaktif') }}
                                         </span>
                                     </td>
-                                    <td style="padding: 1.25rem 1.5rem; text-align: center;">
-                                        <form action="{{ route('support.master-data.aplikasi.destroy', $app->aplikasi_id) }}" method="POST" onsubmit="return confirm('{{ __('messages.konfirmasi_hapus_aplikasi') }}');" style="display: inline-block;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" style="color: #ef4444; background: none; border: 1.5px solid #fecaca; padding: 6px 10px; font-size: 0.75rem; font-weight: 500; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: 0.2s;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'" title="{{ __('messages.hapus') }}">
-                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                                {{ __('messages.hapus') }}
+                                    <td style="padding: 1.25rem 1.5rem; text-align: center; position: relative;">
+                                        <div style="position: relative; display: inline-block;">
+                                            <button type="button" onclick="toggleMdDropdown(event, 'dropdown-app-{{ $app->aplikasi_id }}')" style="background: var(--paper-raised); border: 1.5px solid var(--line); border-radius: 8px; width: 32px; height: 32px; cursor: pointer; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--border-hover)'; this.style.background='var(--paper-sunken)'" onmouseout="this.style.borderColor='var(--line)'; this.style.background='var(--paper-raised)'" title="Aksi">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg>
                                             </button>
-                                        </form>
+                                            <div id="dropdown-app-{{ $app->aplikasi_id }}" class="md-dropdown-menu" style="display: none; position: absolute; right: 0; top: calc(100% + 4px); background: var(--paper-raised); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15); min-width: 140px; z-index: 100; text-align: left; padding: 6px; backdrop-filter: blur(8px);">
+                                                <button type="button" onclick="openModal('modal-edit-aplikasi-{{ $app->aplikasi_id }}'); closeAllMdDropdowns();" style="width: 100%; background: none; border: none; padding: 8px 12px; text-align: left; font-size: 0.85rem; font-weight: 500; color: var(--ink); cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: 6px;" onmouseover="this.style.background='var(--paper-sunken)'" onmouseout="this.style.background='none'">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                                    Edit Aplikasi
+                                                </button>
+                                                <form action="{{ route('support.master-data.aplikasi.destroy', $app->aplikasi_id) }}" method="POST" onsubmit="return confirm('{{ __('messages.konfirmasi_hapus_aplikasi') }}');" style="margin: 0;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" onclick="closeAllMdDropdowns();" style="width: 100%; background: none; border: none; padding: 8px 12px; text-align: left; font-size: 0.85rem; font-weight: 500; color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: 6px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'">
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                                        Hapus
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                        <!-- Modal Edit Aplikasi -->
+                                        <div class="overlay" id="modal-edit-aplikasi-{{ $app->aplikasi_id }}" style="text-align: left;">
+                                            <div class="modal w-sm">
+                                                <div class="modal-head">
+                                                    <div>
+                                                        <h3>Edit Master Aplikasi</h3>
+                                                        <p>Ubah nama atau deskripsi aplikasi</p>
+                                                    </div>
+                                                    <button type="button" class="modal-x" onclick="closeModal('modal-edit-aplikasi-{{ $app->aplikasi_id }}')">✕</button>
+                                                </div>
+                                                <form action="{{ route('support.master-data.aplikasi.update', $app->aplikasi_id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    <div class="modal-body">
+                                                        <div class="field">
+                                                            <label>{{ __('messages.nama_aplikasi') }} <span style="color:var(--danger)">*</span></label>
+                                                            <input type="text" name="nama_aplikasi" required value="{{ $app->nama_aplikasi }}" placeholder="{{ __('messages.contoh_sakti') }}">
+                                                        </div>
+                                                        <div class="field">
+                                                            <label>{{ __('messages.deskripsi_singkat') }}</label>
+                                                            <textarea name="deskripsi" placeholder="{{ __('messages.penjelasan_singkat') }}" rows="3">{{ $app->deskripsi }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-foot">
+                                                        <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-aplikasi-{{ $app->aplikasi_id }}')">{{ __('messages.batal') }}</button>
+                                                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -255,15 +297,53 @@
                                         {{ $kategori->tickets->count() ?? 0 }} {{ __('messages.jumlah') }}
                                     </span>
                                 </td>
-                                <td style="padding: 1.25rem 1.5rem; text-align: center;">
-                                    <form action="{{ route('support.master-data.kategori.destroy', $kategori->kategori_id) }}" method="POST" onsubmit="return confirm('{{ __('messages.konfirmasi_hapus_kategori') }}');" style="display: inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" style="color: #ef4444; background: none; border: 1.5px solid #fecaca; padding: 6px 10px; font-size: 0.75rem; font-weight: 500; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: 0.2s;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'" title="{{ __('messages.hapus') }}">
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                            {{ __('messages.hapus') }}
+                                <td style="padding: 1.25rem 1.5rem; text-align: center; position: relative;">
+                                    <div style="position: relative; display: inline-block;">
+                                        <button type="button" onclick="toggleMdDropdown(event, 'dropdown-kat-{{ $kategori->kategori_id }}')" style="background: var(--paper-raised); border: 1.5px solid var(--line); border-radius: 8px; width: 32px; height: 32px; cursor: pointer; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--border-hover)'; this.style.background='var(--paper-sunken)'" onmouseout="this.style.borderColor='var(--line)'; this.style.background='var(--paper-raised)'" title="Aksi">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg>
                                         </button>
-                                    </form>
+                                        <div id="dropdown-kat-{{ $kategori->kategori_id }}" class="md-dropdown-menu" style="display: none; position: absolute; right: 0; top: calc(100% + 4px); background: var(--paper-raised); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15); min-width: 140px; z-index: 100; text-align: left; padding: 6px; backdrop-filter: blur(8px);">
+                                            <button type="button" onclick="openModal('modal-edit-kategori-{{ $kategori->kategori_id }}'); closeAllMdDropdowns();" style="width: 100%; background: none; border: none; padding: 8px 12px; text-align: left; font-size: 0.85rem; font-weight: 500; color: var(--ink); cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: 6px;" onmouseover="this.style.background='var(--paper-sunken)'" onmouseout="this.style.background='none'">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                                Edit Kategori
+                                            </button>
+                                            <form action="{{ route('support.master-data.kategori.destroy', $kategori->kategori_id) }}" method="POST" onsubmit="return confirm('{{ __('messages.konfirmasi_hapus_kategori') }}');" style="margin: 0;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" onclick="closeAllMdDropdowns();" style="width: 100%; background: none; border: none; padding: 8px 12px; text-align: left; font-size: 0.85rem; font-weight: 500; color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: 6px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                                    Hapus
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+
+                                    <!-- Modal Edit Kategori -->
+                                    <div class="overlay" id="modal-edit-kategori-{{ $kategori->kategori_id }}" style="text-align: left;">
+                                        <div class="modal w-sm">
+                                            <div class="modal-head">
+                                                <div>
+                                                    <h3>Edit Master Kategori</h3>
+                                                    <p>Ubah nama kategori</p>
+                                                </div>
+                                                <button type="button" class="modal-x" onclick="closeModal('modal-edit-kategori-{{ $kategori->kategori_id }}')">✕</button>
+                                            </div>
+                                            <form action="{{ route('support.master-data.kategori.update', $kategori->kategori_id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="modal-body">
+                                                    <div class="field">
+                                                        <label>{{ __('messages.nama_kategori') }} <span style="color:var(--danger)">*</span></label>
+                                                        <input type="text" name="nama_kategori" required value="{{ $kategori->nama_kategori }}" placeholder="{{ __('messages.contoh_bug') }}">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-foot">
+                                                    <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-kategori-{{ $kategori->kategori_id }}')">{{ __('messages.batal') }}</button>
+                                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                             @endforeach
@@ -494,6 +574,24 @@
 </div>
 
 <script>
+    function toggleMdDropdown(event, dropdownId) {
+        event.stopPropagation();
+        const target = document.getElementById(dropdownId);
+        const isVisible = target.style.display === 'block';
+        closeAllMdDropdowns();
+        if (!isVisible) {
+            target.style.display = 'block';
+        }
+    }
+
+    function closeAllMdDropdowns() {
+        document.querySelectorAll('.md-dropdown-menu').forEach(el => el.style.display = 'none');
+    }
+
+    document.addEventListener('click', function() {
+        closeAllMdDropdowns();
+    });
+
     // Tab switching logic for Master Data sub-sidebar
     function switchMdTab(tabId, btnElement) {
         // Remove active class from all buttons

@@ -39,6 +39,22 @@ class MasterDataController extends Controller
         return back()->with('success', __('messages.app_added'));
     }
 
+    public function updateAplikasi(Request $request, $id)
+    {
+        $request->validate([
+            'nama_aplikasi' => 'required|string|max:255',
+            'deskripsi' => 'nullable|string'
+        ]);
+
+        $aplikasi = MasterAplikasi::findOrFail($id);
+        $aplikasi->update([
+            'nama_aplikasi' => $request->nama_aplikasi,
+            'deskripsi' => $request->deskripsi,
+        ]);
+
+        return back()->with('success', 'Aplikasi berhasil diperbarui.');
+    }
+
     public function destroyAplikasi($id)
     {
         $aplikasi = MasterAplikasi::findOrFail($id);
@@ -63,6 +79,20 @@ class MasterDataController extends Controller
         ]);
 
         return back()->with('success', __('messages.cat_added'));
+    }
+
+    public function updateKategori(Request $request, $id)
+    {
+        $request->validate([
+            'nama_kategori' => 'required|string|max:255'
+        ]);
+
+        $kategori = MasterKategori::findOrFail($id);
+        $kategori->update([
+            'nama_kategori' => $request->nama_kategori,
+        ]);
+
+        return back()->with('success', 'Kategori berhasil diperbarui.');
     }
 
     public function destroyKategori($id)
