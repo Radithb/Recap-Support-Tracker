@@ -179,11 +179,11 @@
                                         @if(strlen($app->deskripsi) > 60)
                                             <span id="desc-short-{{ $app->aplikasi_id }}">
                                                 {{ Str::limit($app->deskripsi, 60) }}
-                                                <a href="javascript:void(0)" onclick="toggleDesc({{ $app->aplikasi_id }})" style="color: var(--indigo); font-weight: 600; font-size: 0.85rem; text-decoration: none; margin-left: 4px;">Lebih banyak</a>
+                                                <a href="javascript:void(0)" onclick="toggleDesc({{ $app->aplikasi_id }})" style="color: var(--indigo); font-weight: 600; font-size: 0.85rem; text-decoration: none; margin-left: 4px;">{{ __('messages.lebih_banyak') }}</a>
                                             </span>
                                             <span id="desc-full-{{ $app->aplikasi_id }}" style="display: none;">
                                                 {{ $app->deskripsi }}
-                                                <a href="javascript:void(0)" onclick="toggleDesc({{ $app->aplikasi_id }})" style="color: var(--indigo); font-weight: 600; font-size: 0.85rem; text-decoration: none; margin-left: 4px;">Lebih sedikit</a>
+                                                <a href="javascript:void(0)" onclick="toggleDesc({{ $app->aplikasi_id }})" style="color: var(--indigo); font-weight: 600; font-size: 0.85rem; text-decoration: none; margin-left: 4px;">{{ __('messages.lebih_sedikit') }}</a>
                                             </span>
                                         @else
                                             {{ $app->deskripsi }}
@@ -242,17 +242,17 @@
                     <div class="glass-panel" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; min-width: 0;">
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
                             <div>
-                                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">Nama Koperasi</h3>
-                                <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Daftar koperasi yang pernah dilaporkan</p>
+                                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.nama_koperasi') }}</h3>
+                                <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.desc_koperasi') }}</p>
                             </div>
                         </div>
                         <div style="overflow: auto;">
                         <table style="width: 100%; border-collapse: collapse;">
                             <thead style="background: var(--paper-sunken); position: sticky; top: 0; z-index: 10;">
                                 <tr>
-                                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Nama Koperasi</th>
-                                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Kontak</th>
-                                    <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Total Akun</th>
+                                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.nama_koperasi') }}</th>
+                                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.kontak') }}</th>
+                                    <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.total_akun') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -270,7 +270,7 @@
                                     </td>
                                     <td style="padding: 1.25rem 1.5rem; text-align: center; vertical-align: top;">
                                         <span style="background: #e0f2fe; color: #0284c7; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; white-space: nowrap;">
-                                            {{ $ins->users_count }} Akun
+                                            {{ $ins->users_count }} {{ __('messages.akun') }}
                                         </span>
                                     </td>
                                 </tr>
@@ -286,16 +286,16 @@
                     <div class="glass-panel" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; min-width: 0;">
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
                             <div>
-                                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">PIC Tim Support</h3>
-                                <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Daftar user tim support aplikasi</p>
+                                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.pic_tim_support') }}</h3>
+                                <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.desc_pic_support') }}</p>
                             </div>
                         </div>
                         <div style="overflow: auto;">
                         <table style="width: 100%; border-collapse: collapse;">
                             <thead style="background: var(--paper-sunken); position: sticky; top: 0; z-index: 10;">
                                 <tr>
-                                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Profil Support</th>
-                                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Kontak</th>
+                                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.profil_support') }}</th>
+                                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.kontak') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -316,7 +316,7 @@
                                             @endif
                                             <div>
                                                 <div style="font-weight: 600; color: var(--ink); font-size: 1rem;">{{ $pic->nama }}</div>
-                                                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 3px;">{{ $pic->spesialisasi ?? 'Tim Support Umum' }}</div>
+                                                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 3px;">{{ $pic->spesialisasi ?? __('messages.tim_support_umum') }}</div>
                                             </div>
                                         </div>
                                     </td>
@@ -339,17 +339,17 @@
                     <div class="glass-panel" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; min-width: 0;">
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
                             <div>
-                                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">Status Tiket</h3>
-                                <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Referensi status laporan tiket (Read Only)</p>
+                                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.status_tiket') }}</h3>
+                                <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.desc_status_tiket') }}</p>
                             </div>
                         </div>
                         <div style="overflow-x: auto;">
                             <table style="width: 100%; border-collapse: collapse;">
                                 <thead style="background: var(--paper-sunken);">
                                     <tr>
-                                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Value Sistem</th>
-                                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Label Visual</th>
-                                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Deskripsi Penggunaan</th>
+                                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.value_sistem') }}</th>
+                                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.label_visual') }}</th>
+                                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.deskripsi_penggunaan') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -379,13 +379,13 @@
                                         </td>
                                         <td style="padding: 1.25rem 1.5rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; vertical-align: top;">
                                             @if($st->name === 'OPEN')
-                                                <strong style="color: var(--ink);">Status Awal:</strong> Tiket laporan yang baru saja dibuat oleh pelapor dan belum mulai dianalisis atau ditangani oleh tim teknis.
+                                                <strong style="color: var(--ink);">{{ __('messages.st_desc_open_title') }}</strong> {{ __('messages.st_desc_open_text') }}
                                             @elseif($st->name === 'PROSES')
-                                                <strong style="color: var(--ink);">Dalam Pengerjaan:</strong> Tiket sedang dalam tahapan analisis, *troubleshooting*, atau penanganan aktif oleh tim support.
+                                                <strong style="color: var(--ink);">{{ __('messages.st_desc_proses_title') }}</strong> {{ __('messages.st_desc_proses_text') }}
                                             @elseif($st->name === 'PENDING')
-                                                <strong style="color: var(--ink);">Ditangguhkan Sementara:</strong> Pengerjaan tiket tertunda atau dihentikan sementara waktu karena membutuhkan konfirmasi tambahan, data tambahan, atau aksi dari pihak pelapor sebelum bisa dilanjutkan.
+                                                <strong style="color: var(--ink);">{{ __('messages.st_desc_pending_title') }}</strong> {{ __('messages.st_desc_pending_text') }}
                                             @elseif($st->name === 'DONE')
-                                                <strong style="color: var(--ink);">Selesai:</strong> Kendala pada tiket sudah terselesaikan dengan tuntas dan penyelesaiannya telah disetujui. Tiket akan dikategorikan sebagai rekam jejak.
+                                                <strong style="color: var(--ink);">{{ __('messages.st_desc_done_title') }}</strong> {{ __('messages.st_desc_done_text') }}
                                             @endif
                                         </td>
                                     </tr>
