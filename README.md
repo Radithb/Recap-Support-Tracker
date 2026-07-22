@@ -332,7 +332,7 @@ Proyek ini dilisensikan di bawah lisensi MIT - lihat file [LICENSE](LICENSE) unt
 
 <div align="center">
 
-**[⬆ kembali ke atas](#-recap-support-tracker)**
+**[kembali ke atas](#-recap-support-tracker)**
 
 Dibuat dengan ❤️ untuk mempermudah operasional pengelolaan tiket layanan bantuan.
 
