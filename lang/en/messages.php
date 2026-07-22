@@ -407,6 +407,8 @@ return [
     'konfirmasi_hapus_kategori' => 'Are you sure you want to delete this category?',
     'jumlah' => 'Total',
     'laporan_detail_support_title' => 'Detailed Support Report',
+    'total_tiket' => 'TOTAL TICKETS',
+    'tiket' => 'Tickets',
     'kembali_ke_recap_support' => 'Back to Support Recap',
     'laporan_detail_support_bulan' => 'Detailed Support Report :month :year',
     'desc_recap_detail' => 'Details per ticket — data source for both recaps above (Category & PIC). Columns match Support Team Excel file.',

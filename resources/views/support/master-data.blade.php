@@ -311,7 +311,7 @@
                                     <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.nama_koperasi') }}</th>
                                     <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.kontak') }}</th>
                                     <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.total_akun') }}</th>
-                                    <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">TOTAL TIKET</th>
+                                    <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.total_tiket') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -337,7 +337,7 @@
                                     </td>
                                     <td style="padding: 1.25rem 1.5rem; text-align: center; vertical-align: top;">
                                         <span style="background: #fef3c7; color: #d97706; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; white-space: nowrap;">
-                                            {{ $ins->tickets_count ?? 0 }} Tiket
+                                            {{ $ins->tickets_count ?? 0 }} {{ __('messages.tiket') }}
                                         </span>
                                     </td>
                                 </tr>
