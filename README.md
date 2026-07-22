@@ -20,45 +20,45 @@ Sistem manajemen tiket support terpadu untuk instansi/koperasi dengan antarmuka 
 
 **Recap Support Tracker** adalah aplikasi web berbasis Laravel yang dirancang untuk memudahkan pengelolaan tiket support, pelaporan, dan rekapitulasi antar instansi atau koperasi. Sistem ini menyediakan solusi terintegrasi dengan berbagai fitur canggih untuk meningkatkan efisiensi operasional.
 
-## <img src="public/star-white.png" width="24" height="24" valign="middle"> Fitur Utama
+## <img src="public/star-white.png?v=2" width="24" height="24" valign="middle"> Fitur Utama
 
-### <img src="public/padlock-white.png" width="22" height="22" valign="middle"> Multi-Role Authentication
+### <img src="public/padlock-white.png?v=2" width="22" height="22" valign="middle"> Multi-Role Authentication
 - Sistem pembagian hak akses untuk **Tim Support** dan **Pelapor** (Koperasi/Instansi)
 - Dashboard yang disesuaikan untuk masing-masing peran
 - Manajemen akses berbasis role yang fleksibel
 
-### <img src="public/data-white.png" width="22" height="22" valign="middle"> Manajemen Laporan & Rekapitulasi
+### <img src="public/data-white.png?v=2" width="22" height="22" valign="middle"> Manajemen Laporan & Rekapitulasi
 - Pembuatan dan pelacakan tiket bantuan yang terstruktur
 - Sistem rekapitulasi otomatis untuk pelaporan berkala
 - Respon dan penyelesaian tiket dengan status tracking real-time
 - Export laporan dalam berbagai format
 
-### <img src="public/company-white.png" width="22" height="22" valign="middle"> Profil Identitas Digital
+### <img src="public/company-white.png?v=2" width="22" height="22" valign="middle"> Profil Identitas Digital
 - Kartu identitas anggota digital terintegrasi
 - Manajemen foto profil dan data pribadi
 - Informasi koperasi dan nomor anggota
 - Sistem verifikasi status anggota
 
-### <img src="public/setting-white.png" width="22" height="22" valign="middle"> Personalisasi & Pengaturan
+### <img src="public/setting-white.png?v=2" width="22" height="22" valign="middle"> Personalisasi & Pengaturan
 - **Tema Dinamis**: Mode Gelap & Mode Terang
 - **Aksesibilitas**: Penyesuaian ukuran teks untuk kenyamanan membaca
 - **Multibahasa**: Dukungan Bahasa Indonesia & Inggris
 - Preferensi pengguna yang tersimpan otomatis
 
-### <img src="public/padlock-white.png" width="22" height="22" valign="middle"> Keamanan Akun
+### <img src="public/padlock-white.png?v=2" width="22" height="22" valign="middle"> Keamanan Akun
 - Enkripsi password tingkat enterprise
 - Validasi input untuk mencegah SQL Injection
 - CSRF protection
 - Session management yang aman
 
-### <img src="public/application-white.png" width="22" height="22" valign="middle"> UI/UX Modern
+### <img src="public/application-white.png?v=2" width="22" height="22" valign="middle"> UI/UX Modern
 - Desain antarmuka yang **responsif** dan mobile-friendly
 - Animasi transisi halus untuk pengalaman pengguna yang mulus
 - Efek **glassmorphism** yang modern
 - **Skeleton loading state** untuk feedback pengguna
 - Desain yang intuitif dan user-friendly
 
-## <img src="public/monitor-white.png" width="20" height="20" valign="middle"> Tech Stack
+## <img src="public/monitor-white.png?v=2" width="20" height="20" valign="middle"> Tech Stack
 
 | Layer | Teknologi |
 |-------|-----------|
@@ -67,7 +67,7 @@ Sistem manajemen tiket support terpadu untuk instansi/koperasi dengan antarmuka 
 | **Frontend** | Blade Templating, Vanilla CSS, Vanilla JavaScript |
 | **Package Manager** | Composer, NPM |
 
-## <img src="public/cpu-white.png" width="24" height="24" valign="middle"> Persyaratan Sistem
+## <img src="public/cpu-white.png?v=2" width="24" height="24" valign="middle"> Persyaratan Sistem
 
 Sebelum memulai, pastikan Anda memiliki:
 
@@ -77,7 +77,7 @@ Sebelum memulai, pastikan Anda memiliki:
 - **MySQL** >= 8.0
 - **Git**
 
-## <img src="public/camera-white.png" width="24" height="24" valign="middle"> Preview
+## <img src="public/camera-white.png?v=2" width="24" height="24" valign="middle"> Preview
 
 <div align="center">
 
@@ -89,7 +89,7 @@ Sebelum memulai, pastikan Anda memiliki:
 
 <br>
 
-#### <img src="public/monitor-white.png" width="20" height="20" valign="middle"> Dashboard Utama Support
+#### <img src="public/monitor-white.png?v=2" width="20" height="20" valign="middle"> Dashboard Utama Support
 ![Dashboard Support](https://github.com/user-attachments/assets/832a83e3-8516-4ea7-93bc-e35ce884e5da)
 *Pemantauan statistik tiket, grafik distribusi status (Open, Proses, Pending, Done), serta daftar tiket aktif secara real-time.*
 
@@ -101,7 +101,7 @@ Sebelum memulai, pastikan Anda memiliki:
 
 <br>
 
-#### <img src="public/folder-white.png" width="22" height="22" valign="middle"> Manajemen Master Data
+#### <img src="public/folder-white.png?v=2" width="22" height="22" valign="middle"> Manajemen Master Data
 ![Master Data](https://github.com/user-attachments/assets/f18c08cf-35ad-4395-b466-3b5e7a415c61) 
 *Halaman kelola data master aplikasi, kategori kendala, daftar instansi/koperasi, serta hak akses PIC support secara terpusat.*
 
@@ -115,7 +115,7 @@ Sebelum memulai, pastikan Anda memiliki:
 
 <br>
 
-#### <img src="public/monitor-white.png" width="20" height="20" valign="middle"> Dashboard Pelapor
+#### <img src="public/monitor-white.png?v=2" width="20" height="20" valign="middle"> Dashboard Pelapor
 ![Dashboard Pelapor](https://github.com/user-attachments/assets/9973bf08-2b9c-4646-92de-f61b36d8583d)
 *Ringkasan statistik laporan pengguna, status penanganan terkini, serta tabel riwayat seluruh tiket kendala.*
 
