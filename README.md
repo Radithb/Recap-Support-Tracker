@@ -81,19 +81,45 @@ Sebelum memulai, pastikan Anda memiliki:
 
 <div align="center">
 
-### 🖥️ Dashboard & Manajemen Tiket
-![Dashboard Utama](https://via.placeholder.com/800x450?text=Preview+Dashboard+Recap+Support)
-*Tampilan utama Dashboard untuk pemantauan dan pengelolaan tiket*
+---
+
+### 👨‍💻 Tampilan Peran: Tim Support
+
+*Antarmuka yang dirancang khusus untuk petugas support dalam mengelola, merespons, dan menindaklanjuti setiap tiket bantuan.*
 
 <br>
 
-| 📝 Form Buat Laporan | 📊 Riwayat & Status Tiket |
-| :---: | :---: |
-| ![Form Buat Laporan](https://via.placeholder.com/400x250?text=Preview+Buat+Laporan) | ![Riwayat Tiket](https://via.placeholder.com/400x250?text=Preview+Riwayat+Tiket) |
+#### 🖥️ Dashboard Utama Support
+![Dashboard Support](https://via.placeholder.com/800x450?text=Preview+Dashboard+Tim+Support)
+*Pemantauan status tiket (Open, Proses, Pending, Done) secara real-time*
 
-| 🌙 Mode Gelap (Dark Mode) | ☀️ Mode Terang (Light Mode) |
+<br>
+
+| 🛠️ Modal Update Tiket & Respons | 📁 Manajemen Master Data |
 | :---: | :---: |
-| ![Mode Gelap](https://via.placeholder.com/400x250?text=Preview+Dark+Mode) | ![Mode Terang](https://via.placeholder.com/400x250?text=Preview+Light+Mode) |
+| ![Update Tiket](https://via.placeholder.com/400x250?text=Preview+Modal+Update+Tiket) | ![Master Data](https://via.placeholder.com/400x250?text=Preview+Master+Data) |
+
+<br>
+
+---
+
+### 👤 Tampilan Peran: Pelapor (Koperasi / Instansi)
+
+*Antarmuka intuitif bagi pelapor untuk mengajukan laporan kendala baru dan memantau status tindak lanjutnya.*
+
+<br>
+
+#### 🖥️ Dashboard Pelapor
+![Dashboard Pelapor](https://via.placeholder.com/800x450?text=Preview+Dashboard+Pelapor)
+*Ringkasan statistik dan riwayat laporan pengguna*
+
+<br>
+
+| 📝 Form Buat Laporan Baru | 📄 Detail & Status Laporan |
+| :---: | :---: |
+| ![Buat Laporan Baru](https://via.placeholder.com/400x250?text=Preview+Form+Buat+Laporan) | ![Detail Laporan](https://via.placeholder.com/400x250?text=Preview+Detail+Laporan) |
+
+---
 
 </div>
 
