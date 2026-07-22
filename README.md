@@ -121,19 +121,19 @@ Sebelum memulai, pastikan Anda memiliki:
 
 <br>
 
-#### 📝 Form Buat Laporan Baru
+#### <img src="public/icons/contract-white.png" width="20" height="20" valign="middle"> Form Buat Laporan Baru
 ![Buat Laporan Baru](https://github.com/user-attachments/assets/b52528d0-9d13-4055-846d-111a281ac15f) 
 *Form pengajuan tiket kendala baru yang praktis dengan pemilihan jenis aplikasi, kategori masalah, uraian detail, dan upload foto lampiran.*
 
 <br>
 
-#### 📄 Detail & Status Laporan
+#### <img src="public/icons/file-baru.png" width="20" height="20" valign="middle"> Detail & Status Laporan
 ![Detail Laporan](https://github.com/user-attachments/assets/b4d0b46b-ee36-4013-9c2b-614f2e2a4d85)
 *Tampilan rincian informasi tiket, kronologi progress penanganan dari petugas support, dan jawaban solusi akhir.*
 
 </div>
 
-## 🚀 Panduan Instalasi
+## <img src="public/icons/download-white.png" width="24" height="24" valign="middle"> Panduan Instalasi
 
 ### 1️⃣ Clone Repositori
 
@@ -295,7 +295,7 @@ Recap-Support-Tracker/
 3. Pantau progres secara real-time
 
 
-## 📋 Commit Message Guidelines
+## <img src="public/icons/contract-white.png" width="24" height="24" valign="middle"> Commit Message Guidelines
 
 Gunakan format conventional commits:
 
@@ -324,7 +324,7 @@ Jika Anda menemukan bug, silakan buat [Issue](https://github.com/Radithb/Recap-S
 - [PHP Documentation](https://www.php.net/docs.php)
 - [MySQL Documentation](https://dev.mysql.com/doc/)
 
-## 📄 Lisensi
+## <img src="public/icons/file-baru.png" width="20" height="20" valign="middle"> Lisensi
 
 Proyek ini dilisensikan di bawah lisensi MIT - lihat file [LICENSE](LICENSE) untuk detail.
 
