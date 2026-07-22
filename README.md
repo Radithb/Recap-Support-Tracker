@@ -116,19 +116,19 @@ Sebelum memulai, pastikan Anda memiliki:
 <br>
 
 #### 🖥️ Dashboard Pelapor
-![Dashboard Pelapor](https://via.placeholder.com/800x450?text=Preview+Dashboard+Pelapor)
+![Dashboard Pelapor](https://github.com/user-attachments/assets/9973bf08-2b9c-4646-92de-f61b36d8583d)
 *Ringkasan statistik laporan pengguna, status penanganan terkini, serta tabel riwayat seluruh tiket kendala.*
 
 <br>
 
 #### 📝 Form Buat Laporan Baru
-![Buat Laporan Baru](https://via.placeholder.com/400x250?text=Preview+Form+Buat+Laporan) 
+![Buat Laporan Baru](https://github.com/user-attachments/assets/b52528d0-9d13-4055-846d-111a281ac15f) 
 *Form pengajuan tiket kendala baru yang praktis dengan pemilihan jenis aplikasi, kategori masalah, uraian detail, dan upload foto lampiran.*
 
 <br>
 
 #### 📄 Detail & Status Laporan
-![Detail Laporan](https://via.placeholder.com/400x250?text=Preview+Detail+Laporan)
+![Detail Laporan](https://github.com/user-attachments/assets/b4d0b46b-ee36-4013-9c2b-614f2e2a4d85)
 *Tampilan rincian informasi tiket, kronologi progress penanganan dari petugas support, dan jawaban solusi akhir.*
 
 </div>
