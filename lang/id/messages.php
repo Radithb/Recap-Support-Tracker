@@ -194,7 +194,7 @@ return [
     'bahasa_updated' => 'Preferensi bahasa berhasil diperbarui!',
     'app_added' => 'Master Aplikasi berhasil ditambahkan.',
     'cat_added' => 'Master Kategori berhasil ditambahkan.',
-    'ticket_created' => 'Tiket berhasil dibuat!',
+    'ticket_created' => 'Laporan berhasil dibuat!',
     'ticket_updated' => 'Status tiket diperbarui.',
     'invalid_verify' => 'Akun tidak valid untuk diverifikasi.',
     'akun_verified' => 'Akun ":name" berhasil diverifikasi.',
