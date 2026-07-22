@@ -407,25 +407,28 @@
                         @if($t->lampiran_support)
                             <div style="margin-top: 8px;">
                                 <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Lampiran Saat Ini:</div>
-                                @php $extSupp = strtolower(pathinfo($t->lampiran_support, PATHINFO_EXTENSION)); @endphp
-                                @if(in_array($extSupp, ['jpg', 'jpeg', 'png']))
-                                    <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank">
-                                        <img src="{{ Storage::url($t->lampiran_support) }}" alt="Lampiran Support" style="max-width: 100%; max-height: 100px; border-radius: 8px; border: 1px solid var(--line); display: block; object-fit: cover;">
-                                    </a>
-                                @elseif($extSupp === 'mp4')
-                                    <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
-                                        <span>🎥</span> Lihat Video
-                                    </a>
-                                @elseif($extSupp === 'pdf')
-                                    <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); text-decoration: none;">
-                                        <span>📄</span> Unduh PDF
-                                    </a>
-                                @endif
-                                
-                                <label style="display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 0.8rem; color: #ef4444; cursor: pointer; background: #fef2f2; padding: 6px 10px; border-radius: 6px; border: 1px solid #fecaca; width: fit-content;">
-                                    <input type="checkbox" name="hapus_lampiran_support" value="1">
-                                    Hapus lampiran saat ini
-                                </label>
+                                <div id="lampiran_preview_supp_{{ $t->ticket_id }}" style="display: flex; align-items: flex-end; gap: 12px;">
+                                    <div>
+                                        @php $extSupp = strtolower(pathinfo($t->lampiran_support, PATHINFO_EXTENSION)); @endphp
+                                        @if(in_array($extSupp, ['jpg', 'jpeg', 'png']))
+                                            <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank">
+                                                <img src="{{ Storage::url($t->lampiran_support) }}" alt="Lampiran Support" style="max-width: 100%; max-height: 100px; border-radius: 8px; border: 1px solid var(--line); display: block; object-fit: cover;">
+                                            </a>
+                                        @elseif($extSupp === 'mp4')
+                                            <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+                                                <span>🎥</span> Lihat Video
+                                            </a>
+                                        @elseif($extSupp === 'pdf')
+                                            <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); text-decoration: none;">
+                                                <span>📄</span> Unduh PDF
+                                            </a>
+                                        @endif
+                                    </div>
+                                    <button type="button" style="color: #ef4444; background: none; border: 1.5px solid #fecaca; padding: 6px 10px; font-size: 0.75rem; font-weight: 500; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: 0.2s; height: fit-content;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'" onclick="document.getElementById('hapus_lampiran_checkbox_supp_{{ $t->ticket_id }}').checked = true; document.getElementById('lampiran_preview_supp_{{ $t->ticket_id }}').style.display = 'none';">
+                                        Hapus Lampiran
+                                    </button>
+                                </div>
+                                <input type="checkbox" name="hapus_lampiran_support" value="1" id="hapus_lampiran_checkbox_supp_{{ $t->ticket_id }}" style="display: none;">
                             </div>
                         @endif
                     </div>
