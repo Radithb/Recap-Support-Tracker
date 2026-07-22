@@ -116,11 +116,13 @@ Sebelum memulai, pastikan Anda memiliki:
 
 <br>
 
-| 📝 Form Buat Laporan Baru | 📄 Detail & Status Laporan |
-| :---: | :---: |
-| ![Buat Laporan Baru](https://via.placeholder.com/400x250?text=Preview+Form+Buat+Laporan) | ![Detail Laporan](https://via.placeholder.com/400x250?text=Preview+Detail+Laporan) |
+#### 📝 Form Buat Laporan Baru
+![Buat Laporan Baru](https://via.placeholder.com/400x250?text=Preview+Form+Buat+Laporan) 
 
----
+<br>
+
+####  📄 Detail & Status Laporan
+![Detail Laporan](https://via.placeholder.com/400x250?text=Preview+Detail+Laporan)
 
 </div>
 
