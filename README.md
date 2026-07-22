@@ -90,7 +90,7 @@ Sebelum memulai, pastikan Anda memiliki:
 <br>
 
 #### 🖥️ Dashboard Utama Support
-![Dashboard Support](https://via.placeholder.com/800x450?text=Preview+Dashboard+Tim+Support)
+![Dashboard Support](<img width="1897" height="862" alt="Screenshot 2026-07-22 103726" src="https://github.com/user-attachments/assets/832a83e3-8516-4ea7-93bc-e35ce884e5da" />)
 *Pemantauan status tiket (Open, Proses, Pending, Done) secara real-time*
 
 <br>
