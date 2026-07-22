@@ -205,7 +205,7 @@
                                         @endif
                                     </td>
                                     <td style="padding: 1.25rem 1.5rem; text-align: right;">
-                                        <span class="badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">
+                                        <span class="badge" style="background: {{ $app->is_active ? 'rgba(34, 197, 94, 0.12)' : 'rgba(239, 68, 68, 0.12)' }}; color: {{ $app->is_active ? '#16a34a' : '#ef4444' }}; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">
                                             {{ $app->is_active ? __('messages.aktif') : __('messages.nonaktif') }}
                                         </span>
                                     </td>
@@ -536,6 +536,13 @@
                     <div class="field">
                         <label>{{ __('messages.deskripsi_singkat') }}</label>
                         <textarea name="deskripsi" placeholder="{{ __('messages.penjelasan_singkat') }}" rows="3">{{ $app->deskripsi }}</textarea>
+                    </div>
+                    <div class="field">
+                        <label>Status Aplikasi <span style="color:var(--danger)">*</span></label>
+                        <select name="is_active" required style="width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink); font-size: 0.9rem;">
+                            <option value="1" {{ $app->is_active ? 'selected' : '' }}>Aktif</option>
+                            <option value="0" {{ !$app->is_active ? 'selected' : '' }}>Nonaktif</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-foot">

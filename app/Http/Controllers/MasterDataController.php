@@ -43,13 +43,15 @@ class MasterDataController extends Controller
     {
         $request->validate([
             'nama_aplikasi' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string'
+            'deskripsi' => 'nullable|string',
+            'is_active' => 'required|boolean',
         ]);
 
         $aplikasi = MasterAplikasi::findOrFail($id);
         $aplikasi->update([
             'nama_aplikasi' => $request->nama_aplikasi,
             'deskripsi' => $request->deskripsi,
+            'is_active' => $request->boolean('is_active'),
         ]);
 
         return back()->with('success', 'Aplikasi berhasil diperbarui.');
