@@ -195,7 +195,7 @@ return [
     'app_added' => 'Application Master added successfully.',
     'cat_added' => 'Category Master added successfully.',
     'ticket_created' => 'Report created successfully!',
-    'ticket_updated' => 'Ticket status updated.',
+    'ticket_updated' => 'Status updated',
     'invalid_verify' => 'Account is invalid for verification.',
     'akun_verified' => 'Account ":name" successfully verified.',
     'invalid_reject' => 'Account is invalid for rejection.',

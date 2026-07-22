@@ -195,7 +195,7 @@ return [
     'app_added' => 'Master Aplikasi berhasil ditambahkan.',
     'cat_added' => 'Master Kategori berhasil ditambahkan.',
     'ticket_created' => 'Laporan berhasil dibuat!',
-    'ticket_updated' => 'Status tiket diperbarui.',
+    'ticket_updated' => 'Status diperbarui',
     'invalid_verify' => 'Akun tidak valid untuk diverifikasi.',
     'akun_verified' => 'Akun ":name" berhasil diverifikasi.',
     'invalid_reject' => 'Akun tidak valid untuk ditolak.',
