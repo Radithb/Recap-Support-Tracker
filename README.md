@@ -96,8 +96,7 @@ Sebelum memulai, pastikan Anda memiliki:
 <br>
 
 #### 🛠️ Modal Update Tiket & Respons
-![Update Tiket](<img width="1912" height="863" alt="Update-tiket" src="https://github.com/user-attachments/assets/d3a4805b-ae18-44e7-a555-99ee79c3016c" />
-)
+![Update Tiket](https://github.com/user-attachments/assets/d3a4805b-ae18-44e7-a555-99ee79c3016c)
 
 <br>
 
