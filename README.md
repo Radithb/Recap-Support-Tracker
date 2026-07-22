@@ -273,7 +273,7 @@ Recap-Support-Tracker/
 - **User Profile**: Manajemen profil dan identitas digital
 - **Settings**: Personalisasi theme, language, dan preferences
 
-## 🎯 Penggunaan
+## <img src="public/icons/working-white.png" width="24" height="24" valign="middle"> Penggunaan
 
 ### Login ke Sistem
 
