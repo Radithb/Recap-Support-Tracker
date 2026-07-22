@@ -214,7 +214,7 @@
                     <label>{{ __('messages.upload_lampiran_opsional') }}</label>
                     <div style="display: flex; gap: 8px; align-items: center;">
                         <input type="file" id="lampiran_input" name="lampiran" accept=".jpg,.jpeg,.png,.mp4,.pdf" style="flex: 1; width:100%; font-size: calc(13px * var(--text-scale, 1)); font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;" onchange="document.getElementById('clear_lampiran_btn').style.display = this.value ? 'inline-block' : 'none';">
-                        <button type="button" id="clear_lampiran_btn" style="display: none; padding: 8px 12px; background: #fee2e2; color: #ef4444; border: 1px solid #f87171; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500;" onclick="document.getElementById('lampiran_input').value = ''; this.style.display = 'none';">Hapus</button>
+                        <button type="button" id="clear_lampiran_btn" style="display: none; padding: 8px 12px; background: #fee2e2; color: #ef4444; border: 1px solid #f87171; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500;" onclick="document.getElementById('lampiran_input').value = ''; this.style.display = 'none';">{{ __('messages.hapus_lampiran') }}</button>
                     </div>
                     <div class="helper">{{ __('messages.format_lampiran') }}</div>
                     @error('lampiran') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror

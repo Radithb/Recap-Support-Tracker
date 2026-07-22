@@ -366,6 +366,7 @@ return [
     'title_konfirmasi_hapus' => 'Delete Confirmation',
     'tindakan_tidak_dapat_dibatalkan' => 'This action cannot be undone.',
     'lihat_profil' => 'View Profile',
+    'hapus_lampiran' => 'Delete',
     'profil_lengkap_pelapor' => 'Complete Reporter Profile',
     'terverifikasi' => 'Verified',
     'belum_diverifikasi' => 'Unverified',

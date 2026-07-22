@@ -367,6 +367,7 @@ return [
     'title_konfirmasi_hapus' => 'Konfirmasi Hapus',
     'tindakan_tidak_dapat_dibatalkan' => 'Tindakan ini tidak dapat dibatalkan.',
     'lihat_profil' => 'Lihat Profil',
+    'hapus_lampiran' => 'Hapus',
     'profil_lengkap_pelapor' => 'Profil Lengkap Pelapor',
     'terverifikasi' => 'Terverifikasi',
     'belum_diverifikasi' => 'Belum Diverifikasi',
