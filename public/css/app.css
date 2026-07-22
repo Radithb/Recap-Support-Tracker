@@ -685,7 +685,178 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
   .month-cell{height:90px;}
 }
 
+/* ── Split Layout for Login ── */
+.login-split-layout {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background: var(--paper);
+}
+.login-split-left {
+    flex: 1;
+    background: #1a365d;
+    color: #ffffff;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+.login-split-left .brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 10;
+}
+.login-split-left .brand img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+.login-split-left .brand-text h2 {
+    margin: 0;
+    font-size: calc(24px * var(--text-scale, 1));
+    color: #fff;
+}
+.login-split-left .brand-text p {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: calc(11px * var(--text-scale, 1));
+    letter-spacing: 0.05em;
+    opacity: 0.8;
+}
+.login-split-left .eyebrow {
+    color: #e2e8f0;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 10;
+}
+.login-split-left .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 2px;
+    background: var(--amber);
+    margin-right: 8px;
+    vertical-align: middle;
+}
+.login-split-left h1 {
+    font-size: calc(36px * var(--text-scale, 1));
+    line-height: 1.2;
+    margin-bottom: 24px;
+    max-width: 480px;
+    position: relative;
+    z-index: 10;
+}
+.login-split-left p.desc {
+    font-size: calc(15px * var(--text-scale, 1));
+    line-height: 1.6;
+    opacity: 0.85;
+    max-width: 480px;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 10;
+}
+.login-split-left .badges-bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+.login-split-left .badge-float {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 16px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: calc(13px * var(--text-scale, 1));
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+.login-split-left .footer-links {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    font-family: var(--font-mono);
+    font-size: calc(10px * var(--text-scale, 1));
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+    position: relative;
+    z-index: 10;
+}
+.login-split-left .footer-links span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.login-split-left .footer-links span::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--amber);
+}
 
+.login-split-right {
+    width: 45%;
+    min-width: 480px;
+    background: #f3f4f6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    position: relative;
+}
+.login-split-right .top-text {
+    font-size: calc(12px * var(--text-scale, 1));
+    color: var(--ink-soft);
+    margin-bottom: 24px;
+}
+.login-split-right .top-text strong {
+    color: var(--ink);
+}
+.login-split-right .bottom-text {
+    margin-top: 32px;
+    font-size: calc(12px * var(--text-scale, 1));
+    color: var(--ink-soft);
+}
+.login-split-right .bottom-text a {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: underline;
+}
 
+html.dark-mode .login-split-right {
+    background: #0f172a;
+}
+html.dark-mode .login-split-right .top-text strong,
+html.dark-mode .login-split-right .bottom-text a {
+    color: #e2e8f0;
+}
 
-
+@media(max-width: 900px) {
+    .login-split-layout {
+        flex-direction: column;
+    }
+    .login-split-left {
+        padding: 40px 24px;
+    }
+    .login-split-left .badges-bg {
+        display: none;
+    }
+    .login-split-right {
+        width: 100%;
+        min-width: 0;
+        padding: 40px 24px;
+    }
+}
