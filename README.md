@@ -77,7 +77,7 @@ Sebelum memulai, pastikan Anda memiliki:
 - **MySQL** >= 8.0
 - **Git**
 
-## 📸 Preview
+## <img src="public/camera-white.png" width="24" height="24" valign="middle"> Preview
 
 <div align="center">
 
