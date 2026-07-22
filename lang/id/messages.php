@@ -406,6 +406,7 @@ return [
     'hapus' => 'Hapus',
     'konfirmasi_hapus_aplikasi' => 'Apakah Anda yakin ingin menghapus aplikasi ini?',
     'konfirmasi_hapus_kategori' => 'Apakah Anda yakin ingin menghapus kategori ini?',
+    'jumlah' => 'Jumlah',
     'profil_lengkap_pelapor' => 'Profil Lengkap Pelapor',
     'terverifikasi' => 'Terverifikasi',
     'belum_diverifikasi' => 'Belum Diverifikasi',

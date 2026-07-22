@@ -242,7 +242,7 @@
                             <thead style="background: var(--paper-sunken); position: sticky; top: 0; z-index: 10;">
                                 <tr>
                                     <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.nama_kategori') }}</th>
-                                    <th style="padding: 1rem 1.5rem; text-align: right; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.jumlah_tiket') }}</th>
+                                    <th style="padding: 1rem 1.5rem; text-align: right; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.jumlah') }}</th>
                                     <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.aksi') }}</th>
                                 </tr>
                             </thead>
@@ -252,7 +252,7 @@
                                 <td style="padding: 1.25rem 1.5rem; color: var(--ink); font-size: 0.95rem; font-weight: 500;">{{ $kategori->nama_kategori }}</td>
                                 <td style="padding: 1.25rem 1.5rem; text-align: right;">
                                     <span class="badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">
-                                        {{ $kategori->tickets->count() ?? 0 }} {{ __('messages.tiket') }}
+                                        {{ $kategori->tickets->count() ?? 0 }} {{ __('messages.jumlah') }}
                                     </span>
                                 </td>
                                 <td style="padding: 1.25rem 1.5rem; text-align: center;">

@@ -405,6 +405,7 @@ return [
     'hapus' => 'Delete',
     'konfirmasi_hapus_aplikasi' => 'Are you sure you want to delete this application?',
     'konfirmasi_hapus_kategori' => 'Are you sure you want to delete this category?',
+    'jumlah' => 'Total',
     'profil_lengkap_pelapor' => 'Complete Reporter Profile',
     'terverifikasi' => 'Verified',
     'belum_diverifikasi' => 'Unverified',
