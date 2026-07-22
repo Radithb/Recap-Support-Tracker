@@ -238,39 +238,6 @@ Recap-Support-Tracker/
 2. Lihat status semua ticket pada "Riwayat Laporan"
 3. Pantau progres secara real-time
 
-## 🤝 Kontribusi
-
-Kami menerima kontribusi! Berikut cara berkontribusi:
-
-### Fork & Clone
-
-```bash
-git clone https://github.com/YOUR_USERNAME/Recap-Support-Tracker.git
-cd Recap-Support-Tracker
-```
-
-### Buat Feature Branch
-
-```bash
-git checkout -b feature/amazing-feature
-```
-
-### Commit Changes
-
-```bash
-git add .
-git commit -m "Add amazing feature"
-```
-
-### Push ke Branch
-
-```bash
-git push origin feature/amazing-feature
-```
-
-### Buat Pull Request
-
-Buka Pull Request dengan deskripsi detail tentang perubahan Anda.
 
 ## 📋 Commit Message Guidelines
 
