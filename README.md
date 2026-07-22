@@ -16,24 +16,6 @@ Sistem manajemen tiket support terpadu untuk instansi/koperasi dengan antarmuka 
 
 ---
 
-## 📸 Preview
-
-<div align="center">
-
-### 👨‍💻 Tampilan Peran: Tim Support
-
-*Antarmuka yang dirancang khusus untuk petugas support dalam mengelola, merespons, dan menindaklanjuti setiap tiket bantuan.*
-
-<br>
-
-#### 🖥️ Dashboard Utama Support
-![Dashboard Support](https://github.com/user-attachments/assets/832a83e3-8516-4ea7-93bc-e35ce884e5da)
-*Pemantauan status tiket (Open, Proses, Pending, Done) secara real-time*
-
-</div>
-
----
-
 ## 📖 Tentang Proyek
 
 **Recap Support Tracker** adalah aplikasi web berbasis Laravel yang dirancang untuk memudahkan pengelolaan tiket support, pelaporan, dan rekapitulasi antar instansi atau koperasi. Sistem ini menyediakan solusi terintegrasi dengan berbagai fitur canggih untuk meningkatkan efisiensi operasional.
@@ -108,8 +90,7 @@ Sebelum memulai, pastikan Anda memiliki:
 <br>
 
 #### 🖥️ Dashboard Utama Support
-![Dashboard Support](<img src="https://github.com/user-attachments/assets/832a83e3-8516-4ea7-93bc-e35ce884e5da" alt="Dashboard Support" width="100%">
-)
+![Dashboard Support](https://github.com/user-attachments/assets/832a83e3-8516-4ea7-93bc-e35ce884e5da)
 *Pemantauan status tiket (Open, Proses, Pending, Done) secara real-time*
 
 <br>
