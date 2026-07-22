@@ -236,7 +236,7 @@ MAIL_ENCRYPTION=ssl
 MAIL_FROM_ADDRESS=noreply@example.com
 ```
 
-## 📚 Dokumentasi
+## <img src="public/icons/folder-white.png" width="24" height="24" valign="middle"> Dokumentasi
 
 ### Struktur Direktori
 
@@ -328,7 +328,7 @@ Jika Anda menemukan bug, silakan buat [Issue](https://github.com/Radithb/Recap-S
 
 Proyek ini dilisensikan di bawah lisensi MIT - lihat file [LICENSE](LICENSE) untuk detail.
 
-## 👥 Kontak & Support
+## <img src="public/icons/group-white.png" width="24" height="24" valign="middle"> Kontak & Support
 
 - **Email**: [mradithn@gmail.com]
 - **GitHub Issues**: [Report an Issue](https://github.com/Radithb/Recap-Support-Tracker/issues)
