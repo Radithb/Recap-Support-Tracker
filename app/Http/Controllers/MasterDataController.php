@@ -65,6 +65,19 @@ class MasterDataController extends Controller
         return back()->with('success', __('messages.cat_added'));
     }
 
+    public function destroyKategori($id)
+    {
+        $kategori = MasterKategori::findOrFail($id);
+
+        if ($kategori->tickets()->count() > 0) {
+            return back()->with('error', __('messages.cat_cannot_delete_has_tickets'));
+        }
+
+        $kategori->delete();
+
+        return back()->with('success', __('messages.cat_deleted'));
+    }
+
     public function export()
     {
         $aplikasis = MasterAplikasi::all();

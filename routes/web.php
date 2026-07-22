@@ -57,6 +57,7 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
     Route::post('/master-data/aplikasi', [MasterDataController::class, 'storeAplikasi'])->name('master-data.aplikasi.store');
     Route::delete('/master-data/aplikasi/{id}', [MasterDataController::class, 'destroyAplikasi'])->name('master-data.aplikasi.destroy');
     Route::post('/master-data/kategori', [MasterDataController::class, 'storeKategori'])->name('master-data.kategori.store');
+    Route::delete('/master-data/kategori/{id}', [MasterDataController::class, 'destroyKategori'])->name('master-data.kategori.destroy');
 
     // Verifikasi Akun Pelapor
     Route::put('/users/{user}/verify', [UserVerificationController::class, 'verify'])->name('users.verify');

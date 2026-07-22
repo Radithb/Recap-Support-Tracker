@@ -243,6 +243,7 @@
                                 <tr>
                                     <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.nama_kategori') }}</th>
                                     <th style="padding: 1rem 1.5rem; text-align: right; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.jumlah_tiket') }}</th>
+                                    <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.aksi') }}</th>
                                 </tr>
                             </thead>
                         <tbody>
@@ -253,6 +254,16 @@
                                     <span class="badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">
                                         {{ $kategori->tickets->count() ?? 0 }} {{ __('messages.tiket') }}
                                     </span>
+                                </td>
+                                <td style="padding: 1.25rem 1.5rem; text-align: center;">
+                                    <form action="{{ route('support.master-data.kategori.destroy', $kategori->kategori_id) }}" method="POST" onsubmit="return confirm('{{ __('messages.konfirmasi_hapus_kategori') }}');" style="display: inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" style="color: #ef4444; background: none; border: 1.5px solid #fecaca; padding: 6px 10px; font-size: 0.75rem; font-weight: 500; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: 0.2s;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'" title="{{ __('messages.hapus') }}">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                            {{ __('messages.hapus') }}
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                             @endforeach
