@@ -94,17 +94,32 @@ class MasterDataController extends Controller
             count($statuses)
         );
 
+        $headerStyle = 'bgcolor="#e2e8f0" color="#0f172a" border="thin#475569"';
+        $cellStyle   = 'border="thin#64748b"';
+
         $data = [
-            ['<b>Nama Koperasi</b>', '<b>Jenis Case</b>', '<b>Jenis Aplikasi</b>', '<b>PIC TIM SUPPORT</b>', '<b>Status</b>']
+            [
+                "<style {$headerStyle}><b>Nama Koperasi</b></style>",
+                "<style {$headerStyle}><b>Jenis Case</b></style>",
+                "<style {$headerStyle}><b>Jenis Aplikasi</b></style>",
+                "<style {$headerStyle}><b>PIC TIM SUPPORT</b></style>",
+                "<style {$headerStyle}><b>Status</b></style>",
+            ]
         ];
 
         for ($i = 0; $i < $maxRows; $i++) {
+            $val1 = isset($instansis[$i]) ? $instansis[$i]->nama_instansi : '';
+            $val2 = isset($kategoris[$i]) ? $kategoris[$i]->nama_kategori : '';
+            $val3 = isset($aplikasis[$i]) ? $aplikasis[$i]->nama_aplikasi : '';
+            $val4 = isset($supportPics[$i]) ? $supportPics[$i]->nama : '';
+            $val5 = isset($statuses[$i]) ? $statuses[$i]->value : '';
+
             $data[] = [
-                isset($instansis[$i]) ? $instansis[$i]->nama_instansi : '',
-                isset($kategoris[$i]) ? $kategoris[$i]->nama_kategori : '',
-                isset($aplikasis[$i]) ? $aplikasis[$i]->nama_aplikasi : '',
-                isset($supportPics[$i]) ? $supportPics[$i]->nama : '',
-                isset($statuses[$i]) ? $statuses[$i]->value : '',
+                "<style {$cellStyle}>" . htmlspecialchars($val1) . "</style>",
+                "<style {$cellStyle}>" . htmlspecialchars($val2) . "</style>",
+                "<style {$cellStyle}>" . htmlspecialchars($val3) . "</style>",
+                "<style {$cellStyle}>" . htmlspecialchars($val4) . "</style>",
+                "<style {$cellStyle}>" . htmlspecialchars($val5) . "</style>",
             ];
         }
 

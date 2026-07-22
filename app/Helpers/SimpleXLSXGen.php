@@ -593,13 +593,18 @@ class SimpleXLSXGen
                             $BR_KEYS[$b] = $BR_ID;
                             $border = '<border>';
                             $ba = explode(' ', $b);
-                            if (!isset($ba[1])) {
-                                $ba[] = $ba[0];
-                                $ba[] = $ba[0];
-                                $ba[] = $ba[0];
+                            if (count($ba) < 4) {
+                                if (count($ba) === 2 && (strpos($ba[1], '#') !== false || strpos($ba[0], '#') !== false)) {
+                                    $combined = implode('', $ba);
+                                    $ba = [$combined, $combined, $combined, $combined];
+                                } else {
+                                    while (count($ba) < 4) {
+                                        $ba[] = $ba[0];
+                                    }
+                                }
                             }
                             if (!isset($ba[4])) { // diagonal
-                                $ba[] = 'none';
+                                $ba[4] = 'none';
                             }
                             $sides = ['left' => 3, 'right' => 1, 'top' => 0, 'bottom' => 2, 'diagonal' => 4];
                             foreach ($sides as $side => $idx) {
@@ -797,12 +802,9 @@ class SimpleXLSXGen
                     $PANE .= '<selection activeCell="' . $AC . '" sqref="' . $AC . '"/>';
                 }
             }
-            if ($this->rtl || $PANE) {
-                $SHEETVIEWS .= '<sheetViews>
-<sheetView workbookViewId="0"' . ($this->rtl ? ' rightToLeft="1"' : '');
-                $SHEETVIEWS .= $PANE ? ">\r\n" . $PANE . "\r\n</sheetView>" : ' />';
-                $SHEETVIEWS .= "\r\n</sheetViews>";
-            }
+            $SHEETVIEWS .= '<sheetViews><sheetView showGridLines="1" workbookViewId="0"' . ($this->rtl ? ' rightToLeft="1"' : '');
+            $SHEETVIEWS .= $PANE ? ">\r\n" . $PANE . "\r\n</sheetView>" : ' />';
+            $SHEETVIEWS .= "\r\n</sheetViews>";
             $CUR_ROW = 0;
             $COL = [];
             foreach ($this->sheets[$idx]['rows'] as $r) {
