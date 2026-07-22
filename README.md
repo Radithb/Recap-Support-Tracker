@@ -77,6 +77,26 @@ Sebelum memulai, pastikan Anda memiliki:
 - **MySQL** >= 8.0
 - **Git**
 
+## 📸 Preview
+
+<div align="center">
+
+### 🖥️ Dashboard & Manajemen Tiket
+![Dashboard Utama](https://via.placeholder.com/800x450?text=Preview+Dashboard+Recap+Support)
+*Tampilan utama Dashboard untuk pemantauan dan pengelolaan tiket*
+
+<br>
+
+| 📝 Form Buat Laporan | 📊 Riwayat & Status Tiket |
+| :---: | :---: |
+| ![Form Buat Laporan](https://via.placeholder.com/400x250?text=Preview+Buat+Laporan) | ![Riwayat Tiket](https://via.placeholder.com/400x250?text=Preview+Riwayat+Tiket) |
+
+| 🌙 Mode Gelap (Dark Mode) | ☀️ Mode Terang (Light Mode) |
+| :---: | :---: |
+| ![Mode Gelap](https://via.placeholder.com/400x250?text=Preview+Dark+Mode) | ![Mode Terang](https://via.placeholder.com/400x250?text=Preview+Light+Mode) |
+
+</div>
+
 ## 🚀 Panduan Instalasi
 
 ### 1️⃣ Clone Repositori
