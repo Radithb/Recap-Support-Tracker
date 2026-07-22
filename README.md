@@ -45,13 +45,13 @@ Sistem manajemen tiket support terpadu untuk instansi/koperasi dengan antarmuka 
 - **Multibahasa**: Dukungan Bahasa Indonesia & Inggris
 - Preferensi pengguna yang tersimpan otomatis
 
-### 🛡️ Keamanan Akun
+### <img src="public/padlock-white.png" width="22" height="22" valign="middle"> Keamanan Akun
 - Enkripsi password tingkat enterprise
 - Validasi input untuk mencegah SQL Injection
 - CSRF protection
 - Session management yang aman
 
-### 🎯 UI/UX Modern
+### <img src="public/application-white.png" width="22" height="22" valign="middle"> UI/UX Modern
 - Desain antarmuka yang **responsif** dan mobile-friendly
 - Animasi transisi halus untuk pengalaman pengguna yang mulus
 - Efek **glassmorphism** yang modern
