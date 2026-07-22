@@ -357,6 +357,8 @@ return [
     'ticket_deleted' => 'Report ticket successfully deleted.',
     'cannot_delete_ticket' => 'Only tickets with Open status can be deleted.',
     'konfirmasi_hapus_tiket' => 'Are you sure you want to delete this report ticket?',
+    'title_konfirmasi_hapus' => 'Delete Confirmation',
+    'tindakan_tidak_dapat_dibatalkan' => 'This action cannot be undone.',
     'lihat_profil' => 'View Profile',
     'profil_lengkap_pelapor' => 'Complete Reporter Profile',
     'terverifikasi' => 'Verified',

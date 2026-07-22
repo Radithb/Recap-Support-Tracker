@@ -227,7 +227,7 @@
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                 </div>
                 <div>
-                    <h3 style="font-size: 1.1rem; margin-bottom: 2px; color: var(--ink);">Konfirmasi Hapus</h3>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 2px; color: var(--ink);">{{ __('messages.title_konfirmasi_hapus') }}</h3>
                     <p class="mono" style="font-size: 0.8rem; color: var(--text-muted);">{{ $t->ticket_id }}</p>
                 </div>
             </div>
@@ -235,7 +235,7 @@
         </div>
         <div class="modal-body" style="padding: 24px;">
             <p style="margin: 0; font-size: 0.95rem; line-height: 1.5; color: var(--ink-soft);">
-                {{ __('messages.konfirmasi_hapus_tiket') }} Tindakan ini tidak dapat dibatalkan.
+                {{ __('messages.konfirmasi_hapus_tiket') }} {{ __('messages.tindakan_tidak_dapat_dibatalkan') }}
             </p>
         </div>
         <div class="modal-foot" style="display: flex; gap: 12px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--line);">
