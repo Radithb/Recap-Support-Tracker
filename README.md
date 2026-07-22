@@ -308,7 +308,7 @@ refactor: Refactor code
 test: Add tests
 ```
 
-## 🐛 Lapor Bug
+## <img src="public/icons/bug.png" width="24" height="24" valign="middle"> Lapor Bug
 
 Jika Anda menemukan bug, silakan buat [Issue](https://github.com/Radithb/Recap-Support-Tracker/issues) dengan detail:
 
