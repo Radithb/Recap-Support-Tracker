@@ -34,7 +34,7 @@
         
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
             <div>
-                <h3 style="margin: 0; font-size: 1.25rem; color: var(--ink);">{{ __('messages.laporan_detail_support_bulan', ['month' => $monthName, 'year' => $year]) }}</h3>
+                <h3 style="margin: 0; font-size: 1.25rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">{{ __('messages.laporan_detail_support_bulan', ['month' => $monthName, 'year' => $year]) }}</h3>
                 <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.desc_recap_detail') }}</p>
             </div>
             

@@ -38,8 +38,8 @@
 
 <div class="page-head fade-up" style="animation-delay: 0.1s; margin-bottom: 2.5rem;">
     <div>
-        <p class="eyebrow" style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600;">{!! __('messages.rekap_support_andra', ['name' => strtoupper(Auth::user()->nama ?? 'ANDRA W.')]) !!}</p>
-        <h1 style="margin: 0; font-size: 2rem; color: var(--ink);">{{ __('messages.rekapan_tiket_tahunan') }}</h1>
+        <p class="eyebrow" style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600; font-family: 'Inter', sans-serif;">{!! __('messages.rekap_support_andra', ['name' => strtoupper(Auth::user()->nama ?? 'ANDRA W.')]) !!}</p>
+        <h1 style="margin: 0; font-size: 2rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">{{ __('messages.rekapan_tiket_tahunan') }}</h1>
         <p style="color: var(--text-muted); margin-top: 0.5rem; max-width: 600px; line-height: 1.5;">{{ __('messages.pantau_analisis') }}</p>
     </div>
 </div>
@@ -47,7 +47,7 @@
 <div class="glass-panel fade-up" style="animation-delay: 0.15s; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
     <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem;">
         <div>
-            <h3 style="margin: 0; font-size: 1.25rem; color: var(--ink);">{{ __('messages.rekap_tiket_bulanan') }}</h3>
+            <h3 style="margin: 0; font-size: 1.25rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">{{ __('messages.rekap_tiket_bulanan') }}</h3>
             <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.klik_bar_grafik') }}</p>
         </div>
         <div style="display: flex; gap: 0.5rem;">
@@ -78,7 +78,7 @@
 <div class="glass-panel fade-up" style="animation-delay: 0.2s; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; margin-bottom: 2rem;">
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
         <div>
-            <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{!! __('messages.rekap_support_tahun', ['year' => $year]) !!}</h3>
+            <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">{!! __('messages.rekap_support_tahun', ['year' => $year]) !!}</h3>
             <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.terekap_otomatis') }}</p>
         </div>
         <span class="badge" style="background: var(--ink); color: var(--paper-raised); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">{{ $year }}</span>
