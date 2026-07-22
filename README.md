@@ -10,7 +10,7 @@
 
 Sistem manajemen tiket support terpadu untuk instansi/koperasi dengan antarmuka modern dan responsif.
 
-[Demo](#) • [Dokumentasi](#dokumentasi) • [Instalasi](#-panduan-instalasi) • [Kontribusi](#-kontribusi)
+[Demo](#) • [Dokumentasi](#-dokumentasi) • [Instalasi](#-panduan-instalasi) • [Kontribusi](#-kontribusi)
 
 </div>
 
