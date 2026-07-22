@@ -114,7 +114,7 @@ Sebelum memulai, pastikan Anda memiliki:
 <br>
 
 #### 🖥️ Dashboard Pelapor
-![Dashboard Pelapor](https://via.placeholder.com/800x450?text=Preview+Dashboard+Pelapor)
+![Dashboard Pelapor](https://github.com/user-attachments/assets/9973bf08-2b9c-4646-92de-f61b36d8583d)
 *Ringkasan statistik dan riwayat laporan pengguna*
 
 <br>
