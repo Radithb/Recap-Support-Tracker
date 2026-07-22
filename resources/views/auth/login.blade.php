@@ -48,16 +48,7 @@
                     <div class="badge-float" style="top: 78%; right: 25%;">Transaksi SAKTI.Link</div>
                 </div>
 
-                <div class="footer-links">
-                    <span>SICUNDO SAKTI</span>
-                    <span>SAKTI MULTIUSAHA</span>
-                    <span>LACI</span>
-                    <span>TRANSAKSI SAKTI.LINK</span>
-                    <span>SAKTI.LINK</span>
-                    <span>SAKTI RETAIL</span>
-                    <span>SICUNDO KU</span>
-                    <span>SAKTI MOBILE</span>
-                </div>
+
             </div>
 
             <!-- Right Column -->
