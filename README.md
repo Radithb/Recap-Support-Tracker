@@ -101,7 +101,7 @@ Sebelum memulai, pastikan Anda memiliki:
 <br>
 
 #### 📁 Manajemen Master Data
-![Master Data](https://via.placeholder.com/400x250?text=Preview+Master+Data) 
+![Master Data](https://github.com/user-attachments/assets/f18c08cf-35ad-4395-b466-3b5e7a415c61) 
 
 <br>
 
