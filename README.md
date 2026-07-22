@@ -318,13 +318,7 @@ Jika Anda menemukan bug, silakan buat [Issue](https://github.com/Radithb/Recap-S
 - Actual behavior
 - Screenshot (jika relevan)
 
-## 🎓 Belajar Lebih Lanjut
-
-- [Laravel Documentation](https://laravel.com/docs)
-- [PHP Documentation](https://www.php.net/docs.php)
-- [MySQL Documentation](https://dev.mysql.com/doc/)
-
-## <img src="public/icons/file-baru.png" width="20" height="20" valign="middle"> Lisensi
+## <img src="public/icons/file-baru.png" width="24" height="24" valign="middle"> Lisensi
 
 Proyek ini dilisensikan di bawah lisensi MIT - lihat file [LICENSE](LICENSE) untuk detail.
 
