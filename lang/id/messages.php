@@ -203,7 +203,7 @@ return [
     'd2_master_data' => 'DATA MASTER KATEGORI & APLIKASI',
     'kelola_master_data' => 'Kelola Master Data',
     'referensi_dipakai' => 'Referensi yang dipakai saat Pelapor membuat tiket (validasi Aplikasi) dan saat Tim Support mengklasifikasikan tiket (Kategori).',
-    'divalidasi_proses_1' => 'Digunakan saat Pelapor membuat tiket baru',
+    'divalidasi_proses_1' => 'Digunakan saat Pelapor/Koperasi membuat tiket baru',
     'tambah' => 'Tambah',
     'deskripsi' => 'Deskripsi',
     'lebih_banyak' => 'Lebih banyak',
