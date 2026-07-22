@@ -16,7 +16,7 @@ class MasterDataController extends Controller
     {
         $aplikasis = MasterAplikasi::all();
         $kategoris = MasterKategori::all();
-        $instansis = Instansi::withCount('users')->get();
+        $instansis = Instansi::withCount(['users', 'tickets'])->with('users')->get();
         $supportPics = User::where('role', UserRole::SUPPORT)->get();
         $statuses = TicketStatus::cases();
 

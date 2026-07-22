@@ -23,4 +23,9 @@ class Instansi extends Model
     {
         return $this->belongsToMany(MasterAplikasi::class, 'instansi_aplikasi', 'instansi_id', 'aplikasi_id');
     }
+
+    public function tickets()
+    {
+        return $this->hasManyThrough(Ticket::class, User::class, 'instansi_id', 'pelapor_id', 'instansi_id', 'user_id');
+    }
 }

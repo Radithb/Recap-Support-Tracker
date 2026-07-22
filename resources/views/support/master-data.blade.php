@@ -311,10 +311,14 @@
                                     <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.nama_koperasi') }}</th>
                                     <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.kontak') }}</th>
                                     <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.total_akun') }}</th>
+                                    <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">TOTAL TIKET</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($instansis as $ins)
+                                @php
+                                    $phone = !empty($ins->no_telp) ? $ins->no_telp : ($ins->users->whereNotNull('whatsapp')->first()?->whatsapp ?? '-');
+                                @endphp
                                 <tr style="border-bottom: 1px solid var(--line);">
                                     <td style="padding: 1.25rem 1.5rem; color: var(--ink); font-size: 0.95rem; font-weight: 600; vertical-align: top;">
                                         {{ $ins->nama_instansi }}
@@ -323,12 +327,17 @@
                                     <td style="padding: 1.25rem 1.5rem; color: var(--text-muted); font-size: 0.95rem; vertical-align: top;">
                                         <div style="display: flex; align-items: center; gap: 6px;">
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                                            {{ $ins->no_telp ?? '-' }}
+                                            {{ $phone }}
                                         </div>
                                     </td>
                                     <td style="padding: 1.25rem 1.5rem; text-align: center; vertical-align: top;">
                                         <span style="background: #e0f2fe; color: #0284c7; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; white-space: nowrap;">
                                             {{ $ins->users_count }} {{ __('messages.akun') }}
+                                        </span>
+                                    </td>
+                                    <td style="padding: 1.25rem 1.5rem; text-align: center; vertical-align: top;">
+                                        <span style="background: #fef3c7; color: #d97706; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; white-space: nowrap;">
+                                            {{ $ins->tickets_count ?? 0 }} Tiket
                                         </span>
                                     </td>
                                 </tr>
