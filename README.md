@@ -22,29 +22,28 @@ Sistem manajemen tiket support terpadu untuk instansi/koperasi dengan antarmuka 
 
 ## ✨ Fitur Utama
 
-### <img src="public/padlock.png" width="22" height="22" valign="middle"> Multi-Role Authentication
+### <img src="public/padlock.png" width="22" height="22" style="vertical-align: middle; filter: brightness(0) invert(1);"> Multi-Role Authentication
 - Sistem pembagian hak akses untuk **Tim Support** dan **Pelapor** (Koperasi/Instansi)
 - Dashboard yang disesuaikan untuk masing-masing peran
 - Manajemen akses berbasis role yang fleksibel
 
-### <img src="public/data.png" width="22" height="22" valign="middle"> Manajemen Laporan & Rekapitulasi
+### <img src="public/data.png" width="22" height="22" style="vertical-align: middle; filter: brightness(0) invert(1);"> Manajemen Laporan & Rekapitulasi
 - Pembuatan dan pelacakan tiket bantuan yang terstruktur
 - Sistem rekapitulasi otomatis untuk pelaporan berkala
 - Respon dan penyelesaian tiket dengan status tracking real-time
 - Export laporan dalam berbagai format
 
-### <img src="public/company.png" width="22" height="22" valign="middle"> Profil Identitas Digital
+### <img src="public/company.png" width="22" height="22" style="vertical-align: middle; filter: brightness(0) invert(1);"> Profil Identitas Digital
 - Kartu identitas anggota digital terintegrasi
 - Manajemen foto profil dan data pribadi
 - Informasi koperasi dan nomor anggota
 - Sistem verifikasi status anggota
 
-### <img src="public/setting.png" width="22" height="22" valign="middle"> Personalisasi & Pengaturan
+### <img src="public/setting.png" width="22" height="22" style="vertical-align: middle; filter: brightness(0) invert(1);"> Personalisasi & Pengaturan
 - **Tema Dinamis**: Mode Gelap & Mode Terang
 - **Aksesibilitas**: Penyesuaian ukuran teks untuk kenyamanan membaca
 - **Multibahasa**: Dukungan Bahasa Indonesia & Inggris
 - Preferensi pengguna yang tersimpan otomatis
-
 
 ### 🛡️ Keamanan Akun
 - Enkripsi password tingkat enterprise
