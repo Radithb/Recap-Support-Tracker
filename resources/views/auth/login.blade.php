@@ -5,14 +5,82 @@
     {{-- ═══════════════════════════════════════════ --}}
     {{-- SKELETON LOADING STATE                      --}}
     {{-- ═══════════════════════════════════════════ --}}
-    <div class="skeleton-wrap" id="skeleton-loading" style="width: 100%; display: flex; min-height: 100vh;">
-        <div style="flex: 1; background: #1a365d; padding: 60px; display: flex; flex-direction: column;">
-            <div class="skel" style="width: 60%; height: 40px; margin-bottom: 30px; opacity: 0.5;"></div>
-            <div class="skel" style="width: 80%; height: 80px; margin-bottom: 30px; opacity: 0.5;"></div>
-            <div class="skel" style="width: 90%; height: 120px; opacity: 0.5;"></div>
-        </div>
-        <div style="width: 45%; min-width: 480px; background: #f3f4f6; display: flex; align-items: center; justify-content: center;">
-            <div class="skel" style="width: 400px; height: 450px; border-radius: 16px;"></div>
+    <div class="content-wrap" id="skeleton-loading" style="width: 100%;">
+        <div class="login-split-layout">
+            <!-- Left Column Skeleton -->
+            <div class="login-split-left">
+                <div class="brand">
+                    <div class="skel" style="width: 38px; height: 38px; border-radius: 8px; opacity: 0.2;"></div>
+                    <div class="brand-text">
+                        <div class="skel" style="width: 250px; height: 16px; margin-bottom: 6px; opacity: 0.2; border-radius: 4px;"></div>
+                        <div class="skel" style="width: 200px; height: 10px; opacity: 0.2; border-radius: 4px;"></div>
+                    </div>
+                </div>
+                
+                <div style="margin: auto 0;">
+                    <div class="eyebrow" style="display: flex; align-items: center; margin-bottom: 12px;">
+                        <div class="skel" style="width: 180px; height: 12px; opacity: 0.2; border-radius: 4px;"></div>
+                    </div>
+                    
+                    <!-- H1 Skeleton (3 lines) -->
+                    <div style="display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px;">
+                        <div class="skel" style="width: 95%; max-width: 480px; height: 26px; opacity: 0.2; border-radius: 6px;"></div>
+                        <div class="skel" style="width: 90%; max-width: 480px; height: 26px; opacity: 0.2; border-radius: 6px;"></div>
+                        <div class="skel" style="width: 50%; max-width: 480px; height: 26px; opacity: 0.2; border-radius: 6px;"></div>
+                    </div>
+                    
+                    <!-- Paragraph Skeleton (8 lines) -->
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div class="skel" style="width: 98%; max-width: 480px; height: 12px; opacity: 0.2; border-radius: 4px;"></div>
+                        <div class="skel" style="width: 95%; max-width: 480px; height: 12px; opacity: 0.2; border-radius: 4px;"></div>
+                        <div class="skel" style="width: 92%; max-width: 480px; height: 12px; opacity: 0.2; border-radius: 4px;"></div>
+                        <div class="skel" style="width: 96%; max-width: 480px; height: 12px; opacity: 0.2; border-radius: 4px;"></div>
+                        <div class="skel" style="width: 94%; max-width: 480px; height: 12px; opacity: 0.2; border-radius: 4px;"></div>
+                        <div class="skel" style="width: 97%; max-width: 480px; height: 12px; opacity: 0.2; border-radius: 4px;"></div>
+                        <div class="skel" style="width: 85%; max-width: 480px; height: 12px; opacity: 0.2; border-radius: 4px;"></div>
+                        <div class="skel" style="width: 60%; max-width: 480px; height: 12px; opacity: 0.2; border-radius: 4px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column Skeleton -->
+            <div class="login-split-right">
+                <div class="skel" style="width: 320px; height: 16px; margin: 0 auto 24px auto; opacity: 0.1; border-radius: 4px;"></div>
+                
+                <div class="login-box" style="margin: 0 auto; max-width: 460px; width: 100%;">
+                    <div class="login-panel-card" style="border: 1px solid var(--line); padding: 40px; border-radius: 16px; background: #fff;">
+                        <!-- Centered headers -->
+                        <div class="skel" style="width: 140px; height: 14px; margin: 0 auto 12px auto; opacity: 0.1; border-radius: 4px;"></div>
+                        <div class="skel" style="width: 120px; height: 36px; margin: 0 auto 6px auto; opacity: 0.1; border-radius: 8px;"></div>
+                        <div class="skel" style="width: 320px; height: 14px; margin: 0 auto 32px auto; opacity: 0.1; border-radius: 4px;"></div>
+                        
+                        <!-- Left-aligned inputs -->
+                        <div style="margin-bottom: 20px;">
+                            <div class="skel" style="width: 50px; height: 14px; margin-bottom: 8px; opacity: 0.1; border-radius: 4px;"></div>
+                            <div class="skel" style="width: 100%; height: 48px; opacity: 0.1; border-radius: 8px;"></div>
+                        </div>
+                        
+                        <div style="margin-bottom: 24px;">
+                            <div class="skel" style="width: 80px; height: 14px; margin-bottom: 8px; opacity: 0.1; border-radius: 4px;"></div>
+                            <div class="skel" style="width: 100%; height: 48px; opacity: 0.1; border-radius: 8px;"></div>
+                        </div>
+                        
+                        <!-- Checkbox and Forgot Password line -->
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 24px;">
+                            <div class="skel" style="width: 100px; height: 14px; opacity: 0.1; border-radius: 4px;"></div>
+                            <div class="skel" style="width: 120px; height: 14px; opacity: 0.1; border-radius: 4px;"></div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="skel" style="width: 100%; height: 48px; opacity: 0.1; border-radius: 8px; margin-bottom: 32px;"></div>
+                        
+                        <!-- Register Link -->
+                        <div class="skel" style="width: 250px; height: 14px; margin: 0 auto; opacity: 0.1; border-radius: 4px;"></div>
+                    </div>
+                </div>
+
+                <div class="skel" style="width: 200px; height: 14px; margin: 32px auto 0 auto; opacity: 0.1; border-radius: 4px;"></div>
+            </div>
         </div>
     </div>
 
@@ -31,21 +99,23 @@
                     </div>
                 </div>
                 
-                <div class="eyebrow">LAYANAN SUPPORT TERPADU</div>
-                <h1>Transparansi penuh atas setiap laporan mitra Anda.</h1>
-                <p class="desc">
-                    Setiap kendala yang Anda laporkan langsung masuk ke sistem tiket kami dan ditindaklanjuti oleh tim support yang responsif. Tidak perlu menebak-nebak progresnya status penanganan, riwayat komunikasi, hingga estimasi penyelesaian bisa Anda pantau kapan saja, langsung dari dashboard. Semua terhubung erat dengan seluruh layanan dalam ekosistem SAKTI, SICUNDO, dan mitra pendukung lainnya, sehingga laporan Anda tertangani cepat, akurat, dan tanpa perlu berpindah-pindah platform.
-                </p>
+                <div style="margin: auto 0; position: relative; z-index: 10;">
+                    <div class="eyebrow">LAYANAN SUPPORT TERPADU</div>
+                    <h1>Transparansi penuh atas setiap laporan mitra Anda.</h1>
+                    <p class="desc" style="margin-bottom: 0;">
+                        Setiap kendala yang Anda laporkan langsung masuk ke sistem tiket kami dan ditindaklanjuti oleh tim support yang responsif. Tidak perlu menebak-nebak progresnya status penanganan, riwayat komunikasi, hingga estimasi penyelesaian bisa Anda pantau kapan saja, langsung dari dashboard. Semua terhubung erat dengan seluruh layanan dalam ekosistem SAKTI, SICUNDO, dan mitra pendukung lainnya, sehingga laporan Anda tertangani cepat, akurat, dan tanpa perlu berpindah-pindah platform.
+                    </p>
+                </div>
 
                 <div class="badges-bg">
-                    <div class="badge-float" style="top: 12%; right: 15%;">SAKTI Multiusaha</div>
-                    <div class="badge-float" style="top: 20%; right: 35%;">SICUNDO SAKTI</div>
-                    <div class="badge-float" style="top: 30%; right: 5%;">SAKTI.Link</div>
-                    <div class="badge-float" style="top: 40%; right: 28%;">LACI</div>
-                    <div class="badge-float" style="top: 50%; right: 10%;">SAKTI Mobile</div>
-                    <div class="badge-float" style="top: 60%; right: 15%;">SICUNDO KU</div>
-                    <div class="badge-float" style="top: 70%; right: 5%;">SAKTI Retail</div>
-                    <div class="badge-float" style="top: 78%; right: 25%;">Transaksi SAKTI.Link</div>
+                    <div class="badge-float" style="top: 35%; right: 18%; transform: scale(0.8); opacity: 0.5; backdrop-filter: blur(4px);">SAKTI Multiusaha</div>
+                    <div class="badge-float" style="top: 48%; right: 2%; transform: scale(1.15); opacity: 0.95; box-shadow: 0 15px 30px rgba(0,0,0,0.3);">SICUNDO SAKTI</div>
+                    <div class="badge-float" style="top: 55%; right: 26%; transform: scale(0.9); opacity: 0.7;">SAKTI.Link</div>
+                    <div class="badge-float" style="top: 68%; right: 8%; transform: scale(1.2); opacity: 1; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">LACI</div>
+                    <div class="badge-float" style="top: 76%; right: 28%; transform: scale(0.85); opacity: 0.6;">SAKTI Mobile</div>
+                    <div class="badge-float" style="top: 86%; right: 4%; transform: scale(1.05); opacity: 0.85;">SICUNDO KU</div>
+                    <div class="badge-float" style="top: 94%; right: 22%; transform: scale(0.75); opacity: 0.45; backdrop-filter: blur(2px);">SAKTI Retail</div>
+                    <div class="badge-float" style="top: 102%; right: -2%; transform: scale(0.95); opacity: 0.8;">Transaksi SAKTI.Link</div>
                 </div>
 
 
