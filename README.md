@@ -83,7 +83,7 @@ Sebelum memulai, pastikan Anda memiliki:
 
 ---
 
-### 👨‍💻 Tampilan Peran: Tim Support
+### <img src="public/icons/group-white.png" width="22" height="22" valign="middle"> Tampilan Peran: Tim Support
 
 *Antarmuka yang dirancang khusus untuk petugas support dalam mengelola, merespons, dan menindaklanjuti setiap tiket bantuan.*
 
@@ -95,7 +95,7 @@ Sebelum memulai, pastikan Anda memiliki:
 
 <br>
 
-#### 🛠️ Modal Update Tiket & Respons
+#### <img src="public/icons/fast-response-white.png" width="22" height="22" valign="middle"> Modal Update Tiket & Respons
 ![Update Tiket](https://github.com/user-attachments/assets/d3a4805b-ae18-44e7-a555-99ee79c3016c)
 *Form modal interaktif untuk memperbarui status tiket, menambahkan jawaban/respons tim support, serta mengelola lampiran berkas.*
 
@@ -109,7 +109,7 @@ Sebelum memulai, pastikan Anda memiliki:
 
 ---
 
-### 👤 Tampilan Peran: Pelapor (Koperasi / Instansi)
+### <img src="public/icons/avatar-white.png" width="22" height="22" valign="middle"> Tampilan Peran: Pelapor (Koperasi / Instansi)
 
 *Antarmuka intuitif bagi pelapor untuk mengajukan laporan kendala baru dan memantau status tindak lanjutnya.*
 
