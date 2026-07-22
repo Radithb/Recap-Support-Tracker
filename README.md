@@ -67,7 +67,7 @@ Sistem manajemen tiket support terpadu untuk instansi/koperasi dengan antarmuka 
 | **Frontend** | Blade Templating, Vanilla CSS, Vanilla JavaScript |
 | **Package Manager** | Composer, NPM |
 
-## 📋 Persyaratan Sistem
+## <img src="public/cpu-white.png" width="24" height="24" valign="middle"> Persyaratan Sistem
 
 Sebelum memulai, pastikan Anda memiliki:
 
