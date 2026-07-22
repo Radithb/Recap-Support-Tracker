@@ -23,11 +23,12 @@ class StoreTicketRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'aplikasi_id.required' => 'Aplikasi wajib dipilih.',
-            'aplikasi_id.exists' => 'Aplikasi tidak valid.',
-            'permasalahan.required' => 'Deskripsi permasalahan wajib diisi.',
-            'lampiran.max' => 'Ukuran lampiran maksimal 5MB.',
-            'lampiran.mimes' => 'Format lampiran harus berupa gambar (JPEG, PNG, JPG), video (MP4), atau dokumen (PDF).',
+            'aplikasi_id.required' => __('messages.val_aplikasi_required'),
+            'aplikasi_id.exists' => __('messages.val_aplikasi_exists'),
+            'permasalahan.required' => __('messages.val_permasalahan_required'),
+            'permasalahan.min' => __('messages.val_permasalahan_min'),
+            'lampiran.max' => __('messages.val_lampiran_max'),
+            'lampiran.mimes' => __('messages.val_lampiran_mimes'),
         ];
     }
 }
