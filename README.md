@@ -135,14 +135,14 @@ Sebelum memulai, pastikan Anda memiliki:
 
 ## <img src="public/icons/download-white.png" width="24" height="24" valign="middle"> Panduan Instalasi
 
-### 1️ Clone Repositori
+### 1️. Clone Repositori
 
 ```bash
 git clone https://github.com/Radithb/Recap-Support-Tracker.git
 cd Recap-Support-Tracker
 ```
 
-### 2️ Install Dependensi
+### 2️. Install Dependensi
 
 ```bash
 # Install PHP dependencies
@@ -152,7 +152,7 @@ composer install
 npm install
 ```
 
-### 3️ Konfigurasi Environment
+### 3️. Konfigurasi Environment
 
 ```bash
 # Salin file konfigurasi
@@ -178,7 +178,7 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-### 4️ Migrasi Database
+### 4️. Migrasi Database
 
 ```bash
 # Jalankan migrasi
@@ -188,7 +188,7 @@ php artisan migrate
 php artisan db:seed
 ```
 
-### 5️ Jalankan Aplikasi
+### 5️. Jalankan Aplikasi
 
 ```bash
 # Development server
@@ -200,7 +200,7 @@ php artisan serve --port=8001
 
 Aplikasi akan dapat diakses di `http://localhost:8000`
 
-### 6️ Compile Assets (Opsional)
+### 6️. Compile Assets (Opsional)
 
 ```bash
 # Development build
