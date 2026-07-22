@@ -58,7 +58,7 @@ Sistem manajemen tiket support terpadu untuk instansi/koperasi dengan antarmuka 
 - **Skeleton loading state** untuk feedback pengguna
 - Desain yang intuitif dan user-friendly
 
-## 💻 Tech Stack
+## <img src="public/monitor-white.png" width="20" height="20" valign="middle"> Tech Stack
 
 | Layer | Teknologi |
 |-------|-----------|
