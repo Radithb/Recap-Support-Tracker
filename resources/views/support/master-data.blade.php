@@ -108,6 +108,20 @@
     {{-- ACTUAL CONTENT                              --}}
     {{-- ═══════════════════════════════════════════ --}}
     <div class="content-wrap" id="actual-content" style="display: none; max-width: 1100px; margin: 0 auto;">
+        @if(session('success'))
+            <div id="success-alert" class="alert-dismiss fade-up" style="animation-delay: 0.1s; display: flex; align-items: center; gap: 10px; background: #ecfdf5; border: 1px solid #a7f3d0; color: #047857; padding: 14px 18px; border-radius: 10px; margin-bottom: 20px; font-weight: 500; font-size: 0.9rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                <span>{{ session('success') }}</span>
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div id="error-alert" class="alert-dismiss fade-up" style="animation-delay: 0.1s; display: flex; align-items: center; gap: 10px; background: #fef2f2; border: 1px solid #fecaca; color: #b91c1c; padding: 14px 18px; border-radius: 10px; margin-bottom: 20px; font-weight: 500; font-size: 0.9rem;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                <span>{{ session('error') }}</span>
+            </div>
+        @endif
+
         {{-- Page Header --}}
         <div class="page-head fade-up" style="animation-delay: 0.1s; margin-bottom: 2.5rem;">
             <div>
@@ -169,6 +183,7 @@
                                         <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.nama_aplikasi') }}</th>
                                         <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.deskripsi') }}</th>
                                         <th style="padding: 1rem 1.5rem; text-align: right; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.status') }}</th>
+                                        <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.aksi') }}</th>
                                     </tr>
                                 </thead>
                             <tbody>
@@ -193,6 +208,16 @@
                                         <span class="badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">
                                             {{ $app->is_active ? __('messages.aktif') : __('messages.nonaktif') }}
                                         </span>
+                                    </td>
+                                    <td style="padding: 1.25rem 1.5rem; text-align: center;">
+                                        <form action="{{ route('support.master-data.aplikasi.destroy', $app->aplikasi_id) }}" method="POST" onsubmit="return confirm('{{ __('messages.konfirmasi_hapus_aplikasi') }}');" style="display: inline-block;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" style="color: #ef4444; background: none; border: 1.5px solid #fecaca; padding: 6px 10px; font-size: 0.75rem; font-weight: 500; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: 0.2s;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'" title="{{ __('messages.hapus') }}">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                                {{ __('messages.hapus') }}
+                                            </button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach

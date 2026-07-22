@@ -39,6 +39,19 @@ class MasterDataController extends Controller
         return back()->with('success', __('messages.app_added'));
     }
 
+    public function destroyAplikasi($id)
+    {
+        $aplikasi = MasterAplikasi::findOrFail($id);
+
+        if ($aplikasi->tickets()->count() > 0) {
+            return back()->with('error', __('messages.app_cannot_delete_has_tickets'));
+        }
+
+        $aplikasi->delete();
+
+        return back()->with('success', __('messages.app_deleted'));
+    }
+
     public function storeKategori(Request $request)
     {
         $request->validate([
