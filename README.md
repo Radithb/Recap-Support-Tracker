@@ -125,7 +125,7 @@ Sebelum memulai, pastikan Anda memiliki:
 <br>
 
 ####  📄 Detail & Status Laporan
-![Detail Laporan](https://via.placeholder.com/400x250?text=Preview+Detail+Laporan)
+![Detail Laporan](https://github.com/user-attachments/assets/b4d0b46b-ee36-4013-9c2b-614f2e2a4d85)
 
 </div>
 
