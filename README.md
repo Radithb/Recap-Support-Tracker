@@ -18,7 +18,7 @@ Sistem manajemen tiket support terpadu untuk instansi/koperasi dengan antarmuka 
 
 ## Tentang Proyek
 
-**Recap Support Tracker** adalah aplikasi web berbasis Laravel yang dirancang untuk memudahkan pengelolaan tiket support, pelaporan, dan rekapitulasi antar instansi atau koperasi. Sistem ini menyediakan solusi terintegrasi dengan berbagai fitur canggih untuk meningkatkan efisiensi operasional.
+**Recap Support Tracker** adalah aplikasi web berbasis Laravel yang dirancang untuk memudahkan pengelolaan tiket support, pelaporan, dan rekapitulasi antar instansi atau koperasi. Sistem ini menyediakan solusi terpadu untuk manajemen tiket support dengan antarmuka yang intuitif dan responsif.
 
 ## <img src="public/icons/star-white.png" width="24" height="24" valign="middle"> Fitur Utama
 
@@ -308,7 +308,7 @@ refactor: Refactor code
 test: Add tests
 ```
 
-## <img src="public/icons/bug.png" width="24" height="24" valign="middle"> Lapor Bug
+## 🐛 Lapor Bug
 
 Jika Anda menemukan bug, silakan buat [Issue](https://github.com/Radithb/Recap-Support-Tracker/issues) dengan detail:
 
