@@ -210,7 +210,7 @@ npm run dev
 npm run build
 ```
 
-## 🔧 Konfigurasi Lanjutan
+## <img src="public/icons/wrench-white.png" width="24" height="24" valign="middle"> Konfigurasi Lanjutan
 
 ### Setup Database
 
