@@ -120,7 +120,7 @@ Sebelum memulai, pastikan Anda memiliki:
 <br>
 
 #### 📝 Form Buat Laporan Baru
-![Buat Laporan Baru](https://via.placeholder.com/400x250?text=Preview+Form+Buat+Laporan) 
+![Buat Laporan Baru](https://github.com/user-attachments/assets/b52528d0-9d13-4055-846d-111a281ac15f) 
 
 <br>
 
