@@ -322,7 +322,7 @@
                     {{ $t->pelapor->instansi->nama_instansi ?? '-' }} (PIC: {{ $t->pelapor->nama ?? '-' }}) &middot; {{ __('messages.aplikasi') }}: {{ $t->aplikasi->nama_aplikasi ?? '-' }} &middot; {{ __('messages.col_tanggal') }}: {{ $t->tanggal_input->format('d M Y, H:i') }} <span style="font-weight: 500; color: var(--primary);">&mdash; {{ \Carbon\Carbon::parse($t->tanggal_input->format('Y-m-d H:i:s'), 'Asia/Jakarta')->locale(app()->getLocale())->diffForHumans(['parts' => 2]) }}</span>
                 </p>
             </div>
-            <button type="button" class="modal-x" onclick="closeModal('modal-edit-{{ $t->ticket_id }}')">✕</button>
+            <button type="button" class="modal-x" onclick="cancelEditModalSupport('{{ $t->ticket_id }}')">✕</button>
         </div>
         
         <form action="{{ route('support.tickets.update', $t->ticket_id) }}" method="POST" enctype="multipart/form-data">
@@ -441,7 +441,7 @@
             </div>
             
             <div class="modal-foot" style="display: flex; justify-content: flex-end; gap: 12px;">
-                <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-{{ $t->ticket_id }}')">{{ __('messages.batal') }}</button>
+                <button type="button" class="btn btn-ghost" onclick="cancelEditModalSupport('{{ $t->ticket_id }}')">{{ __('messages.batal') }}</button>
                 <button type="submit" class="btn btn-primary">{{ __('messages.update_tiket') }}</button>
             </div>
         </form>
@@ -520,6 +520,22 @@
 @endif
 
 <script>
+    function cancelEditModalSupport(ticketId) {
+        const fileInput = document.getElementById('lampiran_input_supp_' + ticketId);
+        if (fileInput) fileInput.value = '';
+        
+        const clearBtn = document.getElementById('clear_lampiran_btn_supp_' + ticketId);
+        if (clearBtn) clearBtn.style.display = 'none';
+
+        const checkbox = document.getElementById('hapus_lampiran_checkbox_supp_' + ticketId);
+        if (checkbox) checkbox.checked = false;
+
+        const preview = document.getElementById('lampiran_preview_supp_' + ticketId);
+        if (preview) preview.style.display = 'flex';
+
+        closeModal('modal-edit-' + ticketId);
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         const skeleton = document.getElementById('skeleton-loading');
         const content  = document.getElementById('actual-content');
