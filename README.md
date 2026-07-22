@@ -307,7 +307,7 @@ Proyek ini dilisensikan di bawah lisensi MIT - lihat file [LICENSE](LICENSE) unt
 
 ## 👥 Kontak & Support
 
-- **Email**: [email@example.com]
+- **Email**: [mradithn@gmail.com]
 - **GitHub Issues**: [Report an Issue](https://github.com/Radithb/Recap-Support-Tracker/issues)
 - **Discussions**: [Join Discussion](https://github.com/Radithb/Recap-Support-Tracker/discussions)
 
