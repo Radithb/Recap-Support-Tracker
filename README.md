@@ -89,7 +89,7 @@ Sebelum memulai, pastikan Anda memiliki:
 
 <br>
 
-#### 🖥️ Dashboard Utama Support
+#### <img src="public/monitor-white.png" width="20" height="20" valign="middle"> Dashboard Utama Support
 ![Dashboard Support](https://github.com/user-attachments/assets/832a83e3-8516-4ea7-93bc-e35ce884e5da)
 *Pemantauan statistik tiket, grafik distribusi status (Open, Proses, Pending, Done), serta daftar tiket aktif secara real-time.*
 
@@ -115,7 +115,7 @@ Sebelum memulai, pastikan Anda memiliki:
 
 <br>
 
-#### 🖥️ Dashboard Pelapor
+#### <img src="public/monitor-white.png" width="20" height="20" valign="middle"> Dashboard Pelapor
 ![Dashboard Pelapor](https://github.com/user-attachments/assets/9973bf08-2b9c-4646-92de-f61b36d8583d)
 *Ringkasan statistik laporan pengguna, status penanganan terkini, serta tabel riwayat seluruh tiket kendala.*
 
