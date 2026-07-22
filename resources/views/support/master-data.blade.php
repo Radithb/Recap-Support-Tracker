@@ -229,37 +229,6 @@
                                                 </form>
                                             </div>
                                         </div>
-
-                                        <!-- Modal Edit Aplikasi -->
-                                        <div class="overlay" id="modal-edit-aplikasi-{{ $app->aplikasi_id }}" style="text-align: left;">
-                                            <div class="modal w-sm">
-                                                <div class="modal-head">
-                                                    <div>
-                                                        <h3>Edit Master Aplikasi</h3>
-                                                        <p>Ubah nama atau deskripsi aplikasi</p>
-                                                    </div>
-                                                    <button type="button" class="modal-x" onclick="closeModal('modal-edit-aplikasi-{{ $app->aplikasi_id }}')">✕</button>
-                                                </div>
-                                                <form action="{{ route('support.master-data.aplikasi.update', $app->aplikasi_id) }}" method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <div class="modal-body">
-                                                        <div class="field">
-                                                            <label>{{ __('messages.nama_aplikasi') }} <span style="color:var(--danger)">*</span></label>
-                                                            <input type="text" name="nama_aplikasi" required value="{{ $app->nama_aplikasi }}" placeholder="{{ __('messages.contoh_sakti') }}">
-                                                        </div>
-                                                        <div class="field">
-                                                            <label>{{ __('messages.deskripsi_singkat') }}</label>
-                                                            <textarea name="deskripsi" placeholder="{{ __('messages.penjelasan_singkat') }}" rows="3">{{ $app->deskripsi }}</textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-foot">
-                                                        <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-aplikasi-{{ $app->aplikasi_id }}')">{{ __('messages.batal') }}</button>
-                                                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -314,33 +283,6 @@
                                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                                     Hapus
                                                 </button>
-                                            </form>
-                                        </div>
-                                    </div>
-
-                                    <!-- Modal Edit Kategori -->
-                                    <div class="overlay" id="modal-edit-kategori-{{ $kategori->kategori_id }}" style="text-align: left;">
-                                        <div class="modal w-sm">
-                                            <div class="modal-head">
-                                                <div>
-                                                    <h3>Edit Master Kategori</h3>
-                                                    <p>Ubah nama kategori</p>
-                                                </div>
-                                                <button type="button" class="modal-x" onclick="closeModal('modal-edit-kategori-{{ $kategori->kategori_id }}')">✕</button>
-                                            </div>
-                                            <form action="{{ route('support.master-data.kategori.update', $kategori->kategori_id) }}" method="POST">
-                                                @csrf
-                                                @method('PUT')
-                                                <div class="modal-body">
-                                                    <div class="field">
-                                                        <label>{{ __('messages.nama_kategori') }} <span style="color:var(--danger)">*</span></label>
-                                                        <input type="text" name="nama_kategori" required value="{{ $kategori->nama_kategori }}" placeholder="{{ __('messages.contoh_bug') }}">
-                                                    </div>
-                                                </div>
-                                                <div class="modal-foot">
-                                                    <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-kategori-{{ $kategori->kategori_id }}')">{{ __('messages.batal') }}</button>
-                                                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
-                                                </div>
                                             </form>
                                         </div>
                                     </div>
@@ -571,6 +513,68 @@
             </form>
         </div>
     </div>
+
+    <!-- Modals Edit Aplikasi -->
+    @foreach($aplikasis as $app)
+    <div class="overlay" id="modal-edit-aplikasi-{{ $app->aplikasi_id }}">
+        <div class="modal w-sm">
+            <div class="modal-head">
+                <div>
+                    <h3>Edit Master Aplikasi</h3>
+                    <p>Ubah nama atau deskripsi aplikasi</p>
+                </div>
+                <button type="button" class="modal-x" onclick="closeModal('modal-edit-aplikasi-{{ $app->aplikasi_id }}')">✕</button>
+            </div>
+            <form action="{{ route('support.master-data.aplikasi.update', $app->aplikasi_id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="field">
+                        <label>{{ __('messages.nama_aplikasi') }} <span style="color:var(--danger)">*</span></label>
+                        <input type="text" name="nama_aplikasi" required value="{{ $app->nama_aplikasi }}" placeholder="{{ __('messages.contoh_sakti') }}">
+                    </div>
+                    <div class="field">
+                        <label>{{ __('messages.deskripsi_singkat') }}</label>
+                        <textarea name="deskripsi" placeholder="{{ __('messages.penjelasan_singkat') }}" rows="3">{{ $app->deskripsi }}</textarea>
+                    </div>
+                </div>
+                <div class="modal-foot">
+                    <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-aplikasi-{{ $app->aplikasi_id }}')">{{ __('messages.batal') }}</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @endforeach
+
+    <!-- Modals Edit Kategori -->
+    @foreach($kategoris as $kategori)
+    <div class="overlay" id="modal-edit-kategori-{{ $kategori->kategori_id }}">
+        <div class="modal w-sm">
+            <div class="modal-head">
+                <div>
+                    <h3>Edit Master Kategori</h3>
+                    <p>Ubah nama kategori</p>
+                </div>
+                <button type="button" class="modal-x" onclick="closeModal('modal-edit-kategori-{{ $kategori->kategori_id }}')">✕</button>
+            </div>
+            <form action="{{ route('support.master-data.kategori.update', $kategori->kategori_id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="field">
+                        <label>{{ __('messages.nama_kategori') }} <span style="color:var(--danger)">*</span></label>
+                        <input type="text" name="nama_kategori" required value="{{ $kategori->nama_kategori }}" placeholder="{{ __('messages.contoh_bug') }}">
+                    </div>
+                </div>
+                <div class="modal-foot">
+                    <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-kategori-{{ $kategori->kategori_id }}')">{{ __('messages.batal') }}</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @endforeach
 </div>
 
 <script>
