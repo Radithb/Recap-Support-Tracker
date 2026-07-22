@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page_title', __('messages.profil_koperasi'))
-@section('page_subtitle', 'Recap Support Tracker')
+@section('page_subtitle', 'Recap Mitra Tracker')
 
 
 @section('content')

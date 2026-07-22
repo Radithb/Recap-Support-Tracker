@@ -42,7 +42,7 @@
     {{-- ═══════════════════════════════════════════ --}}
     <div class="content-wrap" id="actual-content" style="width: 100%; display: none; flex-direction: column; min-height: 100vh;">
         <div class="site-nav fade-up" style="animation-delay: 0.1s;">
-            <div class="wm"><img src="{{ asset('logo.png') }}" alt="Logo" style="width: 24px; height: 24px; object-fit: contain;">Recap Support Tracker</div>
+            <div class="wm"><img src="{{ asset('logo.png') }}" alt="Logo" style="width: 24px; height: 24px; object-fit: contain;">Recap Mitra Tracker</div>
             <div class="site-nav-tag">{{ __('messages.ekosistem') }}</div>
         </div>
 
@@ -53,7 +53,7 @@
                         <img src="{{ asset('logo.png') }}" alt="Logo" style="width: 46px; height: 46px; object-fit: contain;">
                     </div>
                     <div class="tx">
-                        <strong>Recap Support Tracker</strong>
+                        <strong>Recap Mitra Tracker</strong>
                         <span>PT SAKTI KINERJA KOLABORASINDO</span>
                     </div>
                 </div>
