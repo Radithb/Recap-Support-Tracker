@@ -386,8 +386,14 @@
                     </div>
 
                     <div class="field">
-                        <label>{{ __('messages.tindakan_penyelesaian') }}</label>
-                        <textarea name="penyelesaian" style="min-height: 90px;" placeholder="{{ __('messages.langkah_perbaikan') }}">{{ $t->penyelesaian }}</textarea>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <label style="margin-bottom: 0;">{{ __('messages.tindakan_penyelesaian') }}</label>
+                            <button type="button" class="btn btn-ghost btn-sm" style="font-size: 0.75rem; padding: 4px 8px; border: 1px solid var(--line); color: var(--brand-primary);" onclick="openFaqModal('penyelesaian_{{ $t->ticket_id }}')">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px; vertical-align: middle;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                Insert FAQ
+                            </button>
+                        </div>
+                        <textarea name="penyelesaian" id="penyelesaian_{{ $t->ticket_id }}" style="min-height: 90px;" placeholder="{{ __('messages.langkah_perbaikan') }}">{{ $t->penyelesaian }}</textarea>
                     </div>
 
                     <div class="field">
@@ -519,7 +525,167 @@
 </div>
 @endif
 
+<!-- Modal FAQ Insert -->
+<div class="overlay" id="modal-faq-insert" style="z-index: 1000;">
+    <div class="modal w-sm">
+        <div class="modal-head">
+            <div>
+                <h3>Pilih Template FAQ</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Pilih jawaban dari Knowledge Base untuk dimasukkan ke kolom penyelesaian.</p>
+            </div>
+            <button type="button" class="modal-x" onclick="closeModal('modal-faq-insert')">✕</button>
+        </div>
+        <div class="modal-body" style="padding: 16px;">
+            <div class="search" style="margin-bottom: 16px;">
+                <img src="{{ asset('magnifying-glass.png') }}" alt="Search" style="width: 14px; height: 14px; margin-right: 8px; vertical-align: middle; opacity: 0.4; filter: grayscale(100%);">
+                <input type="text" placeholder="Cari pertanyaan FAQ..." id="faq-search-input" style="border:none; background:transparent; width:100%; outline:none;">
+            </div>
+            
+            <div id="faq-list-container" style="max-height: 350px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">
+                <div id="faq-skeleton" style="padding: 12px; background: var(--paper-sunken); border: 1px dashed var(--line); border-radius: 8px;">
+                    <div class="skel" style="width: 60%; height: 12px; margin-bottom: 8px; border-radius: 4px;"></div>
+                    <div class="skel" style="width: 90%; height: 10px; margin-bottom: 6px; border-radius: 4px;"></div>
+                    <div class="skel" style="width: 75%; height: 10px; border-radius: 4px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .faq-insert-item {
+        padding: 12px;
+        background: var(--paper-raised);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .faq-insert-item:hover {
+        border-color: var(--brand-primary);
+        background: var(--brand-primary-soft, #eef2ff);
+    }
+    .faq-insert-item .q {
+        font-weight: 600;
+        font-size: 0.85rem;
+        color: var(--ink);
+        margin-bottom: 4px;
+    }
+    .faq-insert-item .a {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .faq-insert-item .badge {
+        font-size: 0.65rem;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-right: 6px;
+    }
+</style>
+
 <script>
+    let currentFaqTargetId = null;
+    let allFaqs = [];
+
+    function openFaqModal(targetId) {
+        currentFaqTargetId = targetId;
+        openModal('modal-faq-insert');
+        loadFaqs();
+    }
+
+    function loadFaqs() {
+        const container = document.getElementById('faq-list-container');
+        const skeleton = document.getElementById('faq-skeleton');
+        const searchInput = document.getElementById('faq-search-input');
+        
+        // Reset search
+        searchInput.value = '';
+        
+        container.innerHTML = '';
+        container.appendChild(skeleton);
+        skeleton.style.display = 'block';
+
+        fetch('{{ url('/support/faq/list') }}', {
+            headers: {
+                'Accept': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            allFaqs = data;
+            renderFaqs(allFaqs);
+        })
+        .catch(err => {
+            console.error('Error fetching FAQs:', err);
+            container.innerHTML = '<div style="text-align:center; padding: 20px; color: var(--text-muted); font-size: 0.85rem;">Gagal memuat FAQ.</div>';
+        });
+    }
+
+    function renderFaqs(faqs) {
+        const container = document.getElementById('faq-list-container');
+        container.innerHTML = '';
+
+        if (faqs.length === 0) {
+            container.innerHTML = '<div style="text-align:center; padding: 20px; color: var(--text-muted); font-size: 0.85rem;">Tidak ada FAQ ditemukan.</div>';
+            return;
+        }
+
+        faqs.forEach(faq => {
+            const visibilityBadge = faq.visibility === 'public' 
+                ? '<span class="badge" style="background:#dcfce7; color:#16a34a;">Public</span>'
+                : '<span class="badge" style="background:#fef3c7; color:#d97706;">Internal</span>';
+                
+            const catBadge = faq.kategori ? `<span class="badge" style="background:#f1f5f9; color:#475569;">${faq.kategori.nama_kategori}</span>` : '';
+
+            const item = document.createElement('div');
+            item.className = 'faq-insert-item';
+            item.innerHTML = `
+                <div class="q">${faq.pertanyaan}</div>
+                <div style="margin-bottom: 6px;">${visibilityBadge} ${catBadge}</div>
+                <div class="a">${faq.jawaban}</div>
+            `;
+            item.onclick = () => {
+                insertFaqContent(faq.jawaban);
+            };
+            container.appendChild(item);
+        });
+    }
+
+    function insertFaqContent(jawaban) {
+        if (currentFaqTargetId) {
+            const textarea = document.getElementById(currentFaqTargetId);
+            if (textarea) {
+                // If there's already text, append with newline, else just set
+                if (textarea.value.trim() !== '') {
+                    textarea.value = textarea.value + '\n\n' + jawaban;
+                } else {
+                    textarea.value = jawaban;
+                }
+            }
+        }
+        closeModal('modal-faq-insert');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('faq-search-input')?.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            const filtered = allFaqs.filter(faq => 
+                faq.pertanyaan.toLowerCase().includes(query) || 
+                faq.jawaban.toLowerCase().includes(query) ||
+                (faq.kategori && faq.kategori.nama_kategori.toLowerCase().includes(query))
+            );
+            renderFaqs(filtered);
+        });
+    });
+
     function cancelEditModalSupport(ticketId) {
         const fileInput = document.getElementById('lampiran_input_supp_' + ticketId);
         if (fileInput) fileInput.value = '';

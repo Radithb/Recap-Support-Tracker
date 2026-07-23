@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\MasterDataController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\UserVerificationController;
 use App\Http\Middleware\IsPelapor;
 use App\Http\Middleware\IsSupport;
@@ -49,6 +50,9 @@ Route::middleware(['auth', IsPelapor::class])->prefix('pelapor')->name('pelapor.
     Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
     Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('tickets.destroy');
     Route::view('/bantuan', 'pelapor.bantuan')->name('bantuan');
+
+    // FAQ Auto-Suggest (AJAX endpoint untuk Pelapor)
+    Route::get('/faq/suggest/{kategoriId}', [FaqController::class, 'suggestByKategori'])->name('faq.suggest');
 });
 
 // Akses Support
@@ -80,4 +84,12 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
 
     // Profil Lengkap Pelapor
     Route::get('/pelapor/{user}/profil', [AuthController::class, 'showPelaporProfile'])->name('pelapor.profile');
+
+    // FAQ CRUD (Master Data)
+    Route::post('/master-data/faq', [FaqController::class, 'store'])->name('master-data.faq.store');
+    Route::put('/master-data/faq/{id}', [FaqController::class, 'update'])->name('master-data.faq.update');
+    Route::delete('/master-data/faq/{id}', [FaqController::class, 'destroy'])->name('master-data.faq.destroy');
+
+    // FAQ API (JSON untuk modal insert di Support)
+    Route::get('/faq/list', [FaqController::class, 'allForSupport'])->name('faq.list');
 });

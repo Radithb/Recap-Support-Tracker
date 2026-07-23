@@ -17,4 +17,9 @@ class MasterKategori extends Model
     {
         return $this->hasMany(Ticket::class, 'kategori_id', 'kategori_id');
     }
+
+    public function faqs()
+    {
+        return $this->hasMany(Faq::class, 'kategori_id', 'kategori_id');
+    }
 }

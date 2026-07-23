@@ -233,7 +233,6 @@
         const skeleton = document.getElementById('skeleton-loading');
         const content  = document.getElementById('actual-content');
         
-        // Use a simple mechanism to wait 1.2s then show content
         setTimeout(function () {
             if(skeleton) skeleton.style.display = 'none';
             if(content) content.style.display = 'block';
@@ -242,6 +241,7 @@
         @if($errors->any())
             openModal('modal-create');
         @endif
+
     });
 </script>
 @endsection

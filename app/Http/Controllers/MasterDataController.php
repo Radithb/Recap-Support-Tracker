@@ -7,6 +7,7 @@ use App\Models\MasterAplikasi;
 use App\Models\MasterKategori;
 use App\Models\Instansi;
 use App\Models\User;
+use App\Models\Faq;
 use App\Enums\UserRole;
 use App\Enums\TicketStatus;
 
@@ -19,8 +20,9 @@ class MasterDataController extends Controller
         $instansis = Instansi::withCount(['users', 'tickets'])->with('users')->get();
         $supportPics = User::where('role', UserRole::SUPPORT)->get();
         $statuses = TicketStatus::cases();
+        $faqs = Faq::with('kategori')->orderBy('kategori_id')->get();
 
-        return view('support.master-data', compact('aplikasis', 'kategoris', 'instansis', 'supportPics', 'statuses'));
+        return view('support.master-data', compact('aplikasis', 'kategoris', 'instansis', 'supportPics', 'statuses', 'faqs'));
     }
     
     public function storeAplikasi(Request $request)
