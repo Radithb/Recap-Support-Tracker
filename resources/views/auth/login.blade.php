@@ -41,8 +41,6 @@
 
             <!-- Right Column Skeleton -->
             <div class="login-split-right">
-                <div class="skel" style="width: 320px; height: 16px; margin: 0 auto 14px auto; opacity: 0.1; border-radius: 4px;"></div>
-                
                 <div class="login-box" style="margin: 0 auto; max-width: 420px; width: 100%;">
                     <div class="login-panel-card" style="border: 1px solid var(--line); padding: 28px 32px; border-radius: 20px; background: #fff;">
                         <!-- Centered headers -->
@@ -126,8 +124,6 @@
 
             <!-- Right Column -->
             <div class="login-split-right">
-                <div class="top-text">Masuk sebagai mitra: <strong>PT Sakti Kinerja Kolaborasindo</strong></div>
-                
                 <div class="login-box fade-up" style="animation-delay: 0.15s; margin: 0 auto; max-width: 420px; width: 100%;">
                     <div class="login-panel-card fade-up" style="animation-delay: 0.2s;">
                         <p class="eyebrow" style="color: var(--amber); margin-bottom: 6px;">{{ __('messages.masuk_ke_akun') }}</p>
@@ -181,16 +177,16 @@
                             <button type="submit" class="btn" style="width: 100%; justify-content: center; background: #17447e; border: none; color: white; padding: 11px 14px; border-radius: 10px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 14px rgba(23, 68, 126, 0.35); transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.background='#123566'; this.style.boxShadow='0 6px 20px rgba(23, 68, 126, 0.45)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='#17447e'; this.style.boxShadow='0 4px 14px rgba(23, 68, 126, 0.35)';">Masuk ke Dashboard &rarr;</button>
                         </form>
 
-                        <div class="register-prompt" style="position: relative; margin-top: 20px; border-top: none; padding-top: 16px;">
-                            <div style="position: absolute; top: -7px; left: 50%; transform: translateX(-50%); background: var(--paper-raised); padding: 0 10px; font-size: calc(11px * var(--text-scale, 1)); color: var(--ink-soft); font-family: var(--font-mono); z-index: 2;">atau</div>
+                        <div class="register-prompt" style="position: relative; margin-top: 20px; border-top: none; padding-top: 18px; font-size: calc(12px * var(--text-scale, 1));">
+                            <div style="position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); background: var(--paper-raised); padding: 0 10px; font-size: calc(10px * var(--text-scale, 1)); color: var(--ink-soft); font-family: var(--font-mono); z-index: 2;">atau</div>
                             <div style="position: absolute; top: 0; left: 0; right: 0; border-top: 1px solid var(--line); z-index: 1;"></div>
-                            Belum mempunyai akun? <a href="{{ route('register') }}" style="color: var(--brand-primary); font-weight: 700; text-decoration: underline;">Daftar sebagai mitra</a>
+                            Belum mempunyai akun? <a href="{{ route('register') }}" style="color: var(--brand-primary); font-weight: 700; text-decoration: underline;">Daftar</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="bottom-text fade-up" style="animation-delay: 0.25s;">
-                    Butuh bantuan masuk? <a href="#" id="support-modal-trigger">Hubungi tim support</a>
+                    Butuh bantuan masuk? <a href="#" id="support-modal-trigger">Hubungi kami</a>
                 </div>
             </div>
             </div>

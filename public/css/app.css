@@ -868,10 +868,10 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
     overflow-y: auto;
 }
 .login-split-right .top-text {
-    font-size: calc(12.5px * var(--text-scale, 1));
+    font-size: calc(11.5px * var(--text-scale, 1));
     color: var(--ink-soft);
     margin-bottom: 14px;
-    padding: 5px 14px;
+    padding: 4px 12px;
     background: var(--paper);
     border-radius: 100px;
     border: 1px solid var(--line);
@@ -882,7 +882,7 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
 }
 .login-split-right .bottom-text {
     margin-top: 14px;
-    font-size: calc(12.5px * var(--text-scale, 1));
+    font-size: calc(10.5px * var(--text-scale, 1));
     color: var(--ink-soft);
 }
 .login-split-right .bottom-text a {
