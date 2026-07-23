@@ -28,7 +28,7 @@
         </div>
 
         {{-- Eyebrow --}}
-        <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #dc2626; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;">
+        <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #17447e; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;">
             PEMULIHAN AKUN
         </div>
 
@@ -61,7 +61,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn" style="width: 100%; justify-content: center; background: #dc2626; border: none; color: white; padding: 12px 16px; border-radius: 10px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 14px rgba(220, 38, 38, 0.3); transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='#b91c1c'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#dc2626'; this.style.transform='translateY(0)';">
+            <button type="submit" class="btn" style="width: 100%; justify-content: center; background: #17447e; border: none; color: white; padding: 12px 16px; border-radius: 10px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 14px rgba(23, 68, 126, 0.35); transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='#123566'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#17447e'; this.style.transform='translateY(0)';">
                 Kirim Kode Verifikasi
             </button>
         </form>
