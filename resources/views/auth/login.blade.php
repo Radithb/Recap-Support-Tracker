@@ -106,32 +106,7 @@
                         Setiap kendala yang Anda laporkan langsung masuk ke sistem tiket kami dan ditindaklanjuti oleh tim support yang responsif. Tidak perlu menebak-nebak progresnya status penanganan, riwayat komunikasi, hingga estimasi penyelesaian bisa Anda pantau kapan saja, langsung dari dashboard. Semua terhubung erat dengan seluruh layanan dalam ekosistem SAKTI, SICUNDO, dan mitra pendukung lainnya, sehingga laporan Anda tertangani cepat, akurat, dan tanpa perlu berpindah-pindah platform.
                     </p>
 
-                    <!-- System Status & Trust Cards -->
-                    <div style="margin-top: 28px; display: flex; gap: 10px; flex-wrap: wrap; max-width: 440px; position: relative; z-index: 10;">
-                        <div style="display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.07); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.15); padding: 9px 14px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
-                            <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 10px #22c55e; flex-shrink: 0;"></span>
-                            <div>
-                                <div style="font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; font-weight: 600; font-family: var(--font-mono);">STATUS SISTEM</div>
-                                <div style="font-size: 11.5px; font-weight: 700; color: #ffffff;">Sistem Tiket Normal</div>
-                            </div>
-                        </div>
 
-                        <div style="display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.07); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.15); padding: 9px 14px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
-                            <span style="font-size: 15px; line-height: 1;">⚡</span>
-                            <div>
-                                <div style="font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; font-weight: 600; font-family: var(--font-mono);">LAYANAN SUPPORT</div>
-                                <div style="font-size: 11.5px; font-weight: 700; color: #ffffff;">Respon Cepat</div>
-                            </div>
-                        </div>
-
-                        <div style="display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.07); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.15); padding: 9px 14px; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
-                            <span style="font-size: 15px; line-height: 1;">🛡️</span>
-                            <div>
-                                <div style="font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; font-weight: 600; font-family: var(--font-mono);">KEAMANAN DATA</div>
-                                <div style="font-size: 11.5px; font-weight: 700; color: #ffffff;">Terenkripsi &amp; Terproteksi</div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 {{-- Footer Info --}}
