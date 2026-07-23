@@ -142,14 +142,14 @@
                 </div>
 
                 <div class="badges-bg">
-                    <div class="badge-float" style="top: 10%; right: 18%; --scale: 0.82; opacity: 0.7; animation: float-badge 6s ease-in-out infinite;">SAKTI Multiusaha</div>
-                    <div class="badge-float" style="top: 21%; right: 3%; --scale: 1.15; opacity: 0.95; animation: float-badge-alt 8s ease-in-out infinite; box-shadow: 0 20px 40px rgba(0,0,0,0.35);">SICUNDO SAKTI</div>
-                    <div class="badge-float" style="top: 33%; right: 16%; --scale: 0.9; opacity: 0.8; animation: float-badge 7s ease-in-out infinite 1s;">SAKTI.Link</div>
-                    <div class="badge-float" style="top: 45%; right: 5%; --scale: 1.2; opacity: 1; animation: float-badge-alt 7.5s ease-in-out infinite 0.5s; box-shadow: 0 25px 50px rgba(0,0,0,0.4);">LACI</div>
-                    <div class="badge-float" style="top: 57%; right: 10%; --scale: 0.88; opacity: 0.75; animation: float-badge 6.5s ease-in-out infinite 1.5s;">SAKTI Mobile</div>
-                    <div class="badge-float" style="top: 68%; right: 4%; --scale: 1.05; opacity: 0.9; animation: float-badge-alt 8.5s ease-in-out infinite 0.2s;">SICUNDO KU</div>
-                    <div class="badge-float" style="top: 79%; right: 12%; --scale: 0.8; opacity: 0.65; animation: float-badge 6s ease-in-out infinite 2s;">SAKTI Retail</div>
-                    <div class="badge-float" style="top: 89%; right: 5%; --scale: 0.95; opacity: 0.85; animation: float-badge-alt 7s ease-in-out infinite 1s; box-shadow: 0 15px 30px rgba(0,0,0,0.3);">Transaksi SAKTI.Link</div>
+                    <div class="badge-float" style="top: 8%; right: 22%; --scale: 0.82; opacity: 0.7; animation: float-badge 6s ease-in-out infinite;">SAKTI Multiusaha</div>
+                    <div class="badge-float" style="top: 19%; right: 2%; --scale: 1.15; opacity: 0.95; animation: float-badge-alt 8s ease-in-out infinite; box-shadow: 0 20px 40px rgba(0,0,0,0.35);">SICUNDO SAKTI</div>
+                    <div class="badge-float" style="top: 30%; right: 20%; --scale: 0.9; opacity: 0.8; animation: float-badge 7s ease-in-out infinite 1s;">SAKTI.Link</div>
+                    <div class="badge-float" style="top: 42%; right: 3%; --scale: 1.2; opacity: 1; animation: float-badge-alt 7.5s ease-in-out infinite 0.5s; box-shadow: 0 25px 50px rgba(0,0,0,0.4);">LACI</div>
+                    <div class="badge-float" style="top: 54%; right: 18%; --scale: 0.88; opacity: 0.75; animation: float-badge 6.5s ease-in-out infinite 1.5s;">SAKTI Mobile</div>
+                    <div class="badge-float" style="top: 66%; right: 2%; --scale: 1.05; opacity: 0.9; animation: float-badge-alt 8.5s ease-in-out infinite 0.2s;">SICUNDO KU</div>
+                    <div class="badge-float" style="top: 77%; right: 20%; --scale: 0.8; opacity: 0.65; animation: float-badge 6s ease-in-out infinite 2s;">SAKTI Retail</div>
+                    <div class="badge-float" style="top: 88%; right: 4%; --scale: 0.95; opacity: 0.85; animation: float-badge-alt 7s ease-in-out infinite 1s; box-shadow: 0 15px 30px rgba(0,0,0,0.3);">Transaksi SAKTI.Link</div>
                 </div>
 
             </div>
