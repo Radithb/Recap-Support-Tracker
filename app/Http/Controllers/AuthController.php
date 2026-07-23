@@ -278,82 +278,48 @@ class AuthController extends Controller
         return view('auth.forgot-password');
     }
 
-    public function sendOtp(Request $request)
+    public function verifyForgotData(Request $request)
     {
         $request->validate([
-            'email' => ['required', 'email'],
+            'nama_koperasi' => ['required', 'string'],
+            'nama_pic' => ['required', 'string'],
+            'kontak' => ['required', 'string'],
         ], [
-            'email.required' => 'Email terdaftar wajib diisi.',
-            'email.email' => 'Format email tidak valid.',
+            'nama_koperasi.required' => 'Nama Koperasi wajib diisi.',
+            'nama_pic.required' => 'Nama PIC wajib diisi.',
+            'kontak.required' => 'Email atau No. HP / WhatsApp wajib diisi.',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $koperasi = $request->nama_koperasi;
+        $namaPic = $request->nama_pic;
+        $kontak = $request->kontak;
+
+        $user = User::whereHas('instansi', function($q) use ($koperasi) {
+                $q->where('nama_instansi', $koperasi);
+            })
+            ->where('nama', $namaPic)
+            ->where(function($q) use ($kontak) {
+                $q->where('email', $kontak)
+                  ->orWhere('whatsapp', $kontak);
+            })->first();
 
         if (!$user) {
             return back()->withErrors([
-                'email' => 'Email tidak terdaftar dalam sistem.',
+                'invalid_data' => 'Data identitas tidak ditemukan atau tidak cocok. Pastikan Nama Koperasi, Nama PIC, dan Kontak yang dimasukkan sesuai dengan data registrasi.',
             ])->withInput();
         }
 
-        $otp = sprintf("%06d", rand(100000, 999999));
-        
         session([
-            'reset_email' => $request->email,
-            'reset_otp' => $otp,
-            'reset_otp_time' => now()->timestamp,
+            'reset_email' => $user->email,
+            'reset_verified_local' => true,
         ]);
 
-        return redirect()->route('password.otp')->with('info_otp', "Kode OTP verifikasi Anda: {$otp}");
-    }
-
-    public function showVerifyOtp()
-    {
-        if (!session('reset_email')) {
-            return redirect()->route('password.request');
-        }
-
-        return view('auth.verify-otp');
-    }
-
-    public function verifyOtp(Request $request)
-    {
-        $request->validate([
-            'otp' => ['required', 'string'],
-        ], [
-            'otp.required' => 'Kode verifikasi OTP wajib diisi.',
-        ]);
-
-        $inputOtp = is_array($request->otp) ? implode('', $request->otp) : str_replace([' ', '-'], '', $request->otp);
-
-        if ($inputOtp !== session('reset_otp')) {
-            return back()->withErrors([
-                'otp' => 'Kode verifikasi OTP tidak sesuai. Silakan coba lagi.',
-            ]);
-        }
-
-        session(['reset_otp_verified' => true]);
-
-        return redirect()->route('password.reset')->with('success', 'Kode OTP berhasil diverifikasi. Silakan atur kata sandi baru Anda.');
-    }
-
-    public function resendOtp()
-    {
-        if (!session('reset_email')) {
-            return redirect()->route('password.request');
-        }
-
-        $otp = sprintf("%06d", rand(100000, 999999));
-        session([
-            'reset_otp' => $otp,
-            'reset_otp_time' => now()->timestamp,
-        ]);
-
-        return back()->with('info_otp', "Kode OTP baru verifikasi Anda: {$otp}");
+        return redirect()->route('password.reset')->with('success', 'Data identitas cocok. Silakan atur kata sandi baru Anda.');
     }
 
     public function showResetPassword()
     {
-        if (!session('reset_otp_verified') || !session('reset_email')) {
+        if (!session('reset_verified_local') || !session('reset_email')) {
             return redirect()->route('password.request');
         }
 
@@ -378,7 +344,7 @@ class AuthController extends Controller
             $user->save();
         }
 
-        session()->forget(['reset_email', 'reset_otp', 'reset_otp_time', 'reset_otp_verified']);
+        session()->forget(['reset_email', 'reset_verified_local']);
 
         return redirect()->route('login')->with('success', 'Kata sandi Anda berhasil diperbarui! Silakan login dengan kata sandi baru.');
     }
