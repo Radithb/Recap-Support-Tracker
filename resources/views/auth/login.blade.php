@@ -128,7 +128,7 @@
                     <div class="login-panel-card fade-up" style="animation-delay: 0.2s;">
                         <p class="eyebrow" style="color: var(--amber); margin-bottom: 6px;">{{ __('messages.masuk_ke_akun') }}</p>
                         <h1 style="margin-bottom: 4px; font-size: calc(24px * var(--text-scale, 1));">Login</h1>
-                        <p class="lede" style="margin-bottom: 18px; font-size: calc(13px * var(--text-scale, 1));">Masukkan email dan kata sandi Anda untuk melanjutkan.</p>
+                        <p class="lede" style="margin-bottom: 18px; font-size: calc(13px * var(--text-scale, 1));">Masukkan email dan kata sandi Anda untuk melanjutkan</p>
 
                         {{-- Tampilkan error login --}}
                         @if($errors->any())
