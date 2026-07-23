@@ -117,9 +117,9 @@
             <div class="login-split-right">
                 <div class="login-box fade-up" style="animation-delay: 0.15s; margin: 0 auto; max-width: 380px; width: 100%;">
                     <div class="login-panel-card fade-up" style="animation-delay: 0.2s;">
-                        <p class="eyebrow" style="color: var(--amber); margin-bottom: 6px;">{{ __('messages.masuk_ke_akun') }}</p>
-                        <h1 style="margin-bottom: 4px; font-size: calc(24px * var(--text-scale, 1));">Login</h1>
-                        <p class="lede" style="margin-bottom: 18px; font-size: calc(13px * var(--text-scale, 1));">Masukkan email dan kata sandi Anda untuk melanjutkan</p>
+                        <p class="eyebrow" style="color: var(--amber); margin-bottom: 6px; font-size: calc(11px * var(--text-scale, 1));">{{ __('messages.masuk_ke_akun') }}</p>
+                        <h1 style="margin-bottom: 4px; font-size: calc(22px * var(--text-scale, 1));">Login</h1>
+                        <p class="lede" style="margin-bottom: 18px; font-size: calc(12px * var(--text-scale, 1));">Masukkan email dan kata sandi Anda untuk melanjutkan</p>
 
                         {{-- Tampilkan error login --}}
                         @if($errors->any())
@@ -136,28 +136,28 @@
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="field">
-                                <label>Email</label>
+                                <label style="font-size: calc(12px * var(--text-scale, 1));">Email</label>
                                 <div style="position: relative; display: flex; align-items: center;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); pointer-events: none; opacity: 0.7;">
                                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                         <polyline points="22,6 12,13 2,6"></polyline>
                                     </svg>
-                                    <input type="email" name="email" placeholder="support@skk.co.id" style="padding-left: 42px;" required>
+                                    <input type="email" name="email" placeholder="support@skk.co.id" style="padding-left: 42px; font-size: calc(13px * var(--text-scale, 1));" required>
                                 </div>
                             </div>
                             <div class="field">
-                                <label>{{ __('messages.password') }}</label>
+                                <label style="font-size: calc(12px * var(--text-scale, 1));">{{ __('messages.password') }}</label>
                                 <div style="position: relative; display: flex; align-items: center;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); pointer-events: none; opacity: 0.7;">
                                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                     </svg>
-                                    <input type="password" name="password" placeholder="••••••••" style="padding-left: 42px;" required>
+                                    <input type="password" name="password" placeholder="••••••••" style="padding-left: 42px; font-size: calc(13px * var(--text-scale, 1));" required>
                                 </div>
                             </div>
                             
                             <!-- Adding remember me and forgot password -->
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; font-size: calc(12px * var(--text-scale, 1));">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; font-size: calc(11px * var(--text-scale, 1));">
                                 <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--ink-soft); font-weight: 500;">
                                     <input type="checkbox" name="remember" style="width: 14px; height: 14px; accent-color: var(--brand-primary); margin:0; padding:0; border: 1.5px solid var(--line); border-radius: 4px; cursor: pointer;">
                                     Ingat saya
@@ -165,11 +165,11 @@
                                 <a href="{{ route('password.request') }}" style="color: var(--brand-primary); font-weight: 600; text-decoration: underline;">Lupa kata sandi?</a>
                             </div>
 
-                            <button type="submit" class="btn" style="width: 100%; justify-content: center; background: #17447e; border: none; color: white; padding: 11px 14px; border-radius: 10px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 14px rgba(23, 68, 126, 0.35); transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.background='#123566'; this.style.boxShadow='0 6px 20px rgba(23, 68, 126, 0.45)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='#17447e'; this.style.boxShadow='0 4px 14px rgba(23, 68, 126, 0.35)';">Masuk ke Dashboard &rarr;</button>
+                            <button type="submit" class="btn" style="width: 100%; justify-content: center; background: #17447e; border: none; color: white; padding: 11px 14px; border-radius: 10px; font-size: 13px; font-weight: 600; box-shadow: 0 4px 14px rgba(23, 68, 126, 0.35); transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.background='#123566'; this.style.boxShadow='0 6px 20px rgba(23, 68, 126, 0.45)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='#17447e'; this.style.boxShadow='0 4px 14px rgba(23, 68, 126, 0.35)';">Masuk ke Dashboard &rarr;</button>
                         </form>
 
-                        <div class="register-prompt" style="position: relative; margin-top: 20px; border-top: none; padding-top: 18px; font-size: calc(12px * var(--text-scale, 1));">
-                            <div style="position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); background: var(--paper-raised); padding: 0 10px; font-size: calc(10px * var(--text-scale, 1)); color: var(--ink-soft); font-family: var(--font-mono); z-index: 2;">atau</div>
+                        <div class="register-prompt" style="position: relative; margin-top: 20px; border-top: none; padding-top: 18px; font-size: calc(11px * var(--text-scale, 1));">
+                            <div style="position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); background: var(--paper-raised); padding: 0 10px; font-size: calc(9px * var(--text-scale, 1)); color: var(--ink-soft); font-family: var(--font-mono); z-index: 2;">atau</div>
                             <div style="position: absolute; top: 0; left: 0; right: 0; border-top: 1px solid var(--line); z-index: 1;"></div>
                             Belum mempunyai akun? <a href="{{ route('register') }}" style="color: var(--brand-primary); font-weight: 700; text-decoration: underline;">Daftar</a>
                         </div>
