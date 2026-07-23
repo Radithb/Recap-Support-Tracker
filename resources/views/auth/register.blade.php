@@ -74,10 +74,10 @@
                     {{-- Role Selection Tab --}}
                     <div style="display: flex; gap: 8px; margin-bottom: 22px; background: var(--paper-sunken, #f1f5f9); padding: 4px; border-radius: 12px; border: 1px solid var(--line);">
                         <button type="button" id="btn-role-pelapor" onclick="selectRole('Pelapor')" style="flex: 1; padding: 10px 14px; border: none; border-radius: 8px; font-weight: 700; font-size: calc(13px * var(--text-scale, 1)); cursor: pointer; transition: all 0.2s; background: var(--paper-raised, #fff); color: var(--brand-primary); box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: center; gap: 8px;">
-                            <span>🏢</span> Mitra (Pelapor)
+                            Mitra (Pelapor)
                         </button>
                         <button type="button" id="btn-role-support" onclick="selectRole('Support')" style="flex: 1; padding: 10px 14px; border: none; border-radius: 8px; font-weight: 700; font-size: calc(13px * var(--text-scale, 1)); cursor: pointer; transition: all 0.2s; background: transparent; color: var(--ink-soft); display: flex; align-items: center; justify-content: center; gap: 8px;">
-                            <span>🎧</span> Tim Support
+                            Tim Support
                         </button>
                     </div>
 
