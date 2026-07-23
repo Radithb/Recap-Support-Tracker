@@ -48,6 +48,9 @@
         <form action="{{ route('password.update') }}" method="POST" style="text-align: left;">
             @csrf
             
+            <input type="hidden" name="token" value="{{ $token }}">
+            <input type="hidden" name="email" value="{{ request('email') }}">
+
             <div class="field" style="margin-bottom: 18px;">
                 <label style="display: block; font-size: 13px; font-weight: 600; color: var(--ink-soft); margin-bottom: 8px;">Kata Sandi Baru</label>
                 <input type="password" name="password" placeholder="Minimal 8 karakter" style="width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; font-size: 14px; color: var(--ink); background: var(--paper-raised); outline: none;" required autofocus>

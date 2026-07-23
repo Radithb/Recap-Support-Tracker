@@ -11,6 +11,10 @@ use App\Models\User;
 use App\Models\Instansi;
 use App\Enums\UserRole;
 use App\Http\Requests\StoreRegisterRequest;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+use App\Mail\ResetPasswordMail;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -278,57 +282,49 @@ class AuthController extends Controller
         return view('auth.forgot-password');
     }
 
-    public function verifyForgotData(Request $request)
+    public function sendResetLinkEmail(Request $request)
     {
         $request->validate([
-            'nama_koperasi' => ['required', 'string'],
-            'nama_pic' => ['required', 'string'],
-            'kontak' => ['required', 'string'],
+            'email' => ['required', 'email'],
         ], [
-            'nama_koperasi.required' => 'Nama Koperasi wajib diisi.',
-            'nama_pic.required' => 'Nama PIC wajib diisi.',
-            'kontak.required' => 'Email atau No. HP / WhatsApp wajib diisi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
         ]);
 
-        $koperasi = $request->nama_koperasi;
-        $namaPic = $request->nama_pic;
-        $kontak = $request->kontak;
-
-        $user = User::whereHas('instansi', function($q) use ($koperasi) {
-                $q->where('nama_instansi', $koperasi);
-            })
-            ->where('nama', $namaPic)
-            ->where(function($q) use ($kontak) {
-                $q->where('email', $kontak)
-                  ->orWhere('whatsapp', $kontak);
-            })->first();
+        $user = User::where('email', $request->email)->first();
 
         if (!$user) {
             return back()->withErrors([
-                'invalid_data' => 'Data identitas tidak ditemukan atau tidak cocok. Pastikan Nama Koperasi, Nama PIC, dan Kontak yang dimasukkan sesuai dengan data registrasi.',
+                'email' => 'Email tidak terdaftar dalam sistem.',
             ])->withInput();
         }
 
-        session([
-            'reset_email' => $user->email,
-            'reset_verified_local' => true,
-        ]);
+        $token = Str::random(64);
 
-        return redirect()->route('password.reset')->with('success', 'Data identitas cocok. Silakan atur kata sandi baru Anda.');
+        DB::table('password_reset_tokens')->updateOrInsert(
+            ['email' => $request->email],
+            [
+                'email' => $request->email,
+                'token' => $token,
+                'created_at' => Carbon::now()
+            ]
+        );
+
+        Mail::to($request->email)->send(new ResetPasswordMail($token, $request->email));
+
+        return back()->with('success', 'Tautan reset kata sandi telah dikirim ke email Anda.');
     }
 
-    public function showResetPassword()
+    public function showResetPassword($token, Request $request)
     {
-        if (!session('reset_verified_local') || !session('reset_email')) {
-            return redirect()->route('password.request');
-        }
-
-        return view('auth.reset-password');
+        return view('auth.reset-password', ['token' => $token, 'email' => $request->email]);
     }
 
     public function resetPassword(Request $request)
     {
         $request->validate([
+            'token' => 'required',
+            'email' => ['required', 'email'],
             'password' => ['required', 'min:8', 'confirmed'],
         ], [
             'password.required' => 'Kata sandi baru wajib diisi.',
@@ -336,15 +332,30 @@ class AuthController extends Controller
             'password.confirmed' => 'Konfirmasi kata sandi tidak cocok.',
         ]);
 
-        $email = session('reset_email');
-        $user = User::where('email', $email)->first();
+        $resetData = DB::table('password_reset_tokens')
+            ->where('email', $request->email)
+            ->where('token', $request->token)
+            ->first();
 
-        if ($user) {
-            $user->password = Hash::make($request->password);
-            $user->save();
+        if (!$resetData) {
+            return back()->withErrors(['email' => 'Token reset kata sandi tidak valid atau tidak cocok dengan email.']);
         }
 
-        session()->forget(['reset_email', 'reset_verified_local']);
+        $tokenAge = Carbon::parse($resetData->created_at)->diffInMinutes(Carbon::now());
+        if ($tokenAge > 60) {
+            return back()->withErrors(['email' => 'Tautan reset kata sandi telah kedaluwarsa.']);
+        }
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return back()->withErrors(['email' => 'Pengguna tidak ditemukan.']);
+        }
+
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        DB::table('password_reset_tokens')->where('email', $request->email)->delete();
 
         return redirect()->route('login')->with('success', 'Kata sandi Anda berhasil diperbarui! Silakan login dengan kata sandi baru.');
     }

@@ -28,8 +28,15 @@
 
         {{-- Subtitle Description --}}
         <p style="font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; margin: 0 0 28px 0; max-width: 380px; margin-left: auto; margin-right: auto;">
-            Masukkan data registrasi akun Anda untuk melakukan verifikasi identitas dan mengatur ulang kata sandi.
+            Masukkan email terdaftar Anda. Kami akan mengirimkan tautan untuk mengatur ulang kata sandi ke email tersebut.
         </p>
+
+        {{-- Success message --}}
+        @if(session('success'))
+            <div id="forgot-success" class="alert-dismiss" style="text-align: left; margin-bottom: 18px; font-size: 13px; font-weight: 500; color: #166534; background: #dcfce7; padding: 10px 14px; border-radius: 8px; border: 1px solid #bbf7d0;">
+                <div>{{ session('success') }}</div>
+            </div>
+        @endif
 
         {{-- Error message --}}
         @if($errors->any())
@@ -41,31 +48,17 @@
         @endif
 
         {{-- Form --}}
-        <form action="{{ route('password.verify') }}" method="POST" style="text-align: left;">
+        <form action="{{ route('password.email') }}" method="POST" style="text-align: left;">
             @csrf
             <div class="field" style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 13px; font-weight: 600; color: var(--ink-soft); margin-bottom: 8px;">Nama Koperasi</label>
+                <label style="display: block; font-size: 13px; font-weight: 600; color: var(--ink-soft); margin-bottom: 8px;">Email Terdaftar</label>
                 <div style="position: relative;">
-                    <input type="text" name="nama_koperasi" value="{{ old('nama_koperasi') }}" placeholder="Contoh: KUD Maju Jaya" style="width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; font-size: 14px; color: var(--ink); background: var(--paper-raised); outline: none; transition: border-color 0.2s;" required autofocus>
-                </div>
-            </div>
-
-            <div class="field" style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 13px; font-weight: 600; color: var(--ink-soft); margin-bottom: 8px;">Nama PIC</label>
-                <div style="position: relative;">
-                    <input type="text" name="nama_pic" value="{{ old('nama_pic') }}" placeholder="Masukkan nama PIC yang terdaftar" style="width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; font-size: 14px; color: var(--ink); background: var(--paper-raised); outline: none; transition: border-color 0.2s;" required>
-                </div>
-            </div>
-
-            <div class="field" style="margin-bottom: 20px;">
-                <label style="display: block; font-size: 13px; font-weight: 600; color: var(--ink-soft); margin-bottom: 8px;">Email atau No. HP / WhatsApp</label>
-                <div style="position: relative;">
-                    <input type="text" name="kontak" value="{{ old('kontak') }}" placeholder="email@domain.com atau 08123456789" style="width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; font-size: 14px; color: var(--ink); background: var(--paper-raised); outline: none; transition: border-color 0.2s;" required>
+                    <input type="email" name="email" value="{{ old('email') }}" placeholder="nama@koperasi.id" style="width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 10px; font-size: 14px; color: var(--ink); background: var(--paper-raised); outline: none; transition: border-color 0.2s;" required autofocus>
                 </div>
             </div>
 
             <button type="submit" class="btn" style="width: 100%; justify-content: center; background: #17447e; border: none; color: white; padding: 12px 16px; border-radius: 10px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 14px rgba(23, 68, 126, 0.35); transition: all 0.2s; cursor: pointer;" onmouseover="this.style.background='#123566'; this.style.transform='translateY(-1px)';" onmouseout="this.style.background='#17447e'; this.style.transform='translateY(0)';">
-                Verifikasi Data
+                Kirim Tautan Reset Password
             </button>
         </form>
 

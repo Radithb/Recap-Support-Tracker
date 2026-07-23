@@ -20,10 +20,10 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'storeRegister']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Lupa Kata Sandi (Verifikasi Data Lokal)
+// Lupa Kata Sandi & Reset Password (via Email SMTP)
 Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.request');
-Route::post('/forgot-password', [AuthController::class, 'verifyForgotData'])->name('password.verify');
-Route::get('/reset-password', [AuthController::class, 'showResetPassword'])->name('password.reset');
+Route::post('/forgot-password', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/reset-password/{token}', [AuthController::class, 'showResetPassword'])->name('password.reset');
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 
 Route::middleware('auth')->group(function () {
