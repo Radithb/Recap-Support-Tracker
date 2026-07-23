@@ -66,19 +66,9 @@
                     <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:18px;">
                         <div>
                             <h1 style="font-family:var(--font-display); font-size: calc(22px * var(--text-scale, 1)); font-weight:600; margin:0 0 4px; color:var(--ink);">{{ __('messages.daftar_akun_baru') }}</h1>
-                            <p id="header-subtitle" style="margin:0; font-size: calc(13px * var(--text-scale, 1)); color:var(--ink-soft); font-family:var(--font-mono);">Lengkapi data di bawah sesuai peran Anda</p>
+                            <p id="header-subtitle" style="margin:0; font-size: calc(13px * var(--text-scale, 1)); color:var(--ink-soft); font-family:var(--font-mono);">Lengkapi data di bawah</p>
                         </div>
                         <a href="{{ route('login') }}" style="color:var(--ink-soft); font-size: calc(20px * var(--text-scale, 1)); text-decoration:none; line-height:1;" title="{{ __('messages.kembali_ke_login') }}">&times;</a>
-                    </div>
-
-                    {{-- Role Selection Tab --}}
-                    <div style="display: flex; gap: 8px; margin-bottom: 22px; background: var(--paper-sunken, #f1f5f9); padding: 4px; border-radius: 12px; border: 1px solid var(--line);">
-                        <button type="button" id="btn-role-pelapor" onclick="selectRole('Pelapor')" style="flex: 1; padding: 10px 14px; border: none; border-radius: 8px; font-weight: 700; font-size: calc(13px * var(--text-scale, 1)); cursor: pointer; transition: all 0.2s; background: var(--paper-raised, #fff); color: var(--brand-primary); box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: center; gap: 8px;">
-                            Mitra (Pelapor)
-                        </button>
-                        <button type="button" id="btn-role-support" onclick="selectRole('Support')" style="flex: 1; padding: 10px 14px; border: none; border-radius: 8px; font-weight: 700; font-size: calc(13px * var(--text-scale, 1)); cursor: pointer; transition: all 0.2s; background: transparent; color: var(--ink-soft); display: flex; align-items: center; justify-content: center; gap: 8px;">
-                            Tim Support
-                        </button>
                     </div>
 
                     {{-- Flash message sukses --}}
@@ -99,7 +89,7 @@
 
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-                        <input type="hidden" name="role" id="role_input" value="{{ old('role', 'Pelapor') }}">
+                        <input type="hidden" name="role" value="Pelapor">
 
                         {{-- Baris 1: Nama Koperasi & Nama PIC --}}
                         <div class="register-grid" id="baris-1-grid">
@@ -174,68 +164,6 @@
 </div>
 
 <script>
-    function selectRole(role) {
-        const roleInput = document.getElementById('role_input');
-        const btnPelapor = document.getElementById('btn-role-pelapor');
-        const btnSupport = document.getElementById('btn-role-support');
-        const instansiField = document.getElementById('field-instansi');
-        const instansiInput = document.getElementById('nama_instansi');
-        const labelNama = document.getElementById('label-nama');
-        const inputNama = document.getElementById('nama');
-        const labelEmail = document.getElementById('label-email');
-        const inputEmail = document.getElementById('email');
-        const subtitleText = document.getElementById('header-subtitle');
-        const noticeText = document.getElementById('register-notice-text');
-        const gridBaris1 = document.getElementById('baris-1-grid');
-
-        if (!roleInput) return;
-        roleInput.value = role;
-
-        if (role === 'Support') {
-            btnPelapor.style.background = 'transparent';
-            btnPelapor.style.color = 'var(--ink-soft)';
-            btnPelapor.style.boxShadow = 'none';
-
-            btnSupport.style.background = 'var(--paper-raised, #fff)';
-            btnSupport.style.color = 'var(--brand-primary)';
-            btnSupport.style.boxShadow = '0 2px 6px rgba(0,0,0,0.06)';
-
-            if (instansiField) instansiField.style.display = 'none';
-            if (instansiInput) instansiInput.removeAttribute('required');
-
-            if (labelNama) labelNama.innerText = 'Nama Lengkap Support';
-            if (inputNama) inputNama.placeholder = 'Nama lengkap Tim Support';
-
-            if (labelEmail) labelEmail.innerText = 'Email Support';
-            if (inputEmail) inputEmail.placeholder = 'support@skk.co.id';
-
-            if (noticeText) noticeText.innerText = 'Akun Tim Support baru akan terdaftar sebagai tim penanganan tiket internal.';
-            
-            if (gridBaris1) gridBaris1.style.gridTemplateColumns = '1fr';
-        } else {
-            btnSupport.style.background = 'transparent';
-            btnSupport.style.color = 'var(--ink-soft)';
-            btnSupport.style.boxShadow = 'none';
-
-            btnPelapor.style.background = 'var(--paper-raised, #fff)';
-            btnPelapor.style.color = 'var(--brand-primary)';
-            btnPelapor.style.boxShadow = '0 2px 6px rgba(0,0,0,0.06)';
-
-            if (instansiField) instansiField.style.display = 'block';
-            if (instansiInput) instansiInput.setAttribute('required', 'required');
-
-            if (labelNama) labelNama.innerText = 'Nama PIC';
-            if (inputNama) inputNama.placeholder = 'Nama lengkap PIC';
-
-            if (labelEmail) labelEmail.innerText = 'Email';
-            if (inputEmail) inputEmail.placeholder = 'nama@koperasi.id';
-
-            if (noticeText) noticeText.innerText = 'Akun baru akan diverifikasi oleh Tim Support sebelum dapat digunakan untuk membuat laporan.';
-            
-            if (gridBaris1) gridBaris1.style.gridTemplateColumns = '1fr 1fr';
-        }
-    }
-
     document.addEventListener('DOMContentLoaded', function () {
         const skeleton = document.getElementById('skeleton-loading');
         const content  = document.getElementById('actual-content');
@@ -246,9 +174,6 @@
                 content.classList.add('loaded');
             }
         }, 800);
-
-        const oldRole = "{{ old('role', 'Pelapor') }}";
-        selectRole(oldRole);
     });
 </script>
 @endsection

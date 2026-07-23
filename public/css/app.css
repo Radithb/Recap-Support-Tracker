@@ -204,13 +204,13 @@ h1, h2, h3, h4, h5, h6,
 .login-brandmark .tx strong{display:block; font-family:var(--font-display); font-size: calc(17px * var(--text-scale, 1)); color:var(--ink);}
 .login-brandmark .tx span{display:block; font-size: calc(11px * var(--text-scale, 1)); color:var(--ink-soft); font-family:var(--font-mono); letter-spacing:.03em;}
 .login-panel-card{
-  background: var(--paper-raised); border: 1px solid rgba(0, 0, 0, 0.05); border-radius: 24px; padding: 48px 40px;
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.03);
+  background: var(--paper-raised); border: 1px solid rgba(0, 0, 0, 0.05); border-radius: 20px; padding: 28px 32px;
+  box-shadow: 0 16px 32px -10px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.03);
   text-align:center;
 }
 .login-panel-card .eyebrow{justify-content:center; display:flex;}
-.login-panel-card h1{font-family:var(--font-display); font-size: calc(28px * var(--text-scale, 1)); font-weight:700; margin:0 0 8px; color:var(--ink);}
-.login-panel-card>p.lede{color:var(--ink-soft); font-size: calc(14px * var(--text-scale, 1)); margin:0 0 32px;}
+.login-panel-card h1{font-family:var(--font-display); font-size: calc(24px * var(--text-scale, 1)); font-weight:700; margin:0 0 4px; color:var(--ink);}
+.login-panel-card>p.lede{color:var(--ink-soft); font-size: calc(13px * var(--text-scale, 1)); margin:0 0 18px;}
 .role-select{display:flex; flex-direction:column; gap:12px; margin-bottom:6px; text-align:left;}
 .role-opt{
   display:flex; align-items:center; gap:14px; text-align:left;
@@ -857,20 +857,21 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
 
 .login-split-right {
     flex: 1;
-    min-width: 480px;
+    min-width: 440px;
     background: #ffffff;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 40px;
+    padding: 20px 24px;
     position: relative;
+    overflow-y: auto;
 }
 .login-split-right .top-text {
-    font-size: calc(13px * var(--text-scale, 1));
+    font-size: calc(12.5px * var(--text-scale, 1));
     color: var(--ink-soft);
-    margin-bottom: 32px;
-    padding: 8px 16px;
+    margin-bottom: 14px;
+    padding: 5px 14px;
     background: var(--paper);
     border-radius: 100px;
     border: 1px solid var(--line);
@@ -880,8 +881,8 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
     font-weight: 700;
 }
 .login-split-right .bottom-text {
-    margin-top: 32px;
-    font-size: calc(13px * var(--text-scale, 1));
+    margin-top: 14px;
+    font-size: calc(12.5px * var(--text-scale, 1));
     color: var(--ink-soft);
 }
 .login-split-right .bottom-text a {

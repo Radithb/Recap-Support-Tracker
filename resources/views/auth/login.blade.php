@@ -45,41 +45,41 @@
 
             <!-- Right Column Skeleton -->
             <div class="login-split-right">
-                <div class="skel" style="width: 320px; height: 16px; margin: 0 auto 24px auto; opacity: 0.1; border-radius: 4px;"></div>
+                <div class="skel" style="width: 320px; height: 16px; margin: 0 auto 14px auto; opacity: 0.1; border-radius: 4px;"></div>
                 
-                <div class="login-box" style="margin: 0 auto; max-width: 460px; width: 100%;">
-                    <div class="login-panel-card" style="border: 1px solid var(--line); padding: 40px; border-radius: 16px; background: #fff;">
+                <div class="login-box" style="margin: 0 auto; max-width: 420px; width: 100%;">
+                    <div class="login-panel-card" style="border: 1px solid var(--line); padding: 28px 32px; border-radius: 20px; background: #fff;">
                         <!-- Centered headers -->
-                        <div class="skel" style="width: 140px; height: 14px; margin: 0 auto 12px auto; opacity: 0.1; border-radius: 4px;"></div>
-                        <div class="skel" style="width: 120px; height: 36px; margin: 0 auto 6px auto; opacity: 0.1; border-radius: 8px;"></div>
-                        <div class="skel" style="width: 320px; height: 14px; margin: 0 auto 32px auto; opacity: 0.1; border-radius: 4px;"></div>
+                        <div class="skel" style="width: 140px; height: 12px; margin: 0 auto 8px auto; opacity: 0.1; border-radius: 4px;"></div>
+                        <div class="skel" style="width: 120px; height: 32px; margin: 0 auto 6px auto; opacity: 0.1; border-radius: 8px;"></div>
+                        <div class="skel" style="width: 300px; height: 12px; margin: 0 auto 20px auto; opacity: 0.1; border-radius: 4px;"></div>
                         
                         <!-- Left-aligned inputs -->
-                        <div style="margin-bottom: 20px;">
-                            <div class="skel" style="width: 50px; height: 14px; margin-bottom: 8px; opacity: 0.1; border-radius: 4px;"></div>
-                            <div class="skel" style="width: 100%; height: 48px; opacity: 0.1; border-radius: 8px;"></div>
+                        <div style="margin-bottom: 14px;">
+                            <div class="skel" style="width: 50px; height: 12px; margin-bottom: 6px; opacity: 0.1; border-radius: 4px;"></div>
+                            <div class="skel" style="width: 100%; height: 42px; opacity: 0.1; border-radius: 8px;"></div>
                         </div>
                         
-                        <div style="margin-bottom: 24px;">
-                            <div class="skel" style="width: 80px; height: 14px; margin-bottom: 8px; opacity: 0.1; border-radius: 4px;"></div>
-                            <div class="skel" style="width: 100%; height: 48px; opacity: 0.1; border-radius: 8px;"></div>
+                        <div style="margin-bottom: 18px;">
+                            <div class="skel" style="width: 80px; height: 12px; margin-bottom: 6px; opacity: 0.1; border-radius: 4px;"></div>
+                            <div class="skel" style="width: 100%; height: 42px; opacity: 0.1; border-radius: 8px;"></div>
                         </div>
                         
                         <!-- Checkbox and Forgot Password line -->
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 24px;">
-                            <div class="skel" style="width: 100px; height: 14px; opacity: 0.1; border-radius: 4px;"></div>
-                            <div class="skel" style="width: 120px; height: 14px; opacity: 0.1; border-radius: 4px;"></div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 18px;">
+                            <div class="skel" style="width: 90px; height: 12px; opacity: 0.1; border-radius: 4px;"></div>
+                            <div class="skel" style="width: 110px; height: 12px; opacity: 0.1; border-radius: 4px;"></div>
                         </div>
 
                         <!-- Button -->
-                        <div class="skel" style="width: 100%; height: 48px; opacity: 0.1; border-radius: 8px; margin-bottom: 32px;"></div>
+                        <div class="skel" style="width: 100%; height: 44px; opacity: 0.1; border-radius: 8px; margin-bottom: 20px;"></div>
                         
                         <!-- Register Link -->
-                        <div class="skel" style="width: 250px; height: 14px; margin: 0 auto; opacity: 0.1; border-radius: 4px;"></div>
+                        <div class="skel" style="width: 220px; height: 12px; margin: 0 auto; opacity: 0.1; border-radius: 4px;"></div>
                     </div>
                 </div>
 
-                <div class="skel" style="width: 200px; height: 14px; margin: 32px auto 0 auto; opacity: 0.1; border-radius: 4px;"></div>
+                <div class="skel" style="width: 200px; height: 14px; margin: 14px auto 0 auto; opacity: 0.1; border-radius: 4px;"></div>
             </div>
         </div>
     </div>
@@ -133,15 +133,15 @@
             <div class="login-split-right">
                 <div class="top-text">Masuk sebagai mitra: <strong>PT Sakti Kinerja Kolaborasindo</strong></div>
                 
-                <div class="login-box fade-up" style="animation-delay: 0.15s; margin: 0 auto; max-width: 460px; width: 100%;">
+                <div class="login-box fade-up" style="animation-delay: 0.15s; margin: 0 auto; max-width: 420px; width: 100%;">
                     <div class="login-panel-card fade-up" style="animation-delay: 0.2s;">
-                        <p class="eyebrow" style="color: var(--amber); margin-bottom: 12px;">{{ __('messages.masuk_ke_akun') }}</p>
-                        <h1 style="margin-bottom: 6px;">Login</h1>
-                        <p class="lede" style="margin-bottom: 24px;">Masukkan email dan kata sandi Anda untuk melanjutkan.</p>
+                        <p class="eyebrow" style="color: var(--amber); margin-bottom: 6px;">{{ __('messages.masuk_ke_akun') }}</p>
+                        <h1 style="margin-bottom: 4px; font-size: calc(24px * var(--text-scale, 1));">Login</h1>
+                        <p class="lede" style="margin-bottom: 18px; font-size: calc(13px * var(--text-scale, 1));">Masukkan email dan kata sandi Anda untuk melanjutkan.</p>
 
                         {{-- Tampilkan error login --}}
                         @if($errors->any())
-                            <div id="login-error" class="alert-dismiss" style="text-align: left; margin-bottom: 18px; font-weight: 500; color: var(--amber); background: var(--amber-soft); padding: 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: flex-start; transition: opacity 0.6s ease, transform 0.6s ease;">
+                            <div id="login-error" class="alert-dismiss" style="text-align: left; margin-bottom: 14px; font-weight: 500; color: var(--amber); background: var(--amber-soft); padding: 10px 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: flex-start; transition: opacity 0.6s ease, transform 0.6s ease;">
                                 <div>
                                     @foreach ($errors->all() as $error)
                                         <div>{{ $error }}</div>
@@ -163,7 +163,7 @@
                             </div>
                             
                             <!-- Adding remember me and forgot password -->
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; font-size: calc(12px * var(--text-scale, 1));">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; font-size: calc(12px * var(--text-scale, 1));">
                                 <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--ink-soft); font-weight: 500;">
                                     <input type="checkbox" name="remember" style="width: 14px; height: 14px; accent-color: var(--brand-primary); margin:0; padding:0; border: 1.5px solid var(--line); border-radius: 4px; cursor: pointer;">
                                     Ingat saya
@@ -171,10 +171,10 @@
                                 <a href="#" style="color: var(--brand-primary); font-weight: 600; text-decoration: underline;">Lupa kata sandi?</a>
                             </div>
 
-                            <button type="submit" class="btn" style="width: 100%; justify-content: center; background: #17447e; border: none; color: white; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; box-shadow: 0 4px 14px rgba(23, 68, 126, 0.35); transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.background='#123566'; this.style.boxShadow='0 6px 20px rgba(23, 68, 126, 0.45)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='#17447e'; this.style.boxShadow='0 4px 14px rgba(23, 68, 126, 0.35)';">Masuk ke Dashboard &rarr;</button>
+                            <button type="submit" class="btn" style="width: 100%; justify-content: center; background: #17447e; border: none; color: white; padding: 11px 14px; border-radius: 10px; font-size: 14px; font-weight: 600; box-shadow: 0 4px 14px rgba(23, 68, 126, 0.35); transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.background='#123566'; this.style.boxShadow='0 6px 20px rgba(23, 68, 126, 0.45)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='#17447e'; this.style.boxShadow='0 4px 14px rgba(23, 68, 126, 0.35)';">Masuk ke Dashboard &rarr;</button>
                         </form>
 
-                        <div class="register-prompt" style="position: relative; margin-top: 32px; border-top: none; padding-top: 24px;">
+                        <div class="register-prompt" style="position: relative; margin-top: 20px; border-top: none; padding-top: 16px;">
                             <div style="position: absolute; top: -7px; left: 50%; transform: translateX(-50%); background: var(--paper-raised); padding: 0 10px; font-size: calc(11px * var(--text-scale, 1)); color: var(--ink-soft); font-family: var(--font-mono); z-index: 2;">atau</div>
                             <div style="position: absolute; top: 0; left: 0; right: 0; border-top: 1px solid var(--line); z-index: 1;"></div>
                             Belum mempunyai akun? <a href="{{ route('register') }}" style="color: var(--brand-primary); font-weight: 700; text-decoration: underline;">Daftar sebagai mitra</a>
