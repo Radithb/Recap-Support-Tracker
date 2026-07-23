@@ -162,7 +162,7 @@
                                 <a href="#" style="color: var(--brand-primary); font-weight: 600; text-decoration: underline;">Lupa kata sandi?</a>
                             </div>
 
-                            <button type="submit" class="btn" style="width: 100%; justify-content: center; background: linear-gradient(135deg, #2563eb, #1d4ed8); border: none; color: white; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3); transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(37, 99, 235, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 14px rgba(37, 99, 235, 0.3)';">Masuk ke Dashboard &rarr;</button>
+                            <button type="submit" class="btn" style="width: 100%; justify-content: center; background: #17447e; border: none; color: white; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; box-shadow: 0 4px 14px rgba(23, 68, 126, 0.35); transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.background='#123566'; this.style.boxShadow='0 6px 20px rgba(23, 68, 126, 0.45)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='#17447e'; this.style.boxShadow='0 4px 14px rgba(23, 68, 126, 0.35)';">Masuk ke Dashboard &rarr;</button>
                         </form>
 
                         <div class="register-prompt" style="position: relative; margin-top: 32px; border-top: none; padding-top: 24px;">
