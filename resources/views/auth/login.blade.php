@@ -229,7 +229,7 @@
             </div>
             <h2 style="margin: 0 0 8px 0; font-family: var(--font-display); font-size: calc(20px * var(--text-scale, 1)); font-weight: 700; color: var(--ink);">Hubungi Tim Support</h2>
             <p style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: var(--ink-soft); line-height: 1.5;">
-                Jika Anda mengalami kendala saat masuk ke portal, silakan hubungi tim support kami melalui kontak di bawah ini:
+                Jika Anda mengalami kendala saat login, silakan hubungi tim support kami melalui kontak di bawah ini:
             </p>
         </div>
 
