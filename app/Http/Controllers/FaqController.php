@@ -17,14 +17,13 @@ class FaqController extends Controller
             'kategori_id'  => 'required|exists:master_kategoris,kategori_id',
             'pertanyaan'   => 'required|string|max:500',
             'jawaban'      => 'required|string',
-            'visibility'   => 'required|in:public,internal',
         ]);
 
         Faq::create([
             'kategori_id' => $request->kategori_id,
             'pertanyaan'  => $request->pertanyaan,
             'jawaban'     => $request->jawaban,
-            'visibility'  => $request->visibility,
+            'visibility'  => 'internal', // Default to internal since it's only for support now
             'is_active'   => true,
         ]);
 
@@ -40,7 +39,6 @@ class FaqController extends Controller
             'kategori_id'  => 'required|exists:master_kategoris,kategori_id',
             'pertanyaan'   => 'required|string|max:500',
             'jawaban'      => 'required|string',
-            'visibility'   => 'required|in:public,internal',
             'is_active'    => 'required|boolean',
         ]);
 
@@ -49,7 +47,6 @@ class FaqController extends Controller
             'kategori_id' => $request->kategori_id,
             'pertanyaan'  => $request->pertanyaan,
             'jawaban'     => $request->jawaban,
-            'visibility'  => $request->visibility,
             'is_active'   => $request->boolean('is_active'),
         ]);
 
@@ -79,7 +76,7 @@ class FaqController extends Controller
             $query->where('kategori_id', $request->kategori_id);
         }
 
-        $faqs = $query->select('faq_id', 'kategori_id', 'pertanyaan', 'jawaban', 'visibility')
+        $faqs = $query->select('faq_id', 'kategori_id', 'pertanyaan', 'jawaban')
                       ->orderBy('kategori_id')
                       ->get();
 

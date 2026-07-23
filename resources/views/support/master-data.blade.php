@@ -483,7 +483,6 @@
                                     <tr>
                                         <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Pertanyaan</th>
                                         <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Kategori</th>
-                                        <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Visibility</th>
                                         <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Status</th>
                                         <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Aksi</th>
                                     </tr>
@@ -497,13 +496,6 @@
                                         </td>
                                         <td style="padding: 1.25rem 1.5rem; color: var(--text-muted); font-size: 0.9rem; vertical-align: top;">
                                             {{ $faq->kategori->nama_kategori ?? '-' }}
-                                        </td>
-                                        <td style="padding: 1.25rem 1.5rem; text-align: center; vertical-align: top;">
-                                            @if($faq->visibility === 'public')
-                                                <span style="background: #dbeafe; color: #2563eb; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">Public</span>
-                                            @else
-                                                <span style="background: #fef3c7; color: #d97706; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">Internal</span>
-                                            @endif
                                         </td>
                                         <td style="padding: 1.25rem 1.5rem; text-align: center; vertical-align: top;">
                                             <span style="background: {{ $faq->is_active ? 'rgba(34, 197, 94, 0.12)' : 'rgba(239, 68, 68, 0.12)' }}; color: {{ $faq->is_active ? '#16a34a' : '#ef4444' }}; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">
@@ -705,13 +697,6 @@
                         <label>Jawaban <span style="color:var(--danger)">*</span></label>
                         <textarea name="jawaban" required placeholder="Tulis jawaban lengkap di sini..." rows="4"></textarea>
                     </div>
-                    <div class="field">
-                        <label>Visibility <span style="color:var(--danger)">*</span></label>
-                        <select name="visibility" required style="width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink); font-size: 0.9rem;">
-                            <option value="public">Public — Terlihat oleh Pelapor & Support</option>
-                            <option value="internal">Internal — Hanya terlihat oleh Support</option>
-                        </select>
-                    </div>
                 </div>
                 <div class="modal-foot">
                     <button type="button" class="btn btn-ghost" onclick="closeModal('modal-add-faq')">Batal</button>
@@ -751,22 +736,12 @@
                     <div class="field">
                         <label>Jawaban <span style="color:var(--danger)">*</span></label>
                         <textarea name="jawaban" required rows="4">{{ $faq->jawaban }}</textarea>
-                    </div>
-                    <div class="grid2">
-                        <div class="field">
-                            <label>Visibility <span style="color:var(--danger)">*</span></label>
-                            <select name="visibility" required style="width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink); font-size: 0.9rem;">
-                                <option value="public" {{ $faq->visibility === 'public' ? 'selected' : '' }}>Public</option>
-                                <option value="internal" {{ $faq->visibility === 'internal' ? 'selected' : '' }}>Internal</option>
-                            </select>
-                        </div>
-                        <div class="field">
-                            <label>Status <span style="color:var(--danger)">*</span></label>
-                            <select name="is_active" required style="width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink); font-size: 0.9rem;">
-                                <option value="1" {{ $faq->is_active ? 'selected' : '' }}>Aktif</option>
-                                <option value="0" {{ !$faq->is_active ? 'selected' : '' }}>Nonaktif</option>
-                            </select>
-                        </div>
+                    <div class="field">
+                        <label>Status <span style="color:var(--danger)">*</span></label>
+                        <select name="is_active" required style="width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink); font-size: 0.9rem;">
+                            <option value="1" {{ $faq->is_active ? 'selected' : '' }}>Aktif</option>
+                            <option value="0" {{ !$faq->is_active ? 'selected' : '' }}>Nonaktif</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-foot">
