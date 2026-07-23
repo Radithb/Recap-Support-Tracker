@@ -120,7 +120,7 @@
                             <span style="font-size: 15px; line-height: 1;">⚡</span>
                             <div>
                                 <div style="font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; font-weight: 600; font-family: var(--font-mono);">LAYANAN SUPPORT</div>
-                                <div style="font-size: 11.5px; font-weight: 700; color: #ffffff;">Respon Cepat 24/7</div>
+                                <div style="font-size: 11.5px; font-weight: 700; color: #ffffff;">Respon Cepat</div>
                             </div>
                         </div>
 
