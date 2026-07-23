@@ -193,9 +193,6 @@
         
         <!-- Header -->
         <div style="text-align: center; margin-bottom: 24px;">
-            <div style="background: var(--brand-primary-soft, rgba(229, 57, 53, 0.1)); width: 56px; height: 56px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 16px;">
-                <span style="font-size: 28px;">💬</span>
-            </div>
             <h2 style="margin: 0 0 8px 0; font-family: var(--font-display); font-size: calc(20px * var(--text-scale, 1)); font-weight: 700; color: var(--ink);">Hubungi Tim Support</h2>
             <p style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: var(--ink-soft); line-height: 1.5;">
                 Jika Anda mengalami kendala saat login, silakan hubungi tim support kami melalui kontak di bawah ini:
