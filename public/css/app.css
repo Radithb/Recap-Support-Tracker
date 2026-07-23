@@ -72,7 +72,7 @@ body{
   color:var(--ink);
   -webkit-font-smoothing:antialiased;
 }
-::selection{background:var(--amber-soft);}
+::selection{background:rgba(255, 255, 255, 0.25); color:inherit;}
 
 input, select, textarea {
   color: var(--ink);

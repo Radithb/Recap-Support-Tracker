@@ -165,7 +165,7 @@
 
                         {{-- Pesan verifikasi --}}
                         <p class="register-notice" id="register-notice-text">
-                            Akun baru akan diverifikasi oleh Tim Support sebelum dapat digunakan untuk membuat laporan.
+                            Akun baru akan diverifikasi oleh Tim Support sebelum dapat digunakan untuk membuat laporan
                         </p>
 
                         {{-- Tombol aksi --}}

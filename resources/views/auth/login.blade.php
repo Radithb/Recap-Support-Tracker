@@ -96,7 +96,7 @@
                 <div style="margin: auto 0; position: relative; z-index: 10;">
                     <h1 style="margin-top: 0;">Transparansi penuh atas setiap laporan mitra Anda</h1>
                     <p class="desc" style="margin-bottom: 0;">
-                        Setiap kendala yang Anda laporkan langsung masuk ke sistem tiket kami dan ditindaklanjuti oleh tim support yang responsif. Tidak perlu menebak-nebak progresnya status penanganan, riwayat komunikasi, hingga estimasi penyelesaian bisa Anda pantau kapan saja, langsung dari dashboard. Semua terhubung erat dengan seluruh layanan dalam ekosistem SAKTI, SICUNDO, dan mitra pendukung lainnya, sehingga laporan Anda tertangani cepat, akurat, dan tanpa perlu berpindah-pindah platform.
+                        Setiap kendala yang Anda laporkan langsung masuk ke sistem tiket kami dan ditindaklanjuti oleh tim support yang responsif. Tidak perlu menebak-nebak progresnya status penanganan, riwayat komunikasi, hingga estimasi penyelesaian bisa Anda pantau kapan saja, langsung dari dashboard. Semua terhubung erat dengan seluruh layanan dalam ekosistem SAKTI, SICUNDO, dan mitra pendukung lainnya, sehingga laporan Anda tertangani cepat, akurat, dan tanpa perlu berpindah-pindah platform
                     </p>
 
 

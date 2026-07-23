@@ -28,7 +28,7 @@
 
         {{-- Subtitle Description --}}
         <p style="font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; margin: 0 0 28px 0; max-width: 380px; margin-left: auto; margin-right: auto;">
-            Masukkan email terdaftar Anda. Kami akan mengirimkan tautan untuk mengatur ulang kata sandi ke email tersebut.
+            Masukkan email terdaftar Anda. Kami akan mengirimkan tautan untuk mengatur ulang kata sandi ke email tersebut
         </p>
 
         {{-- Success message --}}
