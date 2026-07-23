@@ -800,19 +800,23 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
 }
 .login-split-left .badge-float {
     position: absolute;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-    border-left: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 16px 28px;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: calc(14px * var(--text-scale, 1));
-    color: #f8fafc;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.05) 100%);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-top: 1px solid rgba(255, 255, 255, 0.45);
+    border-left: 1px solid rgba(255, 255, 255, 0.35);
+    padding: 14px 24px;
+    border-radius: 14px;
+    font-weight: 700;
+    font-size: calc(13px * var(--text-scale, 1));
+    color: #ffffff;
+    letter-spacing: 0.02em;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
 @keyframes float-badge {
