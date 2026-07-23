@@ -63,12 +63,22 @@
 
                 <div class="login-panel-card fade-up" style="text-align:left; animation-delay: 0.2s;">
                     {{-- Header --}}
-                    <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:22px;">
+                    <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:18px;">
                         <div>
                             <h1 style="font-family:var(--font-display); font-size: calc(22px * var(--text-scale, 1)); font-weight:600; margin:0 0 4px; color:var(--ink);">{{ __('messages.daftar_akun_baru') }}</h1>
-                            <p style="margin:0; font-size: calc(13px * var(--text-scale, 1)); color:var(--ink-soft); font-family:var(--font-mono);">{{ __('messages.untuk_perwakilan') }}</p>
+                            <p id="header-subtitle" style="margin:0; font-size: calc(13px * var(--text-scale, 1)); color:var(--ink-soft); font-family:var(--font-mono);">{{ __('messages.untuk_perwakilan') }}</p>
                         </div>
                         <a href="{{ route('login') }}" style="color:var(--ink-soft); font-size: calc(20px * var(--text-scale, 1)); text-decoration:none; line-height:1;" title="{{ __('messages.kembali_ke_login') }}">&times;</a>
+                    </div>
+
+                    {{-- Role Selection Tab --}}
+                    <div style="display: flex; gap: 8px; margin-bottom: 22px; background: var(--paper-sunken, #f1f5f9); padding: 4px; border-radius: 12px; border: 1px solid var(--line);">
+                        <button type="button" id="btn-role-pelapor" onclick="selectRole('Pelapor')" style="flex: 1; padding: 10px 14px; border: none; border-radius: 8px; font-weight: 700; font-size: calc(13px * var(--text-scale, 1)); cursor: pointer; transition: all 0.2s; background: var(--paper-raised, #fff); color: var(--brand-primary); box-shadow: 0 2px 6px rgba(0,0,0,0.06); display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <span>🏢</span> Mitra (Pelapor)
+                        </button>
+                        <button type="button" id="btn-role-support" onclick="selectRole('Support')" style="flex: 1; padding: 10px 14px; border: none; border-radius: 8px; font-weight: 700; font-size: calc(13px * var(--text-scale, 1)); cursor: pointer; transition: all 0.2s; background: transparent; color: var(--ink-soft); display: flex; align-items: center; justify-content: center; gap: 8px;">
+                            <span>🎧</span> Tim Support
+                        </button>
                     </div>
 
                     {{-- Flash message sukses --}}
@@ -89,10 +99,11 @@
 
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
+                        <input type="hidden" name="role" id="role_input" value="{{ old('role', 'Pelapor') }}">
 
                         {{-- Baris 1: Nama Koperasi & Nama PIC --}}
-                        <div class="register-grid">
-                            <div class="field {{ $errors->has('nama_instansi') ? 'field-error' : '' }}">
+                        <div class="register-grid" id="baris-1-grid">
+                            <div class="field {{ $errors->has('nama_instansi') ? 'field-error' : '' }}" id="field-instansi">
                                 <label for="nama_instansi">{{ __('messages.nama_koperasi_instansi') }}</label>
                                 <input type="text" id="nama_instansi" name="nama_instansi" value="{{ old('nama_instansi') }}" placeholder="{{ __('messages.cth_koperasi') }}" required>
                                 @error('nama_instansi')
@@ -100,7 +111,7 @@
                                 @enderror
                             </div>
                             <div class="field {{ $errors->has('nama') ? 'field-error' : '' }}">
-                                <label for="nama">Nama PIC</label>
+                                <label for="nama" id="label-nama">Nama PIC</label>
                                 <input type="text" id="nama" name="nama" value="{{ old('nama') }}" placeholder="Nama lengkap PIC" required>
                                 @error('nama')
                                     <span class="field-error-msg">{{ $message }}</span>
@@ -111,7 +122,7 @@
                         {{-- Baris 2: Email & No HP --}}
                         <div class="register-grid">
                             <div class="field {{ $errors->has('email') ? 'field-error' : '' }}">
-                                <label for="email">Email</label>
+                                <label for="email" id="label-email">Email</label>
                                 <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="nama@koperasi.id" required>
                                 @error('email')
                                     <span class="field-error-msg">{{ $message }}</span>
@@ -145,7 +156,7 @@
                         </div>
 
                         {{-- Pesan verifikasi --}}
-                        <p class="register-notice">
+                        <p class="register-notice" id="register-notice-text">
                             Akun baru akan diverifikasi oleh Tim Support sebelum dapat digunakan untuk membuat laporan.
                         </p>
 
@@ -163,14 +174,83 @@
 </div>
 
 <script>
+    function selectRole(role) {
+        const roleInput = document.getElementById('role_input');
+        const btnPelapor = document.getElementById('btn-role-pelapor');
+        const btnSupport = document.getElementById('btn-role-support');
+        const instansiField = document.getElementById('field-instansi');
+        const instansiInput = document.getElementById('nama_instansi');
+        const labelNama = document.getElementById('label-nama');
+        const inputNama = document.getElementById('nama');
+        const labelEmail = document.getElementById('label-email');
+        const inputEmail = document.getElementById('email');
+        const subtitleText = document.getElementById('header-subtitle');
+        const noticeText = document.getElementById('register-notice-text');
+        const gridBaris1 = document.getElementById('baris-1-grid');
+
+        if (!roleInput) return;
+        roleInput.value = role;
+
+        if (role === 'Support') {
+            btnPelapor.style.background = 'transparent';
+            btnPelapor.style.color = 'var(--ink-soft)';
+            btnPelapor.style.boxShadow = 'none';
+
+            btnSupport.style.background = 'var(--paper-raised, #fff)';
+            btnSupport.style.color = 'var(--brand-primary)';
+            btnSupport.style.boxShadow = '0 2px 6px rgba(0,0,0,0.06)';
+
+            if (instansiField) instansiField.style.display = 'none';
+            if (instansiInput) instansiInput.removeAttribute('required');
+
+            if (labelNama) labelNama.innerText = 'Nama Lengkap Support';
+            if (inputNama) inputNama.placeholder = 'Nama lengkap Tim Support';
+
+            if (labelEmail) labelEmail.innerText = 'Email Support';
+            if (inputEmail) inputEmail.placeholder = 'support@skk.co.id';
+
+            if (subtitleText) subtitleText.innerText = 'Untuk tim internal support PT SAKTI';
+            if (noticeText) noticeText.innerText = 'Akun Tim Support baru akan terdaftar sebagai tim penanganan tiket internal.';
+            
+            if (gridBaris1) gridBaris1.style.gridTemplateColumns = '1fr';
+        } else {
+            btnSupport.style.background = 'transparent';
+            btnSupport.style.color = 'var(--ink-soft)';
+            btnSupport.style.boxShadow = 'none';
+
+            btnPelapor.style.background = 'var(--paper-raised, #fff)';
+            btnPelapor.style.color = 'var(--brand-primary)';
+            btnPelapor.style.boxShadow = '0 2px 6px rgba(0,0,0,0.06)';
+
+            if (instansiField) instansiField.style.display = 'block';
+            if (instansiInput) instansiInput.setAttribute('required', 'required');
+
+            if (labelNama) labelNama.innerText = 'Nama PIC';
+            if (inputNama) inputNama.placeholder = 'Nama lengkap PIC';
+
+            if (labelEmail) labelEmail.innerText = 'Email';
+            if (inputEmail) inputEmail.placeholder = 'nama@koperasi.id';
+
+            if (subtitleText) subtitleText.innerText = '{{ __("messages.untuk_perwakilan") }}';
+            if (noticeText) noticeText.innerText = 'Akun baru akan diverifikasi oleh Tim Support sebelum dapat digunakan untuk membuat laporan.';
+            
+            if (gridBaris1) gridBaris1.style.gridTemplateColumns = '1fr 1fr';
+        }
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         const skeleton = document.getElementById('skeleton-loading');
         const content  = document.getElementById('actual-content');
         setTimeout(function () {
-            skeleton.style.display = 'none';
-            content.style.display = 'flex';
-            content.classList.add('loaded');
+            if (skeleton) skeleton.style.display = 'none';
+            if (content) {
+                content.style.display = 'flex';
+                content.classList.add('loaded');
+            }
         }, 800);
+
+        const oldRole = "{{ old('role', 'Pelapor') }}";
+        selectRole(oldRole);
     });
 </script>
 @endsection

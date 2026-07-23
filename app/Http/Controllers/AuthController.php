@@ -71,20 +71,26 @@ class AuthController extends Controller
         $validated = $request->validated();
 
         DB::transaction(function () use ($validated) {
-            // Langkah 1: Cari Instansi yang sudah ada, atau buat baru jika belum ada
-            $instansi = Instansi::firstOrCreate(
-                ['nama_instansi' => $validated['nama_instansi']],
-                ['no_telp'       => $validated['no_hp']]
-            );
+            $role = $validated['role'] ?? UserRole::PELAPOR->value;
+            $instansiId = null;
+            $isVerified = true;
 
-            // Langkah 2: Buat User (Pelapor) terhubung dengan Instansi
+            if ($role === UserRole::PELAPOR->value) {
+                $instansi = Instansi::firstOrCreate(
+                    ['nama_instansi' => $validated['nama_instansi']],
+                    ['no_telp'       => $validated['no_hp']]
+                );
+                $instansiId = $instansi->instansi_id;
+                $isVerified = false; // Akun Pelapor perlu diverifikasi oleh Support
+            }
+
             User::create([
                 'nama'        => $validated['nama'],
                 'email'       => $validated['email'],
                 'password'    => Hash::make($validated['password']),
-                'role'        => UserRole::PELAPOR->value,
-                'instansi_id' => $instansi->instansi_id,
-                'is_verified' => false, // Langkah 3: Harus diverifikasi Tim Support
+                'role'        => $role,
+                'instansi_id' => $instansiId,
+                'is_verified' => $isVerified,
             ]);
         });
 

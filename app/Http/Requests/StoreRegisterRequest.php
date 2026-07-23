@@ -14,7 +14,8 @@ class StoreRegisterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama_instansi' => ['required', 'string', 'max:255'],
+            'role'          => ['required', 'string', 'in:Pelapor,Support'],
+            'nama_instansi' => ['required_if:role,Pelapor', 'nullable', 'string', 'max:255'],
             'nama'          => ['required', 'string', 'max:255'],
             'email'         => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'no_hp'         => ['required', 'string', 'max:20'],
