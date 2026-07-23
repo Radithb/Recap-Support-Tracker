@@ -472,19 +472,20 @@
                     <div class="glass-panel" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; min-width: 0;">
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
                             <div>
-                                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">Knowledge Base FAQ</h3>
-                                <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">Kelola FAQ untuk auto-suggest pelapor dan template jawaban support.</p>
+                                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.knowledge_base_faq') }}</h3>
+                                <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.kelola_faq_desc') }}</p>
                             </div>
-                            <button type="button" onclick="openModal('modal-add-faq')" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--ink); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;">+ Tambah FAQ</button>
+                            <button type="button" onclick="openModal('modal-add-faq')" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--ink); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;">{{ __('messages.tambah_faq') }}</button>
                         </div>
                         <div style="overflow: auto;">
                             <table style="width: 100%; border-collapse: collapse;">
                                 <thead style="background: var(--paper-sunken); position: sticky; top: 0; z-index: 10;">
                                     <tr>
-                                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Pertanyaan</th>
-                                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Kategori</th>
-                                        <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Status</th>
-                                        <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Aksi</th>
+                                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.pertanyaan') }}</th>
+                                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.kategori') }}</th>
+                                        <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.visibility') }}</th>
+                                        <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.status') }}</th>
+                                        <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.aksi') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -498,26 +499,33 @@
                                             {{ $faq->kategori->nama_kategori ?? '-' }}
                                         </td>
                                         <td style="padding: 1.25rem 1.5rem; text-align: center; vertical-align: top;">
+                                            @if($faq->visibility === 'public')
+                                                <span style="background: #dbeafe; color: #2563eb; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">{{ __('messages.public') }}</span>
+                                            @else
+                                                <span style="background: #fef3c7; color: #d97706; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">{{ __('messages.internal') }}</span>
+                                            @endif
+                                        </td>
+                                        <td style="padding: 1.25rem 1.5rem; text-align: center; vertical-align: top;">
                                             <span style="background: {{ $faq->is_active ? 'rgba(34, 197, 94, 0.12)' : 'rgba(239, 68, 68, 0.12)' }}; color: {{ $faq->is_active ? '#16a34a' : '#ef4444' }}; padding: 0.3rem 0.8rem; border-radius: 6px; font-size: 0.8rem; font-weight: 600;">
-                                                {{ $faq->is_active ? 'Aktif' : 'Nonaktif' }}
+                                                {{ $faq->is_active ? __('messages.aktif') : __('messages.nonaktif') }}
                                             </span>
                                         </td>
                                         <td style="padding: 1.25rem 1.5rem; text-align: center; vertical-align: top; position: relative;">
                                             <div style="position: relative; display: inline-block;">
-                                                <button type="button" onclick="toggleMdDropdown(event, 'dropdown-faq-{{ $faq->faq_id }}')" style="background: var(--paper-raised); border: 1.5px solid var(--line); border-radius: 8px; width: 32px; height: 32px; cursor: pointer; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--border-hover)'; this.style.background='var(--paper-sunken)'" onmouseout="this.style.borderColor='var(--line)'; this.style.background='var(--paper-raised)'" title="Aksi">
+                                                <button type="button" onclick="toggleMdDropdown(event, 'dropdown-faq-{{ $faq->faq_id }}')" style="background: var(--paper-raised); border: 1.5px solid var(--line); border-radius: 8px; width: 32px; height: 32px; cursor: pointer; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--border-hover)'; this.style.background='var(--paper-sunken)'" onmouseout="this.style.borderColor='var(--line)'; this.style.background='var(--paper-raised)'" title="{{ __('messages.aksi') }}">
                                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg>
                                                 </button>
                                                 <div id="dropdown-faq-{{ $faq->faq_id }}" class="md-dropdown-menu" style="display: none; position: absolute; right: 0; top: calc(100% + 4px); background: var(--paper-raised); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15); min-width: 140px; z-index: 100; text-align: left; padding: 6px; backdrop-filter: blur(8px);">
                                                     <button type="button" onclick="openModal('modal-edit-faq-{{ $faq->faq_id }}'); closeAllMdDropdowns();" style="width: 100%; background: none; border: none; padding: 8px 12px; text-align: left; font-size: 0.85rem; font-weight: 500; color: var(--ink); cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: 6px;" onmouseover="this.style.background='var(--paper-sunken)'" onmouseout="this.style.background='none'">
                                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                                        Edit FAQ
+                                                        {{ __('messages.edit_faq') }}
                                                     </button>
-                                                    <form action="{{ route('support.master-data.faq.destroy', $faq->faq_id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus FAQ ini?');" style="margin: 0;">
+                                                    <form action="{{ route('support.master-data.faq.destroy', $faq->faq_id) }}" method="POST" onsubmit="return confirm('{{ __('messages.yakin_hapus_faq') }}');" style="margin: 0;">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" onclick="closeAllMdDropdowns();" style="width: 100%; background: none; border: none; padding: 8px 12px; text-align: left; font-size: 0.85rem; font-weight: 500; color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: 6px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'">
                                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                                            Hapus
+                                                            {{ __('messages.hapus') }}
                                                         </button>
                                                     </form>
                                                 </div>
@@ -528,7 +536,7 @@
                                     <tr>
                                         <td colspan="5" style="padding: 3rem 1.5rem; text-align: center; color: var(--text-muted); font-size: 0.9rem;">
                                             <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 8px; opacity: 0.4;"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-                                            <div>Belum ada FAQ. Klik tombol <strong>"+ Tambah FAQ"</strong> untuk menambahkan.</div>
+                                            <div>{{ __('messages.belum_ada_faq') }}</div>
                                         </td>
                                     </tr>
                                     @endforelse
@@ -672,8 +680,8 @@
         <div class="modal w-sm">
             <div class="modal-head">
                 <div>
-                    <h3>Tambah FAQ Baru</h3>
-                    <p>FAQ akan tersedia sebagai auto-suggest dan template jawaban</p>
+                    <h3>{{ __('messages.tambah_faq_baru') }}</h3>
+                    <p>{{ __('messages.tambah_faq_desc') }}</p>
                 </div>
                 <button type="button" class="modal-x" onclick="closeModal('modal-add-faq')">✕</button>
             </div>
@@ -681,26 +689,33 @@
                 @csrf
                 <div class="modal-body">
                     <div class="field">
-                        <label>Kategori Kendala <span style="color:var(--danger)">*</span></label>
+                        <label>{{ __('messages.kategori_kendala') }} <span style="color:var(--danger)">*</span></label>
                         <select name="kategori_id" required style="width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink); font-size: 0.9rem;">
-                            <option value="">-- Pilih Kategori --</option>
+                            <option value="">{{ __('messages.pilih_kategori') }}</option>
                             @foreach($kategoris as $kat)
                                 <option value="{{ $kat->kategori_id }}">{{ $kat->nama_kategori }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="field">
-                        <label>Pertanyaan <span style="color:var(--danger)">*</span></label>
-                        <input type="text" name="pertanyaan" required placeholder="Contoh: Bagaimana cara reset password?">
+                        <label>{{ __('messages.pertanyaan') }} <span style="color:var(--danger)">*</span></label>
+                        <input type="text" name="pertanyaan" required placeholder="{{ __('messages.contoh_pertanyaan') }}">
                     </div>
                     <div class="field">
-                        <label>Jawaban <span style="color:var(--danger)">*</span></label>
-                        <textarea name="jawaban" required placeholder="Tulis jawaban lengkap di sini..." rows="4"></textarea>
+                        <label>{{ __('messages.jawaban') }} <span style="color:var(--danger)">*</span></label>
+                        <textarea name="jawaban" required placeholder="{{ __('messages.tulis_jawaban') }}" rows="4"></textarea>
+                    </div>
+                    <div class="field">
+                        <label>{{ __('messages.visibility') }} <span style="color:var(--danger)">*</span></label>
+                        <select name="visibility" required style="width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink); font-size: 0.9rem;">
+                            <option value="public">{{ __('messages.visibility_public_desc') }}</option>
+                            <option value="internal">{{ __('messages.visibility_internal_desc') }}</option>
+                        </select>
                     </div>
                 </div>
                 <div class="modal-foot">
-                    <button type="button" class="btn btn-ghost" onclick="closeModal('modal-add-faq')">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan FAQ</button>
+                    <button type="button" class="btn btn-ghost" onclick="closeModal('modal-add-faq')">{{ __('messages.batal') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('messages.simpan_faq') }}</button>
                 </div>
             </form>
         </div>
@@ -712,8 +727,8 @@
         <div class="modal w-sm">
             <div class="modal-head">
                 <div>
-                    <h3>Edit FAQ</h3>
-                    <p>Ubah pertanyaan, jawaban, atau visibility FAQ</p>
+                    <h3>{{ __('messages.edit_faq') }}</h3>
+                    <p>{{ __('messages.edit_faq_desc') }}</p>
                 </div>
                 <button type="button" class="modal-x" onclick="closeModal('modal-edit-faq-{{ $faq->faq_id }}')">✕</button>
             </div>
@@ -722,7 +737,7 @@
                 @method('PUT')
                 <div class="modal-body">
                     <div class="field">
-                        <label>Kategori Kendala <span style="color:var(--danger)">*</span></label>
+                        <label>{{ __('messages.kategori_kendala') }} <span style="color:var(--danger)">*</span></label>
                         <select name="kategori_id" required style="width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink); font-size: 0.9rem;">
                             @foreach($kategoris as $kat)
                                 <option value="{{ $kat->kategori_id }}" {{ $faq->kategori_id == $kat->kategori_id ? 'selected' : '' }}>{{ $kat->nama_kategori }}</option>
@@ -730,23 +745,34 @@
                         </select>
                     </div>
                     <div class="field">
-                        <label>Pertanyaan <span style="color:var(--danger)">*</span></label>
+                        <label>{{ __('messages.pertanyaan') }} <span style="color:var(--danger)">*</span></label>
                         <input type="text" name="pertanyaan" required value="{{ $faq->pertanyaan }}">
                     </div>
                     <div class="field">
-                        <label>Jawaban <span style="color:var(--danger)">*</span></label>
+                        <label>{{ __('messages.jawaban') }} <span style="color:var(--danger)">*</span></label>
                         <textarea name="jawaban" required rows="4">{{ $faq->jawaban }}</textarea>
-                    <div class="field">
-                        <label>Status <span style="color:var(--danger)">*</span></label>
-                        <select name="is_active" required style="width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink); font-size: 0.9rem;">
-                            <option value="1" {{ $faq->is_active ? 'selected' : '' }}>Aktif</option>
-                            <option value="0" {{ !$faq->is_active ? 'selected' : '' }}>Nonaktif</option>
-                        </select>
+                    </div>
+                    <div class="grid2">
+                        <div class="field">
+                            <label>{{ __('messages.visibility') }} <span style="color:var(--danger)">*</span></label>
+                            <select name="visibility" required style="width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink); font-size: 0.9rem;">
+                                <option value="public" {{ $faq->visibility === 'public' ? 'selected' : '' }}>{{ __('messages.public') }}</option>
+                                <option value="internal" {{ $faq->visibility === 'internal' ? 'selected' : '' }}>{{ __('messages.internal') }}</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>{{ __('messages.status') }} <span style="color:var(--danger)">*</span></label>
+                            <select name="is_active" required style="width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink); font-size: 0.9rem;">
+                                <option value="1" {{ $faq->is_active ? 'selected' : '' }}>{{ __('messages.aktif') }}</option>
+                                <option value="0" {{ !$faq->is_active ? 'selected' : '' }}>{{ __('messages.nonaktif') }}</option>
+                            </select>
+                        </div>
+                    </div>
                     </div>
                 </div>
                 <div class="modal-foot">
-                    <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-faq-{{ $faq->faq_id }}')">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-faq-{{ $faq->faq_id }}')">{{ __('messages.batal') }}</button>
+                    <button type="submit" class="btn btn-primary">{{ __('messages.simpan_perubahan') }}</button>
                 </div>
             </form>
         </div>
