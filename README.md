@@ -20,45 +20,45 @@ Sistem manajemen tiket support terpadu untuk instansi/koperasi dengan antarmuka 
 
 **Recap Support Tracker** adalah aplikasi web berbasis Laravel yang dirancang untuk memudahkan pengelolaan tiket support, pelaporan, dan rekapitulasi antar instansi atau koperasi. Sistem ini menyediakan solusi terpadu untuk manajemen tiket support dengan antarmuka yang intuitif dan responsif.
 
-## <img src="public/icons/star-white.png" width="24" height="24" valign="middle"> Fitur Utama
+## Fitur Utama
 
-### <img src="public/icons/padlock-white.png" width="22" height="22" valign="middle"> Multi-Role Authentication
+### Multi-Role Authentication
 - Sistem pembagian hak akses untuk **Tim Support** dan **Pelapor** (Koperasi/Instansi)
 - Dashboard yang disesuaikan untuk masing-masing peran
 - Manajemen akses berbasis role yang fleksibel
 
-### <img src="public/icons/data-white.png" width="22" height="22" valign="middle"> Manajemen Laporan & Rekapitulasi
+### Manajemen Laporan & Rekapitulasi
 - Pembuatan dan pelacakan tiket bantuan yang terstruktur
 - Sistem rekapitulasi otomatis untuk pelaporan berkala
 - Respon dan penyelesaian tiket dengan status tracking real-time
 - Export laporan dalam berbagai format
 
-### <img src="public/icons/company-white.png" width="22" height="22" valign="middle"> Profil Identitas Digital
+### Profil Identitas Digital
 - Kartu identitas anggota digital terintegrasi
 - Manajemen foto profil dan data pribadi
 - Informasi koperasi dan nomor anggota
 - Sistem verifikasi status anggota
 
-### <img src="public/icons/setting-white.png" width="22" height="22" valign="middle"> Personalisasi & Pengaturan
+### Personalisasi & Pengaturan
 - **Tema Dinamis**: Mode Gelap & Mode Terang
 - **Aksesibilitas**: Penyesuaian ukuran teks untuk kenyamanan membaca
 - **Multibahasa**: Dukungan Bahasa Indonesia & Inggris
 - Preferensi pengguna yang tersimpan otomatis
 
-### <img src="public/icons/padlock-white.png" width="22" height="22" valign="middle"> Keamanan Akun
+### Keamanan Akun
 - Enkripsi password tingkat enterprise
 - Validasi input untuk mencegah SQL Injection
 - CSRF protection
 - Session management yang aman
 
-### <img src="public/icons/application-white.png" width="22" height="22" valign="middle"> UI/UX Modern
+### UI/UX Modern
 - Desain antarmuka yang **responsif** dan mobile-friendly
 - Animasi transisi halus untuk pengalaman pengguna yang mulus
 - Efek **glassmorphism** yang modern
 - **Skeleton loading state** untuk feedback pengguna
 - Desain yang intuitif dan user-friendly
 
-## <img src="public/icons/monitor-white.png" width="20" height="20" valign="middle"> Tech Stack
+## Tech Stack
 
 | Layer | Teknologi |
 |-------|-----------|
@@ -67,7 +67,7 @@ Sistem manajemen tiket support terpadu untuk instansi/koperasi dengan antarmuka 
 | **Frontend** | Blade Templating, Vanilla CSS, Vanilla JavaScript |
 | **Package Manager** | Composer, NPM |
 
-## <img src="public/icons/cpu-white.png" width="24" height="24" valign="middle"> Persyaratan Sistem
+## Persyaratan Sistem
 
 Sebelum memulai, pastikan Anda memiliki:
 
@@ -77,31 +77,31 @@ Sebelum memulai, pastikan Anda memiliki:
 - **MySQL** >= 8.0
 - **Git**
 
-## <img src="public/icons/camera-white.png" width="24" height="24" valign="middle"> Preview
+## Preview
 
 <div align="center">
 
 ---
 
-### <img src="public/icons/avatar-white.png" width="24" height="24" valign="middle"> Tampilan Peran: Tim Support
+### Tampilan Peran: Tim Support
 
 *Antarmuka yang dirancang khusus untuk petugas support dalam mengelola, merespons, dan menindaklanjuti setiap tiket bantuan.*
 
 <br>
 
-#### <img src="public/icons/monitor-white.png" width="20" height="20" valign="middle"> Dashboard Utama Support
+#### Dashboard Utama Support
 ![Dashboard Support](https://github.com/user-attachments/assets/832a83e3-8516-4ea7-93bc-e35ce884e5da)
 *Pemantauan statistik tiket, grafik distribusi status (Open, Proses, Pending, Done), serta daftar tiket aktif secara real-time.*
 
 <br>
 
-#### <img src="public/icons/fast-response-white.png" width="22" height="22" valign="middle"> Modal Update Tiket & Respons
+#### Modal Update Tiket & Respons
 ![Update Tiket](https://github.com/user-attachments/assets/d3a4805b-ae18-44e7-a555-99ee79c3016c)
 *Form modal interaktif untuk memperbarui status tiket, menambahkan jawaban/respons tim support, serta mengelola lampiran berkas.*
 
 <br>
 
-#### <img src="public/icons/folder-white.png" width="22" height="22" valign="middle"> Manajemen Master Data
+#### Manajemen Master Data
 ![Master Data](https://github.com/user-attachments/assets/f18c08cf-35ad-4395-b466-3b5e7a415c61) 
 *Halaman kelola data master aplikasi, kategori kendala, daftar instansi/koperasi, serta hak akses PIC support secara terpusat.*
 
@@ -109,31 +109,31 @@ Sebelum memulai, pastikan Anda memiliki:
 
 ---
 
-### <img src="public/icons/group-white.png" width="24" height="24" valign="middle"> Tampilan Peran: Pelapor (Koperasi / Instansi)
+### Tampilan Peran: Pelapor (Koperasi / Instansi)
 
 *Antarmuka intuitif bagi pelapor untuk mengajukan laporan kendala baru dan memantau status tindak lanjutnya.*
 
 <br>
 
-#### <img src="public/icons/monitor-white.png" width="20" height="20" valign="middle"> Dashboard Pelapor
+#### Dashboard Pelapor
 ![Dashboard Pelapor](https://github.com/user-attachments/assets/9973bf08-2b9c-4646-92de-f61b36d8583d)
 *Ringkasan statistik laporan pengguna, status penanganan terkini, serta tabel riwayat seluruh tiket kendala.*
 
 <br>
 
-#### <img src="public/icons/contract-white.png" width="20" height="20" valign="middle"> Form Buat Laporan Baru
+#### Form Buat Laporan Baru
 ![Buat Laporan Baru](https://github.com/user-attachments/assets/b52528d0-9d13-4055-846d-111a281ac15f) 
 *Form pengajuan tiket kendala baru yang praktis dengan pemilihan jenis aplikasi, kategori masalah, uraian detail, dan upload foto lampiran.*
 
 <br>
 
-#### <img src="public/icons/file-baru.png" width="20" height="20" valign="middle"> Detail & Status Laporan
+#### Detail & Status Laporan
 ![Detail Laporan](https://github.com/user-attachments/assets/b4d0b46b-ee36-4013-9c2b-614f2e2a4d85)
 *Tampilan rincian informasi tiket, kronologi progress penanganan dari petugas support, dan jawaban solusi akhir.*
 
 </div>
 
-## <img src="public/icons/download-white.png" width="24" height="24" valign="middle"> Panduan Instalasi
+## Panduan Instalasi
 
 ### 1️. Clone Repositori
 
@@ -210,7 +210,7 @@ npm run dev
 npm run build
 ```
 
-## <img src="public/icons/wrench-white.png" width="24" height="24" valign="middle"> Konfigurasi Lanjutan
+## Konfigurasi Lanjutan
 
 ### Setup Database
 
@@ -236,7 +236,7 @@ MAIL_ENCRYPTION=ssl
 MAIL_FROM_ADDRESS=noreply@example.com
 ```
 
-## <img src="public/icons/folder-white.png" width="24" height="24" valign="middle"> Dokumentasi
+## Dokumentasi
 
 ### Struktur Direktori
 
@@ -273,7 +273,7 @@ Recap-Support-Tracker/
 - **User Profile**: Manajemen profil dan identitas digital
 - **Settings**: Personalisasi theme, language, dan preferences
 
-## <img src="public/icons/working-white.png" width="24" height="24" valign="middle"> Penggunaan
+## Penggunaan
 
 ### Login ke Sistem
 
@@ -295,7 +295,7 @@ Recap-Support-Tracker/
 3. Pantau progres secara real-time
 
 
-## <img src="public/icons/contract-white.png" width="24" height="24" valign="middle"> Commit Message Guidelines
+## Commit Message Guidelines
 
 Gunakan format conventional commits:
 
@@ -308,7 +308,7 @@ refactor: Refactor code
 test: Add tests
 ```
 
-## <img src="public/icons/bug-white.png" width="24" height="24" valign="middle"> Lapor Bug
+## Lapor Bug
 
 Jika Anda menemukan bug, silakan buat [Issue](https://github.com/Radithb/Recap-Support-Tracker/issues) dengan detail:
 
@@ -318,11 +318,11 @@ Jika Anda menemukan bug, silakan buat [Issue](https://github.com/Radithb/Recap-S
 - Actual behavior
 - Screenshot (jika relevan)
 
-## <img src="public/icons/file-baru.png" width="24" height="24" valign="middle"> Lisensi
+## Lisensi
 
 Proyek ini dilisensikan di bawah lisensi MIT - lihat file [LICENSE](LICENSE) untuk detail.
 
-## <img src="public/icons/group-white.png" width="24" height="24" valign="middle"> Kontak & Support
+## Kontak & Support
 
 - **Email**: [mradithn@gmail.com]
 - **GitHub Issues**: [Report an Issue](https://github.com/Radithb/Recap-Support-Tracker/issues)
