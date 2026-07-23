@@ -728,8 +728,8 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
     z-index: 10;
 }
 .login-split-left .brand img {
-    width: 38px;
-    height: 38px;
+    width: 48px;
+    height: 48px;
     object-fit: contain;
 }
 .login-split-left .brand-text h2 {
