@@ -411,7 +411,7 @@ return [
     'tiket' => 'Tickets',
     'kembali_ke_recap_support' => 'Back to Support Recap',
     'laporan_detail_support_bulan' => 'Detailed Support Report :month :year',
-    'desc_recap_detail' => 'Details per ticket — data source for both recaps above (Category & PIC). Columns match Support Team Excel file.',
+    'desc_recap_detail' => 'Details per ticket — data source for both recaps above (Category & PIC). Columns match Support Team Excel file',
     'jumlah_data' => 'Total Data',
     'no' => 'NO',
     'no_telepon' => 'PHONE NUMBER',

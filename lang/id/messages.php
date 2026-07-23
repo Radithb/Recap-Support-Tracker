@@ -412,7 +412,7 @@ return [
     'tiket' => 'Tiket',
     'kembali_ke_recap_support' => 'Kembali ke Rekap Support',
     'laporan_detail_support_bulan' => 'Laporan Detail Support :month :year',
-    'desc_recap_detail' => 'Rincian per tiket — sumber data untuk kedua rekap di atas (Kategori & PIC). Kolom sama seperti file Excel Tim Support.',
+    'desc_recap_detail' => 'Rincian per tiket — sumber data untuk kedua rekap di atas (Kategori & PIC). Kolom sama seperti file Excel Tim Support',
     'jumlah_data' => 'Jumlah Data',
     'no' => 'NO',
     'no_telepon' => 'NO TELEPON',
