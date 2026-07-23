@@ -1,6 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
+<style>
+    /* Perkecil jarak antar elemen agar tampilan lebih compact */
+    .register-grid .field { margin-bottom: 14px !important; }
+    .login-panel-card { padding: 24px 28px !important; }
+    .login-box { margin-top: -20px; }
+    .register-actions { margin-top: 14px !important; }
+    .register-notice { margin-top: 14px !important; }
+    .login-brandmark { margin-bottom: 20px !important; }
+    input[type="text"], input[type="email"], input[type="password"] {
+        padding: 10px 14px !important;
+    }
+    label { margin-bottom: 6px !important; }
+</style>
 <div class="login-wrap">
     {{-- ═══════════════════════════════════════════ --}}
     {{-- SKELETON LOADING STATE                      --}}
@@ -158,10 +171,13 @@
 
                         {{-- Tombol aksi --}}
                         <div class="register-actions">
-                            <a href="{{ route('login') }}" class="btn btn-ghost" style="flex:1; justify-content:center;">{{ __('messages.sudah_punya_akun') }} Masuk</a>
-                            <button type="submit" class="btn btn-primary" style="flex:1; justify-content:center;">Daftar Akun</button>
+                            <button type="submit" class="btn btn-primary" style="width: 100%; justify-content:center;">Daftar Akun</button>
                         </div>
                     </form>
+                </div>
+
+                <div class="fade-up" style="animation-delay: 0.25s; text-align: center; margin-top: 20px; font-size: calc(12.5px * var(--text-scale, 1)); color: var(--ink-soft);">
+                    {{ __('messages.sudah_punya_akun') }} <a href="{{ route('login') }}" style="color: var(--brand-primary); font-weight: 700; text-decoration: underline;">Masuk di sini</a>
                 </div>
 
             </div>
