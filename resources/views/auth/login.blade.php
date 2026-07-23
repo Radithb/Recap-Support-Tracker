@@ -136,7 +136,7 @@
 
                 {{-- Footer Info --}}
                 <div style="margin-top: auto; position: relative; z-index: 10; font-size: 11px; color: rgba(255, 255, 255, 0.5); font-family: var(--font-mono); display: flex; align-items: center; gap: 10px; padding-top: 24px;">
-                    <span>&copy; {{ date('Y') }} PT SAKTI Kinerja Kolaborasindo</span>
+                    <span>&copy; PT SAKTI Kinerja Kolaborasindo</span>
                     <span>&bull;</span>
                     <span>Portal Pelaporan Mitra</span>
                 </div>
