@@ -108,16 +108,15 @@
                 </div>
 
                 <div class="badges-bg">
-                    <div class="badge-float" style="top: 35%; right: 18%; transform: scale(0.8); opacity: 0.5; backdrop-filter: blur(4px);">SAKTI Multiusaha</div>
-                    <div class="badge-float" style="top: 48%; right: 2%; transform: scale(1.15); opacity: 0.95; box-shadow: 0 15px 30px rgba(0,0,0,0.3);">SICUNDO SAKTI</div>
-                    <div class="badge-float" style="top: 55%; right: 26%; transform: scale(0.9); opacity: 0.7;">SAKTI.Link</div>
-                    <div class="badge-float" style="top: 68%; right: 8%; transform: scale(1.2); opacity: 1; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">LACI</div>
-                    <div class="badge-float" style="top: 76%; right: 28%; transform: scale(0.85); opacity: 0.6;">SAKTI Mobile</div>
-                    <div class="badge-float" style="top: 86%; right: 4%; transform: scale(1.05); opacity: 0.85;">SICUNDO KU</div>
-                    <div class="badge-float" style="top: 94%; right: 22%; transform: scale(0.75); opacity: 0.45; backdrop-filter: blur(2px);">SAKTI Retail</div>
-                    <div class="badge-float" style="top: 102%; right: -2%; transform: scale(0.95); opacity: 0.8;">Transaksi SAKTI.Link</div>
+                    <div class="badge-float" style="top: 12%; right: 15%; --scale: 0.8; opacity: 0.5; animation: float-badge 6s ease-in-out infinite;">SAKTI Multiusaha</div>
+                    <div class="badge-float" style="top: 24%; right: 2%; --scale: 1.15; opacity: 0.95; animation: float-badge-alt 8s ease-in-out infinite; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">SICUNDO SAKTI</div>
+                    <div class="badge-float" style="top: 36%; right: 22%; --scale: 0.9; opacity: 0.7; animation: float-badge 7s ease-in-out infinite 1s;">SAKTI.Link</div>
+                    <div class="badge-float" style="top: 48%; right: 5%; --scale: 1.2; opacity: 1; animation: float-badge-alt 7.5s ease-in-out infinite 0.5s; box-shadow: 0 25px 50px rgba(0,0,0,0.4);">LACI</div>
+                    <div class="badge-float" style="top: 60%; right: 20%; --scale: 0.85; opacity: 0.6; animation: float-badge 6.5s ease-in-out infinite 1.5s;">SAKTI Mobile</div>
+                    <div class="badge-float" style="top: 70%; right: 3%; --scale: 1.05; opacity: 0.85; animation: float-badge-alt 8.5s ease-in-out infinite 0.2s;">SICUNDO KU</div>
+                    <div class="badge-float" style="top: 80%; right: 24%; --scale: 0.75; opacity: 0.45; animation: float-badge 6s ease-in-out infinite 2s;">SAKTI Retail</div>
+                    <div class="badge-float" style="top: 88%; right: 8%; --scale: 0.95; opacity: 0.8; animation: float-badge-alt 7s ease-in-out infinite 1s; box-shadow: 0 15px 30px rgba(0,0,0,0.2);">Transaksi SAKTI.Link</div>
                 </div>
-
 
             </div>
 
@@ -163,12 +162,12 @@
                                 <a href="#" style="color: var(--brand-primary); font-weight: 600; text-decoration: underline;">Lupa kata sandi?</a>
                             </div>
 
-                            <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; background: #e53935; border: none; color: white;">Masuk ke Dashboard &rarr;</button>
+                            <button type="submit" class="btn" style="width: 100%; justify-content: center; background: linear-gradient(135deg, #2563eb, #1d4ed8); border: none; color: white; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3); transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(37, 99, 235, 0.4)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 14px rgba(37, 99, 235, 0.3)';">Masuk ke Dashboard &rarr;</button>
                         </form>
 
                         <div class="register-prompt" style="position: relative; margin-top: 32px; border-top: none; padding-top: 24px;">
-                            <div style="position: absolute; top: -7px; left: 50%; transform: translateX(-50%); background: var(--paper-raised); padding: 0 10px; font-size: calc(11px * var(--text-scale, 1)); color: var(--ink-soft); font-family: var(--font-mono);">atau</div>
-                            <div style="position: absolute; top: 0; left: 0; right: 0; border-top: 1px solid var(--line);"></div>
+                            <div style="position: absolute; top: -7px; left: 50%; transform: translateX(-50%); background: var(--paper-raised); padding: 0 10px; font-size: calc(11px * var(--text-scale, 1)); color: var(--ink-soft); font-family: var(--font-mono); z-index: 2;">atau</div>
+                            <div style="position: absolute; top: 0; left: 0; right: 0; border-top: 1px solid var(--line); z-index: 1;"></div>
                             Belum mempunyai akun? <a href="{{ route('register') }}" style="color: var(--brand-primary); font-weight: 700; text-decoration: underline;">Daftar sebagai mitra</a>
                         </div>
                     </div>
