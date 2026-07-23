@@ -19,6 +19,15 @@ Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'storeRegister']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+// Lupa Kata Sandi & Verifikasi OTP
+Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.request');
+Route::post('/forgot-password', [AuthController::class, 'sendOtp'])->name('password.email');
+Route::get('/verify-otp', [AuthController::class, 'showVerifyOtp'])->name('password.otp');
+Route::post('/verify-otp', [AuthController::class, 'verifyOtp'])->name('password.verify_otp');
+Route::post('/resend-otp', [AuthController::class, 'resendOtp'])->name('password.resend_otp');
+Route::get('/reset-password', [AuthController::class, 'showResetPassword'])->name('password.reset');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profil-instansi', function () {
         $aplikasis = \App\Models\MasterAplikasi::where('is_active', true)->get();
