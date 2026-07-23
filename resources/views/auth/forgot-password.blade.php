@@ -12,20 +12,9 @@
         </div>
     </div>
 
+
     {{-- Main Card --}}
     <div class="login-panel-card fade-up" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 24px; padding: 36px 32px; max-width: 460px; width: 100%; box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08); text-align: center; position: relative;">
-        
-        {{-- Back to login link --}}
-        <div style="margin-bottom: 24px; text-align: center;">
-            <a href="{{ route('login') }}" style="color: #475569; font-weight: 600; font-size: 13.5px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; transition: color 0.2s;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='#475569'">
-                &larr; {{ __('messages.kembali_ke_login') }}
-            </a>
-        </div>
-
-        {{-- Lock Icon --}}
-        <div style="font-size: 36px; margin-bottom: 16px; line-height: 1;">
-            🔒
-        </div>
 
         {{-- Eyebrow --}}
         <div style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #17447e; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 8px;">
