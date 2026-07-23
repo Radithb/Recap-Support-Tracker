@@ -394,6 +394,11 @@
                             </button>
                         </div>
                         <textarea name="penyelesaian" id="penyelesaian_{{ $t->ticket_id }}" style="min-height: 90px;" placeholder="{{ __('messages.langkah_perbaikan') }}">{{ $t->penyelesaian }}</textarea>
+                        
+                        <label style="display: flex; align-items: center; gap: 8px; margin-top: 8px; cursor: pointer; font-size: 0.8rem; color: var(--ink); font-weight: 500; background: var(--paper-sunken); padding: 8px 12px; border-radius: 6px; border: 1px dashed var(--line);">
+                            <input type="checkbox" name="is_faq" value="1" style="width: 16px; height: 16px; cursor: pointer; accent-color: var(--brand-primary);">
+                            <span>Tandai sebagai FAQ <span style="color: var(--text-muted); font-weight: 400;">(Otomatis simpan ke Knowledge Base Internal)</span></span>
+                        </label>
                     </div>
 
                     <div class="field">
