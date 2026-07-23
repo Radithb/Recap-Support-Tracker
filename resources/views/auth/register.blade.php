@@ -66,7 +66,7 @@
                     <div style="display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:18px;">
                         <div>
                             <h1 style="font-family:var(--font-display); font-size: calc(22px * var(--text-scale, 1)); font-weight:600; margin:0 0 4px; color:var(--ink);">{{ __('messages.daftar_akun_baru') }}</h1>
-                            <p id="header-subtitle" style="margin:0; font-size: calc(13px * var(--text-scale, 1)); color:var(--ink-soft); font-family:var(--font-mono);">{{ __('messages.untuk_perwakilan') }}</p>
+                            <p id="header-subtitle" style="margin:0; font-size: calc(13px * var(--text-scale, 1)); color:var(--ink-soft); font-family:var(--font-mono);">Lengkapi data di bawah sesuai peran Anda</p>
                         </div>
                         <a href="{{ route('login') }}" style="color:var(--ink-soft); font-size: calc(20px * var(--text-scale, 1)); text-decoration:none; line-height:1;" title="{{ __('messages.kembali_ke_login') }}">&times;</a>
                     </div>
@@ -209,7 +209,6 @@
             if (labelEmail) labelEmail.innerText = 'Email Support';
             if (inputEmail) inputEmail.placeholder = 'support@skk.co.id';
 
-            if (subtitleText) subtitleText.innerText = 'Untuk tim internal support PT SAKTI';
             if (noticeText) noticeText.innerText = 'Akun Tim Support baru akan terdaftar sebagai tim penanganan tiket internal.';
             
             if (gridBaris1) gridBaris1.style.gridTemplateColumns = '1fr';
@@ -231,7 +230,6 @@
             if (labelEmail) labelEmail.innerText = 'Email';
             if (inputEmail) inputEmail.placeholder = 'nama@koperasi.id';
 
-            if (subtitleText) subtitleText.innerText = '{{ __("messages.untuk_perwakilan") }}';
             if (noticeText) noticeText.innerText = 'Akun baru akan diverifikasi oleh Tim Support sebelum dapat digunakan untuk membuat laporan.';
             
             if (gridBaris1) gridBaris1.style.gridTemplateColumns = '1fr 1fr';
