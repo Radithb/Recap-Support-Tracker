@@ -41,7 +41,7 @@
 
             <!-- Right Column Skeleton -->
             <div class="login-split-right">
-                <div class="login-box" style="margin: 0 auto; max-width: 420px; width: 100%;">
+                <div class="login-box" style="margin: 0 auto; max-width: 380px; width: 100%;">
                     <div class="login-panel-card" style="border: 1px solid var(--line); padding: 28px 32px; border-radius: 20px; background: #fff;">
                         <!-- Centered headers -->
                         <div class="skel" style="width: 140px; height: 12px; margin: 0 auto 8px auto; opacity: 0.1; border-radius: 4px;"></div>
@@ -115,7 +115,7 @@
 
             <!-- Right Column -->
             <div class="login-split-right">
-                <div class="login-box fade-up" style="animation-delay: 0.15s; margin: 0 auto; max-width: 420px; width: 100%;">
+                <div class="login-box fade-up" style="animation-delay: 0.15s; margin: 0 auto; max-width: 380px; width: 100%;">
                     <div class="login-panel-card fade-up" style="animation-delay: 0.2s;">
                         <p class="eyebrow" style="color: var(--amber); margin-bottom: 6px;">{{ __('messages.masuk_ke_akun') }}</p>
                         <h1 style="margin-bottom: 4px; font-size: calc(24px * var(--text-scale, 1));">Login</h1>
