@@ -51,8 +51,6 @@ Route::middleware(['auth', IsPelapor::class])->prefix('pelapor')->name('pelapor.
     Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('tickets.destroy');
     Route::view('/bantuan', 'pelapor.bantuan')->name('bantuan');
 
-    // FAQ Auto-Suggest (AJAX endpoint untuk Pelapor)
-    Route::get('/faq/suggest/{kategoriId}', [FaqController::class, 'suggestByKategori'])->name('faq.suggest');
 });
 
 // Akses Support

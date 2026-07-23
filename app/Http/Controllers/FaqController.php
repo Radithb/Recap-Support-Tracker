@@ -68,20 +68,6 @@ class FaqController extends Controller
     }
 
     /**
-     * API/JSON: Auto-suggest FAQ public berdasarkan kategori_id (untuk Pelapor via AJAX)
-     */
-    public function suggestByKategori($kategoriId)
-    {
-        $faqs = Faq::where('kategori_id', $kategoriId)
-                    ->active()
-                    ->public()
-                    ->select('faq_id', 'pertanyaan', 'jawaban')
-                    ->get();
-
-        return response()->json($faqs);
-    }
-
-    /**
      * API/JSON: Semua FAQ aktif (public + internal) untuk Support (insert to modal)
      */
     public function allForSupport(Request $request)
