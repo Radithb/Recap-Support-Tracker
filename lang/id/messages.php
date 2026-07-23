@@ -74,7 +74,7 @@ return [
     'halo' => 'Halo',
     'selamat_datang' => 'Selamat datang di Recap Mitra Tracker. Bagaimana kami bisa membantu hari ini?',
     'ada_kendala' => 'Ada kendala aplikasi hari ini?',
-    'laporkan_sekali' => 'Laporkan sekali, pantau statusnya real-time — tim kami menindak lanjuti setiap tiket dari lapor hingga selesai',
+    'laporkan_sekali' => 'Laporkan sekali, pantau statusnya real-time — tim kami menindaklanjuti setiap tiket dari lapor hingga selesai',
     'buat_laporan_baru' => 'Buat Laporan Baru',
     'open_proses' => 'Open / Proses',
     'pending_butuh_info' => 'Pending — butuh info',

@@ -85,7 +85,7 @@ Sebelum memulai, pastikan Anda memiliki:
 
 ### <img src="public/icons/avatar-white-solid.png" width="24" height="24" valign="middle"> Tampilan Peran: Tim Support
 
-*Antarmuka yang dirancang khusus untuk petugas support dalam mengelola, merespons, dan menindak lanjuti setiap tiket bantuan.*
+*Antarmuka yang dirancang khusus untuk petugas support dalam mengelola, merespons, dan menindaklanjuti setiap tiket bantuan.*
 
 <br>
 
