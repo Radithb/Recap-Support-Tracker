@@ -113,7 +113,13 @@
                         <div class="register-grid">
                             <div class="field {{ $errors->has('email') ? 'field-error' : '' }}">
                                 <label for="email" id="label-email">Email</label>
-                                <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="nama@koperasi.id" required>
+                                <div style="position: relative; display: flex; align-items: center;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); pointer-events: none; opacity: 0.7;">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                    <input type="email" id="email" name="email" value="{{ old('email') }}" placeholder="nama@koperasi.id" style="padding-left: 42px;" required>
+                                </div>
                                 @error('email')
                                     <span class="field-error-msg">{{ $message }}</span>
                                 @enderror

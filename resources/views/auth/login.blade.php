@@ -155,11 +155,23 @@
                             @csrf
                             <div class="field">
                                 <label>Email</label>
-                                <input type="email" name="email" placeholder="support@skk.co.id" required>
+                                <div style="position: relative; display: flex; align-items: center;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); pointer-events: none; opacity: 0.7;">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                    <input type="email" name="email" placeholder="support@skk.co.id" style="padding-left: 42px;" required>
+                                </div>
                             </div>
                             <div class="field">
                                 <label>{{ __('messages.password') }}</label>
-                                <input type="password" name="password" placeholder="••••••••" required>
+                                <div style="position: relative; display: flex; align-items: center;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); pointer-events: none; opacity: 0.7;">
+                                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                                    </svg>
+                                    <input type="password" name="password" placeholder="••••••••" style="padding-left: 42px;" required>
+                                </div>
                             </div>
                             
                             <!-- Adding remember me and forgot password -->
