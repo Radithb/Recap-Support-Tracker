@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="login-wrap" style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; background: var(--paper-sunken);">
+<div class="login-wrap" style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px 20px; background: #ffffff;">
     
     {{-- Top Header Logo --}}
     <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 28px; text-decoration: none;" class="fade-up">

@@ -23,7 +23,7 @@
 </head>
 <body>
 
-@if(Auth::check() && !request()->is('login') && !request()->is('register'))
+@if(Auth::check() && !request()->is('login') && !request()->is('register') && !request()->is('forgot-password') && !request()->is('verify-otp') && !request()->is('reset-password'))
 <div class="app-shell">
     <div class="sidebar">
         <div class="sidebar-brand">
