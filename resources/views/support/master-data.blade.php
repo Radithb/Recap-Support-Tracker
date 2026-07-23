@@ -805,7 +805,9 @@
         buttons.forEach(btn => btn.classList.remove('active'));
         
         // Add active class to clicked button
-        btnElement.classList.add('active');
+        if (btnElement) {
+            btnElement.classList.add('active');
+        }
 
         // Hide all tab panes
         let panes = document.querySelectorAll('.md-tab-pane');
@@ -816,6 +818,9 @@
         if (targetPane) {
             targetPane.classList.add('active');
         }
+
+        // Simpan state tab ke localStorage
+        localStorage.setItem('activeMasterDataTab', tabId);
     }
 
     function toggleDesc(id) {
@@ -831,6 +836,15 @@
     }
 
     document.addEventListener('DOMContentLoaded', function () {
+        // Kembalikan tab terakhir yang aktif dari localStorage
+        const savedTab = localStorage.getItem('activeMasterDataTab');
+        if (savedTab) {
+            const tabBtn = document.querySelector(`.md-tab-btn[onclick*="'${savedTab}'"]`);
+            if (tabBtn) {
+                switchMdTab(savedTab, tabBtn);
+            }
+        }
+
         const skeleton = document.getElementById('skeleton-loading');
         const content  = document.getElementById('actual-content');
         if(skeleton && content) {
