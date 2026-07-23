@@ -28,7 +28,7 @@
                         <div class="skel" style="width: 220px; height: 12px; border-radius: 4px;"></div>
                     </div>
                 </div>
-                <div class="login-panel-card" style="padding: 32px; background: var(--paper-raised); border-radius: 16px; border: 1px solid var(--line); box-shadow: 0 12px 32px rgba(27,27,24,0.04);">
+                <div class="login-panel-card" style="padding: 24px 28px; background: var(--paper-raised); border-radius: 16px; border: 1px solid var(--line); box-shadow: 0 12px 32px rgba(27,27,24,0.04);">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 24px;">
                         <div>
                             <div class="skel" style="width: 200px; height: 26px; border-radius: 6px; margin-bottom: 8px;"></div>
@@ -37,28 +37,27 @@
                         <div class="skel" style="width: 24px; height: 24px; border-radius: 4px;"></div>
                     </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;">
                         <div class="skel" style="height: 60px; border-radius: 8px;"></div>
                         <div class="skel" style="height: 60px; border-radius: 8px;"></div>
                     </div>
                     
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px;">
                         <div class="skel" style="height: 60px; border-radius: 8px;"></div>
                         <div class="skel" style="height: 60px; border-radius: 8px;"></div>
                     </div>
                     
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
                         <div class="skel" style="height: 60px; border-radius: 8px;"></div>
                         <div class="skel" style="height: 60px; border-radius: 8px;"></div>
                     </div>
 
                     <div class="skel" style="width: 80%; height: 14px; border-radius: 4px; margin-bottom: 24px;"></div>
 
-                    <div style="display: flex; gap: 12px;">
-                        <div class="skel" style="flex: 1; height: 44px; border-radius: 8px;"></div>
-                        <div class="skel" style="flex: 1; height: 44px; border-radius: 8px;"></div>
-                    </div>
+                    <div class="skel" style="width: 100%; height: 44px; border-radius: 8px;"></div>
                 </div>
+
+                <div class="skel" style="width: 220px; height: 16px; border-radius: 4px; margin: 20px auto 0;"></div>
             </div>
         </div>
     </div>
