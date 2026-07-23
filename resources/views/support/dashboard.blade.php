@@ -390,14 +390,14 @@
                             <label style="margin-bottom: 0;">{{ __('messages.tindakan_penyelesaian') }}</label>
                             <button type="button" class="btn btn-ghost btn-sm" style="font-size: 0.75rem; padding: 4px 8px; border: 1px solid var(--line); color: var(--brand-primary);" onclick="openFaqModal('penyelesaian_{{ $t->ticket_id }}')">
                                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px; vertical-align: middle;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                                Insert FAQ
+                                {{ __('messages.insert_faq') }}
                             </button>
                         </div>
                         <textarea name="penyelesaian" id="penyelesaian_{{ $t->ticket_id }}" style="min-height: 90px;" placeholder="{{ __('messages.langkah_perbaikan') }}">{{ $t->penyelesaian }}</textarea>
                         
                         <label style="display: flex; align-items: center; gap: 8px; margin-top: 8px; cursor: pointer; font-size: 0.8rem; color: var(--ink); font-weight: 500; background: var(--paper-sunken); padding: 8px 12px; border-radius: 6px; border: 1px dashed var(--line);">
                             <input type="checkbox" name="is_faq" value="1" style="width: 16px; height: 16px; cursor: pointer; accent-color: var(--brand-primary);">
-                            <span>Tandai sebagai FAQ <span style="color: var(--text-muted); font-weight: 400;">(Otomatis simpan ke Knowledge Base Internal)</span></span>
+                            <span>{{ __('messages.tandai_sebagai_faq') }} <span style="color: var(--text-muted); font-weight: 400;">{{ __('messages.otomatis_simpan_kb_internal') }}</span></span>
                         </label>
                     </div>
 
@@ -535,15 +535,15 @@
     <div class="modal w-sm">
         <div class="modal-head">
             <div>
-                <h3>Pilih Template FAQ</h3>
-                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Pilih jawaban dari Knowledge Base untuk dimasukkan ke kolom penyelesaian.</p>
+                <h3>{{ __('messages.pilih_template_faq') }}</h3>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">{{ __('messages.pilih_jawaban_kb_desc') }}</p>
             </div>
             <button type="button" class="modal-x" onclick="closeModal('modal-faq-insert')">✕</button>
         </div>
         <div class="modal-body" style="padding: 16px;">
             <div class="search" style="margin-bottom: 16px;">
                 <img src="{{ asset('magnifying-glass.png') }}" alt="Search" style="width: 14px; height: 14px; margin-right: 8px; vertical-align: middle; opacity: 0.4; filter: grayscale(100%);">
-                <input type="text" placeholder="Cari pertanyaan FAQ..." id="faq-search-input" style="border:none; background:transparent; width:100%; outline:none;">
+                <input type="text" placeholder="{{ __('messages.cari_pertanyaan_faq') }}" id="faq-search-input" style="border:none; background:transparent; width:100%; outline:none;">
             </div>
             
             <div id="faq-list-container" style="max-height: 350px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px;">

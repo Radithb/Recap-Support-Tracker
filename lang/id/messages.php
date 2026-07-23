@@ -480,4 +480,10 @@ return [
     'nonaktif' => 'Nonaktif',
     'hapus' => 'Hapus',
     'yakin_hapus_faq' => 'Yakin ingin menghapus FAQ ini?',
+    'tandai_sebagai_faq' => 'Tandai sebagai FAQ',
+    'otomatis_simpan_kb_internal' => '(Otomatis simpan ke Knowledge Base Internal)',
+    'insert_faq' => 'Insert FAQ',
+    'pilih_template_faq' => 'Pilih Template FAQ',
+    'pilih_jawaban_kb_desc' => 'Pilih jawaban dari Knowledge Base untuk dimasukkan ke kolom penyelesaian',
+    'cari_pertanyaan_faq' => 'Cari pertanyaan FAQ...',
 ];

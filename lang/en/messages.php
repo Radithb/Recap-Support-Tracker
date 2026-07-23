@@ -479,4 +479,10 @@ return [
     'nonaktif' => 'Inactive',
     'hapus' => 'Delete',
     'yakin_hapus_faq' => 'Are you sure you want to delete this FAQ?',
+    'tandai_sebagai_faq' => 'Mark as FAQ',
+    'otomatis_simpan_kb_internal' => '(Automatically save to Internal Knowledge Base)',
+    'insert_faq' => 'Insert FAQ',
+    'pilih_template_faq' => 'Select FAQ Template',
+    'pilih_jawaban_kb_desc' => 'Select an answer from Knowledge Base to insert into resolution field',
+    'cari_pertanyaan_faq' => 'Search FAQ question...',
 ];
