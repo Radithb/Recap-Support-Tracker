@@ -370,7 +370,7 @@ return [
     'hapus_lampiran' => 'Hapus',
     'title_pusat_bantuan' => 'Pusat Bantuan',
     'hubungi_tim_support' => 'Hubungi Tim Support',
-    'desc_pusat_bantuan' => 'Butuh bantuan cepat di luar tiket? Sapa kami lewat alamat berikut.',
+    'desc_pusat_bantuan' => 'Butuh bantuan cepat di luar tiket? Sapa kami lewat alamat berikut',
     'telepon' => 'Telepon',
     'email' => 'Email',
     'klik_untuk_chat' => 'Klik untuk Chat',

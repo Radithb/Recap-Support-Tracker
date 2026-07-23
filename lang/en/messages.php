@@ -369,7 +369,7 @@ return [
     'hapus_lampiran' => 'Delete',
     'title_pusat_bantuan' => 'Help Center',
     'hubungi_tim_support' => 'Contact Support Team',
-    'desc_pusat_bantuan' => 'Need quick help outside of tickets? Reach us at the following addresses.',
+    'desc_pusat_bantuan' => 'Need quick help outside of tickets? Reach us at the following addresses',
     'telepon' => 'Phone',
     'email' => 'Email',
     'klik_untuk_chat' => 'Click to Chat',
