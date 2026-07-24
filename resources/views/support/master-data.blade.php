@@ -777,7 +777,6 @@
                             </select>
                         </div>
                     </div>
-                    </div>
                 </div>
                 <div class="modal-foot">
                     <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-faq-{{ $faq->faq_id }}')">{{ __('messages.batal') }}</button>
