@@ -488,7 +488,7 @@ return [
     'cari_pertanyaan_faq' => 'Cari pertanyaan FAQ...',
     'pertanyaan_sering_diajukan' => 'Pertanyaan Sering Diajukan (FAQ)',
     'solusi_cepat' => 'Solusi Cepat Terkait (FAQ)',
-    'faq_relevan_desc' => 'Temukan solusi mandiri secara cepat sebelum mengirimkan tiket baru.',
+    'faq_relevan_desc' => 'Temukan solusi mandiri secara cepat sebelum mengirimkan tiket baru',
     'semua_kategori' => 'Semua Kategori',
     'masalah_teratasi' => 'Masalah Teratasi',
     'buat_tiket_jika_tidak_ketemu' => 'Tidak menemukan jawaban? Buat Tiket Baru',

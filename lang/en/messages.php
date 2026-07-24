@@ -487,7 +487,7 @@ return [
     'cari_pertanyaan_faq' => 'Search FAQ question...',
     'pertanyaan_sering_diajukan' => 'Frequently Asked Questions (FAQ)',
     'solusi_cepat' => 'Related Quick Solutions (FAQ)',
-    'faq_relevan_desc' => 'Find self-service solutions quickly before submitting a new ticket.',
+    'faq_relevan_desc' => 'Find self service solutions quickly before submitting a new ticket',
     'semua_kategori' => 'All Categories',
     'masalah_teratasi' => 'Issue Resolved',
     'buat_tiket_jika_tidak_ketemu' => 'Can\'t find an answer? Create a New Ticket',
