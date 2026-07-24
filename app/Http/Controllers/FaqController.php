@@ -111,7 +111,7 @@ class FaqController extends Controller
             $query->where('kategori_id', $request->kategori_id);
         }
 
-        $faqs = $query->select('faq_id', 'kategori_id', 'pertanyaan', 'jawaban')
+        $faqs = $query->select('faq_id', 'kategori_id', 'pertanyaan', 'jawaban', 'visibility')
                       ->limit(6)
                       ->get();
 
@@ -130,7 +130,7 @@ class FaqController extends Controller
             $query->where('kategori_id', $request->kategori_id);
         }
 
-        $faqs = $query->select('faq_id', 'kategori_id', 'pertanyaan', 'jawaban')
+        $faqs = $query->select('faq_id', 'kategori_id', 'pertanyaan', 'jawaban', 'visibility')
                       ->orderBy('kategori_id')
                       ->get();
 
