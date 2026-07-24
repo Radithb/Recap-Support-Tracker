@@ -145,6 +145,14 @@
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.kategori') }}</div>
                     <div style="font-size: 0.95rem; color: var(--ink); font-weight: 500;">{{ $t->kategori->nama_kategori ?? '-' }}</div>
                 </div>
+                <div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.col_tanggal') ?? 'Tanggal' }}</div>
+                    <div style="font-size: 0.95rem; color: var(--ink); font-weight: 500;">{{ $t->tanggal_input ? $t->tanggal_input->format('d-m-Y H:i') : '-' }}</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.tanggal_selesai') ?? 'Tanggal Selesai' }}</div>
+                    <div style="font-size: 0.95rem; color: var(--ink); font-weight: 500;">{{ $t->tanggal_penyelesaian ? $t->tanggal_penyelesaian->format('d-m-Y H:i') : '-' }}</div>
+                </div>
             </div>
 
             <div style="margin-bottom: 16px;">

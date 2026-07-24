@@ -223,9 +223,17 @@
         
         <div class="modal-body" style="padding: 24px;">
             <!-- Informasi Waktu -->
-            <div style="display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; color: #1d4ed8; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-bottom: 20px;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                {{ __('messages.disubmit') }} {{ \Carbon\Carbon::parse($t->tanggal_input->format('Y-m-d H:i:s'), 'Asia/Jakarta')->locale(app()->getLocale())->diffForHumans(['parts' => 2]) }} &middot; {{ $t->tanggal_input->format('d M Y, H:i') }}
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
+                <div style="display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; color: #1d4ed8; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    {{ __('messages.disubmit') }} {{ \Carbon\Carbon::parse($t->tanggal_input->format('Y-m-d H:i:s'), 'Asia/Jakarta')->locale(app()->getLocale())->diffForHumans(['parts' => 2]) }} &middot; {{ $t->tanggal_input->format('d M Y, H:i') }}
+                </div>
+                @if($t->status === \App\Enums\TicketStatus::DONE && $t->tanggal_penyelesaian)
+                <div style="display: inline-flex; align-items: center; gap: 6px; background: #ecfdf5; color: #065f46; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    Selesai &middot; {{ $t->tanggal_penyelesaian->format('d M Y, H:i') }}
+                </div>
+                @endif
             </div>
 
             <!-- Kendala Utama -->
@@ -446,7 +454,7 @@
 
                     <div class="field">
                         <label>{{ __('messages.tanggal_selesai') }}</label>
-                        <input type="text" readonly value="{{ __('messages.otomatis_selesai') }}" style="background: var(--paper-raised); color: var(--text-muted); cursor: not-allowed;">
+                        <input type="text" readonly value="{{ $t->tanggal_penyelesaian ? $t->tanggal_penyelesaian->format('d-m-Y H:i') : __('messages.otomatis_selesai') }}" style="background: var(--paper-raised); color: var(--text-muted); cursor: not-allowed;">
                     </div>
                 </div>
             </div>
