@@ -51,7 +51,7 @@
                 <img src="{{ asset('ticket-laporan.svg') }}" alt="" style="width: 18px; height: 18px; object-fit: contain; vertical-align: middle;"> {{ __('messages.tiket_dan_laporan_saya') }}
             </button>
             <button type="button" id="tab-btn-faq" class="dash-tab-btn" onclick="switchDashTab('faq', this)" style="padding: 10px 18px; font-weight: 500; font-size: 14px; border: none; background: none; color: var(--ink-soft); border-bottom: 2px solid transparent; margin-bottom: -2px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
-                <span style="font-size: 16px;">❓</span> {{ __('messages.pertanyaan_sering_diajukan') }}
+                <span style="-webkit-mask-image: url('{{ asset('question.png') }}'); mask-image: url('{{ asset('question.png') }}'); -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; background-color: currentColor; width: 18px; height: 18px; display: inline-block; vertical-align: middle;"></span> {{ __('messages.pertanyaan_sering_diajukan') }}
             </button>
         </div>
 
@@ -401,7 +401,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 suggestList.innerHTML = faqs.map(faq => `
                                     <div style="border: 1px solid var(--line); border-radius: 6px; padding: 10px; background: var(--paper); font-size: 13px;">
                                         <div style="font-weight: 600; color: var(--ink); display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 4px;">
-                                            <span>❓ ${faq.pertanyaan}</span>
+                                            <span><span style="-webkit-mask-image: url('{{ asset('question.png') }}'); mask-image: url('{{ asset('question.png') }}'); -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; background-color: currentColor; width: 14px; height: 14px; display: inline-block; vertical-align: middle; margin-right: 4px;"></span>${faq.pertanyaan}</span>
                                             <span style="font-size: 10px; background: var(--brand-primary-soft); color: var(--brand-primary); padding: 2px 6px; border-radius: 4px; font-weight: 600; white-space: nowrap;">${faq.kategori ? faq.kategori.nama_kategori : 'Public'}</span>
                                         </div>
                                         <div style="font-size: 12px; color: var(--ink-soft); line-height: 1.4; white-space: pre-wrap;">${faq.jawaban}</div>
