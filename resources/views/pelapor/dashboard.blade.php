@@ -124,7 +124,7 @@
                 <form method="GET" action="{{ route('pelapor.dashboard') }}" style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px;">
                     <input type="hidden" name="tab" value="faq">
                     <div style="flex: 1; min-width: 240px; position: relative;">
-                        <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--ink-soft); font-size: 14px;">🔍</span>
+                        <span style="-webkit-mask-image: url('{{ asset('magnifying-glass.png') }}'); mask-image: url('{{ asset('magnifying-glass.png') }}'); -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; background-color: currentColor; width: 14px; height: 14px; display: inline-block; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--ink-soft);"></span>
                         <input type="text" name="faq_search" value="{{ request('faq_search') }}" placeholder="{{ __('messages.cari_faq_placeholder') }}" style="width: 100%; padding: 10px 12px 10px 36px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 14px; box-sizing: border-box;">
                     </div>
                     
@@ -171,7 +171,7 @@
                         </div>
                     @empty
                         <div style="text-align: center; padding: 30px 16px; border: 1.5px dashed var(--line); border-radius: 10px; color: var(--ink-soft);">
-                            <div style="font-size: 28px; margin-bottom: 6px;">🔍</div>
+                            <div style="-webkit-mask-image: url('{{ asset('magnifying-glass.png') }}'); mask-image: url('{{ asset('magnifying-glass.png') }}'); -webkit-mask-size: contain; mask-size: contain; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-position: center; mask-position: center; background-color: currentColor; width: 28px; height: 28px; display: inline-block; margin-bottom: 6px;"></div>
                             <div style="font-weight: 600; font-size: 14px; color: var(--ink);">{{ __('messages.belum_ada_faq_public') }}</div>
                         </div>
                     @endforelse
