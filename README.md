@@ -1,4 +1,4 @@
-# Recap Support Tracker
+# SAKTI Desk
 
 <div align="center">
 
@@ -18,7 +18,7 @@ Sistem manajemen tiket support terpadu untuk instansi/koperasi dengan antarmuka 
 
 ## Tentang Proyek
 
-**Recap Support Tracker** adalah aplikasi web berbasis Laravel yang dirancang untuk memudahkan pengelolaan tiket support, pelaporan, dan rekapitulasi antar instansi atau koperasi. Sistem ini menyediakan solusi terpadu untuk manajemen tiket support dengan antarmuka yang intuitif dan responsif.
+**SAKTI Desk** adalah aplikasi web berbasis Laravel yang dirancang untuk memudahkan pengelolaan tiket support, pelaporan, dan rekapitulasi antar instansi atau koperasi. Sistem ini menyediakan solusi terpadu untuk manajemen tiket support dengan antarmuka yang intuitif dan responsif.
 
 ## Fitur Utama
 
@@ -138,8 +138,8 @@ Sebelum memulai, pastikan Anda memiliki:
 ### 1️. Clone Repositori
 
 ```bash
-git clone https://github.com/Radithb/Recap-Support-Tracker.git
-cd Recap-Support-Tracker
+git clone https://github.com/Radithb/SAKTI-Desk.git
+cd SAKTI-Desk
 ```
 
 ### 2️. Install Dependensi
@@ -165,7 +165,7 @@ php artisan key:generate
 Kemudian edit file `.env` dan sesuaikan konfigurasi berikut:
 
 ```env
-APP_NAME="Recap Support Tracker"
+APP_NAME="SAKTI Desk"
 APP_ENV=local
 APP_DEBUG=true
 APP_URL=http://localhost:8000
@@ -241,7 +241,7 @@ MAIL_FROM_ADDRESS=noreply@example.com
 ### Struktur Direktori
 
 ```
-Recap-Support-Tracker/
+SAKTI-Desk/
 ├── app/
 │   ├── Http/
 │   │   ├── Controllers/
@@ -310,7 +310,7 @@ test: Add tests
 
 ## Lapor Bug
 
-Jika Anda menemukan bug, silakan buat [Issue](https://github.com/Radithb/Recap-Support-Tracker/issues) dengan detail:
+Jika Anda menemukan bug, silakan buat [Issue](https://github.com/Radithb/SAKTI-Desk/issues) dengan detail:
 
 - Deskripsi bug
 - Langkah-langkah reproduksi
@@ -325,14 +325,14 @@ Proyek ini dilisensikan di bawah lisensi MIT - lihat file [LICENSE](LICENSE) unt
 ## Kontak & Support
 
 - **Email**: [mradithn@gmail.com]
-- **GitHub Issues**: [Report an Issue](https://github.com/Radithb/Recap-Support-Tracker/issues)
-- **Discussions**: [Join Discussion](https://github.com/Radithb/Recap-Support-Tracker/discussions)
+- **GitHub Issues**: [Report an Issue](https://github.com/Radithb/SAKTI-Desk/issues)
+- **Discussions**: [Join Discussion](https://github.com/Radithb/SAKTI-Desk/discussions)
 
 ---
 
 <div align="center">
 
-**[kembali ke atas](#-recap-support-tracker)**
+**[kembali ke atas](#-SAKTI-Desk)**
 
 Dibuat dengan ❤️ untuk mempermudah operasional pengelolaan tiket layanan bantuan.
 

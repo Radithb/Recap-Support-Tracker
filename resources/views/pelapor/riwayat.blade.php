@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page_title', __('messages.title_riwayat'))
-@section('page_subtitle', 'Recap Mitra Tracker')
+@section('page_subtitle', 'SAKTI Desk')
 
 
 @section('content')

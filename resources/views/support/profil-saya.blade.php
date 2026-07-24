@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('page_title', 'Profil Saya')
-@section('page_subtitle', 'Recap Support Tracker')
+@section('page_subtitle', 'SAKTI Desk')
 
 @section('sidebar_menu')
     <a href="{{ route('support.dashboard') }}">

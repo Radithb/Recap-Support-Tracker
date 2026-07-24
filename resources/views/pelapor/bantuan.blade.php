@@ -37,7 +37,7 @@
             </div>
             
             <!-- WhatsApp -->
-            <a href="https://wa.me/{{ formatNomorWa(config('services.whatsapp_support_number')) }}?text=Halo,%20saya%20ingin%20bertanya%20terkait%20Recap%20Support%20Tracker" target="_blank" style="text-decoration: none; border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: 0.2s; background: var(--paper);" onmouseover="this.style.background='var(--paper-sunken)'" onmouseout="this.style.background='var(--paper)'">
+            <a href="https://wa.me/{{ formatNomorWa(config('services.whatsapp_support_number')) }}?text=Halo,%20saya%20ingin%20bertanya%20terkait%20SAKTI%20Desk" target="_blank" style="text-decoration: none; border: 1px solid var(--line); border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 16px; cursor: pointer; transition: 0.2s; background: var(--paper);" onmouseover="this.style.background='var(--paper-sunken)'" onmouseout="this.style.background='var(--paper)'">
                 <div style="background: var(--brand-primary-soft); width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
                     <img src="{{ asset('whatsapp.png') }}" alt="WhatsApp" style="width: 22px; height: 22px; object-fit: contain;">
                 </div>

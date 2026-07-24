@@ -1,5 +1,5 @@
 # Product Requirements Document (PRD)
-**Project Name:** Recap Support Tracker  
+**Project Name:** SAKTI Desk  
 **Client / Owner:** PT Sakti Kinerja Kolaborasindo  
 **Author:** Muhammad Radith Nurmansyah (NIM: 103012400226)  
 **Document Status:** Draft / Ready for Development  
@@ -7,7 +7,7 @@
 ---
 
 ## 1. Overview
-**Recap Support Tracker** adalah sistem manajemen tiket (*ticketing system*) tersentralisasi untuk ekosistem aplikasi PT Sakti Kinerja Kolaborasindo (seperti SAKTI.Link, SiCUNDO, dan SAKTI Online). 
+**SAKTI Desk** adalah sistem manajemen tiket (*ticketing system*) tersentralisasi untuk ekosistem aplikasi PT Sakti Kinerja Kolaborasindo (seperti SAKTI.Link, SiCUNDO, dan SAKTI Online). 
 
 Tujuan utama sistem ini adalah menjembatani pelaporan kendala dari instansi mitra (Koperasi) ke tim *Support Engineer*, memastikan pelacakan siklus hidup tiket secara *real-time*, serta mengotomatisasi rekapitulasi analitik bulanan dan klasifikasi *Knowledge Base* (Smart FAQ).
 
