@@ -705,12 +705,21 @@
                         <label>{{ __('messages.jawaban') }} <span style="color:var(--danger)">*</span></label>
                         <textarea name="jawaban" required placeholder="{{ __('messages.tulis_jawaban') }}" rows="4"></textarea>
                     </div>
-                    <div class="field">
-                        <label>{{ __('messages.visibility') }} <span style="color:var(--danger)">*</span></label>
-                        <select name="visibility" required style="width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink); font-size: 0.9rem;">
-                            <option value="public">{{ __('messages.visibility_public_desc') }}</option>
-                            <option value="internal">{{ __('messages.visibility_internal_desc') }}</option>
-                        </select>
+                    <div class="grid2">
+                        <div class="field">
+                            <label>{{ __('messages.visibility') }} <span style="color:var(--danger)">*</span></label>
+                            <select name="visibility" required style="width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink); font-size: 0.9rem;">
+                                <option value="public">{{ __('messages.visibility_public_desc') }}</option>
+                                <option value="internal">{{ __('messages.visibility_internal_desc') }}</option>
+                            </select>
+                        </div>
+                        <div class="field">
+                            <label>{{ __('messages.status') }} <span style="color:var(--danger)">*</span></label>
+                            <select name="is_active" required style="width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink); font-size: 0.9rem;">
+                                <option value="1" selected>{{ __('messages.aktif') }}</option>
+                                <option value="0">{{ __('messages.nonaktif') }}</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-foot">

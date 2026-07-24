@@ -18,6 +18,7 @@ class FaqController extends Controller
             'pertanyaan'   => 'required|string|max:500',
             'jawaban'      => 'required|string',
             'visibility'   => 'nullable|in:public,internal',
+            'is_active'    => 'required|boolean',
         ]);
 
         Faq::create([
@@ -25,7 +26,7 @@ class FaqController extends Controller
             'pertanyaan'  => $request->pertanyaan,
             'jawaban'     => $request->jawaban,
             'visibility'  => $request->visibility ?? 'public',
-            'is_active'   => true,
+            'is_active'   => $request->boolean('is_active'),
         ]);
 
         return back()->with('success', 'FAQ berhasil ditambahkan.');
