@@ -38,7 +38,6 @@
         @endif
 
         <div class="welcome-banner fade-up" style="animation-delay: 0.1s;">
-            <div class="wave">👋</div>
             <div>
                 <h2>{{ __('messages.halo') }}, {{ Auth::user()->nama ?? 'User' }}!</h2>
                 <p>{{ __('messages.selamat_datang') }}</p>
