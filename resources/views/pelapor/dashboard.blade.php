@@ -51,7 +51,7 @@
                 <img src="{{ asset('ticket-laporan.svg') }}" alt="" style="width: 18px; height: 18px; object-fit: contain; vertical-align: middle;"> Tiket & Laporan Saya
             </button>
             <button type="button" id="tab-btn-faq" class="dash-tab-btn" onclick="switchDashTab('faq', this)" style="padding: 10px 18px; font-weight: 500; font-size: 14px; border: none; background: none; color: var(--ink-soft); border-bottom: 2px solid transparent; margin-bottom: -2px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
-                <span>📚</span> {{ __('messages.pertanyaan_sering_diajukan') }}
+                <span style="font-size: 16px;">❓</span> {{ __('messages.pertanyaan_sering_diajukan') }}
             </button>
         </div>
 
