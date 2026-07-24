@@ -150,8 +150,8 @@
                 <!-- Daftar FAQ Accordion -->
                 <div style="display: flex; flex-direction: column; gap: 12px;">
                     @forelse($faqs as $faq)
-                        <div class="faq-item" style="border: 1px solid var(--line); border-radius: 10px; background: var(--paper); overflow: hidden;">
-                            <button type="button" onclick="toggleDashFaq({{ $faq->faq_id }})" style="width: 100%; text-align: left; background: none; border: none; padding: 14px 18px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 14px; color: var(--ink);">
+                        <div class="faq-item" style="border: 1px solid var(--line); border-radius: 10px; background: var(--paper); overflow: hidden; transition: transform 0.2s; cursor: pointer;" onmouseover="this.style.transform='scale(1.01)'" onmouseout="this.style.transform='scale(1)'">
+                            <button type="button" onclick="openModal('modal-faq-{{ $faq->faq_id }}')" style="width: 100%; text-align: left; background: none; border: none; padding: 14px 18px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 14px; color: var(--ink);">
                                 <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
                                     <span style="background: var(--brand-primary-soft); color: var(--brand-primary); padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; white-space: nowrap;">
                                         {{ $faq->kategori->nama_kategori ?? 'Umum' }}
@@ -160,13 +160,10 @@
                                         {{ $faq->pertanyaan }}
                                     </span>
                                 </div>
-                                <span id="dash-faq-icon-{{ $faq->faq_id }}" style="font-size: 12px; color: var(--ink-soft); transition: transform 0.2s;">
-                                    ▼
+                                <span style="font-size: 16px; color: var(--ink-soft);">
+                                    →
                                 </span>
                             </button>
-                            <div id="dash-faq-ans-{{ $faq->faq_id }}" style="display: none; padding: 0 18px 16px 18px; color: var(--ink-soft); font-size: 13.5px; line-height: 1.6; border-top: 1px dashed var(--line); margin-top: 2px; padding-top: 12px;">
-                                {!! nl2br(e($faq->jawaban)) !!}
-                            </div>
                         </div>
                     @empty
                         <div style="text-align: center; padding: 30px 16px; border: 1.5px dashed var(--line); border-radius: 10px; color: var(--ink-soft);">
@@ -268,6 +265,28 @@
 </div>
 @endforeach
 
+<!-- Modals for FAQs -->
+@foreach($faqs as $faq)
+<div class="overlay" id="modal-faq-{{ $faq->faq_id }}">
+    <div class="modal w-sm">
+        <div class="modal-head">
+            <div><h3>FAQ Detail</h3><p>{{ $faq->kategori->nama_kategori ?? 'Umum' }}</p></div>
+            <button type="button" class="modal-x" onclick="closeModal('modal-faq-{{ $faq->faq_id }}'); event.stopPropagation();">✕</button>
+        </div>
+        <div class="modal-body" style="padding: 24px;">
+            <div style="margin-bottom: 16px;">
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">{{ __('messages.pertanyaan') }}</div>
+                <div style="font-size: 0.95rem; color: var(--ink); line-height: 1.5; font-weight: 500;">{{ $faq->pertanyaan }}</div>
+            </div>
+            <div style="margin-bottom: 8px;">
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">{{ __('messages.jawaban') }}</div>
+                <div style="font-size: 0.95rem; color: var(--ink-soft); line-height: 1.6; white-space: pre-wrap; background: var(--paper-raised); padding: 16px; border-radius: 8px; border: 1px solid var(--line);">{!! nl2br(e($faq->jawaban)) !!}</div>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
+
 <!-- Modal Create -->
 <div class="overlay" id="modal-create">
     <div class="modal w-sm">
@@ -341,20 +360,6 @@ function switchDashTab(tabName, btn) {
 
     const pane = document.getElementById('tab-pane-' + tabName);
     if (pane) pane.style.display = 'block';
-}
-
-function toggleDashFaq(id) {
-    const ansEl = document.getElementById('dash-faq-ans-' + id);
-    const iconEl = document.getElementById('dash-faq-icon-' + id);
-    if (!ansEl) return;
-
-    if (ansEl.style.display === 'none' || ansEl.style.display === '') {
-        ansEl.style.display = 'block';
-        if (iconEl) iconEl.style.transform = 'rotate(180deg)';
-    } else {
-        ansEl.style.display = 'none';
-        if (iconEl) iconEl.style.transform = 'rotate(0deg)';
-    }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
