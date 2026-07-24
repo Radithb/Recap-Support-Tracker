@@ -45,51 +45,135 @@
             </div>
         </div>
 
-        <div class="cta-band fade-up" style="animation-delay: 0.15s;">
-            <div>
-                <h2>{{ __('messages.ada_kendala') }}</h2>
-                <p>{{ __('messages.laporkan_sekali') }}</p>
-            </div>
-            <button class="btn btn-amber" onclick="openModal('modal-create')">＋ {{ __('messages.buat_laporan_baru') }}</button>
+        <!-- TAB NAVIGATION -->
+        <div class="dashboard-tabs fade-up" style="display: flex; gap: 8px; border-bottom: 2px solid var(--line); margin-bottom: 24px; animation-delay: 0.12s;">
+            <button type="button" id="tab-btn-tickets" class="dash-tab-btn active" onclick="switchDashTab('tickets', this)" style="padding: 10px 18px; font-weight: 600; font-size: 14px; border: none; background: none; color: var(--brand-primary); border-bottom: 2px solid var(--brand-primary); margin-bottom: -2px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+                <img src="{{ asset('ticket-laporan.svg') }}" alt="" style="width: 18px; height: 18px; object-fit: contain; vertical-align: middle;"> Tiket & Laporan Saya
+            </button>
+            <button type="button" id="tab-btn-faq" class="dash-tab-btn" onclick="switchDashTab('faq', this)" style="padding: 10px 18px; font-weight: 500; font-size: 14px; border: none; background: none; color: var(--ink-soft); border-bottom: 2px solid transparent; margin-bottom: -2px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
+                <span>📚</span> {{ __('messages.pertanyaan_sering_diajukan') }}
+            </button>
         </div>
 
-        <!-- Statistik Sederhana -->
-        <div class="stat-row fade-up" style="animation-delay: 0.2s;">
-            <div class="stat-card"><div class="n" style="color:var(--clay)">{{ $totalOpen }}</div><div class="l">{{ __('messages.open_proses') }}</div></div>
-            <div class="stat-card"><div class="n" style="color:#B8923F">{{ $totalPending }}</div><div class="l">{{ __('messages.pending_butuh_info') }}</div></div>
-            <div class="stat-card"><div class="n" style="color:var(--sage)">{{ $totalDone }}</div><div class="l">{{ __('messages.selesai_total') }}</div></div>
-        </div>
-
-        <div class="fade-up" style="animation-delay: 0.25s;">
-            <div>
-                <div class="page-head" style="margin-bottom:14px;">
-                    <div><h1 style="font-size: calc(22px * var(--text-scale, 1));">{{ __('messages.riwayat_laporan_anda') }}</h1></div>
+        <!-- PANE 1: TIKET & LAPORAN -->
+        <div id="tab-pane-tickets" class="dash-tab-pane">
+            <div class="cta-band fade-up" style="animation-delay: 0.15s;">
+                <div>
+                    <h2>{{ __('messages.ada_kendala') }}</h2>
+                    <p>{{ __('messages.laporkan_sekali') }}</p>
                 </div>
-                
-                <div class="ticket-list">
-                    @forelse($tickets as $t)
-                    <div class="ticket-card fade-up" onclick="openModal('modal-ticket-{{ $t->ticket_id }}')" style="cursor:pointer; animation-delay: {{ 0.3 + ($loop->index * 0.08) }}s;">
-                        <div class="tid">{{ $t->ticket_id }}</div>
-                        <div class="main">
-                            <h3>{{ $t->permasalahan }}</h3>
-                            <p>{{ $t->penyelesaian ?? __('messages.belum_ada_catatan') }}</p>
+                <button class="btn btn-amber" onclick="openModal('modal-create')">＋ {{ __('messages.buat_laporan_baru') }}</button>
+            </div>
+
+            <!-- Statistik Sederhana -->
+            <div class="stat-row fade-up" style="animation-delay: 0.2s;">
+                <div class="stat-card"><div class="n" style="color:var(--clay)">{{ $totalOpen }}</div><div class="l">{{ __('messages.open_proses') }}</div></div>
+                <div class="stat-card"><div class="n" style="color:#B8923F">{{ $totalPending }}</div><div class="l">{{ __('messages.pending_butuh_info') }}</div></div>
+                <div class="stat-card"><div class="n" style="color:var(--sage)">{{ $totalDone }}</div><div class="l">{{ __('messages.selesai_total') }}</div></div>
+            </div>
+
+            <div class="fade-up" style="animation-delay: 0.25s;">
+                <div>
+                    <div class="page-head" style="margin-bottom:14px;">
+                        <div><h1 style="font-size: calc(22px * var(--text-scale, 1));">{{ __('messages.riwayat_laporan_anda') }}</h1></div>
+                    </div>
+                    
+                    <div class="ticket-list">
+                        @forelse($tickets as $t)
+                        <div class="ticket-card fade-up" onclick="openModal('modal-ticket-{{ $t->ticket_id }}')" style="cursor:pointer; animation-delay: {{ 0.3 + ($loop->index * 0.08) }}s;">
+                            <div class="tid">{{ $t->ticket_id }}</div>
+                            <div class="main">
+                                <h3>{{ $t->permasalahan }}</h3>
+                                <p>{{ $t->penyelesaian ?? __('messages.belum_ada_catatan') }}</p>
+                            </div>
+                            <div class="meta">{{ $t->aplikasi->nama_aplikasi }} &middot; {{ $t->tanggal_input->format('d M Y') }} &middot; {{ $t->tanggal_input->format('H:i') }}</div>
+                            
+                            @php
+                                $statusClass = match($t->status) {
+                                    \App\Enums\TicketStatus::OPEN, \App\Enums\TicketStatus::PROSES => 'status-open',
+                                    \App\Enums\TicketStatus::PENDING => 'status-pending',
+                                    \App\Enums\TicketStatus::DONE => 'status-done',
+                                    default => ''
+                                };
+                            @endphp
+                            <span class="status {{ $statusClass }}">{{ $t->status->value ?? $t->status }}</span>
                         </div>
-                        <div class="meta">{{ $t->aplikasi->nama_aplikasi }} &middot; {{ $t->tanggal_input->format('d M Y') }} &middot; {{ $t->tanggal_input->format('H:i') }}</div>
-                        
-                        @php
-                            $statusClass = match($t->status) {
-                                \App\Enums\TicketStatus::OPEN, \App\Enums\TicketStatus::PROSES => 'status-open',
-                                \App\Enums\TicketStatus::PENDING => 'status-pending',
-                                \App\Enums\TicketStatus::DONE => 'status-done',
-                                default => ''
-                            };
-                        @endphp
-                        <span class="status {{ $statusClass }}">{{ $t->status->value ?? $t->status }}</span>
+                        @empty
+                        <div class="ticket-card" style="justify-content:center; padding:30px;">
+                            <p class="eyebrow">{{ __('messages.belum_ada_tiket_laporan') }}</p>
+                        </div>
+                        @endforelse
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANE 2: PUSAT SOLUSI / FAQ -->
+        <div id="tab-pane-faq" class="dash-tab-pane" style="display: none;">
+            <div style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+                <div style="margin-bottom: 20px;">
+                    <h3 style="margin: 0; font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--ink);">
+                        {{ __('messages.pertanyaan_sering_diajukan') }}
+                    </h3>
+                    <p style="color: var(--ink-soft); font-size: 13px; margin: 4px 0 0 0;">
+                        {{ __('messages.faq_relevan_desc') }}
+                    </p>
+                </div>
+
+                <!-- Filter & Form Pencarian FAQ -->
+                <form method="GET" action="{{ route('pelapor.dashboard') }}" style="display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px;">
+                    <input type="hidden" name="tab" value="faq">
+                    <div style="flex: 1; min-width: 240px; position: relative;">
+                        <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--ink-soft); font-size: 14px;">🔍</span>
+                        <input type="text" name="faq_search" value="{{ request('faq_search') }}" placeholder="{{ __('messages.cari_faq_placeholder') }}" style="width: 100%; padding: 10px 12px 10px 36px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 14px; box-sizing: border-box;">
+                    </div>
+                    
+                    <select name="faq_kategori_id" onchange="this.form.submit()" style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 14px; font-weight: 500; cursor: pointer;">
+                        <option value="">{{ __('messages.semua_kategori') }}</option>
+                        @foreach($kategoris as $kat)
+                            <option value="{{ $kat->kategori_id }}" {{ request('faq_kategori_id') == $kat->kategori_id ? 'selected' : '' }}>
+                                {{ $kat->nama_kategori }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    <button type="submit" class="btn btn-secondary" style="padding: 10px 18px; font-size: 14px; border-radius: 8px;">
+                        Cari
+                    </button>
+
+                    @if(request('faq_search') || request('faq_kategori_id'))
+                        <a href="{{ route('pelapor.dashboard', ['tab' => 'faq']) }}" class="btn btn-ghost" style="padding: 10px 14px; font-size: 14px; border-radius: 8px; color: var(--ink-soft); text-decoration: none;">
+                            Reset
+                        </a>
+                    @endif
+                </form>
+
+                <!-- Daftar FAQ Accordion -->
+                <div style="display: flex; flex-direction: column; gap: 12px;">
+                    @forelse($faqs as $faq)
+                        <div class="faq-item" style="border: 1px solid var(--line); border-radius: 10px; background: var(--paper); overflow: hidden;">
+                            <button type="button" onclick="toggleDashFaq({{ $faq->faq_id }})" style="width: 100%; text-align: left; background: none; border: none; padding: 14px 18px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 14px; color: var(--ink);">
+                                <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
+                                    <span style="background: var(--brand-primary-soft); color: var(--brand-primary); padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; white-space: nowrap;">
+                                        {{ $faq->kategori->nama_kategori ?? 'Umum' }}
+                                    </span>
+                                    <span style="font-weight: 600; font-size: 14px; line-height: 1.4;">
+                                        {{ $faq->pertanyaan }}
+                                    </span>
+                                </div>
+                                <span id="dash-faq-icon-{{ $faq->faq_id }}" style="font-size: 12px; color: var(--ink-soft); transition: transform 0.2s;">
+                                    ▼
+                                </span>
+                            </button>
+                            <div id="dash-faq-ans-{{ $faq->faq_id }}" style="display: none; padding: 0 18px 16px 18px; color: var(--ink-soft); font-size: 13.5px; line-height: 1.6; border-top: 1px dashed var(--line); margin-top: 2px; padding-top: 12px;">
+                                {!! nl2br(e($faq->jawaban)) !!}
+                            </div>
+                        </div>
                     @empty
-                    <div class="ticket-card" style="justify-content:center; padding:30px;">
-                        <p class="eyebrow">{{ __('messages.belum_ada_tiket_laporan') }}</p>
-                    </div>
+                        <div style="text-align: center; padding: 30px 16px; border: 1.5px dashed var(--line); border-radius: 10px; color: var(--ink-soft);">
+                            <div style="font-size: 28px; margin-bottom: 6px;">🔍</div>
+                            <div style="font-weight: 600; font-size: 14px; color: var(--ink);">{{ __('messages.belum_ada_faq_public') }}</div>
+                        </div>
                     @endforelse
                 </div>
             </div>
@@ -207,8 +291,17 @@
                 </div>
                 <div class="field">
                     <label>{{ __('messages.deskripsi_kendala') }}</label>
-                    <textarea name="permasalahan" required placeholder="{{ __('messages.tuliskan_detail') }}">{{ old('permasalahan') }}</textarea>
+                    <textarea name="permasalahan" id="permasalahan_input" required placeholder="{{ __('messages.tuliskan_detail') }}">{{ old('permasalahan') }}</textarea>
                     @error('permasalahan') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
+                    
+                    <!-- Smart Auto-Suggest FAQ Box -->
+                    <div id="faq-suggest-box" style="display: none; margin-top: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-sunken);">
+                        <div style="font-size: 12px; font-weight: 700; color: var(--brand-primary); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
+                            <span style="display: flex; align-items: center; gap: 6px;">💡 {{ __('messages.solusi_cepat') }}</span>
+                            <button type="button" style="background: none; border: none; font-size: 11px; color: var(--brand-primary); cursor: pointer; font-weight: 500; padding: 0;" onclick="closeModal('modal-create'); switchDashTab('faq', document.getElementById('tab-btn-faq'));">Lihat Semua FAQ ↗</button>
+                        </div>
+                        <div id="faq-suggest-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
+                    </div>
                 </div>
                 <div class="field" style="margin-top: 14px;">
                     <label>{{ __('messages.upload_lampiran_opsional') }}</label>
@@ -229,19 +322,103 @@
 </div>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const skeleton = document.getElementById('skeleton-loading');
-        const content  = document.getElementById('actual-content');
-        
-        setTimeout(function () {
-            if(skeleton) skeleton.style.display = 'none';
-            if(content) content.style.display = 'block';
-        }, 1200);
+function switchDashTab(tabName, btn) {
+    document.querySelectorAll('.dash-tab-btn').forEach(b => {
+        b.style.color = 'var(--ink-soft)';
+        b.style.fontWeight = '500';
+        b.style.borderBottomColor = 'transparent';
+        b.classList.remove('active');
+    });
+    document.querySelectorAll('.dash-tab-pane').forEach(p => {
+        p.style.display = 'none';
+    });
 
-        @if($errors->any())
-            openModal('modal-create');
-        @endif
+    if (btn) {
+        btn.style.color = 'var(--brand-primary)';
+        btn.style.fontWeight = '600';
+        btn.style.borderBottomColor = 'var(--brand-primary)';
+        btn.classList.add('active');
+    }
 
+    const pane = document.getElementById('tab-pane-' + tabName);
+    if (pane) pane.style.display = 'block';
+}
+
+function toggleDashFaq(id) {
+    const ansEl = document.getElementById('dash-faq-ans-' + id);
+    const iconEl = document.getElementById('dash-faq-icon-' + id);
+    if (!ansEl) return;
+
+    if (ansEl.style.display === 'none' || ansEl.style.display === '') {
+        ansEl.style.display = 'block';
+        if (iconEl) iconEl.style.transform = 'rotate(180deg)';
+    } else {
+        ansEl.style.display = 'none';
+        if (iconEl) iconEl.style.transform = 'rotate(0deg)';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const skeleton = document.getElementById('skeleton-loading');
+    const content  = document.getElementById('actual-content');
+    
+    setTimeout(function () {
+        if(skeleton) skeleton.style.display = 'none';
+        if(content) content.style.display = 'block';
+    }, 1200);
+
+    @if(request('tab') === 'faq' || request('faq_search') || request('faq_kategori_id'))
+        const faqTabBtn = document.getElementById('tab-btn-faq');
+        if (faqTabBtn) switchDashTab('faq', faqTabBtn);
+    @endif
+
+    @if($errors->any())
+        openModal('modal-create');
+    @endif
+
+        // Smart Auto-Suggest FAQ Script
+        const permasalahanInput = document.getElementById('permasalahan_input');
+        const suggestBox = document.getElementById('faq-suggest-box');
+        const suggestList = document.getElementById('faq-suggest-list');
+        let searchDebounce = null;
+
+        if (permasalahanInput && suggestBox && suggestList) {
+            permasalahanInput.addEventListener('input', function () {
+                const query = this.value.trim();
+                clearTimeout(searchDebounce);
+
+                if (query.length < 3) {
+                    suggestBox.style.display = 'none';
+                    suggestList.innerHTML = '';
+                    return;
+                }
+
+                searchDebounce = setTimeout(function () {
+                    fetch(`{{ route('pelapor.faq.search') }}?q=${encodeURIComponent(query)}`)
+                        .then(res => res.json())
+                        .then(faqs => {
+                            if (faqs && faqs.length > 0) {
+                                suggestList.innerHTML = faqs.map(faq => `
+                                    <div style="border: 1px solid var(--line); border-radius: 6px; padding: 10px; background: var(--paper); font-size: 13px;">
+                                        <div style="font-weight: 600; color: var(--ink); display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 4px;">
+                                            <span>❓ ${faq.pertanyaan}</span>
+                                            <span style="font-size: 10px; background: var(--brand-primary-soft); color: var(--brand-primary); padding: 2px 6px; border-radius: 4px; font-weight: 600; white-space: nowrap;">${faq.kategori ? faq.kategori.nama_kategori : 'Public'}</span>
+                                        </div>
+                                        <div style="font-size: 12px; color: var(--ink-soft); line-height: 1.4; white-space: pre-wrap;">${faq.jawaban}</div>
+                                    </div>
+                                `).join('');
+                                suggestBox.style.display = 'block';
+                            } else {
+                                suggestBox.style.display = 'none';
+                                suggestList.innerHTML = '';
+                            }
+                        })
+                        .catch(() => {
+                            suggestBox.style.display = 'none';
+                        });
+                }, 300);
+            });
+        }
     });
 </script>
 @endsection

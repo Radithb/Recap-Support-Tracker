@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- Back sheet (tilted left) -->
+  <g transform="rotate(-12 40 50)">
+    <rect x="12" y="12" width="56" height="72" rx="2" fill="#ffffff" stroke="#000000" stroke-width="4.5" />
+    <rect x="20" y="24" width="40" height="4.5" fill="#000000" />
+    <rect x="20" y="33" width="32" height="4.5" fill="#000000" />
+    <rect x="20" y="42" width="38" height="4.5" fill="#000000" />
+    <rect x="20" y="51" width="28" height="4.5" fill="#000000" />
+  </g>
+
+  <!-- Middle sheet (tilted right) -->
+  <g transform="rotate(8 60 50)">
+    <rect x="32" y="12" width="56" height="72" rx="2" fill="#ffffff" stroke="#000000" stroke-width="4.5" />
+    <rect x="40" y="24" width="40" height="4.5" fill="#000000" />
+    <rect x="40" y="33" width="35" height="4.5" fill="#000000" />
+    <rect x="40" y="42" width="38" height="4.5" fill="#000000" />
+  </g>
+
+  <!-- Front sheet (straight) -->
+  <g>
+    <rect x="22" y="18" width="56" height="74" rx="2" fill="#ffffff" stroke="#000000" stroke-width="4.5" />
+    <!-- Lines of text on front sheet -->
+    <rect x="30" y="28" width="40" height="4.5" fill="#000000" />
+    <rect x="30" y="36" width="33" height="4.5" fill="#000000" />
+    <rect x="30" y="44" width="37" height="4.5" fill="#000000" />
+    <rect x="30" y="52" width="28" height="4.5" fill="#000000" />
+    <rect x="30" y="64" width="38" height="4.5" fill="#000000" />
+    <rect x="30" y="72" width="35" height="4.5" fill="#000000" />
+    <rect x="30" y="80" width="24" height="4.5" fill="#000000" />
+  </g>
+</svg>

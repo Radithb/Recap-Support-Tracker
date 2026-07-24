@@ -486,4 +486,12 @@ return [
     'pilih_template_faq' => 'Pilih Template FAQ',
     'pilih_jawaban_kb_desc' => 'Pilih jawaban dari Knowledge Base untuk dimasukkan ke kolom penyelesaian',
     'cari_pertanyaan_faq' => 'Cari pertanyaan FAQ...',
+    'pertanyaan_sering_diajukan' => 'Pertanyaan Sering Diajukan (FAQ)',
+    'solusi_cepat' => 'Solusi Cepat Terkait (FAQ)',
+    'faq_relevan_desc' => 'Temukan solusi mandiri secara cepat sebelum mengirimkan tiket baru.',
+    'semua_kategori' => 'Semua Kategori',
+    'masalah_teratasi' => 'Masalah Teratasi',
+    'buat_tiket_jika_tidak_ketemu' => 'Tidak menemukan jawaban? Buat Tiket Baru',
+    'cari_faq_placeholder' => 'Cari kendala atau kata kunci (contoh: password, transaksi, error)...',
+    'belum_ada_faq_public' => 'Belum ada FAQ publik yang sesuai dengan pencarian Anda.',
 ];

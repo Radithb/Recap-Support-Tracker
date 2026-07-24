@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Ticket;
 use App\Models\MasterAplikasi;
 use App\Models\MasterKategori;
+use App\Models\Faq;
 use App\Enums\TicketStatus;
 use App\Http\Requests\StoreTicketRequest;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Auth;
 class TicketController extends Controller
 {
     // --- PELAPOR METHODS ---
-    public function pelaporDashboard()
+    public function pelaporDashboard(Request $request)
     {
         $tickets = Ticket::where('pelapor_id', Auth::id())->latest('tanggal_input')->take(5)->get();
         $aplikasis = MasterAplikasi::where('is_active', true)->get();
@@ -22,7 +23,22 @@ class TicketController extends Controller
         $totalPending = Ticket::where('pelapor_id', Auth::id())->where('status', \App\Enums\TicketStatus::PENDING)->count();
         $totalDone = Ticket::where('pelapor_id', Auth::id())->where('status', \App\Enums\TicketStatus::DONE)->count();
 
-        return view('pelapor.dashboard', compact('tickets', 'aplikasis', 'totalOpen', 'totalPending', 'totalDone'));
+        // Data FAQ untuk Tab Pusat Solusi / FAQ
+        $kategoris = MasterKategori::all();
+        $faqsQuery = Faq::with('kategori')->active()->public();
+        if ($request->filled('faq_search')) {
+            $search = $request->faq_search;
+            $faqsQuery->where(function($q) use ($search) {
+                $q->where('pertanyaan', 'like', "%{$search}%")
+                  ->orWhere('jawaban', 'like', "%{$search}%");
+            });
+        }
+        if ($request->filled('faq_kategori_id')) {
+            $faqsQuery->where('kategori_id', $request->faq_kategori_id);
+        }
+        $faqs = $faqsQuery->orderBy('kategori_id')->latest()->get();
+
+        return view('pelapor.dashboard', compact('tickets', 'aplikasis', 'totalOpen', 'totalPending', 'totalDone', 'faqs', 'kategoris'));
     }
 
     public function pelaporRiwayat(Request $request)

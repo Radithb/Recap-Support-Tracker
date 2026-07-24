@@ -485,4 +485,12 @@ return [
     'pilih_template_faq' => 'Select FAQ Template',
     'pilih_jawaban_kb_desc' => 'Select an answer from Knowledge Base to insert into resolution field',
     'cari_pertanyaan_faq' => 'Search FAQ question...',
+    'pertanyaan_sering_diajukan' => 'Frequently Asked Questions (FAQ)',
+    'solusi_cepat' => 'Related Quick Solutions (FAQ)',
+    'faq_relevan_desc' => 'Find self-service solutions quickly before submitting a new ticket.',
+    'semua_kategori' => 'All Categories',
+    'masalah_teratasi' => 'Issue Resolved',
+    'buat_tiket_jika_tidak_ketemu' => 'Can\'t find an answer? Create a New Ticket',
+    'cari_faq_placeholder' => 'Search issue or keyword (e.g., password, transaction, error)...',
+    'belum_ada_faq_public' => 'No public FAQs matching your search yet.',
 ];
