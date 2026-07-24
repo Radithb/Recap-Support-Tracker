@@ -161,6 +161,21 @@ class TicketController extends Controller
 
         $ticket->update($data);
 
+        // Jika opsi is_faq dicentang, otomatis simpan/update ke Master Data FAQ
+        if ($data['is_faq'] && !empty($ticket->kategori_id) && !empty($ticket->penyelesaian)) {
+            Faq::updateOrCreate(
+                [
+                    'kategori_id' => $ticket->kategori_id,
+                    'pertanyaan'  => $ticket->permasalahan,
+                ],
+                [
+                    'jawaban'     => $ticket->penyelesaian,
+                    'visibility'  => 'internal',
+                    'is_active'   => true,
+                ]
+            );
+        }
+
         return back()->with('success', __('messages.ticket_updated'));
     }
 }
