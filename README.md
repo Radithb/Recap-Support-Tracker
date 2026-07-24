@@ -116,7 +116,7 @@ Sebelum memulai, pastikan Anda memiliki:
 <br>
 
 #### Dashboard Pelapor
-![Dashboard Pelapor](https://github.com/user-attachments/assets/9973bf08-2b9c-4646-92de-f61b36d8583d)
+![Dashboard Pelapor](https://github.com/user-attachments/assets/145659e9-4ee6-4991-b09a-5f44bbc2bbb1)
 *Ringkasan statistik laporan pengguna, status penanganan terkini, serta tabel riwayat seluruh tiket kendala.*
 
 <br>
