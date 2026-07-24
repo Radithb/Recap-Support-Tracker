@@ -48,7 +48,7 @@
         <!-- TAB NAVIGATION -->
         <div class="dashboard-tabs fade-up" style="display: flex; gap: 8px; border-bottom: 2px solid var(--line); margin-bottom: 24px; animation-delay: 0.12s;">
             <button type="button" id="tab-btn-tickets" class="dash-tab-btn active" onclick="switchDashTab('tickets', this)" style="padding: 10px 18px; font-weight: 600; font-size: 14px; border: none; background: none; color: var(--brand-primary); border-bottom: 2px solid var(--brand-primary); margin-bottom: -2px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
-                <img src="{{ asset('ticket-laporan.svg') }}" alt="" style="width: 18px; height: 18px; object-fit: contain; vertical-align: middle;"> Tiket & Laporan Saya
+                <img src="{{ asset('ticket-laporan.svg') }}" alt="" style="width: 18px; height: 18px; object-fit: contain; vertical-align: middle;"> {{ __('messages.tiket_dan_laporan_saya') }}
             </button>
             <button type="button" id="tab-btn-faq" class="dash-tab-btn" onclick="switchDashTab('faq', this)" style="padding: 10px 18px; font-weight: 500; font-size: 14px; border: none; background: none; color: var(--ink-soft); border-bottom: 2px solid transparent; margin-bottom: -2px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
                 <span style="font-size: 16px;">❓</span> {{ __('messages.pertanyaan_sering_diajukan') }}
@@ -138,12 +138,12 @@
                     </select>
 
                     <button type="submit" class="btn btn-secondary" style="padding: 10px 18px; font-size: 14px; border-radius: 8px;">
-                        Cari
+                        {{ __('messages.cari') }}
                     </button>
 
                     @if(request('faq_search') || request('faq_kategori_id'))
                         <a href="{{ route('pelapor.dashboard', ['tab' => 'faq']) }}" class="btn btn-ghost" style="padding: 10px 14px; font-size: 14px; border-radius: 8px; color: var(--ink-soft); text-decoration: none;">
-                            Reset
+                            {{ __('messages.reset') }}
                         </a>
                     @endif
                 </form>
@@ -298,7 +298,7 @@
                     <div id="faq-suggest-box" style="display: none; margin-top: 10px; padding: 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper-sunken);">
                         <div style="font-size: 12px; font-weight: 700; color: var(--brand-primary); margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between;">
                             <span style="display: flex; align-items: center; gap: 6px;">💡 {{ __('messages.solusi_cepat') }}</span>
-                            <button type="button" style="background: none; border: none; font-size: 11px; color: var(--brand-primary); cursor: pointer; font-weight: 500; padding: 0;" onclick="closeModal('modal-create'); switchDashTab('faq', document.getElementById('tab-btn-faq'));">Lihat Semua FAQ ↗</button>
+                            <button type="button" style="background: none; border: none; font-size: 11px; color: var(--brand-primary); cursor: pointer; font-weight: 500; padding: 0;" onclick="closeModal('modal-create'); switchDashTab('faq', document.getElementById('tab-btn-faq'));">{{ __('messages.lihat_semua_faq') }}</button>
                         </div>
                         <div id="faq-suggest-list" style="display: flex; flex-direction: column; gap: 8px;"></div>
                     </div>

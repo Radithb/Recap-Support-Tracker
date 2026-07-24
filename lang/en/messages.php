@@ -493,4 +493,8 @@ return [
     'buat_tiket_jika_tidak_ketemu' => 'Can\'t find an answer? Create a New Ticket',
     'cari_faq_placeholder' => 'Search issue or keyword (e.g., password, transaction, error)...',
     'belum_ada_faq_public' => 'No public FAQs matching your search yet.',
+    'tiket_dan_laporan_saya' => 'My Tickets & Reports',
+    'lihat_semua_faq' => 'View All FAQs ↗',
+    'cari' => 'Search',
+    'reset' => 'Reset',
 ];

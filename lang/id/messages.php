@@ -494,4 +494,8 @@ return [
     'buat_tiket_jika_tidak_ketemu' => 'Tidak menemukan jawaban? Buat Tiket Baru',
     'cari_faq_placeholder' => 'Cari kendala atau kata kunci (contoh: password, transaksi, error)...',
     'belum_ada_faq_public' => 'Belum ada FAQ publik yang sesuai dengan pencarian Anda.',
+    'tiket_dan_laporan_saya' => 'Tiket & Laporan Saya',
+    'lihat_semua_faq' => 'Lihat Semua FAQ ↗',
+    'cari' => 'Cari',
+    'reset' => 'Reset',
 ];
