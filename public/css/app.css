@@ -66,11 +66,15 @@ html.text-small { --text-scale: 0.85; }
 html.text-large { --text-scale: 1.15; }
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
-body{
-  font-family:var(--font-body);
-  background:var(--paper);
-  color:var(--ink);
-  -webkit-font-smoothing:antialiased;
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background-color: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 ::selection{background:rgba(255, 255, 255, 0.25); color:inherit;}
 
