@@ -1221,8 +1221,8 @@ html.dark-mode .login-split-right .bottom-text a {
         -webkit-tap-highlight-color: transparent;
     }
     .mobile-bottom-nav a.active { color: var(--brand-primary); }
-    .mobile-bottom-nav a svg { width: 22px; height: 22px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .mobile-bottom-nav a.active svg { stroke: var(--brand-primary); fill: var(--brand-primary-soft); }
+    .mobile-bottom-nav a img { width: 22px; height: 22px; object-fit: contain; filter: grayscale(100%); opacity: 0.5; transition: all 0.2s; margin-bottom: 3px; }
+    .mobile-bottom-nav a.active img { filter: invert(24%) sepia(55%) saturate(1989%) hue-rotate(193deg) brightness(96%) contrast(92%); opacity: 1; }
     .mobile-bottom-nav a span { font-size: 10.5px; font-weight: 600; }
 
     /* ── TAHAP 2 ── */
