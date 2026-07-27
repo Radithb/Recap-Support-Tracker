@@ -109,7 +109,7 @@
 
         <!-- PANE 2: PUSAT SOLUSI / FAQ -->
         <div id="tab-pane-faq" class="dash-tab-pane" style="display: none;">
-            <div style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+            <div class="fade-up" style="animation-delay: 0.1s; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 24px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
                 <div style="margin-bottom: 20px;">
                     <h3 style="margin: 0; font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--ink);">
                         {{ __('messages.pertanyaan_sering_diajukan') }}
