@@ -902,14 +902,15 @@ html.dark-mode .login-split-right .bottom-text a {
     .login-split-left {
         flex: none;
         height: auto;
-        padding: 28px 24px 24px 24px;
+        padding: 16px 20px;
         overflow: visible;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     .login-split-left::before {
-        display: none; /* Sembunyikan grid overlay di mobile */
+        display: none;
     }
     .login-split-left .brand {
-        margin-bottom: 20px;
+        margin-bottom: 0;
     }
     .login-split-left .brand img {
         width: 38px;
@@ -922,14 +923,13 @@ html.dark-mode .login-split-right .bottom-text a {
         font-size: calc(9px * var(--text-scale, 1));
     }
     .login-split-left > div:nth-child(2) {
-        margin: 0 !important;
+        display: none !important; /* Sembunyikan seluruh teks (H1 dan deskripsi) agar area biru hanya jadi header */
     }
     .login-text-content {
-        margin: 0 !important;
+        display: none !important;
     }
     .login-split-left h1 {
-        font-size: calc(24px * var(--text-scale, 1));
-        margin-bottom: 12px;
+        display: none !important;
     }
     .login-split-left .badges-bg {
         display: none;
@@ -943,13 +943,7 @@ html.dark-mode .login-split-right .bottom-text a {
         display: none;
     }
     .login-split-left .desc-mobile {
-        display: block !important;
-        font-size: calc(13px * var(--text-scale, 1));
-        line-height: 1.5;
-        color: rgba(255, 255, 255, 0.75);
-        margin-bottom: 0;
-        position: relative;
-        z-index: 10;
+        display: none !important;
     }
     .login-split-left > div:last-of-type {
         display: none !important;
