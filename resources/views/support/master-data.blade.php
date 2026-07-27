@@ -160,31 +160,42 @@
             border: none !important;
             text-align: left !important;
         }
+        /* Gaya Spesifik Per Tab agar rapi */
         
-        /* Gaya khusus urutan kolom (Asumsi Kolom 1: Judul, 2: Desk/Teks, 3: Status, 4/Terakhir: Aksi) */
-        .glass-panel td:nth-child(1) {
-            font-weight: 700 !important;
-            font-size: 1rem !important;
-            color: var(--ink) !important;
-            padding-bottom: 4px !important;
-            padding-right: 32px !important; /* Space for Action button */
-        }
-        .glass-panel td:nth-child(2) {
-            font-size: 0.85rem !important;
-            color: var(--text-muted) !important;
-            padding-bottom: 12px !important;
-        }
-        .glass-panel td:nth-child(3) {
+        /* 1. Tab Aplikasi */
+        #tab-aplikasi .glass-panel td:nth-child(1) { font-weight: 700 !important; font-size: 1rem !important; color: var(--ink) !important; padding-bottom: 4px !important; padding-right: 32px !important; }
+        #tab-aplikasi .glass-panel td:nth-child(2) { font-size: 0.85rem !important; color: var(--text-muted) !important; padding-bottom: 12px !important; }
+        #tab-aplikasi .glass-panel td:nth-child(3) { text-align: left !important; padding-bottom: 4px !important; }
+        
+        /* 2. Tab Kategori */
+        #tab-kategori .glass-panel td:nth-child(1) { font-weight: 700 !important; font-size: 1rem !important; color: var(--ink) !important; padding-bottom: 8px !important; padding-right: 32px !important; }
+        #tab-kategori .glass-panel td:nth-child(2) { text-align: left !important; padding-bottom: 4px !important; }
+        
+        /* 3. Tab Koperasi */
+        #tab-koperasi .glass-panel td:nth-child(1) { padding-bottom: 8px !important; }
+        #tab-koperasi .glass-panel td:nth-child(2) { padding-bottom: 12px !important; }
+        #tab-koperasi .glass-panel td:nth-child(3), #tab-koperasi .glass-panel td:nth-child(4) {
+            display: inline-block !important;
             text-align: left !important;
+            margin-right: 6px;
         }
+        #tab-koperasi .glass-panel td:nth-child(3) span, #tab-koperasi .glass-panel td:nth-child(4) span {
+            display: inline-block !important;
+        }
+        
+        /* 4. Tab PIC Support */
+        #tab-picsupport .glass-panel td:nth-child(1) { padding-bottom: 12px !important; }
+        #tab-picsupport .glass-panel td:nth-child(2) { padding-bottom: 4px !important; }
         /* Aksi / 3 Titik diposisikan absolut di kanan atas */
-        .glass-panel td:has(> div > button[onclick*="toggleMdDropdown"]) {
-            position: absolute;
-            top: 12px;
-            right: 12px;
+        .glass-panel td.td-action-cell {
+            position: absolute !important;
+            top: 12px !important;
+            right: 12px !important;
             padding: 0 !important;
+            width: auto !important;
+            z-index: 10 !important;
         }
-        .glass-panel td:has(> div > button[onclick*="toggleMdDropdown"]) button {
+        .glass-panel td.td-action-cell button {
             background: transparent !important;
             border: none !important;
             width: auto !important;
@@ -337,7 +348,7 @@
                                             {{ $app->is_active ? __('messages.aktif') : __('messages.nonaktif') }}
                                         </span>
                                     </td>
-                                    <td style="padding: 1.25rem 1.5rem; text-align: center; position: relative;">
+                                    <td class="td-action-cell" style="padding: 1.25rem 1.5rem; text-align: center; position: relative;">
                                         <div style="position: relative; display: inline-block;">
                                             <button type="button" onclick="toggleMdDropdown(event, 'dropdown-app-{{ $app->aplikasi_id }}')" style="background: var(--paper-raised); border: 1.5px solid var(--line); border-radius: 8px; width: 32px; height: 32px; cursor: pointer; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--border-hover)'; this.style.background='var(--paper-sunken)'" onmouseout="this.style.borderColor='var(--line)'; this.style.background='var(--paper-raised)'" title="Aksi">
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg>
@@ -394,7 +405,7 @@
                                         {{ $kategori->tickets->count() ?? 0 }} {{ __('messages.jumlah') }}
                                     </span>
                                 </td>
-                                <td style="padding: 1.25rem 1.5rem; text-align: center; position: relative;">
+                                <td class="td-action-cell" style="padding: 1.25rem 1.5rem; text-align: center; position: relative;">
                                     <div style="position: relative; display: inline-block;">
                                         <button type="button" onclick="toggleMdDropdown(event, 'dropdown-kat-{{ $kategori->kategori_id }}')" style="background: var(--paper-raised); border: 1.5px solid var(--line); border-radius: 8px; width: 32px; height: 32px; cursor: pointer; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--border-hover)'; this.style.background='var(--paper-sunken)'" onmouseout="this.style.borderColor='var(--line)'; this.style.background='var(--paper-raised)'" title="Aksi">
                                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg>
