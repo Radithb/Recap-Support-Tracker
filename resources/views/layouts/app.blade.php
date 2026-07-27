@@ -147,7 +147,7 @@
 <div class="mobile-top-header">
     <div class="m-left">
         <div class="m-title">
-            <strong>Dashboard</strong> / SAKTI Desk
+            <strong>@yield('page_title', 'Dashboard')</strong> / @yield('page_subtitle', 'SAKTI Desk')
         </div>
     </div>
     <div class="m-right">
