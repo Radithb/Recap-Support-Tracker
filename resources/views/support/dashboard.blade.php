@@ -231,7 +231,7 @@
                 @if($t->status === \App\Enums\TicketStatus::DONE && $t->tanggal_penyelesaian)
                 <div style="display: inline-flex; align-items: center; gap: 6px; background: #ecfdf5; color: #065f46; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                    Selesai &middot; {{ $t->tanggal_penyelesaian->format('d M Y, H:i') }}
+                    {{ __('messages.selesai') }} &middot; {{ $t->tanggal_penyelesaian->format('d M Y, H:i') }}
                 </div>
                 @endif
             </div>
@@ -488,11 +488,11 @@
             <table class="tickets" style="width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr style="background: var(--paper-sunken); border-bottom: 1px solid var(--line);">
-                        <th style="padding: 16px; text-transform: uppercase; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; text-align: left;">Nama Pelapor</th>
-                        <th style="padding: 16px; text-transform: uppercase; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; text-align: left;">Koperasi</th>
-                        <th style="padding: 16px; text-transform: uppercase; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; text-align: left;">Kontak</th>
-                        <th style="padding: 16px; text-transform: uppercase; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; text-align: left;">Tgl Daftar</th>
-                        <th style="padding: 16px; text-transform: uppercase; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; text-align: center;">Aksi</th>
+                        <th style="padding: 16px; text-transform: uppercase; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; text-align: left;">{{ __('messages.nama_pelapor') ?? 'Nama Pelapor' }}</th>
+                        <th style="padding: 16px; text-transform: uppercase; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; text-align: left;">{{ __('messages.koperasi') ?? 'Koperasi' }}</th>
+                        <th style="padding: 16px; text-transform: uppercase; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; text-align: left;">{{ __('messages.kontak') ?? 'Kontak' }}</th>
+                        <th style="padding: 16px; text-transform: uppercase; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; text-align: left;">{{ __('messages.col_tanggal') ?? 'Tgl Daftar' }}</th>
+                        <th style="padding: 16px; text-transform: uppercase; font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.5px; text-align: center;">{{ __('messages.aksi') ?? 'Aksi' }}</th>
                     </tr>
                 </thead>
                 <tbody>
