@@ -82,6 +82,130 @@
         from { opacity: 0; transform: translateY(5px); }
         to { opacity: 1; transform: translateY(0); }
     }
+    
+    /* MOBILE RESPONSIVE LAYOUT */
+    @media (max-width: 768px) {
+        .md-layout {
+            flex-direction: column;
+            gap: 1rem;
+        }
+        /* Ubah Sidebar jadi Tab Horizontal Scroll */
+        .md-sidebar {
+            width: 100%;
+            flex-direction: row;
+            overflow-x: auto;
+            border: none;
+            background: transparent;
+            padding: 0 0 8px 0;
+            -webkit-overflow-scrolling: touch;
+            display: flex;
+            align-items: center;
+        }
+        .md-sidebar::-webkit-scrollbar {
+            display: none; /* Sembunyikan scrollbar agar lebih rapi seperti di aplikasi asli */
+        }
+        .md-tab-btn {
+            border: 1px solid var(--line);
+            border-radius: 100px;
+            padding: 8px 16px;
+            white-space: nowrap;
+            background: var(--paper-raised);
+            font-size: 0.85rem;
+            color: var(--ink-soft);
+        }
+        .md-tab-btn.active {
+            background: var(--brand-primary-soft);
+            color: var(--brand-primary);
+            border-color: var(--brand-primary-soft);
+        }
+        .md-tab-btn.active::before {
+            display: none;
+        }
+        
+        /* Tombol Export dipindahkan dan diatur style nya */
+        .md-sidebar > div[style*="border-top"] {
+            border-top: none !important;
+            padding-top: 0 !important;
+            margin-top: 0 !important;
+            margin-left: auto; /* Jika ingin didorong ke kanan? Tidak perlu karena di mobile posisinya berbeda. Wait, I will use javascript to move the export button out of sidebar, or just style it differently? */
+            /* Sebenarnya kita bisa pindahkan Tombol Export dengan flex order? Tidak, kita akan buat tampilannya menyesuaikan nanti */
+        }
+        
+        /* Ubah Tabel menjadi Card Mobile */
+        .glass-panel table, .glass-panel tbody, .glass-panel tr, .glass-panel td {
+            display: block;
+            width: 100%;
+        }
+        .glass-panel thead {
+            display: none;
+        }
+        .glass-panel > div[style*="overflow: auto"] {
+            padding: 12px; /* Beri jarak untuk card */
+            background: var(--paper); /* Latar belakang abu-abu seperti screenshot */
+        }
+        .glass-panel {
+            background: transparent !important;
+            border: none !important;
+        }
+        .glass-panel tr {
+            background: var(--paper-raised);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            padding: 16px;
+            position: relative;
+        }
+        .glass-panel td {
+            padding: 0 !important;
+            border: none !important;
+            text-align: left !important;
+        }
+        
+        /* Gaya khusus urutan kolom (Asumsi Kolom 1: Judul, 2: Desk/Teks, 3: Status, 4/Terakhir: Aksi) */
+        .glass-panel td:nth-child(1) {
+            font-weight: 700 !important;
+            font-size: 1rem !important;
+            color: var(--ink) !important;
+            padding-bottom: 4px !important;
+            padding-right: 32px !important; /* Space for Action button */
+        }
+        .glass-panel td:nth-child(2) {
+            font-size: 0.85rem !important;
+            color: var(--text-muted) !important;
+            padding-bottom: 12px !important;
+        }
+        .glass-panel td:nth-child(3) {
+            text-align: left !important;
+        }
+        /* Aksi / 3 Titik diposisikan absolut di kanan atas */
+        .glass-panel td:has(> div > button[onclick*="toggleMdDropdown"]) {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 0 !important;
+        }
+        .glass-panel td:has(> div > button[onclick*="toggleMdDropdown"]) button {
+            background: transparent !important;
+            border: none !important;
+            width: auto !important;
+            height: auto !important;
+            padding: 4px !important;
+            color: var(--text-muted) !important;
+        }
+        
+        /* Header Card "Aplikasi" dsb */
+        .glass-panel > div:first-child {
+            border-bottom: none !important;
+            padding: 0 12px 12px 12px !important;
+        }
+        
+        /* Sembunyikan eyebrow/deskripsi header halaman agar ringkas (opsional, ikuti screenshot) */
+        .page-head { margin-bottom: 1rem !important; }
+        .page-head h1 { font-size: 1.5rem !important; }
+        
+        .desktop-export { display: none !important; }
+        .mobile-export { display: block !important; padding: 0 12px 12px 12px; }
+    }
 </style>
 
 <div class="pelapor-panel active">
@@ -159,7 +283,7 @@
                     FAQ
                 </button>
 
-                <div style="margin-top: 1rem; border-top: 1px solid var(--line); padding-top: 1rem;">
+                <div class="desktop-export" style="margin-top: 1rem; border-top: 1px solid var(--line); padding-top: 1rem;">
                     <a href="{{ route('support.master-data.export') }}" class="btn" style="display: flex; justify-content: center; align-items: center; gap: 8px; padding: 0.8rem; border-radius: 8px; font-weight: 600; text-decoration: none; background-color: #10b981; color: white; border: 1px solid #10b981; transition: opacity 0.2s; width: 100%;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
                         Export Excel
@@ -550,8 +674,15 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+            
+            <div class="mobile-export" style="display: none;">
+                <a href="{{ route('support.master-data.export') }}" class="btn" style="display: flex; justify-content: center; align-items: center; gap: 8px; padding: 0.8rem; border-radius: 8px; font-weight: 600; text-decoration: none; background-color: #10b981; color: white; border: 1px solid #10b981; transition: opacity 0.2s; width: 100%;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
+                    Export Excel
+                </a>
+            </div>
+            
         </div>
     </div>
 
