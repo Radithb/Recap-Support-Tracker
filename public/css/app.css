@@ -751,6 +751,9 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
     margin-right: 10px;
     box-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
 }
+.login-text-content {
+    margin: auto 0;
+}
 .login-split-left h1 {
     font-size: calc(36px * var(--text-scale, 1));
     line-height: 1.2;
@@ -917,6 +920,9 @@ html.dark-mode .login-split-right .bottom-text a {
     }
     .login-split-left .brand-text p {
         font-size: calc(9px * var(--text-scale, 1));
+    }
+    .login-text-content {
+        margin: 0 !important;
     }
     .login-split-left h1 {
         font-size: calc(24px * var(--text-scale, 1));
