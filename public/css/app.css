@@ -1078,10 +1078,9 @@ html.dark-mode .login-split-right .bottom-text a {
     }
 
     /* 3. Penyesuaian Tabel Laporan (Scroll Horizontal) */
+    /* Menghindari penggunaan display: block pada tabel agar kolom tidak terpotong di scrollbar container */
     table, .tickets {
-        display: block !important;
         width: 100%;
-        overflow-x: auto;
         -webkit-overflow-scrolling: touch;
     }
     /* Memastikan tabel tidak mengecil hingga merusak teks */
