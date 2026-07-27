@@ -310,7 +310,7 @@
                             
                             <div class="search" style="width: 250px; max-width: 100%; background: var(--paper-sunken); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; display: flex; align-items: center;">
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px; opacity: 0.5; color: var(--ink);"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                                <input type="text" placeholder="{{ __('messages.cari_koperasi', 'Cari koperasi...') }}" id="search-koperasi" style="border:none; background:transparent; width:100%; outline:none; font-size: 0.85rem; color: var(--ink);">
+                                <input type="text" placeholder="Cari koperasi..." id="search-koperasi" style="border:none; background:transparent; width:100%; outline:none; font-size: 0.85rem; color: var(--ink);">
                             </div>
                         </div>
                         <div style="overflow: auto;">
