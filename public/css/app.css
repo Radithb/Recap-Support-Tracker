@@ -903,3 +903,141 @@ html.dark-mode .login-split-right .bottom-text a {
         padding: 40px 24px;
     }
 }
+
+/* ========================================= */
+/* RESPONSIVE WEB DESIGN (MOBILE & TABLET) */
+/* ========================================= */
+@media (max-width: 768px) {
+    /* 1. Navigasi Bottom (Menyembunyikan Sidebar & Ubah Jadi Bottom Nav) */
+    .sidebar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 65px;
+        flex-direction: row;
+        border-right: none;
+        border-top: 1px solid var(--line);
+        padding: 0;
+        z-index: 100;
+        background: var(--paper-raised);
+        overflow: visible;
+    }
+    .sidebar-brand, .sidebar-foot { display: none !important; }
+    .sidebar-menu {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+        height: 100%;
+    }
+    .sidebar-menu a, .sidebar-menu button {
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 8px 4px;
+        font-size: 10px;
+        gap: 4px;
+        text-align: center;
+        border-radius: 0;
+        margin: 0;
+        border: none;
+        background: transparent !important;
+    }
+    .sidebar-menu a.active {
+        color: var(--brand-primary);
+    }
+    .sidebar-menu a .ic img, .sidebar-menu a .ic svg, .sidebar-menu button .ic img {
+        width: 20px;
+        height: 20px;
+        margin-right: 0 !important;
+    }
+    .sidebar-menu div { display: none; } /* Sembunyikan garis separator di menu */
+
+    .app-shell {
+        flex-direction: column;
+    }
+    .app-main {
+        width: 100%;
+        padding-bottom: 75px; /* Beri ruang agar konten tidak tertutup bottom nav */
+    }
+
+    /* 2. Menyusun Elemen Menjadi Vertikal */
+    .stat-row {
+        grid-template-columns: 1fr; /* Memaksa 3 kotak menjadi 1 baris ke bawah */
+        gap: 12px;
+    }
+    .page-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .toolbar .search {
+        width: 100%;
+    }
+    .cta-band {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    /* 3. Penyesuaian Tabel Laporan (Scroll Horizontal) */
+    table, .tickets {
+        display: block !important;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    /* Memastikan tabel tidak mengecil hingga merusak teks */
+    table th, table td {
+        white-space: nowrap;
+    }
+}
+
+
+@media (max-width: 768px) {
+    /* 4. Finishing & Spacing Polish */
+    .page, .pelapor-panel {
+        padding: 16px 16px 85px 16px !important;
+    }
+    .app-topbar {
+        padding: 16px 16px;
+    }
+    .btn, button, .chip-filter {
+        min-height: 44px;
+        justify-content: center;
+    }
+    .btn-sm {
+        min-height: 38px;
+    }
+    .stat-card, .ticket-card, .login-panel-card {
+        padding: 16px;
+    }
+    .stat-card .n {
+        font-size: calc(24px * var(--text-scale, 1));
+    }
+    .ticket-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+    .ticket-card .tid, .ticket-card .meta {
+        min-width: auto;
+    }
+    .modal-box {
+        width: 95% !important;
+        margin: 20px auto;
+    }
+    .modal-body {
+        padding: 16px;
+    }
+}
+
