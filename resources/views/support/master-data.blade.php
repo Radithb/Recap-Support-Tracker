@@ -302,10 +302,15 @@
                 <!-- TAB 3: KOPERASI -->
                 <div id="tab-koperasi" class="md-tab-pane">
                     <div class="glass-panel" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; min-width: 0;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; gap: 1rem;">
                             <div>
                                 <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.nama_koperasi') }}</h3>
                                 <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.desc_koperasi') }}</p>
+                            </div>
+                            
+                            <div class="search" style="width: 250px; max-width: 100%; background: var(--paper-sunken); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; display: flex; align-items: center;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 8px; opacity: 0.5; color: var(--ink);"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                <input type="text" placeholder="{{ __('messages.cari_koperasi', 'Cari koperasi...') }}" id="search-koperasi" style="border:none; background:transparent; width:100%; outline:none; font-size: 0.85rem; color: var(--ink);">
                             </div>
                         </div>
                         <div style="overflow: auto;">
@@ -318,7 +323,7 @@
                                     <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.total_tiket') }}</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tbody-koperasi">
                                 @foreach($instansis as $ins)
                                 @php
                                     $phone = !empty($ins->no_telp) ? $ins->no_telp : ($ins->users->whereNotNull('whatsapp')->first()?->whatsapp ?? '-');
@@ -862,6 +867,24 @@
                 content.style.display = 'block';
                 content.classList.add('loaded');
             }, 800);
+        }
+
+        // Live Search Koperasi
+        const searchKoperasi = document.getElementById('search-koperasi');
+        if (searchKoperasi) {
+            searchKoperasi.addEventListener('input', function() {
+                const keyword = this.value.toLowerCase();
+                const rows = document.querySelectorAll('#tbody-koperasi tr');
+                
+                rows.forEach(row => {
+                    const namaKoperasi = row.querySelector('td:nth-child(1)')?.textContent.toLowerCase() || '';
+                    if (namaKoperasi.includes(keyword)) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
         }
     });
 </script>
