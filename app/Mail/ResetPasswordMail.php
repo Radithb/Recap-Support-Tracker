@@ -43,7 +43,7 @@ class ResetPasswordMail extends Mailable
         return new Content(
             view: 'emails.reset-password',
             with: [
-                'resetUrl' => url('/reset-password/' . $this->token . '?email=' . urlencode($this->email)),
+                'resetUrl' => config('app.url') . '/reset-password/' . $this->token . '?email=' . urlencode($this->email),
             ]
         );
     }

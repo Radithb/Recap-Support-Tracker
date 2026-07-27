@@ -342,7 +342,7 @@ class AuthController extends Controller
         }
 
         $tokenAge = Carbon::parse($resetData->created_at)->diffInMinutes(Carbon::now());
-        if ($tokenAge > 60) {
+        if ($tokenAge > 10080) { // 7 hari = 10080 menit
             return back()->withErrors(['email' => 'Tautan reset kata sandi telah kedaluwarsa.']);
         }
 
