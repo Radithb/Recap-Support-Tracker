@@ -887,29 +887,98 @@ html.dark-mode .login-split-right .bottom-text a {
     color: #e2e8f0;
 }
 
-@media(max-width: 900px) {
+@media(max-width: 768px) {
+    /* ── Tahap 1: Restrukturisasi Layout Utama ── */
     .login-split-layout {
         flex-direction: column;
+        min-height: auto;
         max-height: none;
-        overflow: visible;
         height: auto;
+        overflow: visible;
     }
     .login-split-left {
         flex: none;
         height: auto;
-        padding: 40px 24px;
+        padding: 28px 24px 24px 24px;
         overflow: visible;
+    }
+    .login-split-left::before {
+        display: none; /* Sembunyikan grid overlay di mobile */
+    }
+    .login-split-left .brand {
+        margin-bottom: 20px;
+    }
+    .login-split-left .brand img {
+        width: 38px;
+        height: 38px;
+    }
+    .login-split-left .brand-text h2 {
+        font-size: calc(15px * var(--text-scale, 1));
+    }
+    .login-split-left .brand-text p {
+        font-size: calc(9px * var(--text-scale, 1));
+    }
+    .login-split-left h1 {
+        font-size: calc(24px * var(--text-scale, 1));
+        margin-bottom: 12px;
     }
     .login-split-left .badges-bg {
         display: none;
     }
+    .login-split-left .eyebrow {
+        display: none; /* Sembunyikan eyebrow badge di mobile */
+    }
+
+    /* ── Tahap 2: Manajemen Konten Teks (Hide/Show) ── */
+    .login-split-left p.desc {
+        display: none; /* Sembunyikan paragraf panjang di mobile */
+    }
+    .login-split-left .desc-mobile {
+        display: block !important; /* Tampilkan teks singkat di mobile */
+        font-size: calc(13px * var(--text-scale, 1));
+        line-height: 1.5;
+        color: rgba(255, 255, 255, 0.75);
+        margin-bottom: 0;
+        position: relative;
+        z-index: 10;
+    }
+    .login-split-left > div:last-child {
+        display: none; /* Sembunyikan footer copyright di mobile */
+    }
+
     .login-split-right {
         flex: none;
         height: auto;
         width: 100%;
         min-width: 0;
-        padding: 40px 24px;
+        padding: 28px 24px 32px 24px;
         overflow: visible;
+    }
+
+    /* ── Tahap 3: Penyesuaian Visual Form Login ── */
+    .login-split-right .login-box {
+        max-width: 100%;
+    }
+    .login-split-right .login-panel-card {
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        padding: 0 !important;
+        background: transparent !important;
+    }
+    .login-split-right .login-panel-card .field input {
+        min-height: 48px;
+        font-size: calc(14px * var(--text-scale, 1)) !important;
+        border-radius: 12px;
+    }
+    .login-split-right .login-panel-card .btn {
+        min-height: 48px;
+        font-size: 14px !important;
+        border-radius: 12px !important;
+        padding: 14px 18px !important;
+    }
+    .login-split-right .top-text {
+        display: none; /* Sembunyikan top-text di mobile */
     }
 }
 

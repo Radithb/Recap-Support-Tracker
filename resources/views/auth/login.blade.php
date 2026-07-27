@@ -98,6 +98,8 @@
                     <p class="desc" style="margin-bottom: 0;">
                         Setiap kendala yang Anda laporkan langsung masuk ke sistem tiket kami dan ditindaklanjuti oleh tim support yang responsif. Tidak perlu menebak-nebak progresnya status penanganan, riwayat komunikasi, hingga estimasi penyelesaian bisa Anda pantau kapan saja, langsung dari dashboard. Semua terhubung erat dengan seluruh layanan dalam ekosistem SAKTI, SICUNDO, dan mitra pendukung lainnya, sehingga laporan Anda tertangani cepat, akurat, dan tanpa perlu berpindah-pindah platform
                     </p>
+                    {{-- Teks singkat khusus mobile --}}
+                    <p class="desc-mobile" style="display: none;">Pantau status, riwayat, dan estimasi penyelesaian tiket anda langsung dari dashboard.</p>
 
 
                 </div>
