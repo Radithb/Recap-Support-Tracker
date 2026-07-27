@@ -338,7 +338,13 @@ class AuthController extends Controller
             ->first();
 
         if (!$resetData) {
-            return back()->withErrors(['email' => 'Token reset kata sandi tidak valid atau tidak cocok dengan email.']);
+            // Debug: cek nilai yang diterima
+            $dbToken = DB::table('password_reset_tokens')->where('email', $request->email)->first();
+            $debugInfo = 'Email diterima: ' . $request->email . ' | ';
+            $debugInfo .= 'Token diterima (20): ' . substr($request->token, 0, 20) . ' | ';
+            $debugInfo .= 'Token di DB (20): ' . ($dbToken ? substr($dbToken->token, 0, 20) : 'TIDAK ADA') . ' | ';
+            $debugInfo .= 'Cocok: ' . ($dbToken && $dbToken->token === $request->token ? 'YA' : 'TIDAK');
+            return back()->withErrors(['email' => 'Token tidak valid. DEBUG: ' . $debugInfo]);
         }
 
         $tokenAge = Carbon::parse($resetData->created_at)->diffInMinutes(Carbon::now());
