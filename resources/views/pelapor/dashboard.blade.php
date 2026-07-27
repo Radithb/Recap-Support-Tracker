@@ -45,7 +45,7 @@
         </div>
 
         <!-- TAB NAVIGATION -->
-        <div class="dashboard-tabs fade-up" style="display: flex; flex-wrap: wrap; gap: 8px; border-bottom: 2px solid var(--line); margin-bottom: 24px; animation-delay: 0.12s;">
+        <div class="dashboard-tabs fade-up" style="display: flex; gap: 8px; border-bottom: 2px solid var(--line); margin-bottom: 24px; animation-delay: 0.12s; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch;">
             <button type="button" id="tab-btn-tickets" class="dash-tab-btn active" onclick="switchDashTab('tickets', this)" style="padding: 10px 18px; font-weight: 600; font-size: 14px; border: none; background: none; color: var(--brand-primary); border-bottom: 2px solid var(--brand-primary); margin-bottom: -2px; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: all 0.2s;">
                 <img src="{{ asset('ticket-laporan.svg') }}" alt="" style="width: 18px; height: 18px; object-fit: contain; vertical-align: middle;"> {{ __('messages.tiket_dan_laporan_saya') }}
             </button>
