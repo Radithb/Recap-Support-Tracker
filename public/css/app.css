@@ -890,6 +890,8 @@ html.dark-mode .login-split-right .bottom-text a {
 @media(max-width: 900px) {
     .login-split-layout {
         flex-direction: column;
+        max-height: none;
+        overflow: auto;
     }
     .login-split-left {
         padding: 40px 24px;
