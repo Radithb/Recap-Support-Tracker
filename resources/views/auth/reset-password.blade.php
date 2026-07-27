@@ -49,7 +49,7 @@
             @csrf
             
             <input type="hidden" name="token" value="{{ $token }}">
-            <input type="hidden" name="email" value="{{ request('email') }}">
+            <input type="hidden" name="email" value="{{ old('email', $email ?? request('email')) }}">
 
             <div class="field" style="margin-bottom: 18px;">
                 <label style="display: block; font-size: 13px; font-weight: 600; color: var(--ink-soft); margin-bottom: 8px;">Kata Sandi Baru</label>
