@@ -367,7 +367,16 @@ function switchDashTab(tabName, btn) {
     }
 
     const pane = document.getElementById('tab-pane-' + tabName);
-    if (pane) pane.style.display = 'block';
+    if (pane) {
+        pane.style.display = 'block';
+        // Force restart fade-up animations
+        const fadeElements = pane.querySelectorAll('.fade-up');
+        fadeElements.forEach(el => {
+            el.style.animation = 'none';
+            void el.offsetWidth; // trigger reflow
+            el.style.animation = '';
+        });
+    }
 }
 
 document.addEventListener('DOMContentLoaded', function () {
