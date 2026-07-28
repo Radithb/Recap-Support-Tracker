@@ -43,7 +43,7 @@
         </div>
         
         <div class="sidebar-menu">
-            @if(Auth::check() && Auth::user()->role === \App\Enums\UserRole::SUPPORT)
+            @if(Auth::check() && in_array(Auth::user()->role, [\App\Enums\UserRole::SUPPORT, \App\Enums\UserRole::SUPERADMIN]))
                 <a href="{{ route('support.dashboard') }}" class="{{ request()->routeIs('support.dashboard') ? 'active' : '' }}">
                     <span class="ic"><img src="{{ asset('analysis.png') }}" alt=""></span> {{ __('messages.dashboard') }}
                 </a>
@@ -54,6 +54,13 @@
                     <span class="ic"><img src="{{ asset('file.png') }}" alt=""></span> {{ __('messages.recap_laporan') }}
                 </a>
                 
+                @if(Auth::user()->role === \App\Enums\UserRole::SUPERADMIN)
+                <div style="margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; color: rgba(255,255,255,0.4); padding-left: 12px; margin-bottom: 4px;">Fitur Eksklusif</div>
+                <a href="{{ route('superadmin.pengguna') }}" class="{{ request()->routeIs('superadmin.pengguna') ? 'active' : '' }}">
+                    <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; opacity: 0.9;"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span> Manajemen Pengguna
+                </a>
+                @endif
+
                 <div style="margin-top: 20px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.1);"></div>
                 <a href="{{ route('pengaturan') }}" class="{{ request()->routeIs('pengaturan') ? 'active' : '' }}">
                     <span class="ic"><img src="{{ asset('setting.png') }}" alt=""></span> {{ __('messages.pengaturan') }}

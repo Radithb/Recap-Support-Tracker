@@ -9,6 +9,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\UserVerificationController;
 use App\Http\Middleware\IsPelapor;
 use App\Http\Middleware\IsSupport;
+use App\Http\Middleware\IsSuperAdmin;
 
 Route::get('/', function () {
     return redirect('/login');
@@ -88,4 +89,9 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
 
     // FAQ API (JSON untuk modal insert di Support)
     Route::get('/faq/list', [FaqController::class, 'allForSupport'])->name('faq.list');
+});
+
+// Akses Super Admin (Eksklusif)
+Route::middleware(['auth', IsSuperAdmin::class])->prefix('superadmin')->name('superadmin.')->group(function () {
+    Route::view('/pengguna', 'superadmin.pengguna')->name('pengguna');
 });

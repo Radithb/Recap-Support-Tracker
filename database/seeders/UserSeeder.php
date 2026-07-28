@@ -11,6 +11,16 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
+        // Super Admin
+        User::create([
+            'nama' => 'Super Admin Radith',
+            'email' => 'superadmin@saktidesk.com',
+            'password' => Hash::make('password'),
+            'role' => UserRole::SUPERADMIN->value,
+            'instansi_id' => null,
+            'is_verified' => true,
+        ]);
+
         // Support User (Admin)
         User::create([
             'nama' => 'Admin Support',
