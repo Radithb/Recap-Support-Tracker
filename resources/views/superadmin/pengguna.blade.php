@@ -181,11 +181,12 @@
             <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
                 <div class="field">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Peran (Role) <span style="color:var(--danger)">*</span></label>
-                    <select name="role" required onchange="toggleInstansi(this, 'edit-{{ $user->user_id }}')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                    <select disabled style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-sunken); color: var(--ink-soft); font-size: 0.9rem; cursor: not-allowed;">
                         <option value="{{ \App\Enums\UserRole::SUPPORT->value }}" {{ $user->role === \App\Enums\UserRole::SUPPORT ? 'selected' : '' }}>Tim Support (Internal)</option>
                         <option value="{{ \App\Enums\UserRole::PELAPOR->value }}" {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'selected' : '' }}>Mitra Koperasi (Pelapor)</option>
                         <option value="{{ \App\Enums\UserRole::SUPERADMIN->value }}" {{ $user->role === \App\Enums\UserRole::SUPERADMIN ? 'selected' : '' }}>Super Admin</option>
                     </select>
+                    <input type="hidden" name="role" value="{{ $user->role }}">
                 </div>
                 <div class="field">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Nama Lengkap <span style="color:var(--danger)">*</span></label>
