@@ -155,7 +155,7 @@
                 </div>
                 <div class="field">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Kata Sandi <span style="color:var(--danger)">*</span></label>
-                    <input type="text" name="password" required placeholder="Minimal 8 karakter" value="password123" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                    <input type="text" name="password" required placeholder="Minimal 8 karakter" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
             </div>
             <div class="modal-foot">
