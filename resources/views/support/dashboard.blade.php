@@ -432,6 +432,13 @@
                         <label>Lampiran Respons (Opsional)</label>
                         <div style="display: flex; gap: 8px; align-items: center;">
                             <input type="file" id="lampiran_input_supp_{{ $t->ticket_id }}" name="lampiran_support[]" multiple accept=".jpg,.jpeg,.png,.mp4,.pdf" style="flex: 1; width:100%; font-size: calc(13px * var(--text-scale, 1)); font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;" onchange="
+                                if (!window.dtSupportMap) window.dtSupportMap = {};
+                                if (!window.dtSupportMap['{{ $t->ticket_id }}']) window.dtSupportMap['{{ $t->ticket_id }}'] = new DataTransfer();
+                                for(let i=0; i<this.files.length; i++) {
+                                    window.dtSupportMap['{{ $t->ticket_id }}'].items.add(this.files[i]);
+                                }
+                                this.files = window.dtSupportMap['{{ $t->ticket_id }}'].files;
+
                                 const clearBtn = document.getElementById('clear_lampiran_btn_supp_{{ $t->ticket_id }}');
                                 const infoSpan = document.getElementById('lampiran_info_supp_{{ $t->ticket_id }}');
                                 if (this.files.length > 0) {
@@ -445,7 +452,7 @@
                                     infoSpan.style.display = 'none';
                                 }
                             ">
-                            <button type="button" id="clear_lampiran_btn_supp_{{ $t->ticket_id }}" style="display: none; padding: 8px 12px; background: #fee2e2; color: #ef4444; border: 1px solid #f87171; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500;" onclick="document.getElementById('lampiran_input_supp_{{ $t->ticket_id }}').value = ''; this.style.display = 'none'; document.getElementById('lampiran_info_supp_{{ $t->ticket_id }}').style.display='none';">{{ __('messages.hapus_lampiran') }}</button>
+                            <button type="button" id="clear_lampiran_btn_supp_{{ $t->ticket_id }}" style="display: none; padding: 8px 12px; background: #fee2e2; color: #ef4444; border: 1px solid #f87171; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500;" onclick="if(window.dtSupportMap) window.dtSupportMap['{{ $t->ticket_id }}'] = new DataTransfer(); document.getElementById('lampiran_input_supp_{{ $t->ticket_id }}').value = ''; this.style.display = 'none'; document.getElementById('lampiran_info_supp_{{ $t->ticket_id }}').style.display='none';">{{ __('messages.hapus_lampiran') }}</button>
                         </div>
                         <div id="lampiran_info_supp_{{ $t->ticket_id }}" style="display: none; font-size: 12.5px; color: #059669; font-weight: 600; margin-top: 6px;"></div>
                         <div class="helper" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Format: JPG, PNG, MP4, PDF. Max: 5MB</div>

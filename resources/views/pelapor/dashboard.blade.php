@@ -345,6 +345,12 @@
                     <label>{{ __('messages.upload_lampiran_opsional') }}</label>
                     <div style="display: flex; gap: 8px; align-items: center;">
                         <input type="file" id="lampiran_input" name="lampiran[]" multiple accept=".jpg,.jpeg,.png,.mp4,.pdf" style="flex: 1; width:100%; font-size: calc(13px * var(--text-scale, 1)); font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;" onchange="
+                            if (!window.dtPelapor) window.dtPelapor = new DataTransfer();
+                            for(let i=0; i<this.files.length; i++) {
+                                window.dtPelapor.items.add(this.files[i]);
+                            }
+                            this.files = window.dtPelapor.files;
+                            
                             const clearBtn = document.getElementById('clear_lampiran_btn');
                             const infoSpan = document.getElementById('lampiran_info');
                             if (this.files.length > 0) {
@@ -358,7 +364,7 @@
                                 infoSpan.style.display = 'none';
                             }
                         ">
-                        <button type="button" id="clear_lampiran_btn" style="display: none; padding: 8px 12px; background: #fee2e2; color: #ef4444; border: 1px solid #f87171; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500;" onclick="document.getElementById('lampiran_input').value = ''; this.style.display = 'none'; document.getElementById('lampiran_info').style.display='none';">{{ __('messages.hapus_lampiran') }}</button>
+                        <button type="button" id="clear_lampiran_btn" style="display: none; padding: 8px 12px; background: #fee2e2; color: #ef4444; border: 1px solid #f87171; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500;" onclick="window.dtPelapor = new DataTransfer(); document.getElementById('lampiran_input').value = ''; this.style.display = 'none'; document.getElementById('lampiran_info').style.display='none';">{{ __('messages.hapus_lampiran') }}</button>
                     </div>
                     <div id="lampiran_info" style="display: none; font-size: 12.5px; color: #059669; font-weight: 600; margin-top: 6px;"></div>
                     <div class="helper">{{ __('messages.format_lampiran') }}</div>
