@@ -59,9 +59,9 @@
                         <td style="padding: 1.25rem 1.5rem; color: var(--ink); font-size: 0.95rem; font-weight: 600;">{{ $user->nama }}</td>
                         <td style="padding: 1.25rem 1.5rem; color: var(--text-muted); font-size: 0.95rem;">{{ $user->email }}</td>
                         <td style="padding: 1.25rem 1.5rem; text-align: center;">
-                            @if($user->role === \App\Enums\UserRole::SUPERADMIN->value)
+                            @if($user->role === \App\Enums\UserRole::SUPERADMIN)
                                 <span class="badge" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Super Admin</span>
-                            @elseif($user->role === \App\Enums\UserRole::SUPPORT->value)
+                            @elseif($user->role === \App\Enums\UserRole::SUPPORT)
                                 <span class="badge" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Support</span>
                             @else
                                 <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Pelapor</span>
@@ -105,13 +105,13 @@
 </div>
 
 <!-- Modal Tambah Pengguna -->
-<div class="overlay" id="modal-add-user" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
-    <div class="modal w-sm modal-centered" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; width: 100%; max-width: 500px; margin: 20px; max-height: 90vh; overflow-y: auto;">
-        <div class="modal-head" style="padding: 20px 24px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center;">
+<div class="overlay" id="modal-add-user">
+    <div class="modal w-sm modal-centered">
+        <div class="modal-head">
             <div>
                 <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">Tambah Pengguna Baru</h3>
             </div>
-            <button type="button" onclick="closeModal('modal-add-user')" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem;">✕</button>
+            <button type="button" class="modal-x" onclick="closeModal('modal-add-user')">✕</button>
         </div>
         <form action="{{ route('superadmin.pengguna.store') }}" method="POST">
             @csrf
@@ -132,9 +132,9 @@
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Peran (Role) <span style="color:var(--danger)">*</span></label>
                     <select name="role" id="role-select" required onchange="toggleInstansi(this, 'add')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                         <option value="">-- Pilih Peran --</option>
-                        <option value="support">Tim Support (Internal)</option>
-                        <option value="pelapor">Mitra Koperasi (Pelapor)</option>
-                        <option value="superadmin">Super Admin</option>
+                        <option value="{{ \App\Enums\UserRole::SUPPORT->value }}">Tim Support (Internal)</option>
+                        <option value="{{ \App\Enums\UserRole::PELAPOR->value }}">Mitra Koperasi (Pelapor)</option>
+                        <option value="{{ \App\Enums\UserRole::SUPERADMIN->value }}">Super Admin</option>
                     </select>
                 </div>
                 <div class="field" id="instansi-group-add" style="display: none;">
@@ -147,7 +147,7 @@
                     </select>
                 </div>
             </div>
-            <div class="modal-foot" style="padding: 16px 24px; border-top: 1px solid var(--line); display: flex; justify-content: flex-end; gap: 12px; background: var(--paper-sunken); border-radius: 0 0 12px 12px;">
+            <div class="modal-foot">
                 <button type="button" class="btn btn-ghost" onclick="closeModal('modal-add-user')">Batal</button>
                 <button type="submit" class="btn btn-primary">Simpan Pengguna</button>
             </div>
@@ -157,13 +157,13 @@
 
 <!-- Modals Edit Pengguna -->
 @foreach($users as $user)
-<div class="overlay" id="modal-edit-user-{{ $user->user_id }}" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
-    <div class="modal w-sm modal-centered" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; width: 100%; max-width: 500px; margin: 20px; max-height: 90vh; overflow-y: auto;">
-        <div class="modal-head" style="padding: 20px 24px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center;">
+<div class="overlay" id="modal-edit-user-{{ $user->user_id }}">
+    <div class="modal w-sm modal-centered">
+        <div class="modal-head">
             <div>
                 <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">Edit Pengguna</h3>
             </div>
-            <button type="button" onclick="closeModal('modal-edit-user-{{ $user->user_id }}')" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.2rem;">✕</button>
+            <button type="button" class="modal-x" onclick="closeModal('modal-edit-user-{{ $user->user_id }}')">✕</button>
         </div>
         <form action="{{ route('superadmin.pengguna.update', $user->user_id) }}" method="POST">
             @csrf
@@ -184,14 +184,14 @@
                 <div class="field">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Peran (Role) <span style="color:var(--danger)">*</span></label>
                     <select name="role" required onchange="toggleInstansi(this, 'edit-{{ $user->user_id }}')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                        <option value="support" {{ $user->role === 'support' ? 'selected' : '' }}>Tim Support (Internal)</option>
-                        <option value="pelapor" {{ $user->role === 'pelapor' ? 'selected' : '' }}>Mitra Koperasi (Pelapor)</option>
-                        <option value="superadmin" {{ $user->role === 'superadmin' ? 'selected' : '' }}>Super Admin</option>
+                        <option value="{{ \App\Enums\UserRole::SUPPORT->value }}" {{ $user->role === \App\Enums\UserRole::SUPPORT ? 'selected' : '' }}>Tim Support (Internal)</option>
+                        <option value="{{ \App\Enums\UserRole::PELAPOR->value }}" {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'selected' : '' }}>Mitra Koperasi (Pelapor)</option>
+                        <option value="{{ \App\Enums\UserRole::SUPERADMIN->value }}" {{ $user->role === \App\Enums\UserRole::SUPERADMIN ? 'selected' : '' }}>Super Admin</option>
                     </select>
                 </div>
-                <div class="field" id="instansi-group-edit-{{ $user->user_id }}" style="display: {{ $user->role === 'pelapor' ? 'block' : 'none' }};">
+                <div class="field" id="instansi-group-edit-{{ $user->user_id }}" style="display: {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'block' : 'none' }};">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Instansi Koperasi <span style="color:var(--danger)">*</span></label>
-                    <select name="instansi_id" id="instansi-select-edit-{{ $user->user_id }}" {{ $user->role === 'pelapor' ? 'required' : '' }} style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                    <select name="instansi_id" id="instansi-select-edit-{{ $user->user_id }}" {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'required' : '' }} style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                         <option value="">-- Pilih Instansi --</option>
                         @foreach($instansis as $instansi)
                             <option value="{{ $instansi->instansi_id }}" {{ $user->instansi_id == $instansi->instansi_id ? 'selected' : '' }}>{{ $instansi->nama_instansi }}</option>
@@ -199,7 +199,7 @@
                     </select>
                 </div>
             </div>
-            <div class="modal-foot" style="padding: 16px 24px; border-top: 1px solid var(--line); display: flex; justify-content: flex-end; gap: 12px; background: var(--paper-sunken); border-radius: 0 0 12px 12px;">
+            <div class="modal-foot">
                 <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-user-{{ $user->user_id }}')">Batal</button>
                 <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
             </div>
@@ -209,26 +209,12 @@
 @endforeach
 
 <script>
-    function openModal(id) {
-        let el = document.getElementById(id);
-        if(el) {
-            el.style.display = 'flex';
-        }
-    }
-
-    function closeModal(id) {
-        let el = document.getElementById(id);
-        if(el) {
-            el.style.display = 'none';
-        }
-    }
-
     function toggleInstansi(selectElement, suffix) {
         let role = selectElement.value;
         let group = document.getElementById('instansi-group-' + suffix);
         let instansiSelect = document.getElementById('instansi-select-' + suffix);
         
-        if (role === 'pelapor') {
+        if (role === 'Pelapor') {
             group.style.display = 'block';
             instansiSelect.setAttribute('required', 'required');
         } else {
