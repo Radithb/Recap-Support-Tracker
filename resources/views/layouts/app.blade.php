@@ -204,7 +204,7 @@
 </div>
 
 <div class="mobile-bottom-nav">
-    @if(Auth::check() && Auth::user()->role === \App\Enums\UserRole::SUPPORT)
+    @if(Auth::check() && in_array(Auth::user()->role, [\App\Enums\UserRole::SUPPORT, \App\Enums\UserRole::SUPERADMIN]))
         <a href="{{ route('support.dashboard') }}" class="{{ request()->routeIs('support.dashboard') ? 'active' : '' }}">
             <img src="{{ asset('analysis.png') }}" alt="Dashboard">
             <span>Dashboard</span>
@@ -217,6 +217,12 @@
             <img src="{{ asset('file.png') }}" alt="Rekap">
             <span>Rekap</span>
         </a>
+        @if(Auth::user()->role === \App\Enums\UserRole::SUPERADMIN)
+        <a href="{{ route('superadmin.pengguna') }}" class="{{ request()->routeIs('superadmin.pengguna') ? 'active' : '' }}">
+            <img src="{{ asset('group.png') }}" alt="Pengguna">
+            <span>Pengguna</span>
+        </a>
+        @endif
         <a href="{{ route('pengaturan') }}" class="{{ request()->routeIs('pengaturan') ? 'active' : '' }}">
             <img src="{{ asset('setting.png') }}" alt="Atur">
             <span>Atur</span>
