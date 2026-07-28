@@ -84,9 +84,12 @@
                                 <div style="font-size: 11px; letter-spacing: 1px; color: rgba(255,255,255,0.7); text-transform: uppercase; margin-bottom: 4px; font-weight: 600;">
                                     {{ __('messages.kartu_identitas_digital') }}
                                 </div>
-                                <h2 style="margin: 0; font-size: 22px; font-weight: 700; color: white; margin-bottom: 6px;">
+                                <h2 style="margin: 0; font-size: 22px; font-weight: 700; color: white; margin-bottom: 2px;">
                                     {{ Auth::user()->nama }}
                                 </h2>
+                                <div style="font-size: 13px; color: rgba(255,255,255,0.85); margin-bottom: 6px; font-weight: 500;">
+                                    {{ Auth::user()->posisi ?? 'Anggota' }} di {{ Auth::user()->instansi->nama_instansi ?? 'Koperasi' }}
+                                </div>
                                 <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.9); font-family: monospace;">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: #fcd34d;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                                     {{ __('messages.no_anggota') }}: {{ Auth::user()->nik ?: 'KSS-' . date('Y') . '-' . str_pad(Auth::user()->user_id, 5, '0', STR_PAD_LEFT) }}
@@ -140,6 +143,11 @@
                 <div style="margin-bottom: 32px;">
                     <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.nama_pic') }}</label>
                     <div class="mono" style="color: var(--ink); font-size: calc(14.5px * var(--text-scale, 1));">{{ Auth::user()->nama ?? '-' }}</div>
+                </div>
+
+                <div style="margin-bottom: 32px;">
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Posisi di Koperasi</label>
+                    <div class="mono" style="color: var(--ink); font-size: calc(14.5px * var(--text-scale, 1));">{{ Auth::user()->posisi ?? '-' }}</div>
                 </div>
 
                 <div style="margin-bottom: 32px;">
