@@ -153,7 +153,7 @@
         /* Header Card "Aplikasi" dsb */
         .glass-panel > div:first-child {
             border-bottom: none !important;
-            padding: 0 12px 12px 12px !important;
+            padding: 16px 12px 12px 12px !important;
         }
         
         /* Sembunyikan eyebrow/deskripsi header halaman agar ringkas (opsional, ikuti screenshot) */
