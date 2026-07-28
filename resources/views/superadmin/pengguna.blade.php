@@ -126,7 +126,7 @@
                     </select>
                 </div>
                 
-                <div id="common-fields-add" style="display: none; display: flex; flex-direction: column; gap: 16px;">
+                <div id="common-fields-add" style="display: none; flex-direction: column; gap: 16px;">
                     <div class="field">
                         <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Nama Lengkap <span style="color:var(--danger)">*</span></label>
                         <input type="text" name="nama" required placeholder="Masukkan nama" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
