@@ -251,7 +251,7 @@ h1, h2, h3, h4, h5, h6,
   transition: all 0.2s;
 }
 .field input:focus{outline:none; border-color:var(--brand-primary); background: var(--paper); box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);}
-.field input::placeholder { color: var(--text-muted); }
+.field input::placeholder { color: var(--text-muted); opacity: 0.4; }
 .login-foot-links{display:flex; justify-content:space-between; font-size: calc(12px * var(--text-scale, 1)); margin-top:14px;}
 .login-foot-links a{color:var(--ink-soft); text-decoration:none;}
 .login-foot-links a:hover{color:var(--brand-primary);}
