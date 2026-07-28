@@ -302,7 +302,7 @@
             <div><h3>{{ __('messages.buat_laporan_baru') }}</h3><p>{{ __('messages.jelaskan_kendala') }}</p></div>
             <button type="button" class="modal-x" onclick="closeModal('modal-create')">✕</button>
         </div>
-        <form action="{{ route('pelapor.tickets.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('pelapor.tickets.store') }}" method="POST" enctype="multipart/form-data" onsubmit="return checkFileSize(this, 'lampiran_input', 8);">
             @csrf
             <div class="modal-body">
                 <div class="field">
@@ -377,6 +377,18 @@ function switchDashTab(tabName, btn) {
             el.style.animation = '';
         });
     }
+}
+
+function checkFileSize(form, inputId, maxMb) {
+    const fileInput = document.getElementById(inputId);
+    if (fileInput && fileInput.files.length > 0) {
+        const fileSize = fileInput.files[0].size / 1024 / 1024;
+        if (fileSize > maxMb) {
+            alert('Ukuran file terlalu besar! Maksimal ' + maxMb + ' MB (Batas server). File Anda berukuran ' + fileSize.toFixed(2) + ' MB.');
+            return false;
+        }
+    }
+    return true;
 }
 
 document.addEventListener('DOMContentLoaded', function () {

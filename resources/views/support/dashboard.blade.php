@@ -333,7 +333,7 @@
             <button type="button" class="modal-x" onclick="cancelEditModalSupport('{{ $t->ticket_id }}')">✕</button>
         </div>
         
-        <form action="{{ route('support.tickets.update', $t->ticket_id) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('support.tickets.update', $t->ticket_id) }}" method="POST" enctype="multipart/form-data" onsubmit="return checkFileSize(this, 'lampiran_input_supp_{{ $t->ticket_id }}', 8);">
             @csrf
             @method('PUT')
             
@@ -713,6 +713,18 @@
         if (preview) preview.style.display = 'flex';
 
         closeModal('modal-edit-' + ticketId);
+    }
+
+    function checkFileSize(form, inputId, maxMb) {
+        const fileInput = document.getElementById(inputId);
+        if (fileInput && fileInput.files.length > 0) {
+            const fileSize = fileInput.files[0].size / 1024 / 1024;
+            if (fileSize > maxMb) {
+                alert('Ukuran file terlalu besar! Maksimal ' + maxMb + ' MB (Batas server). File Anda berukuran ' + fileSize.toFixed(2) + ' MB.');
+                return false;
+            }
+        }
+        return true;
     }
 
     document.addEventListener('DOMContentLoaded', function () {
