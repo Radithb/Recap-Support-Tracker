@@ -4,7 +4,7 @@
 @section('page_subtitle', 'Fitur Eksklusif Super Admin')
 
 @section('content')
-<div class="content-wrap" style="width: 100%;">
+<div class="content-wrap" style="padding: 24px; max-width: 1200px; margin: 0 auto;">
     <div class="glass-panel fade-up">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
             <h2 style="font-size: 1.25rem; font-weight: 600; color: var(--ink);">Daftar Pengguna Sistem</h2>
