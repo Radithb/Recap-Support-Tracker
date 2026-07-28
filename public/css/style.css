@@ -129,7 +129,7 @@
   .btn-amber{background:var(--amber); color:#fff;}
   .btn-amber:hover{background:#C62828;}
   .btn-ghost{background:transparent; color:var(--ink); border:1px solid var(--line);}
-  .btn-ghost:hover{border-color:var(--indigo); color:var(--indigo);}
+  .btn-ghost:hover{border-color:var(--brand-primary); color:var(--brand-primary);}
   .btn-sm{padding:7px 12px; font-size: calc(12.5px * var(--text-scale, 1)); border-radius:7px;}
 
   .status{
