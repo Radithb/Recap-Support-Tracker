@@ -125,37 +125,40 @@
                         <option value="{{ \App\Enums\UserRole::SUPERADMIN->value }}">Super Admin</option>
                     </select>
                 </div>
-                <div class="field">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Nama Lengkap <span style="color:var(--danger)">*</span></label>
-                    <input type="text" name="nama" required placeholder="Masukkan nama" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                </div>
-                <div class="field">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Email <span style="color:var(--danger)">*</span></label>
-                    <input type="email" name="email" required placeholder="Email aktif" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                </div>
-                <div class="field" id="whatsapp-group-add" style="display: none;">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">No. WhatsApp</label>
-                    <input type="text" name="whatsapp" placeholder="Contoh: 08123456789" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                </div>
-                <div class="field" id="spesialisasi-group-add" style="display: none;">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Spesialisasi</label>
-                    <input type="text" name="spesialisasi" placeholder="Misal: Jaringan, Database, dll." style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                </div>
-                <div class="field" id="instansi-group-add" style="display: none;">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Instansi Koperasi <span style="color:var(--danger)">*</span></label>
-                    <select name="instansi_id" id="instansi-select-add" onchange="toggleInstansiBaru(this, 'add')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                        <option value="">-- Pilih Instansi --</option>
-                        <option value="new" style="font-weight: bold; color: var(--primary);">+ Buat Koperasi Baru</option>
-                        @foreach($instansis as $instansi)
-                            <option value="{{ $instansi->instansi_id }}">{{ $instansi->nama_instansi }}</option>
-                        @endforeach
-                    </select>
-                    
-                    <input type="text" name="instansi_baru" id="instansi-baru-add" placeholder="Masukkan nama koperasi baru" style="display: none; width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem; margin-top: 8px;">
-                </div>
-                <div class="field">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Kata Sandi <span style="color:var(--danger)">*</span></label>
-                    <input type="text" name="password" required placeholder="Minimal 8 karakter" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                
+                <div id="common-fields-add" style="display: none; display: flex; flex-direction: column; gap: 16px;">
+                    <div class="field">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Nama Lengkap <span style="color:var(--danger)">*</span></label>
+                        <input type="text" name="nama" required placeholder="Masukkan nama" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                    </div>
+                    <div class="field">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Email <span style="color:var(--danger)">*</span></label>
+                        <input type="email" name="email" required placeholder="Email aktif" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                    </div>
+                    <div class="field" id="whatsapp-group-add" style="display: none;">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">No. WhatsApp</label>
+                        <input type="text" name="whatsapp" placeholder="Contoh: 08123456789" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                    </div>
+                    <div class="field" id="spesialisasi-group-add" style="display: none;">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Spesialisasi</label>
+                        <input type="text" name="spesialisasi" placeholder="Misal: Jaringan, Database, dll." style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                    </div>
+                    <div class="field" id="instansi-group-add" style="display: none;">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Instansi Koperasi <span style="color:var(--danger)">*</span></label>
+                        <select name="instansi_id" id="instansi-select-add" onchange="toggleInstansiBaru(this, 'add')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                            <option value="">-- Pilih Instansi --</option>
+                            <option value="new" style="font-weight: bold; color: var(--primary);">+ Buat Koperasi Baru</option>
+                            @foreach($instansis as $instansi)
+                                <option value="{{ $instansi->instansi_id }}">{{ $instansi->nama_instansi }}</option>
+                            @endforeach
+                        </select>
+                        
+                        <input type="text" name="instansi_baru" id="instansi-baru-add" placeholder="Masukkan nama koperasi baru" style="display: none; width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem; margin-top: 8px;">
+                    </div>
+                    <div class="field">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Kata Sandi <span style="color:var(--danger)">*</span></label>
+                        <input type="text" name="password" required placeholder="Minimal 8 karakter" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                    </div>
                 </div>
             </div>
             <div class="modal-foot">
@@ -233,11 +236,19 @@
 <script>
     function toggleInstansi(selectElement, suffix) {
         let role = selectElement.value;
+        let commonFields = document.getElementById('common-fields-' + suffix);
         let groupInstansi = document.getElementById('instansi-group-' + suffix);
         let instansiSelect = document.getElementById('instansi-select-' + suffix);
         let inputBaru = document.getElementById('instansi-baru-' + suffix);
         let groupWhatsapp = document.getElementById('whatsapp-group-' + suffix);
         let groupSpesialisasi = document.getElementById('spesialisasi-group-' + suffix);
+
+        if (role === '') {
+            if(commonFields) commonFields.style.display = 'none';
+            return;
+        } else {
+            if(commonFields) commonFields.style.display = 'flex';
+        }
         
         if (role === 'Pelapor') {
             if(groupInstansi) groupInstansi.style.display = 'block';
