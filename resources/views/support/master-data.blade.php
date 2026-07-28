@@ -84,6 +84,23 @@
     }
     
     /* MOBILE RESPONSIVE LAYOUT */
+        /* Custom scrollbar horizontal selalu tampil (berlaku di Webkit) */
+        .glass-panel > div[style*="overflow: auto"]::-webkit-scrollbar {
+            height: 8px;
+        }
+        .glass-panel > div[style*="overflow: auto"]::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+            margin: 0 12px;
+        }
+        .glass-panel > div[style*="overflow: auto"]::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .glass-panel > div[style*="overflow: auto"]::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
     @media (max-width: 768px) {
         .md-layout {
             flex-direction: column;
@@ -131,78 +148,7 @@
             /* Sebenarnya kita bisa pindahkan Tombol Export dengan flex order? Tidak, kita akan buat tampilannya menyesuaikan nanti */
         }
         
-        /* Ubah Tabel menjadi Card Mobile */
-        .glass-panel table, .glass-panel tbody, .glass-panel tr, .glass-panel td {
-            display: block;
-            width: 100%;
-        }
-        .glass-panel thead {
-            display: none;
-        }
-        .glass-panel > div[style*="overflow: auto"] {
-            padding: 12px; /* Beri jarak untuk card */
-            background: var(--paper); /* Latar belakang abu-abu seperti screenshot */
-        }
-        .glass-panel {
-            background: transparent !important;
-            border: none !important;
-        }
-        .glass-panel tr {
-            background: var(--paper-raised);
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            margin-bottom: 12px;
-            padding: 16px;
-            position: relative;
-        }
-        .glass-panel td {
-            padding: 0 !important;
-            border: none !important;
-            text-align: left !important;
-        }
-        /* Gaya Spesifik Per Tab agar rapi */
-        
-        /* 1. Tab Aplikasi */
-        #tab-aplikasi .glass-panel td:nth-child(1) { font-weight: 700 !important; font-size: 1rem !important; color: var(--ink) !important; padding-bottom: 4px !important; padding-right: 32px !important; }
-        #tab-aplikasi .glass-panel td:nth-child(2) { font-size: 0.85rem !important; color: var(--text-muted) !important; padding-bottom: 12px !important; }
-        #tab-aplikasi .glass-panel td:nth-child(3) { text-align: left !important; padding-bottom: 4px !important; }
-        
-        /* 2. Tab Kategori */
-        #tab-kategori .glass-panel td:nth-child(1) { font-weight: 700 !important; font-size: 1rem !important; color: var(--ink) !important; padding-bottom: 8px !important; padding-right: 32px !important; }
-        #tab-kategori .glass-panel td:nth-child(2) { text-align: left !important; padding-bottom: 4px !important; }
-        
-        /* 3. Tab Koperasi */
-        #tab-koperasi .glass-panel td:nth-child(1) { padding-bottom: 8px !important; }
-        #tab-koperasi .glass-panel td:nth-child(2) { padding-bottom: 12px !important; }
-        #tab-koperasi .glass-panel td:nth-child(3), #tab-koperasi .glass-panel td:nth-child(4) {
-            display: inline-block !important;
-            text-align: left !important;
-            margin-right: 6px;
-        }
-        #tab-koperasi .glass-panel td:nth-child(3) span, #tab-koperasi .glass-panel td:nth-child(4) span {
-            display: inline-block !important;
-        }
-        
-        /* 4. Tab PIC Support */
-        #tab-picsupport .glass-panel td:nth-child(1) { padding-bottom: 12px !important; }
-        #tab-picsupport .glass-panel td:nth-child(2) { padding-bottom: 4px !important; }
-        /* Aksi / 3 Titik diposisikan absolut di kanan atas */
-        .glass-panel td.td-action-cell {
-            position: absolute !important;
-            top: 12px !important;
-            right: 12px !important;
-            padding: 0 !important;
-            width: auto !important;
-            z-index: 10 !important;
-        }
-        .glass-panel td.td-action-cell button {
-            background: transparent !important;
-            border: none !important;
-            width: auto !important;
-            height: auto !important;
-            padding: 4px !important;
-            color: var(--text-muted) !important;
-        }
+
         
         /* Header Card "Aplikasi" dsb */
         .glass-panel > div:first-child {
@@ -308,15 +254,15 @@
                 <!-- TAB 1: APLIKASI -->
                 <div id="tab-aplikasi" class="md-tab-pane active">
                     <div class="glass-panel" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; min-width: 0;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; gap: 1rem;">
                             <div>
                                 <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.master_aplikasi') }}</h3>
                                 <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.divalidasi_proses_1') }}</p>
                             </div>
                             <button type="button" onclick="openModal('modal-add-aplikasi')" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--ink); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;">+ {{ __('messages.tambah') }}</button>
                         </div>
-                        <div style="overflow: auto;">
-                            <table style="width: 100%; border-collapse: collapse;">
+                        <div class="table-scroll-wrapper" style="overflow: auto; border: none; border-radius: 0; background: transparent; margin: 0; padding-bottom: 0;">
+                            <table style="width: 100%; min-width: 800px; border-collapse: collapse;">
                                 <thead style="background: var(--paper-sunken); position: sticky; top: 0; z-index: 10;">
                                     <tr>
                                         <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.nama_aplikasi') }}</th>
@@ -380,15 +326,15 @@
                 <!-- TAB 2: KATEGORI -->
                 <div id="tab-kategori" class="md-tab-pane">
                     <div class="glass-panel" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; min-width: 0;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; gap: 1rem;">
                             <div>
                                 <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.master_kategori') }}</h3>
                                 <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.dipakai_proses_3') }}</p>
                             </div>
                             <button type="button" onclick="openModal('modal-add-kategori')" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--ink); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;">+ {{ __('messages.tambah') }}</button>
                         </div>
-                        <div style="overflow: auto;">
-                        <table style="width: 100%; border-collapse: collapse;">
+                        <div class="table-scroll-wrapper" style="overflow: auto; border: none; border-radius: 0; background: transparent; margin: 0; padding-bottom: 0;">
+                        <table style="width: 100%; min-width: 800px; border-collapse: collapse;">
                             <thead style="background: var(--paper-sunken); position: sticky; top: 0; z-index: 10;">
                                 <tr>
                                     <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.nama_kategori') }}</th>
@@ -448,8 +394,8 @@
                                 <input type="text" placeholder="Cari koperasi..." id="search-koperasi" style="border:none; background:transparent; width:100%; outline:none; font-size: 0.85rem; color: var(--ink);">
                             </div>
                         </div>
-                        <div style="overflow: auto;">
-                        <table style="width: 100%; border-collapse: collapse;">
+                        <div class="table-scroll-wrapper" style="overflow: auto; border: none; border-radius: 0; background: transparent; margin: 0; padding-bottom: 0;">
+                        <table style="width: 100%; min-width: 800px; border-collapse: collapse;">
                             <thead style="background: var(--paper-sunken); position: sticky; top: 0; z-index: 10;">
                                 <tr>
                                     <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.nama_koperasi') }}</th>
@@ -495,14 +441,14 @@
                 <!-- TAB 4: PIC SUPPORT -->
                 <div id="tab-picsupport" class="md-tab-pane">
                     <div class="glass-panel" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; min-width: 0;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; gap: 1rem;">
                             <div>
                                 <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.pic_tim_support') }}</h3>
                                 <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.desc_pic_support') }}</p>
                             </div>
                         </div>
-                        <div style="overflow: auto;">
-                        <table style="width: 100%; border-collapse: collapse;">
+                        <div class="table-scroll-wrapper" style="overflow: auto; border: none; border-radius: 0; background: transparent; margin: 0; padding-bottom: 0;">
+                        <table style="width: 100%; min-width: 800px; border-collapse: collapse;">
                             <thead style="background: var(--paper-sunken); position: sticky; top: 0; z-index: 10;">
                                 <tr>
                                     <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.profil_support') }}</th>
@@ -548,14 +494,14 @@
                 <!-- TAB 5: STATUS TIKET -->
                 <div id="tab-status" class="md-tab-pane">
                     <div class="glass-panel" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; min-width: 0;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; gap: 1rem;">
                             <div>
                                 <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.status_tiket') }}</h3>
                                 <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.desc_status_tiket') }}</p>
                             </div>
                         </div>
                         <div style="overflow-x: auto;">
-                            <table style="width: 100%; border-collapse: collapse;">
+                            <table style="width: 100%; min-width: 800px; border-collapse: collapse;">
                                 <thead style="background: var(--paper-sunken);">
                                     <tr>
                                         <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.value_sistem') }}</th>
@@ -610,15 +556,15 @@
                 <!-- TAB 6: FAQ -->
                 <div id="tab-faq" class="md-tab-pane">
                     <div class="glass-panel" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; min-width: 0;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; gap: 1rem;">
                             <div>
                                 <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.knowledge_base_faq') }}</h3>
                                 <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.kelola_faq_desc') }}</p>
                             </div>
                             <button type="button" onclick="openModal('modal-add-faq')" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--ink); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;">{{ __('messages.tambah_faq') }}</button>
                         </div>
-                        <div style="overflow: auto;">
-                            <table style="width: 100%; border-collapse: collapse;">
+                        <div class="table-scroll-wrapper" style="overflow: auto; border: none; border-radius: 0; background: transparent; margin: 0; padding-bottom: 0;">
+                            <table style="width: 100%; min-width: 800px; border-collapse: collapse;">
                                 <thead style="background: var(--paper-sunken); position: sticky; top: 0; z-index: 10;">
                                     <tr>
                                         <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.pertanyaan') }}</th>
@@ -699,7 +645,7 @@
 
     <!-- Modal Tambah Aplikasi -->
     <div class="overlay" id="modal-add-aplikasi">
-        <div class="modal w-sm">
+        <div class="modal w-sm modal-centered">
             <div class="modal-head">
                 <div>
                     <h3>{{ __('messages.tambah_master_aplikasi') }}</h3>
@@ -729,7 +675,7 @@
 
     <!-- Modal Tambah Kategori -->
     <div class="overlay" id="modal-add-kategori">
-        <div class="modal w-sm">
+        <div class="modal w-sm modal-centered">
             <div class="modal-head">
                 <div>
                     <h3>{{ __('messages.tambah_master_kategori') }}</h3>
@@ -756,7 +702,7 @@
     <!-- Modals Edit Aplikasi -->
     @foreach($aplikasis as $app)
     <div class="overlay" id="modal-edit-aplikasi-{{ $app->aplikasi_id }}">
-        <div class="modal w-sm">
+        <div class="modal w-sm modal-centered">
             <div class="modal-head">
                 <div>
                     <h3>Edit Master Aplikasi</h3>
@@ -796,7 +742,7 @@
     <!-- Modals Edit Kategori -->
     @foreach($kategoris as $kategori)
     <div class="overlay" id="modal-edit-kategori-{{ $kategori->kategori_id }}">
-        <div class="modal w-sm">
+        <div class="modal w-sm modal-centered">
             <div class="modal-head">
                 <div>
                     <h3>Edit Master Kategori</h3>
@@ -824,7 +770,7 @@
 
     <!-- Modal Tambah FAQ -->
     <div class="overlay" id="modal-add-faq">
-        <div class="modal w-sm">
+        <div class="modal w-sm modal-centered">
             <div class="modal-head">
                 <div>
                     <h3>{{ __('messages.tambah_faq_baru') }}</h3>
@@ -880,7 +826,7 @@
     <!-- Modals Edit FAQ -->
     @foreach($faqs as $faq)
     <div class="overlay" id="modal-edit-faq-{{ $faq->faq_id }}">
-        <div class="modal w-sm">
+        <div class="modal w-sm modal-centered">
             <div class="modal-head">
                 <div>
                     <h3>{{ __('messages.edit_faq') }}</h3>

@@ -44,7 +44,8 @@
         </div>
 
         <div class="fade-up" style="animation-delay: 0.2s;">
-            <table class="tickets">
+            <div class="table-scroll-wrapper">
+            <table class="tickets" style="min-width: 800px;">
                 <thead>
                     <tr>
                         <th width="120">{{ __('messages.id_laporan') }}</th>
@@ -89,6 +90,7 @@
                     @endforelse
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 </div>

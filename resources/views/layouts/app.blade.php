@@ -6,7 +6,7 @@
     <title>SAKTI Desk</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ filemtime(public_path('css/app.css')) }}">
     <script>
         // Apply personalization before page render to prevent FOUC
         (function() {
@@ -273,6 +273,52 @@
                     alert.style.display = 'none';
                 }, 600);
             }, 5000);
+        });
+    });
+
+    // Enable Drag-to-Scroll for horizontal tables
+    document.addEventListener('DOMContentLoaded', function() {
+        const sliders = document.querySelectorAll('.table-scroll-wrapper');
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+        let isDragging = false;
+
+        sliders.forEach(slider => {
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                isDragging = false;
+                slider.style.cursor = 'grabbing';
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.style.cursor = '';
+            });
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.style.cursor = '';
+            });
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 1.5;
+                if (Math.abs(walk) > 5) {
+                    isDragging = true;
+                    e.preventDefault();
+                }
+                slider.scrollLeft = scrollLeft - walk;
+            });
+            
+            // Mencegah klik tombol jika pengguna sedang menggeser tabel
+            slider.addEventListener('click', (e) => {
+                if (isDragging) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    isDragging = false;
+                }
+            }, true);
         });
     });
 </script>
