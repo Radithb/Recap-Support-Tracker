@@ -95,9 +95,9 @@
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                                         Edit
                                     </button>
-                                    <button type="button" onclick="if(confirm('Apakah Anda yakin ingin menghapus akun ini?')) { document.getElementById('form-delete-{{ $user->user_id }}').submit(); }" style="display: flex; width: 100%; align-items: center; gap: 8px; padding: 10px 12px; font-size: 0.85rem; font-weight: 500; color: #ef4444; background: transparent; border: none; cursor: pointer; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(239, 68, 68, 0.1)'" onmouseout="this.style.background='transparent'">
+                                    <button type="button" onclick="if(confirm('{{ __('messages.yakin_hapus_akun') }}')) { document.getElementById('form-delete-{{ $user->user_id }}').submit(); }" style="display: flex; width: 100%; align-items: center; gap: 8px; padding: 10px 12px; font-size: 0.85rem; font-weight: 500; color: #ef4444; background: transparent; border: none; cursor: pointer; border-radius: 6px; transition: background 0.2s;" onmouseover="this.style.background='rgba(239, 68, 68, 0.1)'" onmouseout="this.style.background='transparent'">
                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                                        Hapus
+                                        {{ __('messages.hapus') }}
                                     </button>
                                     <form id="form-delete-{{ $user->user_id }}" action="{{ route('superadmin.pengguna.destroy', $user->user_id) }}" method="POST" style="display: none;">
                                         @csrf

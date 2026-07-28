@@ -309,7 +309,7 @@
                                                     @method('DELETE')
                                                     <button type="submit" onclick="closeAllMdDropdowns();" style="width: 100%; background: none; border: none; padding: 8px 12px; text-align: left; font-size: 0.85rem; font-weight: 500; color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: 6px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'">
                                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                                        Hapus
+                                                        {{ __('messages.hapus') }}
                                                     </button>
                                                 </form>
                                             </div>
@@ -359,14 +359,14 @@
                                         <div id="dropdown-kat-{{ $kategori->kategori_id }}" class="md-dropdown-menu" style="display: none; position: absolute; right: 0; top: calc(100% + 4px); background: var(--paper-raised); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15); min-width: 140px; z-index: 100; text-align: left; padding: 6px; backdrop-filter: blur(8px);">
                                             <button type="button" onclick="openModal('modal-edit-kategori-{{ $kategori->kategori_id }}'); closeAllMdDropdowns();" style="width: 100%; background: none; border: none; padding: 8px 12px; text-align: left; font-size: 0.85rem; font-weight: 500; color: var(--ink); cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: 6px;" onmouseover="this.style.background='var(--paper-sunken)'" onmouseout="this.style.background='none'">
                                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                                                Edit Kategori
+                                                {{ __('messages.edit_kategori') }}
                                             </button>
                                             <form action="{{ route('support.master-data.kategori.destroy', $kategori->kategori_id) }}" method="POST" onsubmit="return confirm('{{ __('messages.konfirmasi_hapus_kategori') }}');" style="margin: 0;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" onclick="closeAllMdDropdowns();" style="width: 100%; background: none; border: none; padding: 8px 12px; text-align: left; font-size: 0.85rem; font-weight: 500; color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: 6px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'">
                                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                                                    Hapus
+                                                    {{ __('messages.hapus') }}
                                                 </button>
                                             </form>
                                         </div>
