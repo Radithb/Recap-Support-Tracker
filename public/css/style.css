@@ -144,6 +144,10 @@
   .status-done{background:var(--sage-soft); color:#2E5138;}
   .status-done::before{background:var(--sage);}
 
+  html.dark-mode .status-open { color: #f87171; }
+  html.dark-mode .status-pending { color: #facc15; }
+  html.dark-mode .status-done { color: #4ade80; }
+
   .login-wrap{
     min-height:calc(100vh - 45px);
     background:
