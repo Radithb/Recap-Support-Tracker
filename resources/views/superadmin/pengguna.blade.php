@@ -143,12 +143,15 @@
                 </div>
                 <div class="field" id="instansi-group-add" style="display: none;">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Instansi Koperasi <span style="color:var(--danger)">*</span></label>
-                    <select name="instansi_id" id="instansi-select-add" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                    <select name="instansi_id" id="instansi-select-add" onchange="toggleInstansiBaru(this, 'add')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                         <option value="">-- Pilih Instansi --</option>
+                        <option value="new" style="font-weight: bold; color: var(--primary);">+ Buat Koperasi Baru</option>
                         @foreach($instansis as $instansi)
                             <option value="{{ $instansi->instansi_id }}">{{ $instansi->nama_instansi }}</option>
                         @endforeach
                     </select>
+                    
+                    <input type="text" name="instansi_baru" id="instansi-baru-add" placeholder="Masukkan nama koperasi baru" style="display: none; width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem; margin-top: 8px;">
                 </div>
                 <div class="field">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Kata Sandi <span style="color:var(--danger)">*</span></label>
@@ -203,12 +206,15 @@
                 </div>
                 <div class="field" id="instansi-group-edit-{{ $user->user_id }}" style="display: {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'block' : 'none' }};">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Instansi Koperasi <span style="color:var(--danger)">*</span></label>
-                    <select name="instansi_id" id="instansi-select-edit-{{ $user->user_id }}" {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'required' : '' }} style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                    <select name="instansi_id" id="instansi-select-edit-{{ $user->user_id }}" {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'required' : '' }} onchange="toggleInstansiBaru(this, 'edit-{{ $user->user_id }}')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                         <option value="">-- Pilih Instansi --</option>
+                        <option value="new" style="font-weight: bold; color: var(--primary);">+ Buat Koperasi Baru</option>
                         @foreach($instansis as $instansi)
                             <option value="{{ $instansi->instansi_id }}" {{ $user->instansi_id == $instansi->instansi_id ? 'selected' : '' }}>{{ $instansi->nama_instansi }}</option>
                         @endforeach
                     </select>
+
+                    <input type="text" name="instansi_baru" id="instansi-baru-edit-{{ $user->user_id }}" placeholder="Masukkan nama koperasi baru" style="display: none; width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem; margin-top: 8px;">
                 </div>
                 <div class="field">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Ubah Kata Sandi</label>
@@ -229,6 +235,7 @@
         let role = selectElement.value;
         let groupInstansi = document.getElementById('instansi-group-' + suffix);
         let instansiSelect = document.getElementById('instansi-select-' + suffix);
+        let inputBaru = document.getElementById('instansi-baru-' + suffix);
         let groupWhatsapp = document.getElementById('whatsapp-group-' + suffix);
         let groupSpesialisasi = document.getElementById('spesialisasi-group-' + suffix);
         
@@ -241,6 +248,7 @@
             if(groupInstansi) groupInstansi.style.display = 'none';
             if(instansiSelect) instansiSelect.removeAttribute('required');
             if(instansiSelect) instansiSelect.value = "";
+            if(inputBaru) { inputBaru.style.display = 'none'; inputBaru.removeAttribute('required'); inputBaru.value = ""; }
             if(groupWhatsapp) groupWhatsapp.style.display = 'block';
             if(groupSpesialisasi) groupSpesialisasi.style.display = 'block';
         } else {
@@ -248,8 +256,21 @@
             if(groupInstansi) groupInstansi.style.display = 'none';
             if(instansiSelect) instansiSelect.removeAttribute('required');
             if(instansiSelect) instansiSelect.value = "";
+            if(inputBaru) { inputBaru.style.display = 'none'; inputBaru.removeAttribute('required'); inputBaru.value = ""; }
             if(groupWhatsapp) groupWhatsapp.style.display = 'none';
             if(groupSpesialisasi) groupSpesialisasi.style.display = 'none';
+        }
+    }
+
+    function toggleInstansiBaru(selectElement, suffix) {
+        let inputBaru = document.getElementById('instansi-baru-' + suffix);
+        if (selectElement.value === 'new') {
+            inputBaru.style.display = 'block';
+            inputBaru.setAttribute('required', 'required');
+        } else {
+            inputBaru.style.display = 'none';
+            inputBaru.removeAttribute('required');
+            inputBaru.value = "";
         }
     }
 

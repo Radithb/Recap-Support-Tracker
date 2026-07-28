@@ -32,7 +32,8 @@ class SuperAdminController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'role' => ['required', new Enum(UserRole::class)],
-            'instansi_id' => 'nullable|exists:instansis,instansi_id',
+            'instansi_id' => 'nullable|string',
+            'instansi_baru' => 'nullable|string|max:255',
             'whatsapp' => 'nullable|string|max:50',
             'spesialisasi' => 'nullable|string|max:255',
         ]);
@@ -46,6 +47,18 @@ class SuperAdminController extends Controller
             $data['spesialisasi'] = null;
             if (empty($data['instansi_id'])) {
                 return back()->with('error', 'Instansi wajib diisi untuk role Pelapor.');
+            }
+            
+            if ($data['instansi_id'] === 'new') {
+                if (empty($request->instansi_baru)) {
+                    return back()->with('error', 'Nama Instansi Baru wajib diisi.');
+                }
+                $newInstansi = Instansi::create(['nama_instansi' => $request->instansi_baru]);
+                $data['instansi_id'] = $newInstansi->instansi_id;
+            } else {
+                if (!Instansi::where('instansi_id', $data['instansi_id'])->exists()) {
+                    return back()->with('error', 'Instansi tidak valid.');
+                }
             }
         } elseif ($data['role'] === UserRole::SUPPORT->value) {
             $data['instansi_id'] = null;
@@ -66,7 +79,8 @@ class SuperAdminController extends Controller
             'nama' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . $user->user_id . ',user_id',
             'role' => ['required', new Enum(UserRole::class)],
-            'instansi_id' => 'nullable|exists:instansis,instansi_id',
+            'instansi_id' => 'nullable|string',
+            'instansi_baru' => 'nullable|string|max:255',
             'password' => 'nullable|string|min:8',
             'whatsapp' => 'nullable|string|max:50',
             'spesialisasi' => 'nullable|string|max:255',
@@ -83,6 +97,18 @@ class SuperAdminController extends Controller
             $data['spesialisasi'] = null;
             if (empty($data['instansi_id'])) {
                 return back()->with('error', 'Instansi wajib diisi untuk role Pelapor.');
+            }
+
+            if ($data['instansi_id'] === 'new') {
+                if (empty($request->instansi_baru)) {
+                    return back()->with('error', 'Nama Instansi Baru wajib diisi.');
+                }
+                $newInstansi = Instansi::create(['nama_instansi' => $request->instansi_baru]);
+                $data['instansi_id'] = $newInstansi->instansi_id;
+            } else {
+                if (!Instansi::where('instansi_id', $data['instansi_id'])->exists()) {
+                    return back()->with('error', 'Instansi tidak valid.');
+                }
             }
         } elseif ($data['role'] === UserRole::SUPPORT->value) {
             $data['instansi_id'] = null;
