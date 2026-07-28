@@ -12,33 +12,39 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // Super Admin
-        User::create([
-            'nama' => 'Super Admin Radith',
-            'email' => 'superadmin@saktidesk.com',
-            'password' => Hash::make('password'),
-            'role' => UserRole::SUPERADMIN->value,
-            'instansi_id' => null,
-            'is_verified' => true,
-        ]);
+        User::updateOrCreate(
+            ['email' => 'superadmin@saktidesk.com'],
+            [
+                'nama' => 'Super Admin Radith',
+                'password' => Hash::make('password123'),
+                'role' => UserRole::SUPERADMIN->value,
+                'instansi_id' => null,
+                'is_verified' => true,
+            ]
+        );
 
         // Support User (Admin)
-        User::create([
-            'nama' => 'Admin Support',
-            'email' => 'support@skk.co.id',
-            'password' => Hash::make('password123'),
-            'role' => UserRole::SUPPORT->value,
-            'instansi_id' => null,
-            'is_verified' => true,
-        ]);
+        User::updateOrCreate(
+            ['email' => 'support@skk.co.id'],
+            [
+                'nama' => 'Admin Support',
+                'password' => Hash::make('password123'),
+                'role' => UserRole::SUPPORT->value,
+                'instansi_id' => null,
+                'is_verified' => true,
+            ]
+        );
 
         // Pelapor User (Mitra)
-        User::create([
-            'nama' => 'PIC Koperasi Sejahtera',
-            'email' => 'pic@koperasi.com',
-            'password' => Hash::make('password123'),
-            'role' => UserRole::PELAPOR->value,
-            'instansi_id' => 1, // Asumsi ID 1 adalah Koperasi Kredit Sejahtera dari MasterDataSeeder
-            'is_verified' => true,
-        ]);
+        User::updateOrCreate(
+            ['email' => 'pic@koperasi.com'],
+            [
+                'nama' => 'PIC Koperasi Sejahtera',
+                'password' => Hash::make('password123'),
+                'role' => UserRole::PELAPOR->value,
+                'instansi_id' => 1, // Asumsi ID 1 adalah Koperasi Kredit Sejahtera dari MasterDataSeeder
+                'is_verified' => true,
+            ]
+        );
     }
 }
