@@ -206,7 +206,7 @@
                 </div>
                 <div class="field" id="nik-group-edit-{{ $user->user_id }}" style="display: {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'block' : 'none' }};">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">No. Anggota</label>
-                    <input type="text" name="nik" value="{{ $user->nik }}" placeholder="Contoh: KSS-2026-00005" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                    <input type="text" name="nik" value="{{ $user->nik ?: 'KSS-' . date('Y') . '-' . str_pad($user->user_id, 5, '0', STR_PAD_LEFT) }}" placeholder="Contoh: KSS-2026-00005" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
                 <div class="field" id="instansi-group-edit-{{ $user->user_id }}" style="display: {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'block' : 'none' }};">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.instansi_koperasi') }} <span style="color:var(--danger)">*</span></label>
