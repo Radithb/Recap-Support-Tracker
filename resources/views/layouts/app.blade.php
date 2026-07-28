@@ -100,8 +100,8 @@
                     <strong>{{ Auth::user()->nama ?? 'User' }}</strong>
                     <span>{{ Auth::user()->email ?? 'email@example.com' }}</span>
                 </div>
-                <button onclick="window.location.href='{{ Auth::check() && Auth::user()->role === \App\Enums\UserRole::SUPPORT ? route('support.profil.saya') : route('profil.instansi') }}'">
-                    @if(Auth::check() && Auth::user()->role === \App\Enums\UserRole::SUPPORT)
+                <button onclick="window.location.href='{{ Auth::check() && Auth::user()->role !== \App\Enums\UserRole::PELAPOR ? route('support.profil.saya') : route('profil.instansi') }}'">
+                    @if(Auth::check() && Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
                         <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; opacity: 0.9;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></span> {{ __('messages.profil_saya') }}
                     @else
                         <span class="ic"><img src="{{ asset('company.png') }}" alt="Company" style="width: 16px; height: 16px; object-fit: contain; vertical-align: middle; filter: brightness(0) invert(1); opacity: 0.9;"></span> {{ __('messages.profil_koperasi') }}
@@ -174,9 +174,14 @@
         <span>{{ Auth::check() ? Auth::user()->email : 'email@example.com' }}</span>
     </div>
     <div class="mp-body">
-        <button onclick="window.location.href='{{ Auth::check() && Auth::user()->role === \App\Enums\UserRole::SUPPORT ? route('support.profil.saya') : route('profil.instansi') }}'">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-            Profil Saya
+        <button onclick="window.location.href='{{ Auth::check() && Auth::user()->role !== \App\Enums\UserRole::PELAPOR ? route('support.profil.saya') : route('profil.instansi') }}'">
+            @if(Auth::check() && Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                Profil Saya
+            @else
+                <img src="{{ asset('company.png') }}" alt="Company" style="width: 18px; height: 18px; object-fit: contain; vertical-align: middle; filter: brightness(0) invert(1); opacity: 0.9;">
+                Profil Koperasi
+            @endif
         </button>
         <button onclick="window.location.href='{{ route('pengaturan') }}'">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
