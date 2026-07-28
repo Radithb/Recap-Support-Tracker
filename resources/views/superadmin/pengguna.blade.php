@@ -139,10 +139,6 @@
                         <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">No. WhatsApp</label>
                         <input type="text" name="whatsapp" placeholder="Contoh: 08123456789" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                     </div>
-                    <div class="field" id="spesialisasi-group-add" style="display: none;">
-                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Spesialisasi</label>
-                        <input type="text" name="spesialisasi" placeholder="Misal: Jaringan, Database, dll." style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                    </div>
                     <div class="field" id="instansi-group-add" style="display: none;">
                         <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Instansi Koperasi <span style="color:var(--danger)">*</span></label>
                         <select name="instansi_id" id="instansi-select-add" onchange="toggleInstansiBaru(this, 'add')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
@@ -203,10 +199,6 @@
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">No. WhatsApp</label>
                     <input type="text" name="whatsapp" value="{{ $user->whatsapp }}" placeholder="Contoh: 08123456789" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
-                <div class="field" id="spesialisasi-group-edit-{{ $user->user_id }}" style="display: {{ $user->role === \App\Enums\UserRole::SUPPORT ? 'block' : 'none' }};">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Spesialisasi</label>
-                    <input type="text" name="spesialisasi" value="{{ $user->spesialisasi }}" placeholder="Misal: Jaringan, Database, dll." style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                </div>
                 <div class="field" id="instansi-group-edit-{{ $user->user_id }}" style="display: {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'block' : 'none' }};">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Instansi Koperasi <span style="color:var(--danger)">*</span></label>
                     <select name="instansi_id" id="instansi-select-edit-{{ $user->user_id }}" {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'required' : '' }} onchange="toggleInstansiBaru(this, 'edit-{{ $user->user_id }}')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
@@ -241,7 +233,6 @@
         let instansiSelect = document.getElementById('instansi-select-' + suffix);
         let inputBaru = document.getElementById('instansi-baru-' + suffix);
         let groupWhatsapp = document.getElementById('whatsapp-group-' + suffix);
-        let groupSpesialisasi = document.getElementById('spesialisasi-group-' + suffix);
 
         if (role === '') {
             if(commonFields) commonFields.style.display = 'none';
@@ -254,14 +245,12 @@
             if(groupInstansi) groupInstansi.style.display = 'block';
             if(instansiSelect) instansiSelect.setAttribute('required', 'required');
             if(groupWhatsapp) groupWhatsapp.style.display = 'block';
-            if(groupSpesialisasi) groupSpesialisasi.style.display = 'none';
         } else if (role === 'Support') {
             if(groupInstansi) groupInstansi.style.display = 'none';
             if(instansiSelect) instansiSelect.removeAttribute('required');
             if(instansiSelect) instansiSelect.value = "";
             if(inputBaru) { inputBaru.style.display = 'none'; inputBaru.removeAttribute('required'); inputBaru.value = ""; }
             if(groupWhatsapp) groupWhatsapp.style.display = 'block';
-            if(groupSpesialisasi) groupSpesialisasi.style.display = 'block';
         } else {
             // Super Admin
             if(groupInstansi) groupInstansi.style.display = 'none';
@@ -269,7 +258,6 @@
             if(instansiSelect) instansiSelect.value = "";
             if(inputBaru) { inputBaru.style.display = 'none'; inputBaru.removeAttribute('required'); inputBaru.value = ""; }
             if(groupWhatsapp) groupWhatsapp.style.display = 'none';
-            if(groupSpesialisasi) groupSpesialisasi.style.display = 'none';
         }
     }
 

@@ -35,16 +35,14 @@ class SuperAdminController extends Controller
             'instansi_id' => 'nullable|string',
             'instansi_baru' => 'nullable|string|max:255',
             'whatsapp' => 'nullable|string|max:50',
-            'spesialisasi' => 'nullable|string|max:255',
         ]);
 
-        $data = $request->only(['nama', 'email', 'role', 'instansi_id', 'whatsapp', 'spesialisasi']);
+        $data = $request->only(['nama', 'email', 'role', 'instansi_id', 'whatsapp']);
         $data['password'] = Hash::make($request->password);
         $data['is_verified'] = true; // Selalu aktif karena ditambahkan oleh Super Admin
 
         // Bersihkan data yang tidak sesuai role
         if ($data['role'] === UserRole::PELAPOR->value) {
-            $data['spesialisasi'] = null;
             if (empty($data['instansi_id'])) {
                 return back()->with('error', 'Instansi wajib diisi untuk role Pelapor.');
             }
@@ -65,7 +63,6 @@ class SuperAdminController extends Controller
         } elseif ($data['role'] === UserRole::SUPERADMIN->value) {
             $data['instansi_id'] = null;
             $data['whatsapp'] = null;
-            $data['spesialisasi'] = null;
         }
 
         User::create($data);
@@ -83,10 +80,9 @@ class SuperAdminController extends Controller
             'instansi_baru' => 'nullable|string|max:255',
             'password' => 'nullable|string|min:8',
             'whatsapp' => 'nullable|string|max:50',
-            'spesialisasi' => 'nullable|string|max:255',
         ]);
 
-        $data = $request->only(['nama', 'email', 'role', 'instansi_id', 'whatsapp', 'spesialisasi']);
+        $data = $request->only(['nama', 'email', 'role', 'instansi_id', 'whatsapp']);
         
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
@@ -94,7 +90,6 @@ class SuperAdminController extends Controller
 
         // Bersihkan data yang tidak sesuai role
         if ($data['role'] === UserRole::PELAPOR->value) {
-            $data['spesialisasi'] = null;
             if (empty($data['instansi_id'])) {
                 return back()->with('error', 'Instansi wajib diisi untuk role Pelapor.');
             }
@@ -115,7 +110,6 @@ class SuperAdminController extends Controller
         } elseif ($data['role'] === UserRole::SUPERADMIN->value) {
             $data['instansi_id'] = null;
             $data['whatsapp'] = null;
-            $data['spesialisasi'] = null;
         }
 
         $user->update($data);
