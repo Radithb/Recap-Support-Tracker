@@ -139,6 +139,10 @@
                         <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.no_whatsapp') }}</label>
                         <input type="text" name="whatsapp" placeholder="{{ __('messages.contoh_whatsapp') }}" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                     </div>
+                    <div class="field" id="nik-group-add" style="display: none;">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">No. Anggota</label>
+                        <input type="text" name="nik" placeholder="Contoh: KSS-2026-00005" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                    </div>
                     <div class="field" id="instansi-group-add" style="display: none;">
                         <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.instansi_koperasi') }} <span style="color:var(--danger)">*</span></label>
                         <select name="instansi_id" id="instansi-select-add" onchange="toggleInstansiBaru(this, 'add')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
@@ -200,6 +204,10 @@
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.no_whatsapp') }}</label>
                     <input type="text" name="whatsapp" value="{{ $user->whatsapp ?? ($user->instansi->no_telp ?? '') }}" placeholder="{{ __('messages.contoh_whatsapp') }}" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
+                <div class="field" id="nik-group-edit-{{ $user->user_id }}" style="display: {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'block' : 'none' }};">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">No. Anggota</label>
+                    <input type="text" name="nik" value="{{ $user->nik }}" placeholder="Contoh: KSS-2026-00005" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                </div>
                 <div class="field" id="instansi-group-edit-{{ $user->user_id }}" style="display: {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'block' : 'none' }};">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.instansi_koperasi') }} <span style="color:var(--danger)">*</span></label>
                     <select name="instansi_id" id="instansi-select-edit-{{ $user->user_id }}" {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'required' : '' }} onchange="toggleInstansiBaru(this, 'edit-{{ $user->user_id }}')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
@@ -234,6 +242,7 @@
         let instansiSelect = document.getElementById('instansi-select-' + suffix);
         let inputBaru = document.getElementById('instansi-baru-' + suffix);
         let groupWhatsapp = document.getElementById('whatsapp-group-' + suffix);
+        let groupNik = document.getElementById('nik-group-' + suffix);
 
         if (role === '') {
             if(commonFields) commonFields.style.display = 'none';
@@ -242,23 +251,30 @@
             if(commonFields) commonFields.style.display = 'flex';
         }
         
-        if (role === 'Pelapor') {
+        if (role === '{{\App\Enums\UserRole::PELAPOR->value}}') {
             if(groupInstansi) groupInstansi.style.display = 'block';
             if(instansiSelect) instansiSelect.setAttribute('required', 'required');
             if(groupWhatsapp) groupWhatsapp.style.display = 'block';
-        } else if (role === 'Support') {
+            if(groupNik) groupNik.style.display = 'block';
+        } else if (role === '{{\App\Enums\UserRole::SUPPORT->value}}') {
             if(groupInstansi) groupInstansi.style.display = 'none';
-            if(instansiSelect) instansiSelect.removeAttribute('required');
-            if(instansiSelect) instansiSelect.value = "";
+            if(instansiSelect) {
+                instansiSelect.removeAttribute('required');
+                instansiSelect.value = "";
+            }
             if(inputBaru) { inputBaru.style.display = 'none'; inputBaru.removeAttribute('required'); inputBaru.value = ""; }
             if(groupWhatsapp) groupWhatsapp.style.display = 'block';
+            if(groupNik) groupNik.style.display = 'none';
         } else {
             // Super Admin
             if(groupInstansi) groupInstansi.style.display = 'none';
-            if(instansiSelect) instansiSelect.removeAttribute('required');
-            if(instansiSelect) instansiSelect.value = "";
+            if(instansiSelect) {
+                instansiSelect.removeAttribute('required');
+                instansiSelect.value = "";
+            }
             if(inputBaru) { inputBaru.style.display = 'none'; inputBaru.removeAttribute('required'); inputBaru.value = ""; }
             if(groupWhatsapp) groupWhatsapp.style.display = 'none';
+            if(groupNik) groupNik.style.display = 'none';
         }
     }
 

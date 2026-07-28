@@ -35,9 +35,10 @@ class SuperAdminController extends Controller
             'instansi_id' => 'nullable|string',
             'instansi_baru' => 'nullable|string|max:255',
             'whatsapp' => 'nullable|string|max:50',
+            'nik' => 'nullable|string|max:50',
         ]);
 
-        $data = $request->only(['nama', 'email', 'role', 'instansi_id', 'whatsapp']);
+        $data = $request->only(['nama', 'email', 'role', 'instansi_id', 'whatsapp', 'nik']);
         $data['password'] = Hash::make($request->password);
         $data['is_verified'] = true; // Selalu aktif karena ditambahkan oleh Super Admin
 
@@ -80,9 +81,10 @@ class SuperAdminController extends Controller
             'instansi_baru' => 'nullable|string|max:255',
             'password' => 'nullable|string|min:8',
             'whatsapp' => 'nullable|string|max:50',
+            'nik' => 'nullable|string|max:50',
         ]);
 
-        $data = $request->only(['nama', 'email', 'role', 'instansi_id', 'whatsapp']);
+        $data = $request->only(['nama', 'email', 'role', 'instansi_id', 'whatsapp', 'nik']);
         
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
