@@ -60,11 +60,11 @@
                         <td style="padding: 1.25rem 1.5rem; color: var(--text-muted); font-size: 0.95rem;">{{ $user->email }}</td>
                         <td style="padding: 1.25rem 1.5rem; text-align: center;">
                             @if($user->role === \App\Enums\UserRole::SUPERADMIN)
-                                <span class="badge" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Super Admin</span>
+                                <span class="badge" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; white-space: nowrap;">Super Admin</span>
                             @elseif($user->role === \App\Enums\UserRole::SUPPORT)
-                                <span class="badge" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Support</span>
+                                <span class="badge" style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; white-space: nowrap;">Support</span>
                             @else
-                                <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600;">Pelapor</span>
+                                <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; white-space: nowrap;">Pelapor</span>
                             @endif
                         </td>
                         <td style="padding: 1.25rem 1.5rem; color: var(--text-muted); font-size: 0.95rem;">
