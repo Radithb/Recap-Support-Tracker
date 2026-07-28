@@ -226,7 +226,7 @@
             <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px;">
                 <div style="display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; color: #1d4ed8; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                    {{ __('messages.disubmit') }} {{ \Carbon\Carbon::parse($t->tanggal_input->format('Y-m-d H:i:s'), 'Asia/Jakarta')->locale(app()->getLocale())->diffForHumans(['parts' => 2]) }} &middot; {{ $t->tanggal_input->format('d M Y, H:i') }}
+                    {{ __('messages.disubmit') }} {{ $t->tanggal_input->locale(app()->getLocale())->diffForHumans(['parts' => 2]) }} &middot; {{ $t->tanggal_input->format('d M Y, H:i') }}
                 </div>
                 @if($t->status === \App\Enums\TicketStatus::DONE && $t->tanggal_penyelesaian)
                 <div style="display: inline-flex; align-items: center; gap: 6px; background: #ecfdf5; color: #065f46; padding: 6px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600;">
@@ -361,7 +361,7 @@
             <div>
                 <h3>{{ $t->ticket_id }} &mdash; {{ Str::limit($t->permasalahan, 50) }}</h3>
                 <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;">
-                    {{ $t->pelapor->instansi->nama_instansi ?? '-' }} (PIC: {{ $t->pelapor->nama ?? '-' }}) &middot; {{ __('messages.aplikasi') }}: {{ $t->aplikasi->nama_aplikasi ?? '-' }} &middot; {{ __('messages.col_tanggal') }}: {{ $t->tanggal_input->format('d M Y, H:i') }} <span style="font-weight: 500; color: var(--primary);">&mdash; {{ \Carbon\Carbon::parse($t->tanggal_input->format('Y-m-d H:i:s'), 'Asia/Jakarta')->locale(app()->getLocale())->diffForHumans(['parts' => 2]) }}</span>
+                    {{ $t->pelapor->instansi->nama_instansi ?? '-' }} (PIC: {{ $t->pelapor->nama ?? '-' }}) &middot; {{ __('messages.aplikasi') }}: {{ $t->aplikasi->nama_aplikasi ?? '-' }} &middot; {{ __('messages.col_tanggal') }}: {{ $t->tanggal_input->format('d M Y, H:i') }} <span style="font-weight: 500; color: var(--primary);">&mdash; {{ $t->tanggal_input->locale(app()->getLocale())->diffForHumans(['parts' => 2]) }}</span>
                 </p>
             </div>
             <button type="button" class="modal-x" onclick="cancelEditModalSupport('{{ $t->ticket_id }}')">✕</button>
