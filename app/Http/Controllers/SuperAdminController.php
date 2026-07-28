@@ -33,12 +33,11 @@ class SuperAdminController extends Controller
             'password' => 'required|string|min:8',
             'role' => ['required', new Enum(UserRole::class)],
             'instansi_id' => 'nullable|exists:instansis,instansi_id',
-            'nik' => 'nullable|string|max:50',
             'whatsapp' => 'nullable|string|max:50',
             'spesialisasi' => 'nullable|string|max:255',
         ]);
 
-        $data = $request->only(['nama', 'email', 'role', 'instansi_id', 'nik', 'whatsapp', 'spesialisasi']);
+        $data = $request->only(['nama', 'email', 'role', 'instansi_id', 'whatsapp', 'spesialisasi']);
         $data['password'] = Hash::make($request->password);
         $data['is_verified'] = true; // Selalu aktif karena ditambahkan oleh Super Admin
 
@@ -50,10 +49,8 @@ class SuperAdminController extends Controller
             }
         } elseif ($data['role'] === UserRole::SUPPORT->value) {
             $data['instansi_id'] = null;
-            $data['nik'] = null;
         } elseif ($data['role'] === UserRole::SUPERADMIN->value) {
             $data['instansi_id'] = null;
-            $data['nik'] = null;
             $data['whatsapp'] = null;
             $data['spesialisasi'] = null;
         }
@@ -71,12 +68,11 @@ class SuperAdminController extends Controller
             'role' => ['required', new Enum(UserRole::class)],
             'instansi_id' => 'nullable|exists:instansis,instansi_id',
             'password' => 'nullable|string|min:8',
-            'nik' => 'nullable|string|max:50',
             'whatsapp' => 'nullable|string|max:50',
             'spesialisasi' => 'nullable|string|max:255',
         ]);
 
-        $data = $request->only(['nama', 'email', 'role', 'instansi_id', 'nik', 'whatsapp', 'spesialisasi']);
+        $data = $request->only(['nama', 'email', 'role', 'instansi_id', 'whatsapp', 'spesialisasi']);
         
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
@@ -90,10 +86,8 @@ class SuperAdminController extends Controller
             }
         } elseif ($data['role'] === UserRole::SUPPORT->value) {
             $data['instansi_id'] = null;
-            $data['nik'] = null;
         } elseif ($data['role'] === UserRole::SUPERADMIN->value) {
             $data['instansi_id'] = null;
-            $data['nik'] = null;
             $data['whatsapp'] = null;
             $data['spesialisasi'] = null;
         }

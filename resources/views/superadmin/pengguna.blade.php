@@ -133,10 +133,6 @@
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Email <span style="color:var(--danger)">*</span></label>
                     <input type="email" name="email" required placeholder="Email aktif" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
-                <div class="field" id="nik-group-add" style="display: none;">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">NIK KTP</label>
-                    <input type="text" name="nik" placeholder="Opsional" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                </div>
                 <div class="field" id="whatsapp-group-add" style="display: none;">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">No. WhatsApp</label>
                     <input type="text" name="whatsapp" placeholder="Contoh: 08123456789" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
@@ -197,10 +193,6 @@
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Email <span style="color:var(--danger)">*</span></label>
                     <input type="email" name="email" required value="{{ $user->email }}" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
-                <div class="field" id="nik-group-edit-{{ $user->user_id }}" style="display: {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'block' : 'none' }};">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">NIK KTP</label>
-                    <input type="text" name="nik" value="{{ $user->nik }}" placeholder="Opsional" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                </div>
                 <div class="field" id="whatsapp-group-edit-{{ $user->user_id }}" style="display: {{ in_array($user->role, [\App\Enums\UserRole::PELAPOR, \App\Enums\UserRole::SUPPORT]) ? 'block' : 'none' }};">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">No. WhatsApp</label>
                     <input type="text" name="whatsapp" value="{{ $user->whatsapp }}" placeholder="Contoh: 08123456789" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
@@ -237,21 +229,18 @@
         let role = selectElement.value;
         let groupInstansi = document.getElementById('instansi-group-' + suffix);
         let instansiSelect = document.getElementById('instansi-select-' + suffix);
-        let groupNik = document.getElementById('nik-group-' + suffix);
         let groupWhatsapp = document.getElementById('whatsapp-group-' + suffix);
         let groupSpesialisasi = document.getElementById('spesialisasi-group-' + suffix);
         
         if (role === 'Pelapor') {
             if(groupInstansi) groupInstansi.style.display = 'block';
             if(instansiSelect) instansiSelect.setAttribute('required', 'required');
-            if(groupNik) groupNik.style.display = 'block';
             if(groupWhatsapp) groupWhatsapp.style.display = 'block';
             if(groupSpesialisasi) groupSpesialisasi.style.display = 'none';
         } else if (role === 'Support') {
             if(groupInstansi) groupInstansi.style.display = 'none';
             if(instansiSelect) instansiSelect.removeAttribute('required');
             if(instansiSelect) instansiSelect.value = "";
-            if(groupNik) groupNik.style.display = 'none';
             if(groupWhatsapp) groupWhatsapp.style.display = 'block';
             if(groupSpesialisasi) groupSpesialisasi.style.display = 'block';
         } else {
@@ -259,7 +248,6 @@
             if(groupInstansi) groupInstansi.style.display = 'none';
             if(instansiSelect) instansiSelect.removeAttribute('required');
             if(instansiSelect) instansiSelect.value = "";
-            if(groupNik) groupNik.style.display = 'none';
             if(groupWhatsapp) groupWhatsapp.style.display = 'none';
             if(groupSpesialisasi) groupSpesialisasi.style.display = 'none';
         }
