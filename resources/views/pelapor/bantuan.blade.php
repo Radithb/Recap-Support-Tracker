@@ -21,7 +21,7 @@
                 </div>
                 <div>
                     <div style="font-weight: 700; font-size: 14px; color: var(--ink);">{{ __('messages.telepon') }}</div>
-                    <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); margin-top: 4px;">+6281223182828</div>
+                    <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-soft); margin-top: 4px;">+62 853-1780-5165</div>
                 </div>
             </div>
             
