@@ -44,7 +44,7 @@ class AuthController extends Controller
 
             $request->session()->regenerate();
 
-            if (Auth::user()->role === UserRole::SUPPORT) {
+            if (in_array(Auth::user()->role, [UserRole::SUPPORT, UserRole::SUPERADMIN])) {
                 return redirect()->intended('/support/dashboard');
             }
             return redirect()->intended('/pelapor/dashboard');
