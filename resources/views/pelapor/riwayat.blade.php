@@ -165,42 +165,54 @@
             @if($t->lampiran)
             <div style="margin-bottom: 16px;">
                 <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">{{ __('messages.lampiran_bukti') }}</div>
-                @php $ext = strtolower(pathinfo($t->lampiran, PATHINFO_EXTENSION)); @endphp
-                @if(in_array($ext, ['jpg', 'jpeg', 'png']))
-                    <a href="{{ Storage::url($t->lampiran) }}" target="_blank">
-                        <img src="{{ Storage::url($t->lampiran) }}" alt="Lampiran" style="max-width: 100%; max-height: 140px; border-radius: 8px; border: 1px solid var(--line); display: block; object-fit: cover;">
-                    </a>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 4px;">{{ __('messages.klik_gambar') }}</div>
-                @elseif($ext === 'mp4')
-                    <a href="{{ Storage::url($t->lampiran) }}" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
-                        <span>🎥</span> {{ __('messages.lihat_video') }}
-                    </a>
-                @elseif($ext === 'pdf')
-                    <a href="{{ Storage::url($t->lampiran) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); text-decoration: none;">
-                        <span>📄</span> {{ __('messages.unduh_pdf') }}
-                    </a>
-                @endif
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                @php $lampirans = is_array($t->lampiran) ? $t->lampiran : [$t->lampiran]; @endphp
+                @foreach($lampirans as $lamp)
+                    @php $ext = strtolower(pathinfo($lamp, PATHINFO_EXTENSION)); @endphp
+                    @if(in_array($ext, ['jpg', 'jpeg', 'png']))
+                        <div style="text-align: center;">
+                            <a href="{{ Storage::url($lamp) }}" target="_blank">
+                                <img src="{{ Storage::url($lamp) }}" alt="Lampiran" style="max-width: 100%; max-height: 140px; border-radius: 8px; border: 1px solid var(--line); display: block; object-fit: cover;">
+                            </a>
+                        </div>
+                    @elseif($ext === 'mp4')
+                        <a href="{{ Storage::url($lamp) }}" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+                            <span>🎥</span> {{ __('messages.lihat_video') }}
+                        </a>
+                    @elseif($ext === 'pdf')
+                        <a href="{{ Storage::url($lamp) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); text-decoration: none;">
+                            <span>📄</span> {{ __('messages.unduh_pdf') }}
+                        </a>
+                    @endif
+                @endforeach
+                </div>
             </div>
             @endif
 
             @if($t->lampiran_support)
             <div style="margin-bottom: 16px;">
                 <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Lampiran Respons Support</div>
-                @php $extSupp = strtolower(pathinfo($t->lampiran_support, PATHINFO_EXTENSION)); @endphp
-                @if(in_array($extSupp, ['jpg', 'jpeg', 'png']))
-                    <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank">
-                        <img src="{{ Storage::url($t->lampiran_support) }}" alt="Lampiran Support" style="max-width: 100%; max-height: 140px; border-radius: 8px; border: 1px solid var(--line); display: block; object-fit: cover;">
-                    </a>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 4px;">{{ __('messages.klik_gambar') }}</div>
-                @elseif($extSupp === 'mp4')
-                    <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
-                        <span>🎥</span> {{ __('messages.lihat_video') }}
-                    </a>
-                @elseif($extSupp === 'pdf')
-                    <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); text-decoration: none;">
-                        <span>📄</span> {{ __('messages.unduh_pdf') }}
-                    </a>
-                @endif
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                @php $lampiranSupports = is_array($t->lampiran_support) ? $t->lampiran_support : [$t->lampiran_support]; @endphp
+                @foreach($lampiranSupports as $lampSupp)
+                    @php $extSupp = strtolower(pathinfo($lampSupp, PATHINFO_EXTENSION)); @endphp
+                    @if(in_array($extSupp, ['jpg', 'jpeg', 'png']))
+                        <div style="text-align: center;">
+                            <a href="{{ Storage::url($lampSupp) }}" target="_blank">
+                                <img src="{{ Storage::url($lampSupp) }}" alt="Lampiran Support" style="max-width: 100%; max-height: 140px; border-radius: 8px; border: 1px solid var(--line); display: block; object-fit: cover;">
+                            </a>
+                        </div>
+                    @elseif($extSupp === 'mp4')
+                        <a href="{{ Storage::url($lampSupp) }}" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+                            <span>🎥</span> {{ __('messages.lihat_video') }}
+                        </a>
+                    @elseif($extSupp === 'pdf')
+                        <a href="{{ Storage::url($lampSupp) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); text-decoration: none;">
+                            <span>📄</span> {{ __('messages.unduh_pdf') }}
+                        </a>
+                    @endif
+                @endforeach
+                </div>
             </div>
             @endif
 

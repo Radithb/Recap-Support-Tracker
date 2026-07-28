@@ -58,16 +58,18 @@ class TicketController extends Controller
     {
         $data = $request->validated();
         
-        $lampiranPath = null;
+        $lampiranPaths = [];
         if ($request->hasFile('lampiran')) {
-            $lampiranPath = $request->file('lampiran')->store('lampiran_tiket', 'public');
+            foreach ($request->file('lampiran') as $file) {
+                $lampiranPaths[] = $file->store('lampiran_tiket', 'public');
+            }
         }
 
         Ticket::create([
             'pelapor_id' => Auth::id(),
             'aplikasi_id' => $data['aplikasi_id'],
             'permasalahan' => $data['permasalahan'],
-            'lampiran' => $lampiranPath,
+            'lampiran' => count($lampiranPaths) > 0 ? $lampiranPaths : null,
             'status' => TicketStatus::OPEN->value,
         ]);
 
@@ -84,8 +86,13 @@ class TicketController extends Controller
             return back()->with('error', __('messages.cannot_delete_ticket'));
         }
 
-        if ($ticket->lampiran && \Illuminate\Support\Facades\Storage::disk('public')->exists($ticket->lampiran)) {
-            \Illuminate\Support\Facades\Storage::disk('public')->delete($ticket->lampiran);
+        if ($ticket->lampiran) {
+            $lampirans = is_array($ticket->lampiran) ? $ticket->lampiran : [$ticket->lampiran];
+            foreach ($lampirans as $lamp) {
+                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($lamp)) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($lamp);
+                }
+            }
         }
 
         $ticket->delete();
@@ -132,7 +139,8 @@ class TicketController extends Controller
             'pencegahan' => 'nullable|string',
             'link_ticket' => 'nullable|string',
             'is_faq' => 'nullable|boolean',
-            'lampiran_support' => 'nullable|file|mimes:jpg,jpeg,png,mp4,pdf|max:10240',
+            'lampiran_support' => 'nullable|array|max:5',
+            'lampiran_support.*' => 'file|mimes:jpg,jpeg,png,mp4,pdf|max:5120',
         ]);
 
         $data = $request->only(['status', 'kategori_id', 'penyelesaian', 'pencegahan', 'link_ticket']);
@@ -146,17 +154,31 @@ class TicketController extends Controller
         }
 
         if ($request->has('hapus_lampiran_support') && $request->hapus_lampiran_support == '1') {
-            if ($ticket->lampiran_support && \Illuminate\Support\Facades\Storage::disk('public')->exists($ticket->lampiran_support)) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($ticket->lampiran_support);
+            if ($ticket->lampiran_support) {
+                $lampirans = is_array($ticket->lampiran_support) ? $ticket->lampiran_support : [$ticket->lampiran_support];
+                foreach ($lampirans as $lamp) {
+                    if (\Illuminate\Support\Facades\Storage::disk('public')->exists($lamp)) {
+                        \Illuminate\Support\Facades\Storage::disk('public')->delete($lamp);
+                    }
+                }
             }
             $data['lampiran_support'] = null;
         }
 
         if ($request->hasFile('lampiran_support')) {
-            if ($ticket->lampiran_support && \Illuminate\Support\Facades\Storage::disk('public')->exists($ticket->lampiran_support)) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($ticket->lampiran_support);
+            if ($ticket->lampiran_support) {
+                $lampirans = is_array($ticket->lampiran_support) ? $ticket->lampiran_support : [$ticket->lampiran_support];
+                foreach ($lampirans as $lamp) {
+                    if (\Illuminate\Support\Facades\Storage::disk('public')->exists($lamp)) {
+                        \Illuminate\Support\Facades\Storage::disk('public')->delete($lamp);
+                    }
+                }
             }
-            $data['lampiran_support'] = $request->file('lampiran_support')->store('lampiran_tiket', 'public');
+            $lampiranSupportPaths = [];
+            foreach ($request->file('lampiran_support') as $file) {
+                $lampiranSupportPaths[] = $file->store('lampiran_tiket', 'public');
+            }
+            $data['lampiran_support'] = count($lampiranSupportPaths) > 0 ? $lampiranSupportPaths : null;
         }
 
         $ticket->update($data);

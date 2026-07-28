@@ -333,7 +333,7 @@
             <button type="button" class="modal-x" onclick="cancelEditModalSupport('{{ $t->ticket_id }}')">✕</button>
         </div>
         
-        <form action="{{ route('support.tickets.update', $t->ticket_id) }}" method="POST" enctype="multipart/form-data" onsubmit="return checkFileSize(this, 'lampiran_input_supp_{{ $t->ticket_id }}', 8);">
+        <form action="{{ route('support.tickets.update', $t->ticket_id) }}" method="POST" enctype="multipart/form-data" onsubmit="return checkFileSize(this, 'lampiran_input_supp_{{ $t->ticket_id }}', 5);">
             @csrf
             @method('PUT')
             
@@ -346,22 +346,29 @@
                     </div>
 
                     @if($t->lampiran)
-                    <div class="field">
+                    <div style="margin-bottom: 16px;">
                         <label>{{ __('messages.lampiran_bukti') }}</label>
-                        @php $ext = strtolower(pathinfo($t->lampiran, PATHINFO_EXTENSION)); @endphp
-                        @if(in_array($ext, ['jpg', 'jpeg', 'png']))
-                            <a href="{{ Storage::url($t->lampiran) }}" target="_blank">
-                                <img src="{{ Storage::url($t->lampiran) }}" alt="Lampiran" style="max-width: 100%; max-height: 150px; border-radius: 8px; border: 1px solid var(--line); display: block; margin-top: 8px; object-fit: cover;">
-                            </a>
-                        @elseif($ext === 'mp4')
-                            <a href="{{ Storage::url($t->lampiran) }}" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; text-decoration: none;">
-                                <span>🎥</span> {{ __('messages.lihat_video') }}
-                            </a>
-                        @elseif($ext === 'pdf')
-                            <a href="{{ Storage::url($t->lampiran) }}" target="_blank" class="btn btn-ghost" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--line); margin-top: 8px; text-decoration: none;">
-                                <span>📄</span> {{ __('messages.unduh_pdf') }}
-                            </a>
-                        @endif
+                        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                        @php $lampirans = is_array($t->lampiran) ? $t->lampiran : [$t->lampiran]; @endphp
+                        @foreach($lampirans as $lamp)
+                            @php $ext = strtolower(pathinfo($lamp, PATHINFO_EXTENSION)); @endphp
+                            @if(in_array($ext, ['jpg', 'jpeg', 'png']))
+                                <div style="text-align: center;">
+                                    <a href="{{ Storage::url($lamp) }}" target="_blank">
+                                        <img src="{{ Storage::url($lamp) }}" alt="Lampiran" style="max-width: 100%; max-height: 150px; border-radius: 8px; border: 1px solid var(--line); display: block; margin-top: 8px; object-fit: cover;">
+                                    </a>
+                                </div>
+                            @elseif($ext === 'mp4')
+                                <a href="{{ Storage::url($lamp) }}" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; text-decoration: none;">
+                                    <span>🎥</span> {{ __('messages.lihat_video') }}
+                                </a>
+                            @elseif($ext === 'pdf')
+                                <a href="{{ Storage::url($lamp) }}" target="_blank" class="btn btn-ghost" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--line); margin-top: 8px; text-decoration: none;">
+                                    <span>📄</span> {{ __('messages.unduh_pdf') }}
+                                </a>
+                            @endif
+                        @endforeach
+                        </div>
                     </div>
                     @endif
 
@@ -417,32 +424,33 @@
                     <div class="field" style="margin-top: 14px;">
                         <label>Lampiran Respons (Opsional)</label>
                         <div style="display: flex; gap: 8px; align-items: center;">
-                            <input type="file" id="lampiran_input_supp_{{ $t->ticket_id }}" name="lampiran_support" accept=".jpg,.jpeg,.png,.mp4,.pdf" style="flex: 1; width:100%; font-size: calc(13px * var(--text-scale, 1)); font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;" onchange="document.getElementById('clear_lampiran_btn_supp_{{ $t->ticket_id }}').style.display = this.value ? 'inline-block' : 'none';">
+                            <input type="file" id="lampiran_input_supp_{{ $t->ticket_id }}" name="lampiran_support[]" multiple accept=".jpg,.jpeg,.png,.mp4,.pdf" style="flex: 1; width:100%; font-size: calc(13px * var(--text-scale, 1)); font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;" onchange="document.getElementById('clear_lampiran_btn_supp_{{ $t->ticket_id }}').style.display = this.value ? 'inline-block' : 'none';">
                             <button type="button" id="clear_lampiran_btn_supp_{{ $t->ticket_id }}" style="display: none; padding: 8px 12px; background: #fee2e2; color: #ef4444; border: 1px solid #f87171; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500;" onclick="document.getElementById('lampiran_input_supp_{{ $t->ticket_id }}').value = ''; this.style.display = 'none';">{{ __('messages.hapus_lampiran') }}</button>
                         </div>
-                        <div class="helper">Format: JPG, PNG, MP4, PDF. Max: 10MB</div>
+                        <div class="helper" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Format: JPG, PNG, MP4, PDF. Max: 5MB</div>
                         @error('lampiran_support') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
                         
                         @if($t->lampiran_support)
-                            <div style="margin-top: 8px;">
-                                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Lampiran Saat Ini:</div>
-                                <div id="lampiran_preview_supp_{{ $t->ticket_id }}" style="display: flex; align-items: flex-end; gap: 12px;">
-                                    <div>
-                                        @php $extSupp = strtolower(pathinfo($t->lampiran_support, PATHINFO_EXTENSION)); @endphp
+                            <div style="margin-top: 12px; padding: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 8px;">
+                                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Lampiran Saat Ini:</div>
+                                <div id="lampiran_preview_supp_{{ $t->ticket_id }}" style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end;">
+                                    @php $lampiranSupports = is_array($t->lampiran_support) ? $t->lampiran_support : [$t->lampiran_support]; @endphp
+                                    @foreach($lampiranSupports as $lampSupp)
+                                        @php $extSupp = strtolower(pathinfo($lampSupp, PATHINFO_EXTENSION)); @endphp
                                         @if(in_array($extSupp, ['jpg', 'jpeg', 'png']))
-                                            <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank">
-                                                <img src="{{ Storage::url($t->lampiran_support) }}" alt="Lampiran Support" style="max-width: 100%; max-height: 100px; border-radius: 8px; border: 1px solid var(--line); display: block; object-fit: cover;">
+                                            <a href="{{ Storage::url($lampSupp) }}" target="_blank">
+                                                <img src="{{ Storage::url($lampSupp) }}" alt="Lampiran Support" style="max-width: 100%; max-height: 100px; border-radius: 8px; border: 1px solid var(--line); display: block; object-fit: cover;">
                                             </a>
                                         @elseif($extSupp === 'mp4')
-                                            <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
-                                                <span>🎥</span> Lihat Video
+                                            <a href="{{ Storage::url($lampSupp) }}" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+                                                <span>🎥</span> {{ __('messages.lihat_video') }}
                                             </a>
                                         @elseif($extSupp === 'pdf')
-                                            <a href="{{ Storage::url($t->lampiran_support) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); text-decoration: none;">
-                                                <span>📄</span> Unduh PDF
+                                            <a href="{{ Storage::url($lampSupp) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); text-decoration: none;">
+                                                <span>📄</span> {{ __('messages.unduh_pdf') }}
                                             </a>
                                         @endif
-                                    </div>
+                                    @endforeach
                                     <button type="button" style="color: #ef4444; background: none; border: 1.5px solid #fecaca; padding: 6px 10px; font-size: 0.75rem; font-weight: 500; border-radius: 6px; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: 0.2s; height: fit-content;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'" onclick="document.getElementById('hapus_lampiran_checkbox_supp_{{ $t->ticket_id }}').checked = true; document.getElementById('lampiran_preview_supp_{{ $t->ticket_id }}').style.display = 'none';">
                                         {{ __('messages.hapus_lampiran') }}
                                     </button>
@@ -718,9 +726,19 @@
     function checkFileSize(form, inputId, maxMb) {
         const fileInput = document.getElementById(inputId);
         if (fileInput && fileInput.files.length > 0) {
-            const fileSize = fileInput.files[0].size / 1024 / 1024;
-            if (fileSize > maxMb) {
-                alert('Ukuran file terlalu besar! Maksimal ' + maxMb + ' MB (Batas server). File Anda berukuran ' + fileSize.toFixed(2) + ' MB.');
+            let totalSize = 0;
+            for (let i = 0; i < fileInput.files.length; i++) {
+                totalSize += fileInput.files[i].size;
+            }
+            const totalSizeMb = totalSize / 1024 / 1024;
+            
+            if (fileInput.files.length > 5) {
+                alert('Anda hanya dapat mengunggah maksimal 5 file sekaligus.');
+                return false;
+            }
+            
+            if (totalSizeMb > maxMb) {
+                alert('Total ukuran file terlalu besar! Maksimal ' + maxMb + ' MB (Batas server). File Anda berukuran ' + totalSizeMb.toFixed(2) + ' MB.');
                 return false;
             }
         }
