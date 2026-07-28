@@ -34,12 +34,25 @@
     @endif
 
     <div class="glass-panel fade-up" style="padding: 0; overflow: hidden;">
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 24px; border-bottom: 1px solid var(--line);">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 24px; border-bottom: 1px solid var(--line); flex-wrap: wrap; gap: 16px;">
             <h2 style="font-size: 1.25rem; font-weight: 600; color: var(--ink); margin: 0;">{{ __('messages.daftar_pengguna_sistem') }}</h2>
-            <button onclick="openModal('modal-add-user')" class="btn btn-primary" style="display: flex; align-items: center; gap: 8px;">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                {{ __('messages.tambah_pengguna') }}
-            </button>
+            <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+                <form action="{{ route('superadmin.pengguna') }}" method="GET" style="display: flex; gap: 8px;">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari nama atau email..." style="padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem; min-width: 250px;">
+                    <button type="submit" class="btn btn-secondary" style="display: flex; align-items: center; justify-content: center; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-sunken); cursor: pointer;" onmouseover="this.style.background='var(--line)'" onmouseout="this.style.background='var(--paper-sunken)'">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--ink);"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    </button>
+                    @if(request('search'))
+                        <a href="{{ route('superadmin.pengguna') }}" class="btn btn-ghost" style="display: flex; align-items: center; justify-content: center; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); color: var(--ink); text-decoration: none;" onmouseover="this.style.background='var(--line)'" onmouseout="this.style.background='transparent'">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        </a>
+                    @endif
+                </form>
+                <button onclick="openModal('modal-add-user')" class="btn btn-primary" style="display: flex; align-items: center; gap: 8px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                    {{ __('messages.tambah_pengguna') }}
+                </button>
+            </div>
         </div>
 
         <div class="table-scroll-wrapper" style="overflow: auto; border: none; border-radius: 0; background: transparent; margin: 0; padding-bottom: 0;">
@@ -54,7 +67,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($users as $user)
+                    @forelse($users as $user)
                     <tr style="border-bottom: 1px solid var(--line);">
                         <td style="padding: 1.25rem 1.5rem; color: var(--ink); font-size: 0.95rem; font-weight: 600;">{{ $user->nama }}</td>
                         <td style="padding: 1.25rem 1.5rem; color: var(--text-muted); font-size: 0.95rem;">{{ $user->email }}</td>
@@ -97,7 +110,19 @@
                             @endif
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="5" style="padding: 3rem 1.5rem; text-align: center; color: var(--text-muted);">
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+                                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.5;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                                <div>
+                                    <div style="font-weight: 600; color: var(--ink); font-size: 1.1rem; margin-bottom: 4px;">{{ __('messages.tidak_ditemukan') ?? 'Pengguna tidak ditemukan' }}</div>
+                                    <div style="font-size: 0.9rem;">Pencarian Anda tidak membuahkan hasil. Coba kata kunci lain.</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

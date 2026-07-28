@@ -12,14 +12,24 @@ use Illuminate\Support\Facades\Auth;
 
 class SuperAdminController extends Controller
 {
-    public function pengguna()
+    public function pengguna(Request $request)
     {
         // Pastikan hanya Super Admin yang bisa mengakses
         if (Auth::user()->role !== UserRole::SUPERADMIN) {
             return redirect('/login')->with('error', 'Akses ditolak.');
         }
 
-        $users = User::with('instansi')->orderBy('created_at', 'desc')->get();
+        $query = User::with('instansi');
+
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                  ->orWhere('email', 'like', "%{$search}%");
+            });
+        }
+
+        $users = $query->orderBy('created_at', 'desc')->get();
         $instansis = Instansi::all();
         
         return view('superadmin.pengguna', compact('users', 'instansis'));
