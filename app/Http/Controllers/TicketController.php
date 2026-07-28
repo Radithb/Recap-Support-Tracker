@@ -71,6 +71,7 @@ class TicketController extends Controller
             'permasalahan' => $data['permasalahan'],
             'lampiran' => count($lampiranPaths) > 0 ? $lampiranPaths : null,
             'status' => TicketStatus::OPEN->value,
+            'tanggal_input' => now(),
         ]);
 
         return back()->with('success', __('messages.ticket_created'));
