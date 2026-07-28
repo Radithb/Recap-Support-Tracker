@@ -242,6 +242,33 @@
                 <div style="font-size: 0.95rem; color: var(--ink); line-height: 1.6; white-space: pre-wrap; background: var(--paper-raised); padding: 16px; border-radius: 8px; border: 1px solid var(--line);">{{ $t->permasalahan }}</div>
             </div>
 
+            @if($t->lampiran)
+            <div style="margin-bottom: 24px;">
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">{{ __('messages.lampiran_bukti') }}</div>
+                <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                @php $lampirans = is_array($t->lampiran) ? $t->lampiran : [$t->lampiran]; @endphp
+                @foreach($lampirans as $lamp)
+                    @php $ext = strtolower(pathinfo($lamp, PATHINFO_EXTENSION)); @endphp
+                    @if(in_array($ext, ['jpg', 'jpeg', 'png']))
+                        <div style="text-align: center;">
+                            <a href="{{ Storage::url($lamp) }}" target="_blank">
+                                <img src="{{ Storage::url($lamp) }}" alt="Lampiran" style="max-width: 100%; max-height: 140px; border-radius: 8px; border: 1px solid var(--line); display: block; object-fit: cover;">
+                            </a>
+                        </div>
+                    @elseif($ext === 'mp4')
+                        <a href="{{ Storage::url($lamp) }}" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+                            <span>🎥</span> {{ __('messages.lihat_video') }}
+                        </a>
+                    @elseif($ext === 'pdf')
+                        <a href="{{ Storage::url($lamp) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); text-decoration: none;">
+                            <span>📄</span> {{ __('messages.unduh_pdf') }}
+                        </a>
+                    @endif
+                @endforeach
+                </div>
+            </div>
+            @endif
+
             @if($t->status === \App\Enums\TicketStatus::DONE || $t->penyelesaian)
                 <!-- Tindakan Penyelesaian -->
                 <div style="margin-bottom: 24px;">
