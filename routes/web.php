@@ -91,7 +91,12 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
     Route::get('/faq/list', [FaqController::class, 'allForSupport'])->name('faq.list');
 });
 
+use App\Http\Controllers\SuperAdminController;
+
 // Akses Super Admin (Eksklusif)
 Route::middleware(['auth', IsSuperAdmin::class])->prefix('superadmin')->name('superadmin.')->group(function () {
-    Route::view('/pengguna', 'superadmin.pengguna')->name('pengguna');
+    Route::get('/pengguna', [SuperAdminController::class, 'pengguna'])->name('pengguna');
+    Route::post('/pengguna', [SuperAdminController::class, 'storePengguna'])->name('pengguna.store');
+    Route::put('/pengguna/{user}', [SuperAdminController::class, 'updatePengguna'])->name('pengguna.update');
+    Route::delete('/pengguna/{user}', [SuperAdminController::class, 'destroyPengguna'])->name('pengguna.destroy');
 });
