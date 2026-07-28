@@ -44,18 +44,18 @@ class SuperAdminController extends Controller
         // Bersihkan data yang tidak sesuai role
         if ($data['role'] === UserRole::PELAPOR->value) {
             if (empty($data['instansi_id'])) {
-                return back()->with('error', 'Instansi wajib diisi untuk role Pelapor.');
+                return back()->with('error', __('messages.instansi_wajib'));
             }
             
             if ($data['instansi_id'] === 'new') {
                 if (empty($request->instansi_baru)) {
-                    return back()->with('error', 'Nama Instansi Baru wajib diisi.');
+                    return back()->with('error', __('messages.nama_instansi_baru_wajib'));
                 }
                 $newInstansi = Instansi::create(['nama_instansi' => $request->instansi_baru]);
                 $data['instansi_id'] = $newInstansi->instansi_id;
             } else {
                 if (!Instansi::where('instansi_id', $data['instansi_id'])->exists()) {
-                    return back()->with('error', 'Instansi tidak valid.');
+                    return back()->with('error', __('messages.instansi_tidak_valid'));
                 }
             }
         } elseif ($data['role'] === UserRole::SUPPORT->value) {
@@ -67,7 +67,7 @@ class SuperAdminController extends Controller
 
         User::create($data);
 
-        return back()->with('success', 'Pengguna berhasil ditambahkan!');
+        return back()->with('success', __('messages.pengguna_berhasil_ditambah'));
     }
 
     public function updatePengguna(Request $request, User $user)
@@ -91,18 +91,18 @@ class SuperAdminController extends Controller
         // Bersihkan data yang tidak sesuai role
         if ($data['role'] === UserRole::PELAPOR->value) {
             if (empty($data['instansi_id'])) {
-                return back()->with('error', 'Instansi wajib diisi untuk role Pelapor.');
+                return back()->with('error', __('messages.instansi_wajib'));
             }
 
             if ($data['instansi_id'] === 'new') {
                 if (empty($request->instansi_baru)) {
-                    return back()->with('error', 'Nama Instansi Baru wajib diisi.');
+                    return back()->with('error', __('messages.nama_instansi_baru_wajib'));
                 }
                 $newInstansi = Instansi::create(['nama_instansi' => $request->instansi_baru]);
                 $data['instansi_id'] = $newInstansi->instansi_id;
             } else {
                 if (!Instansi::where('instansi_id', $data['instansi_id'])->exists()) {
-                    return back()->with('error', 'Instansi tidak valid.');
+                    return back()->with('error', __('messages.instansi_tidak_valid'));
                 }
             }
         } elseif ($data['role'] === UserRole::SUPPORT->value) {
@@ -114,17 +114,17 @@ class SuperAdminController extends Controller
 
         $user->update($data);
 
-        return back()->with('success', 'Data pengguna berhasil diperbarui!');
+        return back()->with('success', __('messages.data_pengguna_berhasil_diperbarui'));
     }
 
     public function destroyPengguna(User $user)
     {
         // Mencegah super admin menghapus dirinya sendiri
         if ($user->user_id === Auth::id()) {
-            return back()->with('error', 'Anda tidak dapat menghapus akun Anda sendiri!');
+            return back()->with('error', __('messages.tidak_dapat_hapus_akun_sendiri'));
         }
 
         $user->delete();
-        return back()->with('success', 'Pengguna berhasil dihapus!');
+        return back()->with('success', __('messages.pengguna_berhasil_dihapus'));
     }
 }

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('page_title', 'Manajemen Pengguna')
-@section('page_subtitle', 'Fitur Eksklusif Super Admin')
+@section('page_title', __('messages.manajemen_pengguna'))
+@section('page_subtitle', __('messages.fitur_eksklusif_super_admin'))
 
 @section('content')
 <div class="pelapor-panel">
@@ -35,10 +35,10 @@
 
     <div class="glass-panel fade-up" style="padding: 0; overflow: hidden;">
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 24px; border-bottom: 1px solid var(--line);">
-            <h2 style="font-size: 1.25rem; font-weight: 600; color: var(--ink); margin: 0;">Daftar Pengguna Sistem</h2>
+            <h2 style="font-size: 1.25rem; font-weight: 600; color: var(--ink); margin: 0;">{{ __('messages.daftar_pengguna_sistem') }}</h2>
             <button onclick="openModal('modal-add-user')" class="btn btn-primary" style="display: flex; align-items: center; gap: 8px;">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-                Tambah Pengguna
+                {{ __('messages.tambah_pengguna') }}
             </button>
         </div>
 
@@ -46,11 +46,11 @@
             <table style="width: 100%; min-width: 800px; border-collapse: collapse;">
                 <thead style="background: var(--paper-sunken); position: sticky; top: 0; z-index: 10;">
                     <tr>
-                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Nama Pengguna</th>
-                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Email</th>
-                        <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Peran</th>
-                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Instansi</th>
-                        <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Aksi</th>
+                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.nama_pengguna') }}</th>
+                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.email') }}</th>
+                        <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.peran') }}</th>
+                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.instansi') }}</th>
+                        <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.aksi') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -109,7 +109,7 @@
     <div class="modal w-sm modal-centered">
         <div class="modal-head">
             <div>
-                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">Tambah Pengguna Baru</h3>
+                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.tambah_pengguna_baru') }}</h3>
             </div>
             <button type="button" class="modal-x" onclick="closeModal('modal-add-user')">✕</button>
         </div>
@@ -117,49 +117,49 @@
             @csrf
             <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
                 <div class="field">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Peran (Role) <span style="color:var(--danger)">*</span></label>
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.peran_role') }} <span style="color:var(--danger)">*</span></label>
                     <select name="role" id="role-select" required onchange="toggleInstansi(this, 'add')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                        <option value="">-- Pilih Peran --</option>
-                        <option value="{{ \App\Enums\UserRole::SUPPORT->value }}">Tim Support (Internal)</option>
-                        <option value="{{ \App\Enums\UserRole::PELAPOR->value }}">Mitra Koperasi (Pelapor)</option>
-                        <option value="{{ \App\Enums\UserRole::SUPERADMIN->value }}">Super Admin</option>
+                        <option value="">{{ __('messages.pilih_peran') }}</option>
+                        <option value="{{ \App\Enums\UserRole::SUPPORT->value }}">{{ __('messages.tim_support_internal') }}</option>
+                        <option value="{{ \App\Enums\UserRole::PELAPOR->value }}">{{ __('messages.mitra_koperasi_pelapor') }}</option>
+                        <option value="{{ \App\Enums\UserRole::SUPERADMIN->value }}">{{ __('messages.super_admin') }}</option>
                     </select>
                 </div>
                 
                 <div id="common-fields-add" style="display: none; flex-direction: column; gap: 16px;">
                     <div class="field">
-                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Nama Lengkap <span style="color:var(--danger)">*</span></label>
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.nama_lengkap') }} <span style="color:var(--danger)">*</span></label>
                         <input type="text" name="nama" required placeholder="Masukkan nama" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                     </div>
                     <div class="field">
-                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Email <span style="color:var(--danger)">*</span></label>
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.email') }} <span style="color:var(--danger)">*</span></label>
                         <input type="email" name="email" required placeholder="Email aktif" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                     </div>
                     <div class="field" id="whatsapp-group-add" style="display: none;">
-                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">No. WhatsApp</label>
-                        <input type="text" name="whatsapp" placeholder="Contoh: 08123456789" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.no_whatsapp') }}</label>
+                        <input type="text" name="whatsapp" placeholder="{{ __('messages.contoh_whatsapp') }}" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                     </div>
                     <div class="field" id="instansi-group-add" style="display: none;">
-                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Instansi Koperasi <span style="color:var(--danger)">*</span></label>
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.instansi_koperasi') }} <span style="color:var(--danger)">*</span></label>
                         <select name="instansi_id" id="instansi-select-add" onchange="toggleInstansiBaru(this, 'add')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                            <option value="">-- Pilih Instansi --</option>
-                            <option value="new" style="font-weight: bold; color: var(--primary);">+ Buat Koperasi Baru</option>
+                            <option value="">{{ __('messages.pilih_instansi') }}</option>
+                            <option value="new" style="font-weight: bold; color: var(--primary);">{{ __('messages.buat_koperasi_baru') }}</option>
                             @foreach($instansis as $instansi)
                                 <option value="{{ $instansi->instansi_id }}">{{ $instansi->nama_instansi }}</option>
                             @endforeach
                         </select>
                         
-                        <input type="text" name="instansi_baru" id="instansi-baru-add" placeholder="Masukkan nama koperasi baru" style="display: none; width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem; margin-top: 8px;">
+                        <input type="text" name="instansi_baru" id="instansi-baru-add" placeholder="{{ __('messages.masukkan_nama_koperasi_baru') }}" style="display: none; width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem; margin-top: 8px;">
                     </div>
                     <div class="field">
-                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Kata Sandi <span style="color:var(--danger)">*</span></label>
-                        <input type="text" name="password" required placeholder="Minimal 8 karakter" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.kata_sandi') }} <span style="color:var(--danger)">*</span></label>
+                        <input type="text" name="password" required placeholder="{{ __('messages.minimal_8_karakter') }}" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                     </div>
                 </div>
             </div>
             <div class="modal-foot">
-                <button type="button" class="btn btn-ghost" onclick="closeModal('modal-add-user')">Batal</button>
-                <button type="submit" class="btn btn-primary">Simpan Pengguna</button>
+                <button type="button" class="btn btn-ghost" onclick="closeModal('modal-add-user')">{{ __('messages.batal') }}</button>
+                <button type="submit" class="btn btn-primary">{{ __('messages.simpan_pengguna') }}</button>
             </div>
         </form>
     </div>
@@ -171,7 +171,7 @@
     <div class="modal w-sm modal-centered">
         <div class="modal-head">
             <div>
-                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">Edit Pengguna</h3>
+                <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.edit_pengguna') }}</h3>
             </div>
             <button type="button" class="modal-x" onclick="closeModal('modal-edit-user-{{ $user->user_id }}')">✕</button>
         </div>
@@ -180,46 +180,46 @@
             @method('PUT')
             <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
                 <div class="field">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Peran (Role) <span style="color:var(--danger)">*</span></label>
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.peran_role') }} <span style="color:var(--danger)">*</span></label>
                     <select disabled style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-sunken); color: var(--ink-soft); font-size: 0.9rem; cursor: not-allowed;">
-                        <option value="{{ \App\Enums\UserRole::SUPPORT->value }}" {{ $user->role === \App\Enums\UserRole::SUPPORT ? 'selected' : '' }}>Tim Support (Internal)</option>
-                        <option value="{{ \App\Enums\UserRole::PELAPOR->value }}" {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'selected' : '' }}>Mitra Koperasi (Pelapor)</option>
-                        <option value="{{ \App\Enums\UserRole::SUPERADMIN->value }}" {{ $user->role === \App\Enums\UserRole::SUPERADMIN ? 'selected' : '' }}>Super Admin</option>
+                        <option value="{{ \App\Enums\UserRole::SUPPORT->value }}" {{ $user->role === \App\Enums\UserRole::SUPPORT ? 'selected' : '' }}>{{ __('messages.tim_support_internal') }}</option>
+                        <option value="{{ \App\Enums\UserRole::PELAPOR->value }}" {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'selected' : '' }}>{{ __('messages.mitra_koperasi_pelapor') }}</option>
+                        <option value="{{ \App\Enums\UserRole::SUPERADMIN->value }}" {{ $user->role === \App\Enums\UserRole::SUPERADMIN ? 'selected' : '' }}>{{ __('messages.super_admin') }}</option>
                     </select>
                     <input type="hidden" name="role" value="{{ $user->role }}">
                 </div>
                 <div class="field">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Nama Lengkap <span style="color:var(--danger)">*</span></label>
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.nama_lengkap') }} <span style="color:var(--danger)">*</span></label>
                     <input type="text" name="nama" required value="{{ $user->nama }}" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
                 <div class="field">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Email <span style="color:var(--danger)">*</span></label>
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.email') }} <span style="color:var(--danger)">*</span></label>
                     <input type="email" name="email" required value="{{ $user->email }}" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
                 <div class="field" id="whatsapp-group-edit-{{ $user->user_id }}" style="display: {{ in_array($user->role, [\App\Enums\UserRole::PELAPOR, \App\Enums\UserRole::SUPPORT]) ? 'block' : 'none' }};">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">No. WhatsApp</label>
-                    <input type="text" name="whatsapp" value="{{ $user->whatsapp ?? ($user->instansi->no_telp ?? '') }}" placeholder="Contoh: 08123456789" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.no_whatsapp') }}</label>
+                    <input type="text" name="whatsapp" value="{{ $user->whatsapp ?? ($user->instansi->no_telp ?? '') }}" placeholder="{{ __('messages.contoh_whatsapp') }}" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
                 <div class="field" id="instansi-group-edit-{{ $user->user_id }}" style="display: {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'block' : 'none' }};">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Instansi Koperasi <span style="color:var(--danger)">*</span></label>
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.instansi_koperasi') }} <span style="color:var(--danger)">*</span></label>
                     <select name="instansi_id" id="instansi-select-edit-{{ $user->user_id }}" {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'required' : '' }} onchange="toggleInstansiBaru(this, 'edit-{{ $user->user_id }}')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                        <option value="">-- Pilih Instansi --</option>
-                        <option value="new" style="font-weight: bold; color: var(--primary);">+ Buat Koperasi Baru</option>
+                        <option value="">{{ __('messages.pilih_instansi') }}</option>
+                        <option value="new" style="font-weight: bold; color: var(--primary);">{{ __('messages.buat_koperasi_baru') }}</option>
                         @foreach($instansis as $instansi)
                             <option value="{{ $instansi->instansi_id }}" {{ $user->instansi_id == $instansi->instansi_id ? 'selected' : '' }}>{{ $instansi->nama_instansi }}</option>
                         @endforeach
                     </select>
 
-                    <input type="text" name="instansi_baru" id="instansi-baru-edit-{{ $user->user_id }}" placeholder="Masukkan nama koperasi baru" style="display: none; width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem; margin-top: 8px;">
+                    <input type="text" name="instansi_baru" id="instansi-baru-edit-{{ $user->user_id }}" placeholder="{{ __('messages.masukkan_nama_koperasi_baru') }}" style="display: none; width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem; margin-top: 8px;">
                 </div>
                 <div class="field">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Ubah Kata Sandi</label>
-                    <input type="text" name="password" placeholder="Kosongkan jika tidak ingin mengubah" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.ubah_kata_sandi') }}</label>
+                    <input type="text" name="password" placeholder="{{ __('messages.kosongkan_jika_tidak_ubah') }}" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
             </div>
             <div class="modal-foot">
-                <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-user-{{ $user->user_id }}')">Batal</button>
-                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-user-{{ $user->user_id }}')">{{ __('messages.batal') }}</button>
+                <button type="submit" class="btn btn-primary">{{ __('messages.simpan_perubahan') }}</button>
             </div>
         </form>
     </div>
