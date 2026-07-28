@@ -33,19 +33,29 @@ class SuperAdminController extends Controller
             'password' => 'required|string|min:8',
             'role' => ['required', new Enum(UserRole::class)],
             'instansi_id' => 'nullable|exists:instansis,instansi_id',
+            'nik' => 'nullable|string|max:50',
+            'whatsapp' => 'nullable|string|max:50',
+            'spesialisasi' => 'nullable|string|max:255',
         ]);
 
-        $data = $request->only(['nama', 'email', 'role', 'instansi_id']);
+        $data = $request->only(['nama', 'email', 'role', 'instansi_id', 'nik', 'whatsapp', 'spesialisasi']);
         $data['password'] = Hash::make($request->password);
         $data['is_verified'] = true; // Selalu aktif karena ditambahkan oleh Super Admin
 
-        // Validasi khusus: Pelapor harus punya instansi, selain pelapor instansinya null
-        if ($data['role'] === UserRole::PELAPOR->value && empty($data['instansi_id'])) {
-            return back()->with('error', 'Instansi wajib diisi untuk role Pelapor.');
-        }
-        
-        if ($data['role'] !== UserRole::PELAPOR->value) {
+        // Bersihkan data yang tidak sesuai role
+        if ($data['role'] === UserRole::PELAPOR->value) {
+            $data['spesialisasi'] = null;
+            if (empty($data['instansi_id'])) {
+                return back()->with('error', 'Instansi wajib diisi untuk role Pelapor.');
+            }
+        } elseif ($data['role'] === UserRole::SUPPORT->value) {
             $data['instansi_id'] = null;
+            $data['nik'] = null;
+        } elseif ($data['role'] === UserRole::SUPERADMIN->value) {
+            $data['instansi_id'] = null;
+            $data['nik'] = null;
+            $data['whatsapp'] = null;
+            $data['spesialisasi'] = null;
         }
 
         User::create($data);
@@ -61,20 +71,31 @@ class SuperAdminController extends Controller
             'role' => ['required', new Enum(UserRole::class)],
             'instansi_id' => 'nullable|exists:instansis,instansi_id',
             'password' => 'nullable|string|min:8',
+            'nik' => 'nullable|string|max:50',
+            'whatsapp' => 'nullable|string|max:50',
+            'spesialisasi' => 'nullable|string|max:255',
         ]);
 
-        $data = $request->only(['nama', 'email', 'role', 'instansi_id']);
+        $data = $request->only(['nama', 'email', 'role', 'instansi_id', 'nik', 'whatsapp', 'spesialisasi']);
         
         if ($request->filled('password')) {
             $data['password'] = Hash::make($request->password);
         }
 
-        if ($data['role'] === UserRole::PELAPOR->value && empty($data['instansi_id'])) {
-            return back()->with('error', 'Instansi wajib diisi untuk role Pelapor.');
-        }
-        
-        if ($data['role'] !== UserRole::PELAPOR->value) {
+        // Bersihkan data yang tidak sesuai role
+        if ($data['role'] === UserRole::PELAPOR->value) {
+            $data['spesialisasi'] = null;
+            if (empty($data['instansi_id'])) {
+                return back()->with('error', 'Instansi wajib diisi untuk role Pelapor.');
+            }
+        } elseif ($data['role'] === UserRole::SUPPORT->value) {
             $data['instansi_id'] = null;
+            $data['nik'] = null;
+        } elseif ($data['role'] === UserRole::SUPERADMIN->value) {
+            $data['instansi_id'] = null;
+            $data['nik'] = null;
+            $data['whatsapp'] = null;
+            $data['spesialisasi'] = null;
         }
 
         $user->update($data);

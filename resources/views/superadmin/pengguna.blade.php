@@ -117,18 +117,6 @@
             @csrf
             <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
                 <div class="field">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Nama Lengkap <span style="color:var(--danger)">*</span></label>
-                    <input type="text" name="nama" required placeholder="Masukkan nama" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                </div>
-                <div class="field">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Email <span style="color:var(--danger)">*</span></label>
-                    <input type="email" name="email" required placeholder="Email aktif" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                </div>
-                <div class="field">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Kata Sandi <span style="color:var(--danger)">*</span></label>
-                    <input type="text" name="password" required placeholder="Minimal 8 karakter" value="password123" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                </div>
-                <div class="field">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Peran (Role) <span style="color:var(--danger)">*</span></label>
                     <select name="role" id="role-select" required onchange="toggleInstansi(this, 'add')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                         <option value="">-- Pilih Peran --</option>
@@ -136,6 +124,26 @@
                         <option value="{{ \App\Enums\UserRole::PELAPOR->value }}">Mitra Koperasi (Pelapor)</option>
                         <option value="{{ \App\Enums\UserRole::SUPERADMIN->value }}">Super Admin</option>
                     </select>
+                </div>
+                <div class="field">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Nama Lengkap <span style="color:var(--danger)">*</span></label>
+                    <input type="text" name="nama" required placeholder="Masukkan nama" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                </div>
+                <div class="field">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Email <span style="color:var(--danger)">*</span></label>
+                    <input type="email" name="email" required placeholder="Email aktif" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                </div>
+                <div class="field" id="nik-group-add" style="display: none;">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">NIK KTP</label>
+                    <input type="text" name="nik" placeholder="Opsional" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                </div>
+                <div class="field" id="whatsapp-group-add" style="display: none;">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">No. WhatsApp</label>
+                    <input type="text" name="whatsapp" placeholder="Contoh: 08123456789" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                </div>
+                <div class="field" id="spesialisasi-group-add" style="display: none;">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Spesialisasi</label>
+                    <input type="text" name="spesialisasi" placeholder="Misal: Jaringan, Database, dll." style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
                 <div class="field" id="instansi-group-add" style="display: none;">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Instansi Koperasi <span style="color:var(--danger)">*</span></label>
@@ -145,6 +153,10 @@
                             <option value="{{ $instansi->instansi_id }}">{{ $instansi->nama_instansi }}</option>
                         @endforeach
                     </select>
+                </div>
+                <div class="field">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Kata Sandi <span style="color:var(--danger)">*</span></label>
+                    <input type="text" name="password" required placeholder="Minimal 8 karakter" value="password123" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
             </div>
             <div class="modal-foot">
@@ -170,6 +182,14 @@
             @method('PUT')
             <div class="modal-body" style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
                 <div class="field">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Peran (Role) <span style="color:var(--danger)">*</span></label>
+                    <select name="role" required onchange="toggleInstansi(this, 'edit-{{ $user->user_id }}')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                        <option value="{{ \App\Enums\UserRole::SUPPORT->value }}" {{ $user->role === \App\Enums\UserRole::SUPPORT ? 'selected' : '' }}>Tim Support (Internal)</option>
+                        <option value="{{ \App\Enums\UserRole::PELAPOR->value }}" {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'selected' : '' }}>Mitra Koperasi (Pelapor)</option>
+                        <option value="{{ \App\Enums\UserRole::SUPERADMIN->value }}" {{ $user->role === \App\Enums\UserRole::SUPERADMIN ? 'selected' : '' }}>Super Admin</option>
+                    </select>
+                </div>
+                <div class="field">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Nama Lengkap <span style="color:var(--danger)">*</span></label>
                     <input type="text" name="nama" required value="{{ $user->nama }}" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
@@ -177,17 +197,17 @@
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Email <span style="color:var(--danger)">*</span></label>
                     <input type="email" name="email" required value="{{ $user->email }}" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
-                <div class="field">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Ubah Kata Sandi</label>
-                    <input type="text" name="password" placeholder="Kosongkan jika tidak ingin mengubah" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                <div class="field" id="nik-group-edit-{{ $user->user_id }}" style="display: {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'block' : 'none' }};">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">NIK KTP</label>
+                    <input type="text" name="nik" value="{{ $user->nik }}" placeholder="Opsional" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
-                <div class="field">
-                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Peran (Role) <span style="color:var(--danger)">*</span></label>
-                    <select name="role" required onchange="toggleInstansi(this, 'edit-{{ $user->user_id }}')" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                        <option value="{{ \App\Enums\UserRole::SUPPORT->value }}" {{ $user->role === \App\Enums\UserRole::SUPPORT ? 'selected' : '' }}>Tim Support (Internal)</option>
-                        <option value="{{ \App\Enums\UserRole::PELAPOR->value }}" {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'selected' : '' }}>Mitra Koperasi (Pelapor)</option>
-                        <option value="{{ \App\Enums\UserRole::SUPERADMIN->value }}" {{ $user->role === \App\Enums\UserRole::SUPERADMIN ? 'selected' : '' }}>Super Admin</option>
-                    </select>
+                <div class="field" id="whatsapp-group-edit-{{ $user->user_id }}" style="display: {{ in_array($user->role, [\App\Enums\UserRole::PELAPOR, \App\Enums\UserRole::SUPPORT]) ? 'block' : 'none' }};">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">No. WhatsApp</label>
+                    <input type="text" name="whatsapp" value="{{ $user->whatsapp }}" placeholder="Contoh: 08123456789" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                </div>
+                <div class="field" id="spesialisasi-group-edit-{{ $user->user_id }}" style="display: {{ $user->role === \App\Enums\UserRole::SUPPORT ? 'block' : 'none' }};">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Spesialisasi</label>
+                    <input type="text" name="spesialisasi" value="{{ $user->spesialisasi }}" placeholder="Misal: Jaringan, Database, dll." style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
                 <div class="field" id="instansi-group-edit-{{ $user->user_id }}" style="display: {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'block' : 'none' }};">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Instansi Koperasi <span style="color:var(--danger)">*</span></label>
@@ -197,6 +217,10 @@
                             <option value="{{ $instansi->instansi_id }}" {{ $user->instansi_id == $instansi->instansi_id ? 'selected' : '' }}>{{ $instansi->nama_instansi }}</option>
                         @endforeach
                     </select>
+                </div>
+                <div class="field">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Ubah Kata Sandi</label>
+                    <input type="text" name="password" placeholder="Kosongkan jika tidak ingin mengubah" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
             </div>
             <div class="modal-foot">
@@ -211,16 +235,33 @@
 <script>
     function toggleInstansi(selectElement, suffix) {
         let role = selectElement.value;
-        let group = document.getElementById('instansi-group-' + suffix);
+        let groupInstansi = document.getElementById('instansi-group-' + suffix);
         let instansiSelect = document.getElementById('instansi-select-' + suffix);
+        let groupNik = document.getElementById('nik-group-' + suffix);
+        let groupWhatsapp = document.getElementById('whatsapp-group-' + suffix);
+        let groupSpesialisasi = document.getElementById('spesialisasi-group-' + suffix);
         
         if (role === 'Pelapor') {
-            group.style.display = 'block';
-            instansiSelect.setAttribute('required', 'required');
+            if(groupInstansi) groupInstansi.style.display = 'block';
+            if(instansiSelect) instansiSelect.setAttribute('required', 'required');
+            if(groupNik) groupNik.style.display = 'block';
+            if(groupWhatsapp) groupWhatsapp.style.display = 'block';
+            if(groupSpesialisasi) groupSpesialisasi.style.display = 'none';
+        } else if (role === 'Support') {
+            if(groupInstansi) groupInstansi.style.display = 'none';
+            if(instansiSelect) instansiSelect.removeAttribute('required');
+            if(instansiSelect) instansiSelect.value = "";
+            if(groupNik) groupNik.style.display = 'none';
+            if(groupWhatsapp) groupWhatsapp.style.display = 'block';
+            if(groupSpesialisasi) groupSpesialisasi.style.display = 'block';
         } else {
-            group.style.display = 'none';
-            instansiSelect.removeAttribute('required');
-            instansiSelect.value = "";
+            // Super Admin
+            if(groupInstansi) groupInstansi.style.display = 'none';
+            if(instansiSelect) instansiSelect.removeAttribute('required');
+            if(instansiSelect) instansiSelect.value = "";
+            if(groupNik) groupNik.style.display = 'none';
+            if(groupWhatsapp) groupWhatsapp.style.display = 'none';
+            if(groupSpesialisasi) groupSpesialisasi.style.display = 'none';
         }
     }
 
