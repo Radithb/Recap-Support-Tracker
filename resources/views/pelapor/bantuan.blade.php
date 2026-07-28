@@ -7,7 +7,13 @@
 <div class="pelapor-panel">
     <div style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 24px;">
         <h3 style="margin-top: 0; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-family: var(--font-display); font-size: 19px; font-weight: 600; color: var(--ink);">
-            <span>💬</span> {{ __('messages.hubungi_tim_support') }}
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;">
+                <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
+                <circle cx="8" cy="12" r="1.5" fill="var(--brand-primary)" stroke="none"/>
+                <circle cx="12" cy="12" r="1.5" fill="var(--brand-primary)" stroke="none"/>
+                <circle cx="16" cy="12" r="1.5" fill="var(--brand-primary)" stroke="none"/>
+            </svg>
+            {{ __('messages.hubungi_tim_support') }}
         </h3>
         <p style="color: var(--ink-soft); font-size: 14px; margin-bottom: 24px; margin-top: 0;">
             {{ __('messages.desc_pusat_bantuan') }}
