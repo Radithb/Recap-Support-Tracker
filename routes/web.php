@@ -39,6 +39,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/pengaturan', [AuthController::class, 'pengaturan'])->name('pengaturan');
     Route::put('/pengaturan', [AuthController::class, 'updatePengaturan'])->name('pengaturan.update');
     Route::post('/pengaturan/bahasa', [AuthController::class, 'updateLanguage'])->name('pengaturan.bahasa');
+
+    // Implementasi & Go-Live Koperasi
+    Route::prefix('implementasi')->name('implementasi.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\ImplementasiController::class, 'index'])->name('index');
+        Route::post('/', [\App\Http\Controllers\ImplementasiController::class, 'store'])->name('store');
+        Route::get('/{id}', [\App\Http\Controllers\ImplementasiController::class, 'show'])->name('show');
+        Route::put('/checklist/{id}', [\App\Http\Controllers\ImplementasiController::class, 'updateChecklist'])->name('checklist.update');
+    });
 });
 
 // Akses Pelapor
