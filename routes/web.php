@@ -15,6 +15,17 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+// ROUTE SEMENTARA UNTUK MIGRASI (InfinityFree)
+Route::get('/run-migrations', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+        return "Migrasi Database & Clear Cache Berhasil! Silakan kembali ke website.";
+    } catch (\Exception $e) {
+        return "Terjadi Kesalahan: " . $e->getMessage();
+    }
+});
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'register'])->name('register');
