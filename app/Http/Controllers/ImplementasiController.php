@@ -69,6 +69,7 @@ class ImplementasiController extends Controller
             'aplikasi_id' => 'required|array',
             'aplikasi_id.*' => 'required|exists:master_aplikasis,aplikasi_id',
             'tanggal_pelatihan' => 'required|date',
+            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_pelatihan',
             'metode_pelatihan' => 'required|string',
             'nama_trainer' => 'nullable|array',
             'nama_trainer.*' => 'nullable|string',
@@ -91,6 +92,7 @@ class ImplementasiController extends Controller
             'instansi_id' => $request->instansi_id,
             'aplikasi_id' => is_array($request->aplikasi_id) ? $request->aplikasi_id[0] : $request->aplikasi_id, // Backward compatibility
             'tanggal_pelatihan' => $request->tanggal_pelatihan,
+            'tanggal_selesai' => $request->tanggal_selesai ?? $request->tanggal_pelatihan,
             'metode_pelatihan' => $request->metode_pelatihan,
             'nama_trainer' => is_array($request->nama_trainer) ? implode(', ', array_filter($request->nama_trainer)) : null,
             'anggota_hadir' => implode(', ', $request->anggota_hadir),
@@ -223,6 +225,7 @@ class ImplementasiController extends Controller
             'aplikasi_id' => 'required|array',
             'aplikasi_id.*' => 'required|exists:master_aplikasis,aplikasi_id',
             'tanggal_pelatihan' => 'required|date',
+            'tanggal_selesai' => 'nullable|date|after_or_equal:tanggal_pelatihan',
             'metode_pelatihan' => 'required|string',
             'nama_trainer' => 'nullable|array',
             'nama_trainer.*' => 'nullable|string',
@@ -238,6 +241,7 @@ class ImplementasiController extends Controller
             'instansi_id' => $request->instansi_id,
             'aplikasi_id' => is_array($request->aplikasi_id) ? $request->aplikasi_id[0] : $request->aplikasi_id, // Backward compatibility
             'tanggal_pelatihan' => $request->tanggal_pelatihan,
+            'tanggal_selesai' => $request->tanggal_selesai ?? $request->tanggal_pelatihan,
             'metode_pelatihan' => $request->metode_pelatihan,
             'nama_trainer' => is_array($request->nama_trainer) ? implode(', ', array_filter($request->nama_trainer)) : null,
             'anggota_hadir' => implode(', ', $request->anggota_hadir),

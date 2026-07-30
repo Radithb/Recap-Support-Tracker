@@ -310,7 +310,16 @@
             </div>
             <div class="summary-item">
                 <div class="summary-label">Tgl Pelatihan</div>
-                <div class="summary-value">{{ $implementasi->tanggal_pelatihan ? $implementasi->tanggal_pelatihan->format('d M Y') : '-' }}</div>
+                <div class="summary-value">
+                    @if($implementasi->tanggal_pelatihan)
+                        {{ $implementasi->tanggal_pelatihan->format('d M Y') }}
+                        @if($implementasi->tanggal_selesai && $implementasi->tanggal_selesai->format('Y-m-d') !== $implementasi->tanggal_pelatihan->format('Y-m-d'))
+                            - {{ $implementasi->tanggal_selesai->format('d M Y') }}
+                        @endif
+                    @else
+                        -
+                    @endif
+                </div>
             </div>
             <div class="summary-item">
                 <div class="summary-label">Anggota Yang Hadir</div>

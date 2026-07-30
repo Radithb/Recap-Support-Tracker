@@ -16,6 +16,7 @@ class ImplementasiKoperasi extends Model
         'instansi_id',
         'aplikasi_id',
         'tanggal_pelatihan',
+        'tanggal_selesai',
         'metode_pelatihan',
         'nama_trainer',
         'pic_sakti_id',
@@ -36,6 +37,7 @@ class ImplementasiKoperasi extends Model
 
     protected $casts = [
         'tanggal_pelatihan' => 'date',
+        'tanggal_selesai' => 'date',
         'target_go_live' => 'date',
         'tanggal_cut_off' => 'date',
         'target_tanggal_tindakan' => 'date',
