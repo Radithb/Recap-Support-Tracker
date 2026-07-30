@@ -127,8 +127,18 @@
     /* Grid Ringkasan */
     .summary-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+    @media (max-width: 992px) {
+        .summary-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    @media (max-width: 576px) {
+        .summary-grid {
+            grid-template-columns: 1fr;
+        }
     }
     .summary-item {
         background: #f8fafc;
