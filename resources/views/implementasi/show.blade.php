@@ -350,7 +350,7 @@
                             <th>Item Kesiapan</th>
                             <th style="width: 200px;">Status</th>
                             <th>Catatan Tambahan</th>
-                            <th style="width: 170px;">Aksi</th>
+                            <th style="width: 120px; text-align: center;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -378,13 +378,12 @@
                                     <input type="text" id="catatan-{{ $chk->id }}" class="checklist-input" value="{{ $chk->catatan }}" placeholder="Tambahkan catatan...">
                                 @endif
                             </td>
-                            <td>
+                            <td style="text-align: center;">
                                 @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
-                                    <div style="display: flex; gap: 6px; align-items: center;">
+                                    <div style="display: flex; gap: 6px; align-items: center; justify-content: center;">
                                         <button type="button" onclick="updateChecklist({{ $chk->id }})" style="background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 500;">Simpan</button>
-                                        <button type="button" onclick="markAsDone({{ $chk->id }})" style="background: #10b981; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;" title="Tandai Selesai & Naikkan Progres">
-                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                            Done
+                                        <button type="button" onclick="markAsDone({{ $chk->id }})" style="background: #10b981; color: #fff; border: none; padding: 6px 9px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;" title="Tandai Selesai & Naikkan Progres">
+                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                         </button>
                                     </div>
                                 @else
