@@ -56,6 +56,32 @@ class ImplementasiController extends Controller
             abort(403, 'Anda tidak memiliki akses ke data implementasi ini.');
         }
 
+        // Auto-seed item Migrasi jika belum ada
+        $hasMigrasi = $implementasi->checklists->where('kategori', 'Migrasi')->count() > 0;
+        if (!$hasMigrasi) {
+            $migrasiItems = [
+                'Migrasi Data Anggota',
+                'Migrasi Data Simpanan Modal',
+                'Migrasi Data Simpanan Harian',
+                'Migrasi Data Simpanan Berjangka',
+                'Migrasi Data Simpanan Deposito',
+                'Migrasi Data Pinjaman',
+                'Migrasi Data Kode Pos',
+                'Migrasi Data Perkiraan',
+                'Migrasi Kelengkapan Data Anggota',
+            ];
+            foreach ($migrasiItems as $item) {
+                $implementasi->checklists()->create([
+                    'kategori' => 'Migrasi',
+                    'nama_item' => $item,
+                    'status' => 'Belum Dikirim'
+                ]);
+            }
+            $implementasi->load(['checklists' => function($q) {
+                $q->orderBy('kategori', 'asc')->orderBy('id', 'asc');
+            }]);
+        }
+
         return view('implementasi.show', compact('implementasi'));
     }
 
@@ -120,6 +146,15 @@ class ImplementasiController extends Controller
             ['kategori' => 'Keuangan', 'nama_item' => 'Data COA tersedia'],
             ['kategori' => 'Master', 'nama_item' => 'Data produk simpanan tersedia'],
             ['kategori' => 'Master', 'nama_item' => 'Data produk pinjaman tersedia'],
+            ['kategori' => 'Migrasi', 'nama_item' => 'Migrasi Data Anggota'],
+            ['kategori' => 'Migrasi', 'nama_item' => 'Migrasi Data Simpanan Modal'],
+            ['kategori' => 'Migrasi', 'nama_item' => 'Migrasi Data Simpanan Harian'],
+            ['kategori' => 'Migrasi', 'nama_item' => 'Migrasi Data Simpanan Berjangka'],
+            ['kategori' => 'Migrasi', 'nama_item' => 'Migrasi Data Simpanan Deposito'],
+            ['kategori' => 'Migrasi', 'nama_item' => 'Migrasi Data Pinjaman'],
+            ['kategori' => 'Migrasi', 'nama_item' => 'Migrasi Data Kode Pos'],
+            ['kategori' => 'Migrasi', 'nama_item' => 'Migrasi Data Perkiraan'],
+            ['kategori' => 'Migrasi', 'nama_item' => 'Migrasi Kelengkapan Data Anggota'],
         ];
 
         foreach ($defaultChecklists as $chk) {

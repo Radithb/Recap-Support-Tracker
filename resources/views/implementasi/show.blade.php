@@ -321,8 +321,45 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Modal Kelola / Hapus Migrasi Data -->
+<div class="modal-overlay" id="modalKelolaMigrasi" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(2px); z-index: 9999; justify-content: center; align-items: center;">
+    <div style="background: #fff; border-radius: 12px; width: 90%; max-width: 550px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); animation: fadeUpDoneModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
+        <div style="padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="margin: 0; font-size: 16px; font-weight: 700; color: #1e293b;">Kelola Item Migrasi Data</h4>
+            <button type="button" onclick="closeKelolaMigrasiModal()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b;">&times;</button>
+        </div>
+        <div style="padding: 20px; overflow-y: auto; flex-grow: 1;">
+            <p style="margin: 0 0 15px; font-size: 13px; color: #64748b;">
+                Hapus item migrasi data yang tidak diperlukan oleh koperasi ini.
+            </p>
+            <div id="kelola-migrasi-list" style="display: flex; flex-direction: column; gap: 8px;">
+                @foreach($implementasi->checklists->where('kategori', 'Migrasi') as $chk)
+                <div id="modal-item-{{ $chk->id }}" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px;">
+                    <div>
+                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">{{ $chk->nama_item }}</span>
+                    </div>
+                    <button type="button" onclick="deleteChecklist({{ $chk->id }}, '{{ addslashes($chk->nama_item) }}')" style="background: #ef4444; color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px;" title="Hapus Item Ini">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        Hapus
+                    </button>
+                </div>
+                @endforeach
+            </div>
+
+            <!-- Tambah Item Migrasi Kustom -->
+            <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed #cbd5e1;">
+                <h5 style="margin: 0 0 10px; font-size: 13px; font-weight: 600; color: #475569;">+ Tambah Item Migrasi Kustom</h5>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="new-migrasi-nama" placeholder="Nama Item Migrasi" style="flex-grow: 1; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;">
+                    <button type="button" onclick="addCustomMigrasi({{ $implementasi->id }})" style="background: #2563eb; color: #fff; border: none; padding: 7px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; white-space: nowrap;">Tambah</button>
+                </div>
+            </div>
+        </div>
         <div style="padding: 12px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end;">
-            <button type="button" onclick="closeKelolaModal()" style="padding: 7px 16px; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff; color: #475569; font-weight: 600; cursor: pointer; font-size: 13px;">Selesai</button>
+            <button type="button" onclick="closeKelolaMigrasiModal()" style="padding: 7px 16px; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff; color: #475569; font-weight: 600; cursor: pointer; font-size: 13px;">Selesai</button>
         </div>
     </div>
 </div>
@@ -363,6 +400,7 @@
     <div class="tabs-nav">
         <button class="tab-btn active" onclick="openTab('tab-ringkasan')">Ringkasan</button>
         <button class="tab-btn" onclick="openTab('tab-checklist')">Checklist Kesiapan</button>
+        <button class="tab-btn" onclick="openTab('tab-migrasi')">Migrasi Data</button>
         <button class="tab-btn" onclick="openTab('tab-aktivitas')">Aktivitas & Log</button>
     </div>
 
@@ -419,7 +457,10 @@
                 </button>
             @endif
         </div>
-        @if($implementasi->checklists->count() > 0)
+        @php
+            $nonMigrasiChecklists = $implementasi->checklists->where('kategori', '!=', 'Migrasi');
+        @endphp
+        @if($nonMigrasiChecklists->count() > 0)
             <div style="overflow-x: auto;">
                 <table class="checklist-table">
                     <thead>
@@ -432,7 +473,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($implementasi->checklists as $chk)
+                        @foreach($nonMigrasiChecklists as $chk)
                         <tr id="chk-row-{{ $chk->id }}">
                             <td>{{ $chk->kategori ?? '-' }}</td>
                             <td style="font-weight: 500;">{{ $chk->nama_item }}</td>
@@ -475,7 +516,80 @@
             </div>
         @else
             <div style="text-align: center; padding: 40px; color: #64748b;">
-                Belum ada data checklist. (Tim dapat men-generate template checklist di sini).
+                Belum ada data checklist kesiapan.
+            </div>
+        @endif
+    </div>
+
+    <!-- TAB 3: MIGRASI DATA -->
+    <div id="tab-migrasi" class="tab-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Item Migrasi Data Koperasi</h4>
+            @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
+                <button type="button" onclick="openKelolaMigrasiModal()" style="background: #475569; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;" title="Hapus atau Tambah Item Migrasi">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                    Edit
+                </button>
+            @endif
+        </div>
+        @php
+            $migrasiChecklists = $implementasi->checklists->where('kategori', 'Migrasi');
+        @endphp
+        @if($migrasiChecklists->count() > 0)
+            <div style="overflow-x: auto;">
+                <table class="checklist-table">
+                    <thead>
+                        <tr>
+                            <th>Item Migrasi Data</th>
+                            <th style="width: 200px;">Status</th>
+                            <th>Catatan Tambahan</th>
+                            <th style="width: 120px; text-align: center;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($migrasiChecklists as $chk)
+                        <tr id="chk-row-{{ $chk->id }}">
+                            <td style="font-weight: 500;">{{ $chk->nama_item }}</td>
+                            <td>
+                                @if(Auth::user()->role === \App\Enums\UserRole::PELAPOR)
+                                    <span style="font-weight:600; color: #475569;">{{ $chk->status }}</span>
+                                @else
+                                    <select id="status-{{ $chk->id }}" class="checklist-select">
+                                        <option value="Belum Dikirim" {{ $chk->status == 'Belum Dikirim' ? 'selected' : '' }}>Belum Dikirim</option>
+                                        <option value="Sudah Dikirim" {{ $chk->status == 'Sudah Dikirim' ? 'selected' : '' }}>Sudah Dikirim</option>
+                                        <option value="Sedang Diproses" {{ $chk->status == 'Sedang Diproses' ? 'selected' : '' }}>Sedang Diproses</option>
+                                        <option value="Perlu Revisi" {{ $chk->status == 'Perlu Revisi' ? 'selected' : '' }}>Perlu Revisi</option>
+                                        <option value="Sudah Valid" {{ ($chk->status == 'Sudah Valid' || $chk->status == 'Done') ? 'selected' : '' }}>Sudah Valid (Done)</option>
+                                    </select>
+                                @endif
+                            </td>
+                            <td>
+                                @if(Auth::user()->role === \App\Enums\UserRole::PELAPOR)
+                                    <span style="color: #64748b; font-style: italic;">{{ $chk->catatan ?? '-' }}</span>
+                                @else
+                                    <input type="text" id="catatan-{{ $chk->id }}" class="checklist-input" value="{{ $chk->catatan }}" placeholder="Tambahkan catatan...">
+                                @endif
+                            </td>
+                            <td style="text-align: center;">
+                                @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
+                                    <div style="display: flex; gap: 6px; align-items: center; justify-content: center;">
+                                        <button type="button" onclick="updateChecklist({{ $chk->id }})" style="background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 500;">Simpan</button>
+                                        <button type="button" onclick="markAsDone({{ $chk->id }})" style="background: #10b981; color: #fff; border: none; padding: 6px 9px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;" title="Tandai Selesai">
+                                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                        </button>
+                                    </div>
+                                @else
+                                    -
+                                @endif
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <div style="text-align: center; padding: 40px; color: #64748b;">
+                Belum ada data migrasi.
             </div>
         @endif
     </div>
@@ -551,6 +665,14 @@
         document.getElementById('modalKelolaChecklist').style.display = 'none';
     }
 
+    function openKelolaMigrasiModal() {
+        document.getElementById('modalKelolaMigrasi').style.display = 'flex';
+    }
+
+    function closeKelolaMigrasiModal() {
+        document.getElementById('modalKelolaMigrasi').style.display = 'none';
+    }
+
     function deleteChecklist(id, name) {
         if (!confirm(`Apakah Anda yakin ingin menghapus item "${name}" dari checklist ini?`)) {
             return;
@@ -618,6 +740,37 @@
         .catch(err => {
             console.error(err);
             alert('Gagal menambahkan item checklist.');
+        });
+    }
+
+    function addCustomMigrasi(implId) {
+        const namaInput = document.getElementById('new-migrasi-nama');
+        const nama = namaInput.value.trim();
+
+        if (!nama) {
+            alert('Nama item migrasi tidak boleh kosong.');
+            return;
+        }
+
+        fetch(`{{ url('implementasi') }}/${implId}/checklist`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ nama_item: nama, kategori: 'Migrasi' })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                namaInput.value = '';
+                showToast('Item migrasi baru berhasil ditambahkan!');
+                setTimeout(() => location.reload(), 1000);
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Gagal menambahkan item migrasi.');
         });
     }
 

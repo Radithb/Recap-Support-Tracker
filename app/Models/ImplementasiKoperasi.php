@@ -80,14 +80,15 @@ class ImplementasiKoperasi extends Model
      */
     public function updateProgres()
     {
-        $totalChecklist = $this->checklists()->count();
+        $query = $this->checklists()->where('kategori', '!=', 'Migrasi');
+        $totalChecklist = $query->count();
 
         if ($totalChecklist == 0) {
             $this->update(['progres' => 0]);
             return 0;
         }
 
-        $validChecklist = $this->checklists()->whereIn('status', ['Sudah Valid', 'Selesai', 'Done'])->count();
+        $validChecklist = (clone $query)->whereIn('status', ['Sudah Valid', 'Selesai', 'Done'])->count();
         $persentase = ($validChecklist / $totalChecklist) * 100;
 
         $this->update(['progres' => round($persentase, 2)]);
