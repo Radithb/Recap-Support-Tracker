@@ -664,6 +664,8 @@
                 Belum ada data migrasi.
             </div>
         @endif
+    </div>
+
     <!-- TAB 4: TARGET GO-LIVE -->
     <div id="tab-target-golive" class="tab-content">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
@@ -732,6 +734,8 @@
             @endforelse
         </div>
     </div>
+</div>
+</div>
 </div>
 </div>
 
