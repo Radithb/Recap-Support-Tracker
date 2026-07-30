@@ -350,7 +350,7 @@
                             <th>Item Kesiapan</th>
                             <th style="width: 200px;">Status</th>
                             <th>Catatan Tambahan</th>
-                            <th style="width: 100px;">Aksi</th>
+                            <th style="width: 170px;">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -367,7 +367,7 @@
                                         <option value="Sudah Dikirim" {{ $chk->status == 'Sudah Dikirim' ? 'selected' : '' }}>Sudah Dikirim</option>
                                         <option value="Sedang Diproses" {{ $chk->status == 'Sedang Diproses' ? 'selected' : '' }}>Sedang Diproses</option>
                                         <option value="Perlu Revisi" {{ $chk->status == 'Perlu Revisi' ? 'selected' : '' }}>Perlu Revisi</option>
-                                        <option value="Sudah Valid" {{ $chk->status == 'Sudah Valid' ? 'selected' : '' }}>Sudah Valid</option>
+                                        <option value="Sudah Valid" {{ ($chk->status == 'Sudah Valid' || $chk->status == 'Done') ? 'selected' : '' }}>Sudah Valid (Done)</option>
                                     </select>
                                 @endif
                             </td>
@@ -380,7 +380,13 @@
                             </td>
                             <td>
                                 @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
-                                    <button onclick="updateChecklist({{ $chk->id }})" style="background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Simpan</button>
+                                    <div style="display: flex; gap: 6px; align-items: center;">
+                                        <button type="button" onclick="updateChecklist({{ $chk->id }})" style="background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 500;">Simpan</button>
+                                        <button type="button" onclick="markAsDone({{ $chk->id }})" style="background: #10b981; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;" title="Tandai Selesai & Naikkan Progres">
+                                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            Done
+                                        </button>
+                                    </div>
                                 @else
                                     -
                                 @endif
@@ -435,6 +441,15 @@
         document.getElementById(tabId).classList.add('active');
         // Set active button
         event.currentTarget.classList.add('active');
+    }
+
+    // Quick Mark as Done
+    function markAsDone(id) {
+        const select = document.getElementById('status-' + id);
+        if (select) {
+            select.value = 'Sudah Valid';
+        }
+        updateChecklist(id);
     }
 
     // AJAX Update Checklist

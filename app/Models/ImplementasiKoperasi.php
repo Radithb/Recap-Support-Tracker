@@ -87,7 +87,7 @@ class ImplementasiKoperasi extends Model
             return 0;
         }
 
-        $validChecklist = $this->checklists()->where('status', 'Sudah Valid')->count();
+        $validChecklist = $this->checklists()->whereIn('status', ['Sudah Valid', 'Selesai', 'Done'])->count();
         $persentase = ($validChecklist / $totalChecklist) * 100;
 
         $this->update(['progres' => round($persentase, 2)]);
