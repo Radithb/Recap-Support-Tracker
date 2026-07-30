@@ -23,6 +23,8 @@ class ImplementasiLog extends Model
     protected $casts = [
         'data_sebelum' => 'array',
         'data_sesudah' => 'array',
+        'created_at' => 'datetime',
+        'updated_at' => 'datetime',
     ];
 
     public function implementasi()

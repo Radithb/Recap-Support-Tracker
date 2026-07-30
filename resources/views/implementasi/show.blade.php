@@ -703,13 +703,22 @@
         </div>
         <div class="timeline">
             @forelse($implementasi->logs as $log)
+                @php
+                    $logTime = '-';
+                    if ($log->created_at) {
+                        $logTime = is_string($log->created_at) ? \Carbon\Carbon::parse($log->created_at)->format('d M Y - H:i') : $log->created_at->format('d M Y - H:i');
+                    }
+                @endphp
                 <div class="timeline-item">
-                    <div class="timeline-time">{{ $log->created_at->format('d M Y - H:i') }} | <strong>{{ $log->user->nama ?? 'Sistem' }}</strong></div>
+                    <div class="timeline-time">{{ $logTime }} | <strong>{{ $log->user->nama ?? 'Sistem' }}</strong></div>
                     <div class="timeline-content">
                         <div style="font-weight: 600; margin-bottom: 5px;">{{ $log->aktivitas }}</div>
+                        @if($log->catatan)
+                            <div style="font-size: 12px; color: #475569; margin-top: 4px;">{{ $log->catatan }}</div>
+                        @endif
                         @if($log->data_sebelum && $log->data_sesudah)
-                            <div style="font-size: 12px; color: #64748b;">
-                                <strong>Status:</strong> <span style="text-decoration: line-through;">{{ $log->data_sebelum['status'] ?? '' }}</span> &rarr; <span style="color:#2563eb;">{{ $log->data_sesudah['status'] ?? '' }}</span>
+                            <div style="font-size: 12px; color: #64748b; margin-top: 4px;">
+                                <strong>Status:</strong> <span style="text-decoration: line-through;">{{ is_array($log->data_sebelum) ? ($log->data_sebelum['status'] ?? '') : '' }}</span> &rarr; <span style="color:#2563eb;">{{ is_array($log->data_sesudah) ? ($log->data_sesudah['status'] ?? '') : '' }}</span>
                             </div>
                         @endif
                     </div>
