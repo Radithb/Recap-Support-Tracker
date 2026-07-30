@@ -53,7 +53,7 @@
                         <input type="date" name="tanggal_pelatihan" class="form-control" value="{{ old('tanggal_pelatihan', $implementasi->tanggal_pelatihan ? $implementasi->tanggal_pelatihan->format('Y-m-d') : '') }}" required>
                     </div>
                     <div>
-                        <label class="form-label" style="font-weight: normal; font-size: 12px; color: #64748b;">Selesai (Opsional jika 1 hari)</label>
+                        <label class="form-label" style="font-weight: normal; font-size: 12px; color: #64748b;">Selesai</label>
                         <input type="date" name="tanggal_selesai" class="form-control" value="{{ old('tanggal_selesai', $implementasi->tanggal_selesai ? $implementasi->tanggal_selesai->format('Y-m-d') : '') }}">
                     </div>
                 </div>

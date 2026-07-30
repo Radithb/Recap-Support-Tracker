@@ -385,7 +385,7 @@
                             <input type="date" name="tanggal_pelatihan" class="form-control" required>
                         </div>
                         <div>
-                            <label class="form-label" style="font-weight: normal; font-size: 12px; color: #64748b;">Selesai (Opsional jika 1 hari)</label>
+                            <label class="form-label" style="font-weight: normal; font-size: 12px; color: #64748b;">Selesai</label>
                             <input type="date" name="tanggal_selesai" class="form-control">
                         </div>
                     </div>
