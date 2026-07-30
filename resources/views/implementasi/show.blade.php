@@ -444,6 +444,9 @@
 
     // Quick Mark as Done
     function markAsDone(id) {
+        if (!confirm('Apakah Anda yakin ingin menandai item checklist ini sebagai Selesai?')) {
+            return;
+        }
         const select = document.getElementById('status-' + id);
         if (select) {
             select.value = 'Sudah Valid';
