@@ -442,9 +442,7 @@
                                 <strong>Status:</strong> <span style="text-decoration: line-through;">{{ $log->data_sebelum['status'] ?? '' }}</span> &rarr; <span style="color:#2563eb;">{{ $log->data_sesudah['status'] ?? '' }}</span>
                             </div>
                         @endif
-                        @if($log->catatan)
-                            <div style="font-size: 12px; margin-top: 5px; font-style: italic;">"{{ $log->catatan }}"</div>
-                        @endif
+
                     </div>
                 </div>
             @empty
