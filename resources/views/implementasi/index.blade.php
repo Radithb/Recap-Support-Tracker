@@ -325,7 +325,12 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">Nama Trainer</label>
-                        <input type="text" name="nama_trainer" class="form-control" placeholder="Opsional">
+                        <div id="trainer-container">
+                            <div class="trainer-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                <input type="text" name="nama_trainer[]" class="form-control" placeholder="Opsional">
+                                <button type="button" class="btn-action" style="background-color: #10b981; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="addTrainerInput()">+</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -376,6 +381,23 @@
     }
 
     function removeAnggotaInput(btn) {
+        btn.parentElement.remove();
+    }
+
+    function addTrainerInput() {
+        const container = document.getElementById('trainer-container');
+        const inputGroup = document.createElement('div');
+        inputGroup.className = 'trainer-input-group';
+        inputGroup.style = 'display: flex; gap: 10px; margin-bottom: 10px;';
+        
+        inputGroup.innerHTML = `
+            <input type="text" name="nama_trainer[]" class="form-control" placeholder="Opsional">
+            <button type="button" class="btn-action" style="background-color: #ef4444; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="removeTrainerInput(this)">-</button>
+        `;
+        container.appendChild(inputGroup);
+    }
+
+    function removeTrainerInput(btn) {
         btn.parentElement.remove();
     }
 </script>
