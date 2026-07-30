@@ -69,8 +69,8 @@ class ImplementasiController extends Controller
             'tanggal_pelatihan' => 'required|date',
             'metode_pelatihan' => 'required|string',
             'nama_trainer' => 'nullable|string',
-            'anggota_hadir' => 'required|string',
-            'pic_koperasi' => 'required|string',
+            'anggota_hadir' => 'required|array',
+            'anggota_hadir.*' => 'required|string',
             'kontak_pic' => 'required|string',
             'email_pic' => 'nullable|email',
             'catatan_pelatihan' => 'nullable|string',
@@ -90,15 +90,14 @@ class ImplementasiController extends Controller
             'tanggal_pelatihan' => $request->tanggal_pelatihan,
             'metode_pelatihan' => $request->metode_pelatihan,
             'nama_trainer' => $request->nama_trainer,
-            'anggota_hadir' => $request->anggota_hadir,
-            'pic_koperasi' => $request->pic_koperasi,
+            'anggota_hadir' => implode(', ', $request->anggota_hadir),
             'kontak_pic' => $request->kontak_pic,
             'email_pic' => $request->email_pic,
             'catatan_pelatihan' => $request->catatan_pelatihan,
             'target_go_live' => $request->target_go_live,
             'status' => 'Pelatihan Selesai',
             'tindakan_berikutnya' => 'Follow-Up Kesiapan Koperasi',
-            'pic_tindakan' => $request->anggota_hadir ?? 'Tim Support',
+            'pic_tindakan' => is_array($request->anggota_hadir) ? implode(', ', $request->anggota_hadir) : ($request->anggota_hadir ?? 'Tim Support'),
         ]);
 
         // Auto-generate checklists

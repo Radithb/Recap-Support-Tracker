@@ -293,8 +293,10 @@
                 <div class="summary-value">{{ $implementasi->anggota_hadir ?? '-' }}</div>
             </div>
             <div class="summary-item">
-                <div class="summary-label">PIC Koperasi</div>
-                <div class="summary-value">{{ $implementasi->pic_koperasi ?? '-' }}<br><span style="font-weight:400; font-size:12px;">WA: {{ $implementasi->kontak_pic }}<br>Email: {{ $implementasi->email_pic ?? '-' }}</span></div>
+                <div class="summary-label">Kontak PIC Koperasi</div>
+                <div class="summary-value">
+                    <span style="font-weight:400; font-size:12px;">WA: {{ $implementasi->kontak_pic }}<br>Email: {{ $implementasi->email_pic ?? '-' }}</span>
+                </div>
             </div>
             <div class="summary-item" style="border-left: 3px solid #f59e0b;">
                 <div class="summary-label" style="color: #d97706;">Tindakan Berikutnya (Next Action)</div>

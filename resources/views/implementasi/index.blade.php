@@ -139,7 +139,6 @@
                     <th>No. Impl</th>
                     <th>Koperasi</th>
                     <th>Aplikasi</th>
-                    <th>PIC Koperasi</th>
                     <th>Anggota Yang Hadir</th>
                     <th>Target Go-Live</th>
                     <th>Progres</th>
@@ -170,7 +169,6 @@
                         <td><strong>{{ $impl->nomor_implementasi }}</strong></td>
                         <td>{{ $impl->instansi->nama_instansi ?? '-' }}</td>
                         <td>{{ $impl->aplikasi->nama_aplikasi ?? '-' }}</td>
-                        <td>{{ $impl->pic_koperasi ?? '-' }}</td>
                         <td>{{ $impl->anggota_hadir ?? '-' }}</td>
                         <td>{{ $impl->target_go_live ? $impl->target_go_live->format('d M Y') : '-' }}</td>
                         <td style="min-width: 120px;">
@@ -318,7 +316,12 @@
                 <div class="grid-2">
                     <div class="form-group">
                         <label class="form-label">Anggota Yang Hadir</label>
-                        <input type="text" name="anggota_hadir" class="form-control" required>
+                        <div id="anggota-container">
+                            <div class="anggota-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                <input type="text" name="anggota_hadir[]" class="form-control" placeholder="Nama Anggota" required>
+                                <button type="button" class="btn-action" style="background-color: #10b981; padding: 0 15px;" onclick="addAnggotaInput()">+</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Nama Trainer</label>
@@ -328,18 +331,13 @@
 
                 <div class="grid-2">
                     <div class="form-group">
-                        <label class="form-label">PIC Koperasi</label>
-                        <input type="text" name="pic_koperasi" class="form-control" required>
+                        <label class="form-label">Email PIC</label>
+                        <input type="email" name="email_pic" class="form-control" placeholder="Opsional">
                     </div>
                     <div class="form-group">
                         <label class="form-label">WhatsApp PIC</label>
                         <input type="text" name="kontak_pic" class="form-control" required>
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label">Email PIC</label>
-                    <input type="email" name="email_pic" class="form-control">
                 </div>
 
                 <div class="form-group">
@@ -362,6 +360,23 @@
     
     function closeModal(id) {
         document.getElementById(id).classList.remove('active');
+    }
+
+    function addAnggotaInput() {
+        const container = document.getElementById('anggota-container');
+        const inputGroup = document.createElement('div');
+        inputGroup.className = 'anggota-input-group';
+        inputGroup.style = 'display: flex; gap: 10px; margin-bottom: 10px;';
+        
+        inputGroup.innerHTML = `
+            <input type="text" name="anggota_hadir[]" class="form-control" placeholder="Nama Anggota" required>
+            <button type="button" class="btn-action" style="background-color: #ef4444; padding: 0 15px;" onclick="removeAnggotaInput(this)">-</button>
+        `;
+        container.appendChild(inputGroup);
+    }
+
+    function removeAnggotaInput(btn) {
+        btn.parentElement.remove();
     }
 </script>
 @endsection
