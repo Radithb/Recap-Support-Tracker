@@ -669,32 +669,26 @@
     <!-- TAB 4: TARGET GO-LIVE -->
     <div id="tab-target-golive" class="tab-content">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Target Go-Live Implementasi</h4>
+            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Target Go-Live</h4>
         </div>
         <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 24px; text-align: center;">
             <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Target Go-Live</div>
             <div style="font-size: 24px; font-weight: 700; color: #2563eb;">
-                {{ $implementasi->target_go_live ? $implementasi->target_go_live->format('d M Y') : 'Belum Ditentukan' }}
+                {{ $implementasi->target_go_live ? $implementasi->target_go_live->format('d M Y') : '-' }}
             </div>
-            <p style="margin-top: 12px; font-size: 13px; color: #64748b; margin-bottom: 0;">
-                Tanggal target sistem koperasi untuk mulai beroperasi penuh secara resmi (Go-Live).
-            </p>
         </div>
     </div>
 
     <!-- TAB 5: TGL CUT-OFF -->
     <div id="tab-cut-off" class="tab-content">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Tanggal Cut-Off Data Koperasi</h4>
+            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Tanggal Cut-Off</h4>
         </div>
         <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 24px; text-align: center;">
             <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Tanggal Cut-Off</div>
             <div style="font-size: 24px; font-weight: 700; color: #0284c7;">
-                {{ $implementasi->tanggal_cut_off ? $implementasi->tanggal_cut_off->format('d M Y') : 'Belum Ditentukan' }}
+                {{ $implementasi->tanggal_cut_off ? $implementasi->tanggal_cut_off->format('d M Y') : '-' }}
             </div>
-            <p style="margin-top: 12px; font-size: 13px; color: #64748b; margin-bottom: 0;">
-                Batas tanggal penarikan / penguncian saldo dan transaksi data lama koperasi sebelum dimigrasikan.
-            </p>
         </div>
     </div>
 
