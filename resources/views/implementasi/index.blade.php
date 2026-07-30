@@ -318,7 +318,7 @@
                 <div class="grid-2">
                     <div class="form-group">
                         <label class="form-label">Anggota Yang Hadir</label>
-                        <input type="text" name="anggota_hadir" class="form-control" required placeholder="Contoh: Budi, Andi">
+                        <input type="text" name="anggota_hadir" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Nama Trainer</label>
