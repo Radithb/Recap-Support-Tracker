@@ -19,6 +19,7 @@ class ImplementasiKoperasi extends Model
         'metode_pelatihan',
         'nama_trainer',
         'pic_sakti_id',
+        'anggota_hadir',
         'pic_koperasi',
         'kontak_pic',
         'email_pic',

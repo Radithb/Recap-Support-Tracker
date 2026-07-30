@@ -171,7 +171,7 @@
                         <td>{{ $impl->instansi->nama_instansi ?? '-' }}</td>
                         <td>{{ $impl->aplikasi->nama_aplikasi ?? '-' }}</td>
                         <td>{{ $impl->pic_koperasi ?? '-' }}</td>
-                        <td>{{ $impl->picSakti->nama ?? '-' }}</td>
+                        <td>{{ $impl->anggota_hadir ?? '-' }}</td>
                         <td>{{ $impl->target_go_live ? $impl->target_go_live->format('d M Y') : '-' }}</td>
                         <td style="min-width: 120px;">
                             <div style="font-weight: 600;">{{ $impl->progres }}%</div>
@@ -318,12 +318,7 @@
                 <div class="grid-2">
                     <div class="form-group">
                         <label class="form-label">Anggota Yang Hadir</label>
-                        <select name="pic_sakti_id" class="form-control" required>
-                            <option value="">Pilih Petugas</option>
-                            @foreach($usersSupport as $user)
-                                <option value="{{ $user->user_id }}">{{ $user->nama }}</option>
-                            @endforeach
-                        </select>
+                        <input type="text" name="anggota_hadir" class="form-control" required placeholder="Contoh: Budi, Andi">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Nama Trainer</label>

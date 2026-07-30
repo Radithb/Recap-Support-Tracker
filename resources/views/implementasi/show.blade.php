@@ -290,7 +290,7 @@
             </div>
             <div class="summary-item">
                 <div class="summary-label">Anggota Yang Hadir</div>
-                <div class="summary-value">{{ $implementasi->picSakti->nama ?? '-' }}</div>
+                <div class="summary-value">{{ $implementasi->anggota_hadir ?? '-' }}</div>
             </div>
             <div class="summary-item">
                 <div class="summary-label">PIC Koperasi</div>

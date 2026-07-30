@@ -69,7 +69,7 @@ class ImplementasiController extends Controller
             'tanggal_pelatihan' => 'required|date',
             'metode_pelatihan' => 'required|string',
             'nama_trainer' => 'nullable|string',
-            'pic_sakti_id' => 'required|exists:users,user_id',
+            'anggota_hadir' => 'required|string',
             'pic_koperasi' => 'required|string',
             'kontak_pic' => 'required|string',
             'email_pic' => 'nullable|email',
@@ -90,7 +90,7 @@ class ImplementasiController extends Controller
             'tanggal_pelatihan' => $request->tanggal_pelatihan,
             'metode_pelatihan' => $request->metode_pelatihan,
             'nama_trainer' => $request->nama_trainer,
-            'pic_sakti_id' => $request->pic_sakti_id,
+            'anggota_hadir' => $request->anggota_hadir,
             'pic_koperasi' => $request->pic_koperasi,
             'kontak_pic' => $request->kontak_pic,
             'email_pic' => $request->email_pic,
@@ -98,7 +98,7 @@ class ImplementasiController extends Controller
             'target_go_live' => $request->target_go_live,
             'status' => 'Pelatihan Selesai',
             'tindakan_berikutnya' => 'Follow-Up Kesiapan Koperasi',
-            'pic_tindakan' => User::find($request->pic_sakti_id)->nama ?? 'Tim Support',
+            'pic_tindakan' => $request->anggota_hadir ?? 'Tim Support',
         ]);
 
         // Auto-generate checklists
