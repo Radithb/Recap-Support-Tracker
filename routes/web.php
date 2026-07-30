@@ -58,6 +58,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [\App\Http\Controllers\ImplementasiController::class, 'edit'])->name('edit');
         Route::put('/{id}', [\App\Http\Controllers\ImplementasiController::class, 'update'])->name('update');
         Route::get('/{id}', [\App\Http\Controllers\ImplementasiController::class, 'show'])->name('show');
+        Route::delete('/{id}', [\App\Http\Controllers\ImplementasiController::class, 'destroy'])->name('destroy');
         Route::put('/checklist/{id}', [\App\Http\Controllers\ImplementasiController::class, 'updateChecklist'])->name('checklist.update');
         Route::post('/{id}/checklist', [\App\Http\Controllers\ImplementasiController::class, 'storeChecklist'])->name('checklist.store');
         Route::delete('/checklist/{id}', [\App\Http\Controllers\ImplementasiController::class, 'destroyChecklist'])->name('checklist.destroy');
