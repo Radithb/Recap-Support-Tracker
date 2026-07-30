@@ -715,7 +715,7 @@
                     <div class="timeline-time">{{ $logTime }} | <strong>{{ $log->user->nama ?? 'Sistem' }}</strong></div>
                     <div class="timeline-content">
                         <div style="font-weight: 600; margin-bottom: 5px;">{{ $log->aktivitas }}</div>
-                        @if($log->catatan)
+                        @if($log->catatan && !str_contains(strtolower($log->catatan), 'ajax'))
                             <div style="font-size: 12px; color: #475569; margin-top: 4px;">{{ $log->catatan }}</div>
                         @endif
                         @if($log->data_sebelum && $log->data_sesudah)
