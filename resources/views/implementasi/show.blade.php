@@ -256,7 +256,14 @@
     <div class="detail-header">
         <div>
             <div class="impl-number">{{ $implementasi->nomor_implementasi }}</div>
-            <div style="font-size: 14px; color: #64748b; margin-top: 5px;">{{ $implementasi->instansi->nama_instansi ?? 'Koperasi' }} - {{ $implementasi->aplikasi->nama_aplikasi ?? 'Aplikasi' }}</div>
+            <div style="font-size: 14px; color: #64748b; margin-top: 5px;">
+                {{ $implementasi->instansi->nama_instansi ?? 'Koperasi' }} - 
+                @if($implementasi->aplikasis && $implementasi->aplikasis->count() > 0)
+                    {{ $implementasi->aplikasis->pluck('nama_aplikasi')->join(', ') }}
+                @else
+                    {{ $implementasi->aplikasi->nama_aplikasi ?? 'Aplikasi' }}
+                @endif
+            </div>
         </div>
         
         <div class="progress-wrapper">

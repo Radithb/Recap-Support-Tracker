@@ -169,7 +169,13 @@
                     <tr>
                         <td><strong>{{ $impl->nomor_implementasi }}</strong></td>
                         <td>{{ $impl->instansi->nama_instansi ?? '-' }}</td>
-                        <td>{{ $impl->aplikasi->nama_aplikasi ?? '-' }}</td>
+                        <td>
+                            @if($impl->aplikasis && $impl->aplikasis->count() > 0)
+                                {{ $impl->aplikasis->pluck('nama_aplikasi')->join(', ') }}
+                            @else
+                                {{ $impl->aplikasi->nama_aplikasi ?? '-' }}
+                            @endif
+                        </td>
                         <td>{{ $impl->anggota_hadir ?? '-' }}</td>
                         <td>{{ $impl->target_go_live ? $impl->target_go_live->format('d M Y') : '-' }}</td>
                         <td style="min-width: 120px;">
@@ -292,12 +298,17 @@
                 
                 <div class="form-group">
                     <label class="form-label">Aplikasi/Modul</label>
-                    <select name="aplikasi_id" class="form-control" required>
-                        <option value="">Pilih Aplikasi</option>
-                        @foreach($aplikasis as $app)
-                            <option value="{{ $app->aplikasi_id }}">{{ $app->nama_aplikasi }}</option>
-                        @endforeach
-                    </select>
+                    <div id="aplikasi-container">
+                        <div class="aplikasi-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <select name="aplikasi_id[]" class="form-control" required style="flex-grow: 1;">
+                                <option value="" disabled selected>Pilih Aplikasi</option>
+                                @foreach($aplikasis as $app)
+                                    <option value="{{ $app->aplikasi_id }}">{{ $app->nama_aplikasi }}</option>
+                                @endforeach
+                            </select>
+                            <button type="button" class="btn-action" style="background-color: #10b981; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="addAplikasiInput()">+</button>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="grid-2">
@@ -399,6 +410,28 @@
     }
 
     function removeTrainerInput(btn) {
+        btn.parentElement.remove();
+    }
+
+    function addAplikasiInput() {
+        const container = document.getElementById('aplikasi-container');
+        const inputGroup = document.createElement('div');
+        inputGroup.className = 'aplikasi-input-group';
+        inputGroup.style = 'display: flex; gap: 10px; margin-bottom: 10px;';
+        
+        inputGroup.innerHTML = `
+            <select name="aplikasi_id[]" class="form-control" required style="flex-grow: 1;">
+                <option value="" disabled selected>Pilih Aplikasi</option>
+                @foreach($aplikasis as $app)
+                    <option value="{{ $app->aplikasi_id }}">{{ $app->nama_aplikasi }}</option>
+                @endforeach
+            </select>
+            <button type="button" class="btn-action" style="background-color: #ef4444; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="removeAplikasiInput(this)">-</button>
+        `;
+        container.appendChild(inputGroup);
+    }
+
+    function removeAplikasiInput(btn) {
         btn.parentElement.remove();
     }
 </script>

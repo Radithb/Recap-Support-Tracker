@@ -52,6 +52,11 @@ class ImplementasiKoperasi extends Model
         return $this->belongsTo(MasterAplikasi::class, 'aplikasi_id', 'aplikasi_id');
     }
 
+    public function aplikasis()
+    {
+        return $this->belongsToMany(MasterAplikasi::class, 'aplikasi_implementasi', 'implementasi_id', 'aplikasi_id');
+    }
+
     public function picSakti()
     {
         return $this->belongsTo(User::class, 'pic_sakti_id', 'user_id');
