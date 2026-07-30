@@ -258,6 +258,21 @@
     <button type="button" onclick="document.getElementById('toast').classList.remove('show')" style="background: none; border: none; color: var(--sage, #065f46); cursor: pointer; font-size: calc(18px * var(--text-scale, 1)); font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
 </div>
 
+<!-- Modal Konfirmasi Done Custom -->
+<div class="modal-overlay" id="modalConfirmDone" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(2px); z-index: 9999; justify-content: center; align-items: center;">
+    <div style="background: #fff; border-radius: 12px; width: 90%; max-width: 380px; padding: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1); text-align: center;">
+        <div style="width: 52px; height: 52px; background: #d1fae5; color: #10b981; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <h4 style="margin: 0 0 8px; font-size: 17px; font-weight: 700; color: #1e293b;">Konfirmasi Selesai</h4>
+        <p style="margin: 0 0 24px; font-size: 13.5px; color: #64748b; line-height: 1.5;">Apakah Anda yakin ingin menandai item checklist ini sebagai <strong>Sudah Valid / Done</strong>?</p>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <button type="button" onclick="closeDoneModal()" style="flex: 1; padding: 9px 16px; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff; color: #475569; font-weight: 600; cursor: pointer; font-size: 13px;">Batal</button>
+            <button type="button" id="btn-confirm-done" style="flex: 1; padding: 9px 16px; border-radius: 6px; border: none; background: #10b981; color: #fff; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 2px 4px rgba(16,185,129,0.2);">Ya, Selesai</button>
+        </div>
+    </div>
+</div>
+
 <div style="max-width: 1280px; margin: 0 auto; padding: 20px 30px;">
 <div class="detail-card">
     <div class="detail-header">
@@ -442,17 +457,29 @@
         event.currentTarget.classList.add('active');
     }
 
-    // Quick Mark as Done
+    // Quick Mark as Done Modal
+    let selectedChecklistId = null;
+
     function markAsDone(id) {
-        if (!confirm('Apakah Anda yakin ingin menandai item checklist ini sebagai Selesai?')) {
-            return;
-        }
-        const select = document.getElementById('status-' + id);
-        if (select) {
-            select.value = 'Sudah Valid';
-        }
-        updateChecklist(id);
+        selectedChecklistId = id;
+        document.getElementById('modalConfirmDone').style.display = 'flex';
     }
+
+    function closeDoneModal() {
+        selectedChecklistId = null;
+        document.getElementById('modalConfirmDone').style.display = 'none';
+    }
+
+    document.getElementById('btn-confirm-done').addEventListener('click', function() {
+        if (selectedChecklistId) {
+            const select = document.getElementById('status-' + selectedChecklistId);
+            if (select) {
+                select.value = 'Sudah Valid';
+            }
+            updateChecklist(selectedChecklistId);
+            closeDoneModal();
+        }
+    });
 
     // AJAX Update Checklist
     function updateChecklist(id) {
