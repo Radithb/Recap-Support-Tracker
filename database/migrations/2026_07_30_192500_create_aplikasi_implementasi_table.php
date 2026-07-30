@@ -11,8 +11,11 @@ return new class extends Migration
         Schema::dropIfExists('aplikasi_implementasi');
         Schema::create('aplikasi_implementasi', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('implementasi_id')->constrained('implementasi_koperasi')->onDelete('cascade');
-            $table->foreignId('aplikasi_id')->constrained('master_aplikasis')->onDelete('cascade');
+            $table->unsignedBigInteger('implementasi_id');
+            $table->unsignedBigInteger('aplikasi_id');
+            
+            $table->foreign('implementasi_id')->references('id')->on('implementasi_koperasi')->onDelete('cascade');
+            $table->foreign('aplikasi_id')->references('aplikasi_id')->on('master_aplikasis')->onDelete('cascade');
             $table->timestamps();
         });
 
