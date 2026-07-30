@@ -458,6 +458,14 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
             Migrasi Data
         </button>
+        <button class="md-tab-btn" onclick="openTab('tab-target-golive', this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+            Target Go-Live
+        </button>
+        <button class="md-tab-btn" onclick="openTab('tab-cut-off', this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Tgl Cut-Off
+        </button>
         <button class="md-tab-btn" onclick="openTab('tab-aktivitas', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
             Aktivitas & Log
@@ -656,9 +664,39 @@
                 Belum ada data migrasi.
             </div>
         @endif
+    <!-- TAB 4: TARGET GO-LIVE -->
+    <div id="tab-target-golive" class="tab-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Target Go-Live Implementasi</h4>
+        </div>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 24px; text-align: center;">
+            <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Target Go-Live</div>
+            <div style="font-size: 24px; font-weight: 700; color: #2563eb;">
+                {{ $implementasi->target_go_live ? $implementasi->target_go_live->format('d M Y') : 'Belum Ditentukan' }}
+            </div>
+            <p style="margin-top: 12px; font-size: 13px; color: #64748b; margin-bottom: 0;">
+                Tanggal target sistem koperasi untuk mulai beroperasi penuh secara resmi (Go-Live).
+            </p>
+        </div>
     </div>
 
-    <!-- TAB 3: AKTIVITAS & LOG -->
+    <!-- TAB 5: TGL CUT-OFF -->
+    <div id="tab-cut-off" class="tab-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Tanggal Cut-Off Data Koperasi</h4>
+        </div>
+        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 24px; text-align: center;">
+            <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Tanggal Cut-Off</div>
+            <div style="font-size: 24px; font-weight: 700; color: #0284c7;">
+                {{ $implementasi->tanggal_cut_off ? $implementasi->tanggal_cut_off->format('d M Y') : 'Belum Ditentukan' }}
+            </div>
+            <p style="margin-top: 12px; font-size: 13px; color: #64748b; margin-bottom: 0;">
+                Batas tanggal penarikan / penguncian saldo dan transaksi data lama koperasi sebelum dimigrasikan.
+            </p>
+        </div>
+    </div>
+
+    <!-- TAB 6: AKTIVITAS & LOG -->
     <div id="tab-aktivitas" class="tab-content">
         <div class="timeline">
             @forelse($implementasi->logs as $log)
