@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('page_title', 'Implementasi & Go-Live Koperasi')
+@section('page_title', 'Monitoring Koperasi')
 @section('page_subtitle', 'Dashboard Monitoring')
 
 @section('content')
@@ -140,7 +140,7 @@
                     <th>Koperasi</th>
                     <th>Aplikasi</th>
                     <th>PIC Koperasi</th>
-                    <th>PIC PT SAKTI</th>
+                    <th>Anggota Yang Hadir</th>
                     <th>Target Go-Live</th>
                     <th>Progres</th>
                     <th>Status</th>
@@ -317,7 +317,7 @@
 
                 <div class="grid-2">
                     <div class="form-group">
-                        <label class="form-label">PIC PT SAKTI</label>
+                        <label class="form-label">Anggota Yang Hadir</label>
                         <select name="pic_sakti_id" class="form-control" required>
                             <option value="">Pilih Petugas</option>
                             @foreach($usersSupport as $user)
