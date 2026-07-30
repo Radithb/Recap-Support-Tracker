@@ -173,7 +173,7 @@
                         <div class="register-prompt" style="position: relative; margin-top: 20px; border-top: none; padding-top: 18px; font-size: calc(11px * var(--text-scale, 1));">
                             <div style="position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); background: var(--paper-raised); padding: 0 10px; font-size: calc(9px * var(--text-scale, 1)); color: var(--ink-soft); font-family: var(--font-mono); z-index: 2;">atau</div>
                             <div style="position: absolute; top: 0; left: 0; right: 0; border-top: 1px solid var(--line); z-index: 1;"></div>
-                            Belum mempunyai akun? <a href="{{ route('register') }}" style="color: var(--brand-primary); font-weight: 700; text-decoration: underline;">Daftar</a>
+                            Belum mempunyai akun? <a href="#" id="register-modal-trigger" style="color: var(--brand-primary); font-weight: 700; text-decoration: underline;">Daftar</a>
                         </div>
                     </div>
                 </div>
@@ -193,10 +193,9 @@
         <!-- Close Button -->
         <button id="close-support-modal" style="position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; color: var(--ink-soft); cursor: pointer; line-height: 1; padding: 0;">&times;</button>
         
-        <!-- Header -->
         <div style="text-align: center; margin-bottom: 24px;">
-            <h2 style="margin: 0 0 8px 0; font-family: var(--font-display); font-size: calc(20px * var(--text-scale, 1)); font-weight: 700; color: var(--ink);">Hubungi Tim Support</h2>
-            <p style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: var(--ink-soft); line-height: 1.5;">
+            <h2 id="support-modal-title" style="margin: 0 0 8px 0; font-family: var(--font-display); font-size: calc(20px * var(--text-scale, 1)); font-weight: 700; color: var(--ink);">Hubungi Tim Support</h2>
+            <p id="support-modal-text" style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: var(--ink-soft); line-height: 1.5;">
                 Jika Anda mengalami kendala saat login, silakan hubungi tim support kami melalui kontak di bawah ini:
             </p>
         </div>
@@ -210,7 +209,7 @@
                 </div>
                 <div style="flex-grow: 1;">
                     <div style="font-weight: 700; font-size: calc(12px * var(--text-scale, 1)); color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em;">Nomor Telepon</div>
-                    <div style="font-family: var(--font-mono); font-size: calc(14px * var(--text-scale, 1)); color: var(--ink); font-weight: 600; margin-top: 2px;">+62 812-2318-2828</div>
+                    <div style="font-family: var(--font-mono); font-size: calc(14px * var(--text-scale, 1)); color: var(--ink); font-weight: 600; margin-top: 2px;">+62 853-1780-5165</div>
                 </div>
             </div>
 
@@ -226,7 +225,7 @@
             </div>
 
             <!-- WhatsApp -->
-            <a href="https://wa.me/{{ formatNomorWa(config('services.whatsapp_support_number') ?? '081223182828') }}?text=Halo,%20saya%20ingin%20bertanya%20terkait%20SAKTI%20Desk" target="_blank" style="text-decoration: none; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 16px; background: var(--paper, #fff); transition: background 0.2s; cursor: pointer;" onmouseover="this.style.background='var(--paper-sunken, #f8f9fa)'" onmouseout="this.style.background='var(--paper, #fff)'">
+            <a href="https://wa.me/{{ formatNomorWa(config('services.whatsapp_support_number') ?? '085317805165') }}?text=Halo,%20saya%20ingin%20bertanya%20terkait%20SAKTI%20Desk" target="_blank" style="text-decoration: none; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; display: flex; align-items: center; gap: 16px; background: var(--paper, #fff); transition: background 0.2s; cursor: pointer;" onmouseover="this.style.background='var(--paper-sunken, #f8f9fa)'" onmouseout="this.style.background='var(--paper, #fff)'">
                 <div style="background: var(--brand-primary-soft, rgba(229, 57, 53, 0.05)); width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <img src="{{ asset('whatsapp.png') }}" alt="WhatsApp" style="width: 20px; height: 20px; object-fit: contain;">
                 </div>
@@ -256,12 +255,28 @@
 
         // Modal Bantuan Support logic
         const supportTrigger = document.getElementById('support-modal-trigger');
+        const registerTrigger = document.getElementById('register-modal-trigger');
         const supportModal = document.getElementById('support-modal');
         const closeSupportModal = document.getElementById('close-support-modal');
         const modalId = document.querySelector('#support-modal .modal-card');
+        const modalTitle = document.getElementById('support-modal-title');
+        const modalText = document.getElementById('support-modal-text');
 
-        function openModal(e) {
+        const defaultTitle = 'Hubungi Tim Support';
+        const defaultText = 'Jika Anda mengalami kendala saat login, silakan hubungi tim support kami melalui kontak di bawah ini:';
+        const registerText = 'Hubungi Tim Support/Admin. Pembuatan akun (registrasi) baru sepenuhnya dialihkan oleh Super Admin untuk keperluan validasi mitra/koperasi.';
+
+        function openModal(e, isRegister = false) {
             e.preventDefault();
+            
+            if(isRegister) {
+                modalTitle.textContent = 'Pembuatan Akun Baru';
+                modalText.textContent = registerText;
+            } else {
+                modalTitle.textContent = defaultTitle;
+                modalText.textContent = defaultText;
+            }
+
             supportModal.style.display = 'flex';
             setTimeout(() => {
                 supportModal.style.opacity = '1';
@@ -277,7 +292,8 @@
             }, 300);
         }
 
-        if (supportTrigger) supportTrigger.addEventListener('click', openModal);
+        if (supportTrigger) supportTrigger.addEventListener('click', (e) => openModal(e, false));
+        if (registerTrigger) registerTrigger.addEventListener('click', (e) => openModal(e, true));
         if (closeSupportModal) closeSupportModal.addEventListener('click', closeModal);
         
         // Close modal when clicking outside modal-card

@@ -34,6 +34,8 @@ class Ticket extends Model
         'is_faq' => 'boolean',
         'tanggal_input' => 'datetime',
         'tanggal_penyelesaian' => 'datetime',
+        'lampiran' => 'array',
+        'lampiran_support' => 'array',
     ];
 
     public function pelapor()

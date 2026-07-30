@@ -52,7 +52,12 @@
                 <!-- Profile Details -->
                 <div style="flex: 1; min-width: 300px;">
                     <h2 style="font-size: 1.8rem; color: var(--ink); margin: 0 0 4px 0;">{{ $user->nama }}</h2>
-                    <p style="color: var(--text-muted); font-size: 1rem; margin: 0 0 24px 0;">{{ __('messages.pic_koperasi_pelapor') }}</p>
+                    <p style="color: var(--text-muted); font-size: 1rem; margin: 0 0 24px 0;">
+                        @if($user->posisi)
+                            <span style="font-weight: 600; color: var(--primary);">{{ $user->posisi }}</span> &bull; 
+                        @endif
+                        {{ __('messages.pic_koperasi_pelapor') }}
+                    </p>
 
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; background: var(--paper-sunken); padding: 24px; border-radius: 12px; border: 1px solid var(--line);">
                         <div>

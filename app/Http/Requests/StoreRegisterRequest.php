@@ -15,6 +15,7 @@ class StoreRegisterRequest extends FormRequest
     {
         return [
             'role'          => ['required', 'string', 'in:Pelapor'],
+            'posisi'        => ['required', 'string', 'in:Manager,Sekretaris,Bendahara,Pengawas,Admin,Akuntansi,IT'],
             'nama_instansi' => ['required', 'string', 'max:255'],
             'nama'          => ['required', 'string', 'max:255'],
             'email'         => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
@@ -26,6 +27,8 @@ class StoreRegisterRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'posisi.required'        => 'Posisi (Role) di Koperasi wajib dipilih.',
+            'posisi.in'              => 'Pilihan Posisi tidak valid.',
             'nama_instansi.required' => 'Nama Koperasi / Instansi wajib diisi.',
             'nama_instansi.max'      => 'Nama Koperasi / Instansi maksimal 255 karakter.',
             'nama.required'          => 'Nama PIC wajib diisi.',

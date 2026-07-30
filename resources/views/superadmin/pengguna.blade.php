@@ -61,7 +61,8 @@
                     <tr>
                         <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.nama_pengguna') }}</th>
                         <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.email') }}</th>
-                        <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.peran') }}</th>
+                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.peran') }}</th>
+                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">Posisi</th>
                         <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.instansi') }}</th>
                         <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.aksi') }}</th>
                     </tr>
@@ -71,7 +72,7 @@
                     <tr style="border-bottom: 1px solid var(--line);">
                         <td style="padding: 1.25rem 1.5rem; color: var(--ink); font-size: 0.95rem; font-weight: 600;">{{ $user->nama }}</td>
                         <td style="padding: 1.25rem 1.5rem; color: var(--text-muted); font-size: 0.95rem;">{{ $user->email }}</td>
-                        <td style="padding: 1.25rem 1.5rem; text-align: center;">
+                        <td style="padding: 1.25rem 1.5rem; text-align: left;">
                             @if($user->role === \App\Enums\UserRole::SUPERADMIN)
                                 <span class="badge" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; white-space: nowrap;">Super Admin</span>
                             @elseif($user->role === \App\Enums\UserRole::SUPPORT)
@@ -79,6 +80,9 @@
                             @else
                                 <span class="badge" style="background: rgba(16, 185, 129, 0.1); color: #10b981; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; white-space: nowrap;">Pelapor</span>
                             @endif
+                        </td>
+                        <td style="padding: 1.25rem 1.5rem; color: var(--text-muted); font-size: 0.95rem;">
+                            {{ $user->posisi ?: '-' }}
                         </td>
                         <td style="padding: 1.25rem 1.5rem; color: var(--text-muted); font-size: 0.95rem;">
                             {{ $user->instansi ? $user->instansi->nama_instansi : '-' }}
@@ -160,6 +164,19 @@
                         <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.email') }} <span style="color:var(--danger)">*</span></label>
                         <input type="email" name="email" required placeholder="Email aktif" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                     </div>
+                    <div class="field" id="posisi-group-add" style="display: none;">
+                        <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Posisi</label>
+                        <select name="posisi" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                            <option value="">Pilih Posisi</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Sekretaris">Sekretaris</option>
+                            <option value="Bendahara">Bendahara</option>
+                            <option value="Pengawas">Pengawas</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Akuntansi">Akuntansi</option>
+                            <option value="IT">IT</option>
+                        </select>
+                    </div>
                     <div class="field" id="whatsapp-group-add" style="display: none;">
                         <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.no_whatsapp') }}</label>
                         <input type="text" name="whatsapp" placeholder="{{ __('messages.contoh_whatsapp') }}" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
@@ -225,6 +242,19 @@
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.email') }} <span style="color:var(--danger)">*</span></label>
                     <input type="email" name="email" required value="{{ $user->email }}" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
                 </div>
+                <div class="field" id="posisi-group-edit-{{ $user->user_id }}" style="display: {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'block' : 'none' }};">
+                    <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">Posisi</label>
+                    <select name="posisi" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
+                        <option value="">Pilih Posisi</option>
+                        <option value="Manager" {{ $user->posisi == 'Manager' ? 'selected' : '' }}>Manager</option>
+                        <option value="Sekretaris" {{ $user->posisi == 'Sekretaris' ? 'selected' : '' }}>Sekretaris</option>
+                        <option value="Bendahara" {{ $user->posisi == 'Bendahara' ? 'selected' : '' }}>Bendahara</option>
+                        <option value="Pengawas" {{ $user->posisi == 'Pengawas' ? 'selected' : '' }}>Pengawas</option>
+                        <option value="Admin" {{ $user->posisi == 'Admin' ? 'selected' : '' }}>Admin</option>
+                        <option value="Akuntansi" {{ $user->posisi == 'Akuntansi' ? 'selected' : '' }}>Akuntansi</option>
+                        <option value="IT" {{ $user->posisi == 'IT' ? 'selected' : '' }}>IT</option>
+                    </select>
+                </div>
                 <div class="field" id="whatsapp-group-edit-{{ $user->user_id }}" style="display: {{ in_array($user->role, [\App\Enums\UserRole::PELAPOR, \App\Enums\UserRole::SUPPORT]) ? 'block' : 'none' }};">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.no_whatsapp') }}</label>
                     <input type="text" name="whatsapp" value="{{ $user->whatsapp ?? ($user->instansi->no_telp ?? '') }}" placeholder="{{ __('messages.contoh_whatsapp') }}" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
@@ -268,6 +298,7 @@
         let inputBaru = document.getElementById('instansi-baru-' + suffix);
         let groupWhatsapp = document.getElementById('whatsapp-group-' + suffix);
         let groupNik = document.getElementById('nik-group-' + suffix);
+        let groupPosisi = document.getElementById('posisi-group-' + suffix);
 
         if (role === '') {
             if(commonFields) commonFields.style.display = 'none';
@@ -281,6 +312,7 @@
             if(instansiSelect) instansiSelect.setAttribute('required', 'required');
             if(groupWhatsapp) groupWhatsapp.style.display = 'block';
             if(groupNik) groupNik.style.display = 'block';
+            if(groupPosisi) groupPosisi.style.display = 'block';
         } else if (role === '{{\App\Enums\UserRole::SUPPORT->value}}') {
             if(groupInstansi) groupInstansi.style.display = 'none';
             if(instansiSelect) {
@@ -290,6 +322,7 @@
             if(inputBaru) { inputBaru.style.display = 'none'; inputBaru.removeAttribute('required'); inputBaru.value = ""; }
             if(groupWhatsapp) groupWhatsapp.style.display = 'block';
             if(groupNik) groupNik.style.display = 'none';
+            if(groupPosisi) groupPosisi.style.display = 'none';
         } else {
             // Super Admin
             if(groupInstansi) groupInstansi.style.display = 'none';
@@ -300,6 +333,7 @@
             if(inputBaru) { inputBaru.style.display = 'none'; inputBaru.removeAttribute('required'); inputBaru.value = ""; }
             if(groupWhatsapp) groupWhatsapp.style.display = 'none';
             if(groupNik) groupNik.style.display = 'none';
+            if(groupPosisi) groupPosisi.style.display = 'none';
         }
     }
 

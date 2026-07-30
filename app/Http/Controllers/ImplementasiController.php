@@ -1,0 +1,178 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\ImplementasiKoperasi;
+use App\Models\ImplementasiChecklist;
+use App\Models\ImplementasiLog;
+use App\Models\Instansi;
+use App\Models\MasterAplikasi;
+use App\Models\User;
+use App\Enums\UserRole;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class ImplementasiController extends Controller
+{
+    /**
+     * Menampilkan data dashboard implementasi
+     */
+    public function index()
+    {
+        $query = ImplementasiKoperasi::with(['instansi', 'aplikasi', 'picSakti'])
+            ->orderBy('created_at', 'desc');
+
+        if (Auth::user()->role === UserRole::PELAPOR) {
+            $query->where('instansi_id', Auth::user()->instansi_id);
+        }
+
+        $implementasis = $query->get();
+
+        $instansis = Instansi::orderBy('nama_instansi')->get();
+        $aplikasis = MasterAplikasi::where('is_active', true)->orderBy('nama_aplikasi')->get();
+        $usersSupport = User::whereIn('role', [UserRole::SUPPORT, UserRole::SUPERADMIN])->orderBy('nama')->get();
+
+        return view('implementasi.index', compact('implementasis', 'instansis', 'aplikasis', 'usersSupport'));
+    }
+
+    /**
+     * Menampilkan halaman detail implementasi (Tabs UI)
+     */
+    public function show($id)
+    {
+        $implementasi = ImplementasiKoperasi::with([
+            'instansi', 
+            'aplikasi', 
+            'picSakti', 
+            'checklists' => function($q) {
+                $q->orderBy('kategori', 'asc')->orderBy('id', 'asc');
+            }, 
+            'logs'
+        ])->findOrFail($id);
+
+        // Security check for Pelapor
+        if (Auth::user()->role === UserRole::PELAPOR && $implementasi->instansi_id !== Auth::user()->instansi_id) {
+            abort(403, 'Anda tidak memiliki akses ke data implementasi ini.');
+        }
+
+        return view('implementasi.show', compact('implementasi'));
+    }
+
+    /**
+     * Menyimpan data implementasi baru
+     */
+    public function store(Request $request)
+    {
+        $request->validate([
+            'instansi_id' => 'required|exists:instansis,instansi_id',
+            'aplikasi_id' => 'required|exists:master_aplikasis,aplikasi_id',
+            'tanggal_pelatihan' => 'required|date',
+            'metode_pelatihan' => 'required|string',
+            'nama_trainer' => 'nullable|string',
+            'pic_sakti_id' => 'required|exists:users,user_id',
+            'pic_koperasi' => 'required|string',
+            'kontak_pic' => 'required|string',
+            'catatan_pelatihan' => 'nullable|string',
+            'target_go_live' => 'nullable|date',
+        ]);
+
+        // Generate Nomor Implementasi: IMP/SAKTI/YYYY/001
+        $year = date('Y');
+        $lastImpl = ImplementasiKoperasi::whereYear('created_at', $year)->orderBy('id', 'desc')->first();
+        $nextNumber = $lastImpl ? intval(substr($lastImpl->nomor_implementasi, -3)) + 1 : 1;
+        $nomor_implementasi = 'IMP/SAKTI/' . $year . '/' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
+
+        $implementasi = ImplementasiKoperasi::create([
+            'nomor_implementasi' => $nomor_implementasi,
+            'instansi_id' => $request->instansi_id,
+            'aplikasi_id' => $request->aplikasi_id,
+            'tanggal_pelatihan' => $request->tanggal_pelatihan,
+            'metode_pelatihan' => $request->metode_pelatihan,
+            'nama_trainer' => $request->nama_trainer,
+            'pic_sakti_id' => $request->pic_sakti_id,
+            'pic_koperasi' => $request->pic_koperasi,
+            'kontak_pic' => $request->kontak_pic,
+            'catatan_pelatihan' => $request->catatan_pelatihan,
+            'target_go_live' => $request->target_go_live,
+            'status' => 'Pelatihan Selesai',
+            'tindakan_berikutnya' => 'Follow-Up Kesiapan Koperasi',
+            'pic_tindakan' => User::find($request->pic_sakti_id)->nama ?? 'Tim Support',
+        ]);
+
+        // Auto-generate checklists
+        $defaultChecklists = [
+            ['kategori' => 'Data Utama', 'nama_item' => 'Data anggota tersedia'],
+            ['kategori' => 'Data Utama', 'nama_item' => 'Data user atau pengguna tersedia'],
+            ['kategori' => 'Keuangan', 'nama_item' => 'Data simpanan tersedia'],
+            ['kategori' => 'Keuangan', 'nama_item' => 'Data pinjaman tersedia'],
+            ['kategori' => 'Keuangan', 'nama_item' => 'Data saldo awal tersedia'],
+            ['kategori' => 'Keuangan', 'nama_item' => 'Data COA tersedia'],
+            ['kategori' => 'Master', 'nama_item' => 'Data produk simpanan tersedia'],
+            ['kategori' => 'Master', 'nama_item' => 'Data produk pinjaman tersedia'],
+        ];
+
+        foreach ($defaultChecklists as $chk) {
+            ImplementasiChecklist::create([
+                'implementasi_id' => $implementasi->id,
+                'kategori' => $chk['kategori'],
+                'nama_item' => $chk['nama_item'],
+            ]);
+        }
+
+        ImplementasiLog::create([
+            'implementasi_id' => $implementasi->id,
+            'user_id' => Auth::id(),
+            'aktivitas' => 'Data Implementasi Dibuat',
+            'catatan' => 'Pelatihan selesai, lanjut ke follow up kesiapan.'
+        ]);
+
+        return redirect()->route('implementasi.index')->with('success', 'Data Implementasi berhasil ditambahkan.');
+    }
+
+    /**
+     * Method AJAX untuk update checklist dan catat log
+     */
+    public function updateChecklist(Request $request, $id)
+    {
+        if (Auth::user()->role === UserRole::PELAPOR) {
+            return response()->json(['success' => false, 'message' => 'Akses ditolak.'], 403);
+        }
+
+        $request->validate([
+            'status' => 'required|string',
+            'catatan' => 'nullable|string',
+        ]);
+
+        $checklist = ImplementasiChecklist::findOrFail($id);
+        
+        $oldStatus = $checklist->status;
+        $oldCatatan = $checklist->catatan;
+
+        $checklist->update([
+            'status' => $request->status,
+            'catatan' => $request->catatan,
+        ]);
+
+        $implementasi = $checklist->implementasi;
+
+        // Mencatat log aktivitas
+        ImplementasiLog::create([
+            'implementasi_id' => $implementasi->id,
+            'user_id' => Auth::id(),
+            'aktivitas' => 'Update Checklist: ' . $checklist->nama_item,
+            'data_sebelum' => ['status' => $oldStatus, 'catatan' => $oldCatatan],
+            'data_sesudah' => ['status' => $checklist->status, 'catatan' => $checklist->catatan],
+            'catatan' => 'Checklist diperbarui via AJAX'
+        ]);
+
+        // Hitung ulang progres
+        $newProgres = $implementasi->updateProgres();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Checklist berhasil diperbarui',
+            'new_progres' => $newProgres,
+            'checklist' => $checklist
+        ]);
+    }
+}
