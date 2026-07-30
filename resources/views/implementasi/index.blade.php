@@ -437,6 +437,26 @@
 </div>
 
 <!-- Modal Edit Data -->
+<style>
+    .skeleton-box {
+        background: #e2e8f0;
+        border-radius: 4px;
+        position: relative;
+        overflow: hidden;
+    }
+    .skeleton-box::after {
+        content: "";
+        position: absolute;
+        top: 0; left: -100%; width: 100%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+        animation: loading 1.5s infinite;
+    }
+    @keyframes loading {
+        100% { left: 100%; }
+    }
+    .dark-mode .skeleton-box { background: #334155; }
+    .dark-mode .skeleton-box::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); }
+</style>
 <div class="modal-overlay" id="modalEditData">
     <div class="modal-container">
         <div class="modal-header">
@@ -445,26 +465,6 @@
         </div>
         <div id="edit-modal-content">
             <!-- Form will be loaded here via AJAX -->
-            <style>
-                .skeleton-box {
-                    background: #e2e8f0;
-                    border-radius: 4px;
-                    position: relative;
-                    overflow: hidden;
-                }
-                .skeleton-box::after {
-                    content: "";
-                    position: absolute;
-                    top: 0; left: -100%; width: 100%; height: 100%;
-                    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-                    animation: loading 1.5s infinite;
-                }
-                @keyframes loading {
-                    100% { left: 100%; }
-                }
-                .dark-mode .skeleton-box { background: #334155; }
-                .dark-mode .skeleton-box::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); }
-            </style>
             <div style="padding: 20px;">
                 <div class="skeleton-box" style="width: 30%; height: 14px; margin-bottom: 8px;"></div>
                 <div class="skeleton-box" style="width: 100%; height: 38px; margin-bottom: 20px; border-radius: 6px;"></div>
