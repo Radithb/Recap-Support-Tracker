@@ -208,7 +208,6 @@
             <div>
                 <p class="eyebrow" style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600; font-family: 'Inter', sans-serif;">{{ __('messages.d2_master_data') }}</p>
                 <h1 style="margin: 0; font-size: 2rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">{{ __('messages.kelola_master_data') }}</h1>
-                <p style="color: var(--text-muted); margin-top: 0.5rem; max-width: 600px; line-height: 1.5;">{{ __('messages.referensi_dipakai') }}</p>
             </div>
         </div>
 
@@ -257,7 +256,6 @@
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; gap: 1rem;">
                             <div>
                                 <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.master_aplikasi') }}</h3>
-                                <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.divalidasi_proses_1') }}</p>
                             </div>
                             <button type="button" onclick="openModal('modal-add-aplikasi')" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--ink); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;">+ {{ __('messages.tambah') }}</button>
                         </div>
@@ -329,7 +327,6 @@
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; gap: 1rem;">
                             <div>
                                 <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.master_kategori') }}</h3>
-                                <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.dipakai_proses_3') }}</p>
                             </div>
                             <button type="button" onclick="openModal('modal-add-kategori')" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--ink); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;">+ {{ __('messages.tambah') }}</button>
                         </div>
@@ -386,7 +383,6 @@
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; gap: 1rem;">
                             <div>
                                 <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.nama_koperasi') }}</h3>
-                                <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.desc_koperasi') }}</p>
                             </div>
                             
                             <div class="search" style="width: 250px; max-width: 100%; background: var(--paper-sunken); border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; display: flex; align-items: center;">
@@ -444,7 +440,6 @@
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; gap: 1rem;">
                             <div>
                                 <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.pic_tim_support') }}</h3>
-                                <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.desc_pic_support') }}</p>
                             </div>
                         </div>
                         <div class="table-scroll-wrapper" style="overflow: auto; border: none; border-radius: 0; background: transparent; margin: 0; padding-bottom: 0;">
@@ -497,7 +492,6 @@
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; gap: 1rem;">
                             <div>
                                 <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.status_tiket') }}</h3>
-                                <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.desc_status_tiket') }}</p>
                             </div>
                         </div>
                         <div style="overflow-x: auto;">
@@ -559,7 +553,6 @@
                         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; gap: 1rem;">
                             <div>
                                 <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink);">{{ __('messages.knowledge_base_faq') }}</h3>
-                                <p style="margin: 0.25rem 0 0 0; font-size: 0.85rem; color: var(--text-muted);">{{ __('messages.kelola_faq_desc') }}</p>
                             </div>
                             <button type="button" onclick="openModal('modal-add-faq')" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 600; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--ink); white-space: nowrap; display: inline-flex; align-items: center; gap: 6px;">{{ __('messages.tambah_faq') }}</button>
                         </div>
