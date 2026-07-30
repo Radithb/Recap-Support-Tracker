@@ -71,18 +71,24 @@
     }
     
     .btn-action {
-        padding: 6px 12px;
+        padding: 8px 16px;
         background-color: #2563eb;
         color: white;
         text-decoration: none;
-        border-radius: 4px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
         font-size: 13px;
         font-weight: 500;
-        transition: background-color 0.2s;
+        transition: background-color 0.2s, transform 0.1s;
     }
     
     .btn-action:hover {
         background-color: #1d4ed8;
+    }
+    
+    .btn-action:active {
+        transform: scale(0.97);
     }
     
     .dark-mode .dashboard-card {
@@ -110,10 +116,13 @@
     .dark-mode .progress-container { background-color: #334155; }
 </style>
 
-<div class="dashboard-card">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h2 style="font-size: 18px; font-weight: 600; margin: 0;">Monitoring Running Koperasi ({{ $implementasis->count() }})</h2>
-        <button class="btn-action" style="background-color: #10b981;" onclick="openModal('modalDataBaru')">+ Data Baru</button>
+<div style="max-width: 1280px; margin: 0 auto; padding: 20px 30px;">
+    <div class="dashboard-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="font-size: 18px; font-weight: 600; margin: 0;">Monitoring Running Koperasi ({{ $implementasis->count() }})</h2>
+        @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
+            <button class="btn-action" style="background-color: #10b981;" onclick="openModal('modalDataBaru')">+ Data Baru</button>
+        @endif
     </div>
 
     @if(session('success'))
@@ -190,6 +199,7 @@
                 @endforelse
             </tbody>
         </table>
+    </div>
     </div>
 </div>
 

@@ -323,19 +323,31 @@
                             <td>{{ $chk->kategori ?? '-' }}</td>
                             <td style="font-weight: 500;">{{ $chk->nama_item }}</td>
                             <td>
-                                <select id="status-{{ $chk->id }}" class="checklist-select">
-                                    <option value="Belum Dikirim" {{ $chk->status == 'Belum Dikirim' ? 'selected' : '' }}>Belum Dikirim</option>
-                                    <option value="Sudah Dikirim" {{ $chk->status == 'Sudah Dikirim' ? 'selected' : '' }}>Sudah Dikirim</option>
-                                    <option value="Sedang Diproses" {{ $chk->status == 'Sedang Diproses' ? 'selected' : '' }}>Sedang Diproses</option>
-                                    <option value="Perlu Revisi" {{ $chk->status == 'Perlu Revisi' ? 'selected' : '' }}>Perlu Revisi</option>
-                                    <option value="Sudah Valid" {{ $chk->status == 'Sudah Valid' ? 'selected' : '' }}>Sudah Valid</option>
-                                </select>
+                                @if(Auth::user()->role === \App\Enums\UserRole::PELAPOR)
+                                    <span style="font-weight:600; color: #475569;">{{ $chk->status }}</span>
+                                @else
+                                    <select id="status-{{ $chk->id }}" class="checklist-select">
+                                        <option value="Belum Dikirim" {{ $chk->status == 'Belum Dikirim' ? 'selected' : '' }}>Belum Dikirim</option>
+                                        <option value="Sudah Dikirim" {{ $chk->status == 'Sudah Dikirim' ? 'selected' : '' }}>Sudah Dikirim</option>
+                                        <option value="Sedang Diproses" {{ $chk->status == 'Sedang Diproses' ? 'selected' : '' }}>Sedang Diproses</option>
+                                        <option value="Perlu Revisi" {{ $chk->status == 'Perlu Revisi' ? 'selected' : '' }}>Perlu Revisi</option>
+                                        <option value="Sudah Valid" {{ $chk->status == 'Sudah Valid' ? 'selected' : '' }}>Sudah Valid</option>
+                                    </select>
+                                @endif
                             </td>
                             <td>
-                                <input type="text" id="catatan-{{ $chk->id }}" class="checklist-input" value="{{ $chk->catatan }}" placeholder="Tambahkan catatan...">
+                                @if(Auth::user()->role === \App\Enums\UserRole::PELAPOR)
+                                    <span style="color: #64748b; font-style: italic;">{{ $chk->catatan ?? '-' }}</span>
+                                @else
+                                    <input type="text" id="catatan-{{ $chk->id }}" class="checklist-input" value="{{ $chk->catatan }}" placeholder="Tambahkan catatan...">
+                                @endif
                             </td>
                             <td>
-                                <button onclick="updateChecklist({{ $chk->id }})" style="background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Simpan</button>
+                                @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
+                                    <button onclick="updateChecklist({{ $chk->id }})" style="background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Simpan</button>
+                                @else
+                                    -
+                                @endif
                             </td>
                         </tr>
                         @endforeach

@@ -19,9 +19,14 @@ class ImplementasiController extends Controller
      */
     public function index()
     {
-        $implementasis = ImplementasiKoperasi::with(['instansi', 'aplikasi', 'picSakti'])
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $query = ImplementasiKoperasi::with(['instansi', 'aplikasi', 'picSakti'])
+            ->orderBy('created_at', 'desc');
+
+        if (Auth::user()->role === UserRole::PELAPOR) {
+            $query->where('instansi_id', Auth::user()->instansi_id);
+        }
+
+        $implementasis = $query->get();
 
         $instansis = Instansi::orderBy('nama_instansi')->get();
         $aplikasis = MasterAplikasi::where('is_active', true)->orderBy('nama_aplikasi')->get();
@@ -44,6 +49,11 @@ class ImplementasiController extends Controller
             }, 
             'logs'
         ])->findOrFail($id);
+
+        // Security check for Pelapor
+        if (Auth::user()->role === UserRole::PELAPOR && $implementasi->instansi_id !== Auth::user()->instansi_id) {
+            abort(403, 'Anda tidak memiliki akses ke data implementasi ini.');
+        }
 
         return view('implementasi.show', compact('implementasi'));
     }
@@ -124,6 +134,10 @@ class ImplementasiController extends Controller
      */
     public function updateChecklist(Request $request, $id)
     {
+        if (Auth::user()->role === UserRole::PELAPOR) {
+            return response()->json(['success' => false, 'message' => 'Akses ditolak.'], 403);
+        }
+
         $request->validate([
             'status' => 'required|string',
             'catatan' => 'nullable|string',

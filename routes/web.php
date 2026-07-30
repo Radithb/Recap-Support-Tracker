@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/pengaturan/bahasa', [AuthController::class, 'updateLanguage'])->name('pengaturan.bahasa');
 
     // Implementasi & Go-Live Koperasi
-    Route::prefix('implementasi')->name('implementasi.')->group(function () {
+    Route::middleware([\App\Http\Middleware\IsSupport::class])->prefix('implementasi')->name('implementasi.')->group(function () {
         Route::get('/', [\App\Http\Controllers\ImplementasiController::class, 'index'])->name('index');
         Route::post('/', [\App\Http\Controllers\ImplementasiController::class, 'store'])->name('store');
         Route::get('/{id}', [\App\Http\Controllers\ImplementasiController::class, 'show'])->name('show');
