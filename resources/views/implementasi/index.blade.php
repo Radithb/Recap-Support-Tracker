@@ -445,10 +445,48 @@
         </div>
         <div id="edit-modal-content">
             <!-- Form will be loaded here via AJAX -->
-            <div style="padding: 40px; text-align: center; color: #64748b;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
-                <div style="margin-top: 10px;">Memuat form edit...</div>
-                <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
+            <style>
+                .skeleton-box {
+                    background: #e2e8f0;
+                    border-radius: 4px;
+                    position: relative;
+                    overflow: hidden;
+                }
+                .skeleton-box::after {
+                    content: "";
+                    position: absolute;
+                    top: 0; left: -100%; width: 100%; height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+                    animation: loading 1.5s infinite;
+                }
+                @keyframes loading {
+                    100% { left: 100%; }
+                }
+                .dark-mode .skeleton-box { background: #334155; }
+                .dark-mode .skeleton-box::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent); }
+            </style>
+            <div style="padding: 20px;">
+                <div class="skeleton-box" style="width: 30%; height: 14px; margin-bottom: 8px;"></div>
+                <div class="skeleton-box" style="width: 100%; height: 38px; margin-bottom: 20px; border-radius: 6px;"></div>
+                
+                <div class="skeleton-box" style="width: 30%; height: 14px; margin-bottom: 8px;"></div>
+                <div class="skeleton-box" style="width: 100%; height: 38px; margin-bottom: 20px; border-radius: 6px;"></div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <div class="skeleton-box" style="width: 50%; height: 14px; margin-bottom: 8px;"></div>
+                        <div class="skeleton-box" style="width: 100%; height: 38px; border-radius: 6px;"></div>
+                    </div>
+                    <div>
+                        <div class="skeleton-box" style="width: 50%; height: 14px; margin-bottom: 8px;"></div>
+                        <div class="skeleton-box" style="width: 100%; height: 38px; border-radius: 6px;"></div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                    <div class="skeleton-box" style="width: 80px; height: 38px; border-radius: 4px;"></div>
+                    <div class="skeleton-box" style="width: 140px; height: 38px; border-radius: 4px;"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -550,9 +588,28 @@
         openModal('modalEditData');
         const container = document.getElementById('edit-modal-content');
         container.innerHTML = `
-            <div style="padding: 40px; text-align: center; color: #64748b;">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
-                <div style="margin-top: 10px;">Memuat form edit...</div>
+            <div style="padding: 20px;">
+                <div class="skeleton-box" style="width: 30%; height: 14px; margin-bottom: 8px;"></div>
+                <div class="skeleton-box" style="width: 100%; height: 38px; margin-bottom: 20px; border-radius: 6px;"></div>
+                
+                <div class="skeleton-box" style="width: 30%; height: 14px; margin-bottom: 8px;"></div>
+                <div class="skeleton-box" style="width: 100%; height: 38px; margin-bottom: 20px; border-radius: 6px;"></div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <div class="skeleton-box" style="width: 50%; height: 14px; margin-bottom: 8px;"></div>
+                        <div class="skeleton-box" style="width: 100%; height: 38px; border-radius: 6px;"></div>
+                    </div>
+                    <div>
+                        <div class="skeleton-box" style="width: 50%; height: 14px; margin-bottom: 8px;"></div>
+                        <div class="skeleton-box" style="width: 100%; height: 38px; border-radius: 6px;"></div>
+                    </div>
+                </div>
+                
+                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 30px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                    <div class="skeleton-box" style="width: 80px; height: 38px; border-radius: 4px;"></div>
+                    <div class="skeleton-box" style="width: 140px; height: 38px; border-radius: 4px;"></div>
+                </div>
             </div>`;
         
         fetch(`/implementasi/${id}/edit`, {
