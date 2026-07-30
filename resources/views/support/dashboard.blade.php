@@ -422,6 +422,15 @@
                         <label>{{ __('messages.tautan_eksternal_opsional') }}</label>
                         <input type="text" name="link_ticket" value="{{ $t->link_ticket ?? '' }}" placeholder="https://...">
                     </div>
+
+                    <div class="field">
+                        <label>Surat Laporan Template</label>
+                        <select name="template_laporan">
+                            <option value="">-- Pilih Template --</option>
+                            <!-- Template file Word akan ditambahkan menyusul -->
+                        </select>
+                        <div class="helper" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Pilih template untuk men-generate surat laporan otomatis.</div>
+                    </div>
                 </div>
 
                 <!-- KOLOM KANAN -->
