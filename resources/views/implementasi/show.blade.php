@@ -48,31 +48,61 @@
     .badge-merah { background-color: #fee2e2; color: #b91c1c; }
     .badge-hijau { background-color: #dcfce3; color: #166534; }
 
-    /* Tabs UI */
-    .tabs-nav {
+    /* Sub-Sidebar Layout (Master Data Style) */
+    .md-layout {
         display: flex;
-        border-bottom: 1px solid #e2e8f0;
-        margin-bottom: 20px;
-        overflow-x: auto;
+        align-items: flex-start;
+        gap: 1.5rem;
+        margin-top: 20px;
     }
-    .tab-btn {
-        padding: 12px 20px;
-        background: none;
+    .md-sidebar {
+        width: 240px;
+        flex-shrink: 0;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .md-tab-btn {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        border-radius: 8px;
+        background: transparent;
         border: none;
-        border-bottom: 3px solid transparent;
-        font-size: 14px;
-        font-weight: 600;
         color: #64748b;
+        font-family: inherit;
+        font-weight: 600;
+        font-size: 0.9rem;
         cursor: pointer;
-        transition: all 0.3s;
-        white-space: nowrap;
+        transition: all 0.2s ease;
+        text-align: left;
+        width: 100%;
     }
-    .tab-btn:hover {
+    .md-tab-btn:hover {
+        background: #f8fafc;
         color: #0f172a;
     }
-    .tab-btn.active {
+    .md-tab-btn.active {
+        background: #eff6ff;
         color: #2563eb;
-        border-bottom-color: #2563eb;
+        position: relative;
+    }
+    .md-tab-btn.active::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 4px;
+        height: 50%;
+        background: #2563eb;
+        border-radius: 0 4px 4px 0;
     }
     .tab-content {
         display: none;
@@ -80,6 +110,14 @@
     }
     .tab-content.active {
         display: block;
+    }
+    @media (max-width: 768px) {
+        .md-layout {
+            flex-direction: column;
+        }
+        .md-sidebar {
+            width: 100%;
+        }
     }
     @keyframes fadeIn {
         from { opacity: 0; transform: translateY(5px); }
@@ -395,14 +433,30 @@
     </div>
 </div>
 
-<div class="detail-card">
-    <!-- Tab Navigation -->
-    <div class="tabs-nav">
-        <button class="tab-btn active" onclick="openTab('tab-ringkasan')">Ringkasan</button>
-        <button class="tab-btn" onclick="openTab('tab-checklist')">Checklist Kesiapan</button>
-        <button class="tab-btn" onclick="openTab('tab-migrasi')">Migrasi Data</button>
-        <button class="tab-btn" onclick="openTab('tab-aktivitas')">Aktivitas & Log</button>
+<div class="md-layout">
+    <!-- SUB-SIDEBAR (Menu Kiri) -->
+    <div class="md-sidebar">
+        <button class="md-tab-btn active" onclick="openTab('tab-ringkasan', this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+            Ringkasan
+        </button>
+        <button class="md-tab-btn" onclick="openTab('tab-checklist', this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            Checklist Kesiapan
+        </button>
+        <button class="md-tab-btn" onclick="openTab('tab-migrasi', this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            Migrasi Data
+        </button>
+        <button class="md-tab-btn" onclick="openTab('tab-aktivitas', this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+            Aktivitas & Log
+        </button>
     </div>
+
+    <!-- MAIN CONTENT AREA -->
+    <div style="flex-grow: 1; min-width: 0;">
+        <div class="detail-card" style="margin-top: 0;">
 
     <!-- TAB 1: RINGKASAN -->
     <div id="tab-ringkasan" class="tab-content active">
@@ -620,16 +674,20 @@
 
 <script>
     // Tab Navigation Logic
-    function openTab(tabId) {
+    function openTab(tabId, btn) {
         // Hide all contents
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
         // Remove active class from buttons
-        document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.md-tab-btn').forEach(el => el.classList.remove('active'));
         
         // Show target content
         document.getElementById(tabId).classList.add('active');
         // Set active button
-        event.currentTarget.classList.add('active');
+        if (btn) {
+            btn.classList.add('active');
+        } else if (event && event.currentTarget) {
+            event.currentTarget.classList.add('active');
+        }
     }
 
     // Quick Mark as Done Modal
