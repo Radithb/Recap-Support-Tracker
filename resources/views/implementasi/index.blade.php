@@ -319,7 +319,7 @@
                         <div id="anggota-container">
                             <div class="anggota-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
                                 <input type="text" name="anggota_hadir[]" class="form-control" placeholder="Nama Anggota" required>
-                                <button type="button" class="btn-action" style="background-color: #10b981; padding: 0 10px; font-size: 16px; line-height: 1;" onclick="addAnggotaInput()">+</button>
+                                <button type="button" class="btn-action" style="background-color: #10b981; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="addAnggotaInput()">+</button>
                             </div>
                         </div>
                     </div>
@@ -370,7 +370,7 @@
         
         inputGroup.innerHTML = `
             <input type="text" name="anggota_hadir[]" class="form-control" placeholder="Nama Anggota" required>
-            <button type="button" class="btn-action" style="background-color: #ef4444; padding: 0 10px; font-size: 16px; line-height: 1;" onclick="removeAnggotaInput(this)">-</button>
+            <button type="button" class="btn-action" style="background-color: #ef4444; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="removeAnggotaInput(this)">-</button>
         `;
         container.appendChild(inputGroup);
     }
