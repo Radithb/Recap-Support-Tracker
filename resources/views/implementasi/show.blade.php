@@ -3,6 +3,13 @@
 @section('page_title', 'Detail Implementasi')
 @section('page_subtitle', $implementasi->instansi->nama_instansi ?? 'Koperasi')
 
+@section('topbar_right')
+    <a href="{{ route('implementasi.index') }}" style="background-color: #64748b; color: white; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: background 0.2s;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"></path><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Kembali
+    </a>
+@endsection
+
 @section('content')
 <style>
     /* Styling Dasar & Header */
