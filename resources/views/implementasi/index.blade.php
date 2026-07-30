@@ -251,7 +251,7 @@
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                                     </button>
                                     <div id="kebab-menu-{{ $impl->id }}" class="kebab-menu-content">
-                                        <a href="{{ route('implementasi.edit', $impl->id) }}" class="kebab-item">Edit</a>
+                                        <button type="button" class="kebab-item" onclick="openEditModal({{ $impl->id }})">Edit</button>
                                         <form action="{{ route('implementasi.destroy', $impl->id) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data implementasi ini?');">
                                             @csrf
                                             @method('DELETE')
@@ -436,9 +436,27 @@
     </div>
 </div>
 
+<!-- Modal Edit Data -->
+<div class="modal-overlay" id="modalEditData">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h3 style="margin: 0; font-size: 16px;">Edit Data Implementasi</h3>
+            <button class="btn-close-modal" onclick="closeModal('modalEditData')">&times;</button>
+        </div>
+        <div id="edit-modal-content">
+            <!-- Form will be loaded here via AJAX -->
+            <div style="padding: 40px; text-align: center; color: #64748b;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
+                <div style="margin-top: 10px;">Memuat form edit...</div>
+                <style>@keyframes spin { 100% { transform: rotate(360deg); } }</style>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-    function openModal(id) {
-        document.getElementById(id).classList.add('active');
+    function openModal(modalId) {
+        document.getElementById(modalId).classList.add('active');
     }
     
     function closeModal(id) {
@@ -521,5 +539,84 @@
             });
         }
     });
+
+    // Edit Modal Logic
+    function openEditModal(id) {
+        // Tutup kebab menu yang sedang terbuka
+        document.querySelectorAll('.kebab-menu-content').forEach(menu => {
+            menu.classList.remove('show');
+        });
+        
+        openModal('modalEditData');
+        const container = document.getElementById('edit-modal-content');
+        container.innerHTML = `
+            <div style="padding: 40px; text-align: center; color: #64748b;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>
+                <div style="margin-top: 10px;">Memuat form edit...</div>
+            </div>`;
+        
+        fetch(`/implementasi/${id}/edit`, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => {
+            if (!response.ok) throw new Error('Terjadi kesalahan saat memuat form.');
+            return response.text();
+        })
+        .then(html => {
+            container.innerHTML = html;
+        })
+        .catch(error => {
+            container.innerHTML = `<div style="padding: 30px; text-align: center; color: #ef4444;">${error.message}</div>`;
+        });
+    }
+
+    // Dynamic inputs untuk form edit
+    function addEditAplikasiInput() {
+        const container = document.getElementById('edit-aplikasi-container');
+        const originalGroup = container.querySelector('.aplikasi-input-group');
+        const newGroup = originalGroup.cloneNode(true);
+        newGroup.querySelector('select').selectedIndex = 0;
+        
+        const btn = newGroup.querySelector('button');
+        btn.textContent = '-';
+        btn.style.backgroundColor = '#ef4444';
+        btn.onclick = function() { removeEditInput(this); };
+        
+        container.appendChild(newGroup);
+    }
+    
+    function addEditAnggotaInput() {
+        const container = document.getElementById('edit-anggota-container');
+        const originalGroup = container.querySelector('.anggota-input-group');
+        const newGroup = originalGroup.cloneNode(true);
+        newGroup.querySelector('input').value = '';
+        
+        const btn = newGroup.querySelector('button');
+        btn.textContent = '-';
+        btn.style.backgroundColor = '#ef4444';
+        btn.onclick = function() { removeEditInput(this); };
+        
+        container.appendChild(newGroup);
+    }
+    
+    function addEditTrainerInput() {
+        const container = document.getElementById('edit-trainer-container');
+        const originalGroup = container.querySelector('.trainer-input-group');
+        const newGroup = originalGroup.cloneNode(true);
+        newGroup.querySelector('input').value = '';
+        
+        const btn = newGroup.querySelector('button');
+        btn.textContent = '-';
+        btn.style.backgroundColor = '#ef4444';
+        btn.onclick = function() { removeEditInput(this); };
+        
+        container.appendChild(newGroup);
+    }
+
+    function removeEditInput(btn) {
+        btn.parentElement.remove();
+    }
 </script>
 @endsection
