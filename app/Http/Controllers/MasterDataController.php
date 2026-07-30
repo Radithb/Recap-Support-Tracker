@@ -29,12 +29,14 @@ class MasterDataController extends Controller
     {
         $request->validate([
             'nama_aplikasi' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string'
+            'deskripsi' => 'nullable|string',
+            'link' => 'nullable|url'
         ]);
 
         MasterAplikasi::create([
             'nama_aplikasi' => $request->nama_aplikasi,
             'deskripsi' => $request->deskripsi,
+            'link' => $request->link,
             'is_active' => true
         ]);
 
@@ -46,6 +48,7 @@ class MasterDataController extends Controller
         $request->validate([
             'nama_aplikasi' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
+            'link' => 'nullable|url',
             'is_active' => 'required|boolean',
         ]);
 
@@ -53,6 +56,7 @@ class MasterDataController extends Controller
         $aplikasi->update([
             'nama_aplikasi' => $request->nama_aplikasi,
             'deskripsi' => $request->deskripsi,
+            'link' => $request->link,
             'is_active' => $request->boolean('is_active'),
         ]);
 

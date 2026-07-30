@@ -265,6 +265,7 @@
                                     <tr>
                                         <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.nama_aplikasi') }}</th>
                                         <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.deskripsi') }}</th>
+                                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.link_aplikasi') }}</th>
                                         <th style="padding: 1rem 1.5rem; text-align: right; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.status') }}</th>
                                         <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.aksi') }}</th>
                                     </tr>
@@ -285,6 +286,16 @@
                                             </span>
                                         @else
                                             {{ $app->deskripsi }}
+                                        @endif
+                                    </td>
+                                    <td style="padding: 1.25rem 1.5rem; font-size: 0.95rem;">
+                                        @if($app->link)
+                                            <a href="{{ $app->link }}" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 4px;">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                                                Buka
+                                            </a>
+                                        @else
+                                            <span style="color: var(--text-muted); font-style: italic;">-</span>
                                         @endif
                                     </td>
                                     <td style="padding: 1.25rem 1.5rem; text-align: right;">
@@ -520,6 +531,8 @@
                                                     $bg = '#fef9c3'; $color = '#ca8a04';
                                                 } elseif ($statusLower === 'proses' || $statusLower === 'on progress' || $statusLower === 'open') {
                                                     $bg = '#fee2e2'; $color = '#dc2626';
+                                                } elseif ($statusLower === 'in preview' || $statusLower === 'preview') {
+                                                    $bg = '#e0e7ff'; $color = '#4f46e5';
                                                 } else {
                                                     $bg = 'var(--paper-sunken)'; $color = 'var(--text-muted)';
                                                 }
@@ -535,6 +548,8 @@
                                                 <strong style="color: var(--ink);">{{ __('messages.st_desc_proses_title') }}</strong> {{ __('messages.st_desc_proses_text') }}
                                             @elseif($st->name === 'PENDING')
                                                 <strong style="color: var(--ink);">{{ __('messages.st_desc_pending_title') }}</strong> {{ __('messages.st_desc_pending_text') }}
+                                            @elseif($st->name === 'PREVIEW')
+                                                <strong style="color: var(--ink);">{{ __('messages.st_desc_preview_title') }}</strong> {{ __('messages.st_desc_preview_text') }}
                                             @elseif($st->name === 'DONE')
                                                 <strong style="color: var(--ink);">{{ __('messages.st_desc_done_title') }}</strong> {{ __('messages.st_desc_done_text') }}
                                             @endif
@@ -657,6 +672,10 @@
                         <label>{{ __('messages.deskripsi_singkat') }}</label>
                         <textarea name="deskripsi" placeholder="{{ __('messages.penjelasan_singkat') }}" rows="3"></textarea>
                     </div>
+                    <div class="field">
+                        <label>{{ __('messages.link_aplikasi') }}</label>
+                        <input type="url" name="link" placeholder="{{ __('messages.masukkan_link_aplikasi') }}">
+                    </div>
                 </div>
                 <div class="modal-foot">
                     <button type="button" class="btn btn-ghost" onclick="closeModal('modal-add-aplikasi')">{{ __('messages.batal') }}</button>
@@ -714,6 +733,10 @@
                     <div class="field">
                         <label>{{ __('messages.deskripsi_singkat') }}</label>
                         <textarea name="deskripsi" placeholder="{{ __('messages.penjelasan_singkat') }}" rows="3">{{ $app->deskripsi }}</textarea>
+                    </div>
+                    <div class="field">
+                        <label>{{ __('messages.link_aplikasi') }}</label>
+                        <input type="url" name="link" value="{{ $app->link }}" placeholder="{{ __('messages.masukkan_link_aplikasi') }}">
                     </div>
                     <div class="field">
                         <label>Status Aplikasi <span style="color:var(--danger)">*</span></label>

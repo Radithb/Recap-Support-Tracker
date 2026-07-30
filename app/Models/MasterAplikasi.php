@@ -12,6 +12,7 @@ class MasterAplikasi extends Model
     protected $fillable = [
         'nama_aplikasi',
         'deskripsi',
+        'link',
         'is_active',
     ];
 
