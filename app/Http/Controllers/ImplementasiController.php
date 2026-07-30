@@ -184,4 +184,24 @@ class ImplementasiController extends Controller
             'checklist' => $checklist
         ]);
     }
+
+    /**
+     * Menghapus data implementasi
+     */
+    public function destroy($id)
+    {
+        if (Auth::user()->role === UserRole::PELAPOR) {
+            abort(403, 'Anda tidak memiliki akses untuk menghapus data ini.');
+        }
+
+        $implementasi = ImplementasiKoperasi::findOrFail($id);
+        
+        // Hapus relasi pivot aplikasi jika ada
+        $implementasi->aplikasis()->detach();
+        
+        // Hapus data (relasi checklist dan log otomatis terhapus karena foreign key onDelete cascade)
+        $implementasi->delete();
+
+        return redirect()->route('implementasi.index')->with('success', 'Data Implementasi berhasil dihapus.');
+    }
 }

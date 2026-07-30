@@ -113,6 +113,54 @@
     .dark-mode .badge-oranye { background-color: #7c2d12; color: #ffedd5; }
     .dark-mode .badge-merah { background-color: #7f1d1d; color: #fecaca; }
     .dark-mode .badge-hijau { background-color: #14532d; color: #bbf7d0; }
+    .dropdown-kebab {
+        position: relative;
+        display: inline-block;
+    }
+    .btn-kebab {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 4px;
+        color: #64748b;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s;
+    }
+    .btn-kebab:hover { background: #f1f5f9; }
+    .kebab-menu-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background: white;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        z-index: 50;
+        min-width: 120px;
+        overflow: hidden;
+    }
+    .kebab-menu-content.show { display: block; }
+    .kebab-item {
+        display: block;
+        width: 100%;
+        text-align: left;
+        padding: 10px 15px;
+        color: #1e293b;
+        text-decoration: none;
+        font-size: 13px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .kebab-item:hover { background: #f1f5f9; }
+    .kebab-item.text-red { color: #ef4444; }
+    .kebab-item.text-red:hover { background: #fef2f2; }
+    
     .dark-mode .progress-container { background-color: #334155; }
 </style>
 
@@ -194,7 +242,25 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('implementasi.show', $impl->id) }}" class="btn-action">Detail</a>
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <a href="{{ route('implementasi.show', $impl->id) }}" class="btn-action">Detail</a>
+                                
+                                @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
+                                <div class="dropdown-kebab">
+                                    <button type="button" class="btn-kebab" onclick="toggleKebab({{ $impl->id }}, event)">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                                    </button>
+                                    <div id="kebab-menu-{{ $impl->id }}" class="kebab-menu-content">
+                                        <button type="button" class="kebab-item" onclick="openEditModal({{ $impl->id }})">Edit</button>
+                                        <form action="{{ route('implementasi.destroy', $impl->id) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data implementasi ini?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="kebab-item text-red">Hapus</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                @endif
+                            </div>
                         </td>
                     </tr>
                 @empty
@@ -433,6 +499,32 @@
 
     function removeAplikasiInput(btn) {
         btn.parentElement.remove();
+    }
+    // Kebab Menu Logic
+    function toggleKebab(id, event) {
+        event.stopPropagation();
+        // Close all other kebabs
+        document.querySelectorAll('.kebab-menu-content').forEach(menu => {
+            if (menu.id !== 'kebab-menu-' + id) {
+                menu.classList.remove('show');
+            }
+        });
+        // Toggle current kebab
+        document.getElementById('kebab-menu-' + id).classList.toggle('show');
+    }
+
+    // Close kebab menu when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.dropdown-kebab')) {
+            document.querySelectorAll('.kebab-menu-content').forEach(menu => {
+                menu.classList.remove('show');
+            });
+        }
+    });
+
+    // Edit Modal Logic (Placeholder for now)
+    function openEditModal(id) {
+        alert('Fitur Edit untuk ID ' + id + ' akan segera diimplementasikan secara penuh.');
     }
 </script>
 @endsection
