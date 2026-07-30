@@ -37,7 +37,8 @@
                     <option value="">{{ __('messages.status_semua') }}</option>
                     <option value="Open" {{ request('status') == 'Open' ? 'selected' : '' }}>Open</option>
                     <option value="Proses" {{ request('status') == 'Proses' ? 'selected' : '' }}>Proses</option>
-                    <option value="In Preview" {{ request('status') == 'In Preview' ? 'selected' : '' }}>In Preview</option>
+                    <option value="In Review" {{ request('status') == 'In Review' ? 'selected' : '' }}>In Review</option>
+                    <option value="Waiting" {{ request('status') == 'Waiting' ? 'selected' : '' }}>Waiting</option>
                     <option value="Pending" {{ request('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
                     <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>{{ __('messages.status_selesai') }}</option>
                 </select>

@@ -531,8 +531,10 @@
                                                     $bg = '#fef9c3'; $color = '#ca8a04';
                                                 } elseif ($statusLower === 'proses' || $statusLower === 'on progress' || $statusLower === 'open') {
                                                     $bg = '#fee2e2'; $color = '#dc2626';
-                                                } elseif ($statusLower === 'in preview' || $statusLower === 'preview') {
+                                                } elseif ($statusLower === 'in review' || $statusLower === 'review') {
                                                     $bg = '#e0e7ff'; $color = '#4f46e5';
+                                                } elseif ($statusLower === 'waiting') {
+                                                    $bg = '#ffedd5'; $color = '#ea580c';
                                                 } else {
                                                     $bg = 'var(--paper-sunken)'; $color = 'var(--text-muted)';
                                                 }
@@ -548,8 +550,10 @@
                                                 <strong style="color: var(--ink);">{{ __('messages.st_desc_proses_title') }}</strong> {{ __('messages.st_desc_proses_text') }}
                                             @elseif($st->name === 'PENDING')
                                                 <strong style="color: var(--ink);">{{ __('messages.st_desc_pending_title') }}</strong> {{ __('messages.st_desc_pending_text') }}
-                                            @elseif($st->name === 'PREVIEW')
-                                                <strong style="color: var(--ink);">{{ __('messages.st_desc_preview_title') }}</strong> {{ __('messages.st_desc_preview_text') }}
+                                            @elseif($st->name === 'REVIEW')
+                                                <strong style="color: var(--ink);">{{ __('messages.st_desc_review_title') }}</strong> {{ __('messages.st_desc_review_text') }}
+                                            @elseif($st->name === 'WAITING')
+                                                <strong style="color: var(--ink);">{{ __('messages.st_desc_waiting_title') }}</strong> {{ __('messages.st_desc_waiting_text') }}
                                             @elseif($st->name === 'DONE')
                                                 <strong style="color: var(--ink);">{{ __('messages.st_desc_done_title') }}</strong> {{ __('messages.st_desc_done_text') }}
                                             @endif

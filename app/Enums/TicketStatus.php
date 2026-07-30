@@ -7,6 +7,7 @@ enum TicketStatus: string
     case OPEN = 'Open';
     case PENDING = 'Pending';
     case PROSES = 'Proses';
-    case PREVIEW = 'In Preview';
+    case REVIEW = 'In Review';
+    case WAITING = 'Waiting';
     case DONE = 'Done';
 }

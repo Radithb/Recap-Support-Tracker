@@ -80,7 +80,8 @@
             <option value="">{{ __('messages.semua_status') }}</option>
             <option value="Open" {{ request('status') == 'Open' ? 'selected' : '' }}>Open</option>
             <option value="Proses" {{ request('status') == 'Proses' ? 'selected' : '' }}>Proses</option>
-            <option value="In Preview" {{ request('status') == 'In Preview' ? 'selected' : '' }}>In Preview</option>
+            <option value="In Review" {{ request('status') == 'In Review' ? 'selected' : '' }}>In Review</option>
+            <option value="Waiting" {{ request('status') == 'Waiting' ? 'selected' : '' }}>Waiting</option>
             <option value="Pending" {{ request('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
             <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>{{ __('messages.selesai') }}</option>
         </select>
@@ -430,7 +431,8 @@
                         <select name="status" required>
                             <option value="Open" {{ $t->status === \App\Enums\TicketStatus::OPEN ? 'selected' : '' }}>Open</option>
                             <option value="Proses" {{ $t->status === \App\Enums\TicketStatus::PROSES ? 'selected' : '' }}>Proses</option>
-                            <option value="In Preview" {{ $t->status === \App\Enums\TicketStatus::PREVIEW ? 'selected' : '' }}>In Preview</option>
+                            <option value="In Review" {{ $t->status === \App\Enums\TicketStatus::REVIEW ? 'selected' : '' }}>In Review</option>
+                            <option value="Waiting" {{ $t->status === \App\Enums\TicketStatus::WAITING ? 'selected' : '' }}>Waiting</option>
                             <option value="Pending" {{ $t->status === \App\Enums\TicketStatus::PENDING ? 'selected' : '' }}>Pending</option>
                             <option value="Done" {{ $t->status === \App\Enums\TicketStatus::DONE ? 'selected' : '' }}>Done</option>
                         </select>
