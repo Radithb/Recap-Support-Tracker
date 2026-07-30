@@ -241,6 +241,7 @@
 <!-- Toast Notification -->
 <div id="toast" class="toast">Berhasil disimpan!</div>
 
+<div style="max-width: 1280px; margin: 0 auto; padding: 20px 30px;">
 <div class="detail-card">
     <div class="detail-header">
         <div>
@@ -384,6 +385,7 @@
             @endforelse
         </div>
     </div>
+</div>
 </div>
 
 <script>
