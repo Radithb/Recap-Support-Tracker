@@ -188,6 +188,79 @@ class ImplementasiController extends Controller
     }
 
     /**
+     * Menambah item checklist kustom
+     */
+    public function storeChecklist(Request $request, $id)
+    {
+        if (Auth::user()->role === UserRole::PELAPOR) {
+            return response()->json(['success' => false, 'message' => 'Akses ditolak.'], 403);
+        }
+
+        $request->validate([
+            'nama_item' => 'required|string|max:255',
+            'kategori' => 'nullable|string|max:100',
+        ]);
+
+        $implementasi = ImplementasiKoperasi::findOrFail($id);
+
+        $checklist = $implementasi->checklists()->create([
+            'nama_item' => $request->nama_item,
+            'kategori' => $request->kategori ?? 'Lainnya',
+            'status' => 'Belum Dikirim',
+        ]);
+
+        ImplementasiLog::create([
+            'implementasi_id' => $implementasi->id,
+            'user_id' => Auth::id(),
+            'aktivitas' => 'Tambah Item Checklist: ' . $checklist->nama_item,
+            'data_sebelum' => null,
+            'data_sesudah' => ['nama_item' => $checklist->nama_item],
+            'catatan' => null
+        ]);
+
+        $newProgres = $implementasi->updateProgres();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Item checklist berhasil ditambahkan',
+            'new_progres' => $newProgres,
+            'checklist' => $checklist
+        ]);
+    }
+
+    /**
+     * Menghapus item checklist
+     */
+    public function destroyChecklist($id)
+    {
+        if (Auth::user()->role === UserRole::PELAPOR) {
+            return response()->json(['success' => false, 'message' => 'Akses ditolak.'], 403);
+        }
+
+        $checklist = ImplementasiChecklist::findOrFail($id);
+        $implementasi = $checklist->implementasi;
+
+        ImplementasiLog::create([
+            'implementasi_id' => $implementasi->id,
+            'user_id' => Auth::id(),
+            'aktivitas' => 'Hapus Item Checklist: ' . $checklist->nama_item,
+            'data_sebelum' => ['nama_item' => $checklist->nama_item],
+            'data_sesudah' => null,
+            'catatan' => null
+        ]);
+
+        $checklist->delete();
+
+        $newProgres = $implementasi->updateProgres();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Item checklist berhasil dihapus',
+            'new_progres' => $newProgres
+        ]);
+    }
+
+    /**
      * Menampilkan form edit implementasi
      */
     public function edit($id)

@@ -285,6 +285,48 @@
     </div>
 </div>
 
+<!-- Modal Kelola / Hapus Checklist -->
+<div class="modal-overlay" id="modalKelolaChecklist" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(2px); z-index: 9999; justify-content: center; align-items: center;">
+    <div style="background: #fff; border-radius: 12px; width: 90%; max-width: 550px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); animation: fadeUpDoneModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
+        <div style="padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="margin: 0; font-size: 16px; font-weight: 700; color: #1e293b;">Kelola Item Checklist Kesiapan</h4>
+            <button type="button" onclick="closeKelolaModal()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b;">&times;</button>
+        </div>
+        <div style="padding: 20px; overflow-y: auto; flex-grow: 1;">
+            <p style="margin: 0 0 15px; font-size: 13px; color: #64748b;">
+                Hapus item checklist yang tidak diperlukan oleh koperasi ini. Progres kesiapan akan otomatis dihitung ulang.
+            </p>
+            <div id="kelola-checklist-list" style="display: flex; flex-direction: column; gap: 8px;">
+                @foreach($implementasi->checklists as $chk)
+                <div id="modal-item-{{ $chk->id }}" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px;">
+                    <div>
+                        <span style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: #64748b; background: #e2e8f0; padding: 2px 6px; border-radius: 4px; margin-right: 6px;">{{ $chk->kategori ?? 'Umum' }}</span>
+                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">{{ $chk->nama_item }}</span>
+                    </div>
+                    <button type="button" onclick="deleteChecklist({{ $chk->id }}, '{{ addslashes($chk->nama_item) }}')" style="background: #ef4444; color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px;" title="Hapus Item Ini">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        Hapus
+                    </button>
+                </div>
+                @endforeach
+            </div>
+
+            <!-- Tambah Item Kustom -->
+            <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed #cbd5e1;">
+                <h5 style="margin: 0 0 10px; font-size: 13px; font-weight: 600; color: #475569;">+ Tambah Item Checklist Kustom</h5>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="new-item-kategori" placeholder="Kategori" style="width: 110px; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;">
+                    <input type="text" id="new-item-nama" placeholder="Nama Item Checklist" style="flex-grow: 1; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;">
+                    <button type="button" onclick="addCustomChecklist({{ $implementasi->id }})" style="background: #2563eb; color: #fff; border: none; padding: 7px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; white-space: nowrap;">Tambah</button>
+                </div>
+            </div>
+        </div>
+        <div style="padding: 12px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end;">
+            <button type="button" onclick="closeKelolaModal()" style="padding: 7px 16px; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff; color: #475569; font-weight: 600; cursor: pointer; font-size: 13px;">Selesai</button>
+        </div>
+    </div>
+</div>
+
 <div style="max-width: 1280px; margin: 0 auto; padding: 20px 30px;">
 <div class="detail-card">
     <div class="detail-header">
@@ -368,6 +410,15 @@
 
     <!-- TAB 2: CHECKLIST -->
     <div id="tab-checklist" class="tab-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Checklist Kesiapan Implementasi</h4>
+            @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
+                <button type="button" onclick="openKelolaModal()" style="background: #475569; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;" title="Hapus atau Tambah Item Checklist">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                    Edit / Hapus Checklist
+                </button>
+            @endif
+        </div>
         @if($implementasi->checklists->count() > 0)
             <div style="overflow-x: auto;">
                 <table class="checklist-table">
@@ -382,7 +433,7 @@
                     </thead>
                     <tbody>
                         @foreach($implementasi->checklists as $chk)
-                        <tr>
+                        <tr id="chk-row-{{ $chk->id }}">
                             <td>{{ $chk->kategori ?? '-' }}</td>
                             <td style="font-weight: 500;">{{ $chk->nama_item }}</td>
                             <td>
@@ -490,6 +541,85 @@
             closeDoneModal();
         }
     });
+
+    // Kelola Checklist Modal
+    function openKelolaModal() {
+        document.getElementById('modalKelolaChecklist').style.display = 'flex';
+    }
+
+    function closeKelolaModal() {
+        document.getElementById('modalKelolaChecklist').style.display = 'none';
+    }
+
+    function deleteChecklist(id, name) {
+        if (!confirm(`Apakah Anda yakin ingin menghapus item "${name}" dari checklist ini?`)) {
+            return;
+        }
+
+        fetch(`{{ url('implementasi/checklist') }}/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                const modalItem = document.getElementById('modal-item-' + id);
+                if (modalItem) modalItem.remove();
+
+                const tableRow = document.getElementById('chk-row-' + id);
+                if (tableRow) tableRow.remove();
+
+                document.getElementById('progres-text').innerText = data.new_progres + '%';
+                document.getElementById('progres-fill').style.width = data.new_progres + '%';
+
+                showToast('Item checklist berhasil dihapus!');
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Gagal menghapus item checklist.');
+        });
+    }
+
+    function addCustomChecklist(implId) {
+        const namaInput = document.getElementById('new-item-nama');
+        const kategoriInput = document.getElementById('new-item-kategori');
+        const nama = namaInput.value.trim();
+        const kategori = kategoriInput.value.trim() || 'Lainnya';
+
+        if (!nama) {
+            alert('Nama item checklist tidak boleh kosong.');
+            return;
+        }
+
+        fetch(`{{ url('implementasi') }}/${implId}/checklist`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ nama_item: nama, kategori: kategori })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                namaInput.value = '';
+                kategoriInput.value = '';
+
+                document.getElementById('progres-text').innerText = data.new_progres + '%';
+                document.getElementById('progres-fill').style.width = data.new_progres + '%';
+
+                showToast('Item checklist baru berhasil ditambahkan! Silakan refresh untuk memuat ulang tabel.');
+                setTimeout(() => location.reload(), 1200);
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Gagal menambahkan item checklist.');
+        });
+    }
 
     // AJAX Update Checklist
     function updateChecklist(id) {
