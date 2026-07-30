@@ -90,6 +90,37 @@
     .btn-action:active {
         transform: scale(0.97);
     }
+
+    /* Skeleton Loading Shimmer Effect */
+    .skeleton-box {
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+        background-color: #e2e8f0;
+        border-radius: 6px;
+    }
+    .dark-mode .skeleton-box {
+        background-color: #334155;
+    }
+    .skeleton-box::after {
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        transform: translateX(-100%);
+        background-image: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0) 0,
+            rgba(255, 255, 255, 0.6) 20%,
+            rgba(255, 255, 255, 0.5) 60%,
+            rgba(255, 255, 255, 0)
+        );
+        animation: shimmer 1.5s infinite;
+        content: '';
+    }
+    @keyframes shimmer {
+        100% {
+            transform: translateX(100%);
+        }
+    }
     
     .dark-mode .dashboard-card {
         background: #1e293b;
@@ -196,7 +227,31 @@
                     <th>Aksi</th>
                 </tr>
             </thead>
-            <tbody>
+            <!-- Skeleton Loading Rows -->
+            <tbody id="skeleton-loading-body">
+                @for($i = 0; $i < 4; $i++)
+                <tr>
+                    <td><div class="skeleton-box" style="width: 120px; height: 16px;"></div></td>
+                    <td><div class="skeleton-box" style="width: 140px; height: 16px;"></div></td>
+                    <td><div class="skeleton-box" style="width: 80px; height: 16px;"></div></td>
+                    <td><div class="skeleton-box" style="width: 30px; height: 16px;"></div></td>
+                    <td><div class="skeleton-box" style="width: 90px; height: 16px;"></div></td>
+                    <td>
+                        <div class="skeleton-box" style="width: 45px; height: 14px; margin-bottom: 5px;"></div>
+                        <div class="skeleton-box" style="width: 100px; height: 8px;"></div>
+                    </td>
+                    <td><div class="skeleton-box" style="width: 100px; height: 24px; border-radius: 20px;"></div></td>
+                    <td>
+                        <div class="skeleton-box" style="width: 130px; height: 14px; margin-bottom: 4px;"></div>
+                        <div class="skeleton-box" style="width: 80px; height: 11px;"></div>
+                    </td>
+                    <td><div class="skeleton-box" style="width: 60px; height: 28px; border-radius: 6px;"></div></td>
+                </tr>
+                @endfor
+            </tbody>
+
+            <!-- Real Table Body -->
+            <tbody id="real-table-body" style="display: none;">
                 @forelse($implementasis as $impl)
                     @php
                         $statusText = strtolower($impl->status);
@@ -686,5 +741,17 @@
     function removeEditInput(btn) {
         btn.parentElement.remove();
     }
+
+    // Hide Skeleton Loading & Show Real Content
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+            const skeleton = document.getElementById('skeleton-loading-body');
+            const realBody = document.getElementById('real-table-body');
+            if (skeleton && realBody) {
+                skeleton.style.display = 'none';
+                realBody.style.display = '';
+            }
+        }, 450);
+    });
 </script>
 @endsection
