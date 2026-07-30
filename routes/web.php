@@ -55,6 +55,8 @@ Route::middleware('auth')->group(function () {
     Route::middleware([\App\Http\Middleware\IsSupport::class])->prefix('implementasi')->name('implementasi.')->group(function () {
         Route::get('/', [\App\Http\Controllers\ImplementasiController::class, 'index'])->name('index');
         Route::post('/', [\App\Http\Controllers\ImplementasiController::class, 'store'])->name('store');
+        Route::get('/{id}/edit', [\App\Http\Controllers\ImplementasiController::class, 'edit'])->name('edit');
+        Route::put('/{id}', [\App\Http\Controllers\ImplementasiController::class, 'update'])->name('update');
         Route::get('/{id}', [\App\Http\Controllers\ImplementasiController::class, 'show'])->name('show');
         Route::delete('/{id}', [\App\Http\Controllers\ImplementasiController::class, 'destroy'])->name('destroy');
         Route::put('/checklist/{id}', [\App\Http\Controllers\ImplementasiController::class, 'updateChecklist'])->name('checklist.update');

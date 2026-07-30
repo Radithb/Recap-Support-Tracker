@@ -186,6 +186,80 @@ class ImplementasiController extends Controller
     }
 
     /**
+     * Menampilkan form edit implementasi
+     */
+    public function edit($id)
+    {
+        $implementasi = ImplementasiKoperasi::with(['aplikasis'])->findOrFail($id);
+        
+        // Security check for Pelapor
+        if (Auth::user()->role === UserRole::PELAPOR && $implementasi->instansi_id !== Auth::user()->instansi_id) {
+            abort(403, 'Anda tidak memiliki akses ke data implementasi ini.');
+        }
+
+        $instansis = Instansi::orderBy('nama_instansi')->get();
+        $aplikasis = MasterAplikasi::where('is_active', true)->orderBy('nama_aplikasi')->get();
+
+        return view('implementasi.edit', compact('implementasi', 'instansis', 'aplikasis'));
+    }
+
+    /**
+     * Menyimpan pembaruan data implementasi
+     */
+    public function update(Request $request, $id)
+    {
+        $implementasi = ImplementasiKoperasi::findOrFail($id);
+
+        if (Auth::user()->role === UserRole::PELAPOR) {
+            abort(403, 'Anda tidak memiliki akses untuk mengubah data ini.');
+        }
+
+        $request->validate([
+            'instansi_id' => 'required|exists:instansis,instansi_id',
+            'aplikasi_id' => 'required|array',
+            'aplikasi_id.*' => 'required|exists:master_aplikasis,aplikasi_id',
+            'tanggal_pelatihan' => 'required|date',
+            'metode_pelatihan' => 'required|string',
+            'nama_trainer' => 'nullable|array',
+            'nama_trainer.*' => 'nullable|string',
+            'anggota_hadir' => 'required|array',
+            'anggota_hadir.*' => 'required|string',
+            'kontak_pic' => 'required|string',
+            'email_pic' => 'nullable|email',
+            'catatan_pelatihan' => 'nullable|string',
+            'target_go_live' => 'nullable|date',
+        ]);
+
+        $implementasi->update([
+            'instansi_id' => $request->instansi_id,
+            'aplikasi_id' => is_array($request->aplikasi_id) ? $request->aplikasi_id[0] : $request->aplikasi_id, // Backward compatibility
+            'tanggal_pelatihan' => $request->tanggal_pelatihan,
+            'metode_pelatihan' => $request->metode_pelatihan,
+            'nama_trainer' => is_array($request->nama_trainer) ? implode(', ', array_filter($request->nama_trainer)) : null,
+            'anggota_hadir' => implode(', ', $request->anggota_hadir),
+            'kontak_pic' => $request->kontak_pic,
+            'email_pic' => $request->email_pic,
+            'catatan_pelatihan' => $request->catatan_pelatihan,
+            'target_go_live' => $request->target_go_live,
+            'pic_tindakan' => is_array($request->anggota_hadir) ? implode(', ', $request->anggota_hadir) : ($request->anggota_hadir ?? 'Tim Support'),
+        ]);
+
+        // Sync pivot table
+        if (is_array($request->aplikasi_id)) {
+            $implementasi->aplikasis()->sync($request->aplikasi_id);
+        }
+
+        ImplementasiLog::create([
+            'implementasi_id' => $implementasi->id,
+            'user_id' => Auth::id(),
+            'aktivitas' => 'Data Implementasi Diperbarui',
+            'catatan' => 'Data implementasi diperbarui melalui form edit.'
+        ]);
+
+        return redirect()->route('implementasi.index')->with('success', 'Data Implementasi berhasil diperbarui.');
+    }
+
+    /**
      * Menghapus data implementasi
      */
     public function destroy($id)

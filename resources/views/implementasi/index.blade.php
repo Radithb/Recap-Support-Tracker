@@ -251,7 +251,7 @@
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                                     </button>
                                     <div id="kebab-menu-{{ $impl->id }}" class="kebab-menu-content">
-                                        <button type="button" class="kebab-item" onclick="openEditModal({{ $impl->id }})">Edit</button>
+                                        <a href="{{ route('implementasi.edit', $impl->id) }}" class="kebab-item">Edit</a>
                                         <form action="{{ route('implementasi.destroy', $impl->id) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data implementasi ini?');">
                                             @csrf
                                             @method('DELETE')
@@ -521,10 +521,5 @@
             });
         }
     });
-
-    // Edit Modal Logic (Placeholder for now)
-    function openEditModal(id) {
-        alert('Fitur Edit untuk ID ' + id + ' akan segera diimplementasikan secara penuh.');
-    }
 </script>
 @endsection
