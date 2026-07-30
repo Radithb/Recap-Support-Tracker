@@ -698,6 +698,9 @@
 
     <!-- TAB 6: AKTIVITAS & LOG -->
     <div id="tab-aktivitas" class="tab-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Riwayat Aktivitas & Log</h4>
+        </div>
         <div class="timeline">
             @forelse($implementasi->logs as $log)
                 <div class="timeline-item">
@@ -709,11 +712,14 @@
                                 <strong>Status:</strong> <span style="text-decoration: line-through;">{{ $log->data_sebelum['status'] ?? '' }}</span> &rarr; <span style="color:#2563eb;">{{ $log->data_sesudah['status'] ?? '' }}</span>
                             </div>
                         @endif
-
                     </div>
                 </div>
             @empty
-                <div style="color: #64748b;">Belum ada aktivitas tercatat.</div>
+                <div style="text-align: center; padding: 40px 20px; color: #64748b; background: #f8fafc; border-radius: 8px; border: 1px dashed #cbd5e1;">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 10px;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    <div style="font-weight: 600; font-size: 14px; color: #475569; margin-bottom: 4px;">Belum Ada Aktivitas</div>
+                    <div style="font-size: 13px; color: #64748b;">Setiap perubahan status checklist atau update implementasi akan otomatis tercatat di sini.</div>
+                </div>
             @endforelse
         </div>
     </div>

@@ -82,6 +82,17 @@ class ImplementasiController extends Controller
             }]);
         }
 
+        // Auto-create initial log jika riwayat aktivitas masih kosong
+        if ($implementasi->logs()->count() === 0) {
+            ImplementasiLog::create([
+                'implementasi_id' => $implementasi->id,
+                'user_id' => Auth::id(),
+                'aktivitas' => 'Data Implementasi Dibuat',
+                'catatan' => 'Implementasi didaftarkan ke sistem.'
+            ]);
+            $implementasi->load('logs');
+        }
+
         return view('implementasi.show', compact('implementasi'));
     }
 
