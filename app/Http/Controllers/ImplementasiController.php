@@ -173,7 +173,7 @@ class ImplementasiController extends Controller
             'aktivitas' => 'Update Checklist: ' . $checklist->nama_item,
             'data_sebelum' => ['status' => $oldStatus, 'catatan' => $oldCatatan],
             'data_sesudah' => ['status' => $checklist->status, 'catatan' => $checklist->catatan],
-            'catatan' => 'Checklist diperbarui via AJAX'
+            'catatan' => null
         ]);
 
         // Hitung ulang progres
