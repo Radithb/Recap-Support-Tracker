@@ -337,9 +337,14 @@
                         <input type="text" name="pic_koperasi" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Kontak PIC (WA/Email)</label>
+                        <label class="form-label">WhatsApp PIC</label>
                         <input type="text" name="kontak_pic" class="form-control" required>
                     </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Email PIC</label>
+                    <input type="email" name="email_pic" class="form-control">
                 </div>
 
                 <div class="form-group">

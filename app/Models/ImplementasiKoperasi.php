@@ -21,6 +21,7 @@ class ImplementasiKoperasi extends Model
         'pic_sakti_id',
         'pic_koperasi',
         'kontak_pic',
+        'email_pic',
         'catatan_pelatihan',
         'target_go_live',
         'tanggal_cut_off',

@@ -72,6 +72,7 @@ class ImplementasiController extends Controller
             'pic_sakti_id' => 'required|exists:users,user_id',
             'pic_koperasi' => 'required|string',
             'kontak_pic' => 'required|string',
+            'email_pic' => 'nullable|email',
             'catatan_pelatihan' => 'nullable|string',
             'target_go_live' => 'nullable|date',
         ]);
@@ -92,6 +93,7 @@ class ImplementasiController extends Controller
             'pic_sakti_id' => $request->pic_sakti_id,
             'pic_koperasi' => $request->pic_koperasi,
             'kontak_pic' => $request->kontak_pic,
+            'email_pic' => $request->email_pic,
             'catatan_pelatihan' => $request->catatan_pelatihan,
             'target_go_live' => $request->target_go_live,
             'status' => 'Pelatihan Selesai',
