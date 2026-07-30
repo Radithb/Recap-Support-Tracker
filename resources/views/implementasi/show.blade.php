@@ -180,17 +180,24 @@
     /* Toast Notification */
     .toast {
         position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: #10b981;
-        color: white;
-        padding: 12px 20px;
-        border-radius: 6px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        transform: translateY(100px);
+        bottom: 24px;
+        right: 24px;
+        background: var(--sage-soft, #d1fae5);
+        color: var(--sage, #065f46);
+        border: 1px solid rgba(46, 125, 82, 0.2);
+        padding: 12px 14px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transform: translateY(20px);
         opacity: 0;
-        transition: all 0.3s;
+        transition: opacity 0.6s ease, transform 0.6s ease;
         z-index: 9999;
+        font-size: calc(13.5px * var(--text-scale, 1));
+        font-weight: 600;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-width: 250px;
     }
     .toast.show {
         transform: translateY(0);
@@ -239,7 +246,10 @@
 @endphp
 
 <!-- Toast Notification -->
-<div id="toast" class="toast">Berhasil disimpan!</div>
+<div id="toast" class="toast">
+    <span id="toast-message">Berhasil disimpan!</span>
+    <button type="button" onclick="document.getElementById('toast').classList.remove('show')" style="background: none; border: none; color: var(--sage, #065f46); cursor: pointer; font-size: calc(18px * var(--text-scale, 1)); font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
+</div>
 
 <div style="max-width: 1280px; margin: 0 auto; padding: 20px 30px;">
 <div class="detail-card">
@@ -437,7 +447,7 @@
     // Toast Notification Logic
     function showToast(message) {
         const toast = document.getElementById('toast');
-        toast.innerText = message;
+        document.getElementById('toast-message').innerText = message;
         toast.classList.add('show');
         
         setTimeout(() => {
