@@ -708,13 +708,52 @@
 
     <!-- TAB 4: GO-LIVE -->
     <div id="tab-target-golive" class="tab-content">
+        @php
+            $allDone = ['Sudah Valid', 'Done', 'Selesai'];
+            $dataUtamaNotDone = $implementasi->checklists()->where('kategori', 'Data Utama')->whereNotIn('status', $allDone)->count();
+            $migrasiNotDone = $implementasi->checklists()->where('kategori', 'Migrasi')->whereNotIn('status', $allDone)->count();
+            
+            $syarat = [
+                'Pelatihan Selesai' => !empty($implementasi->tanggal_selesai),
+                'Data Utama & User Aplikasi Tersedia' => $dataUtamaNotDone === 0,
+                'Data Cut-Off Disepakati' => !empty($implementasi->tanggal_cut_off),
+                'Migrasi Selesai' => $migrasiNotDone === 0,
+                'PIC Koperasi Ditentukan' => !empty($implementasi->anggota_hadir) || !empty($implementasi->pic_koperasi),
+            ];
+            
+            $canGoLive = !in_array(false, $syarat, true);
+        @endphp
+
+        @if(!$canGoLive)
+            <div style="background-color: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 12px 16px; margin-bottom: 16px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    <span style="color: #b45309; font-size: 13.5px; font-weight: 700;">Syarat Penentuan Go-Live Belum Terpenuhi</span>
+                </div>
+                <p style="margin: 0 0 10px 0; font-size: 12.5px; color: #b45309;">Formulir Go-Live dikunci. Silakan penuhi prasyarat berikut terlebih dahulu:</p>
+                <ul style="margin: 0; padding-left: 20px; font-size: 12.5px; color: #92400e;">
+                    @foreach($syarat as $label => $terpenuhi)
+                        <li style="margin-bottom: 4px; list-style-type: none; display: flex; align-items: center; gap: 6px;">
+                            @if($terpenuhi)
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span style="color: #10b981; text-decoration: line-through;">{{ $label }}</span>
+                            @else
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                <span style="font-weight: 600;">{{ $label }}</span>
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form action="{{ route('implementasi.golive.update', $implementasi->id) }}" method="POST">
             @csrf
             @method('PUT')
             
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Detail Go-Live</h4>
-                <button type="submit" style="background-color: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">Simpan Perubahan</button>
+                <button type="submit" {{ !$canGoLive ? 'disabled' : '' }} style="background-color: {{ $canGoLive ? '#3b82f6' : '#94a3b8' }}; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; {{ $canGoLive ? 'cursor: pointer;' : 'cursor: not-allowed;' }}">Simpan Perubahan</button>
             </div>
             
             <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px;">
@@ -738,7 +777,7 @@
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 15px;">
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Metode Pendampingan</label>
-                        <select name="metode_pendampingan" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                        <select name="metode_pendampingan" class="form-control" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
                             <option value="">Pilih Metode</option>
                             <option value="Online (Zoom/Meet)" {{ $implementasi->metode_pendampingan == 'Online (Zoom/Meet)' ? 'selected' : '' }}>Online (Zoom/Meet)</option>
                             <option value="Offline (Kunjungan)" {{ $implementasi->metode_pendampingan == 'Offline (Kunjungan)' ? 'selected' : '' }}>Offline (Kunjungan)</option>
@@ -746,25 +785,25 @@
                     </div>
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Link Meeting</label>
-                        <input type="text" name="link_meeting" class="form-control" value="{{ $implementasi->link_meeting }}" placeholder="Masukkan link meeting jika online" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
+                        <input type="text" name="link_meeting" class="form-control" value="{{ $implementasi->link_meeting }}" placeholder="Masukkan link meeting jika online" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
                     </div>
                 </div>
 
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 15px;">
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tanggal</label>
-                        <input type="date" name="target_go_live" class="form-control" value="{{ $implementasi->target_go_live ? $implementasi->target_go_live->format('Y-m-d') : '' }}" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
+                        <input type="date" name="target_go_live" class="form-control" value="{{ $implementasi->target_go_live ? $implementasi->target_go_live->format('Y-m-d') : '' }}" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
                     </div>
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Waktu</label>
-                        <input type="time" name="waktu_go_live" class="form-control" value="{{ $implementasi->waktu_go_live ? \Carbon\Carbon::parse($implementasi->waktu_go_live)->format('H:i') : '' }}" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
+                        <input type="time" name="waktu_go_live" class="form-control" value="{{ $implementasi->waktu_go_live ? \Carbon\Carbon::parse($implementasi->waktu_go_live)->format('H:i') : '' }}" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
                     </div>
                 </div>
 
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 15px;">
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tempat</label>
-                        <select name="tempat_go_live" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                        <select name="tempat_go_live" class="form-control" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
                             <option value="">Pilih Tempat</option>
                             <option value="Zoom" {{ $implementasi->tempat_go_live == 'Zoom' ? 'selected' : '' }}>Zoom</option>
                             <option value="Gmeet" {{ $implementasi->tempat_go_live == 'Gmeet' ? 'selected' : '' }}>Gmeet</option>
@@ -773,7 +812,7 @@
                     </div>
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Status</label>
-                        <select name="status_go_live" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                        <select name="status_go_live" class="form-control" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
                             <option value="Belum Siap Go Live" {{ $implementasi->status_go_live == 'Belum Siap Go Live' ? 'selected' : '' }}>Belum Siap Go Live</option>
                             <option value="Siap Go Live" {{ $implementasi->status_go_live == 'Siap Go Live' ? 'selected' : '' }}>Siap Go Live</option>
                         </select>
@@ -783,17 +822,17 @@
                 <!-- Textareas -->
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Catatan Kesiapan</label>
-                    <textarea name="catatan_kesiapan" class="form-control" rows="3" placeholder="Tuliskan catatan kesiapan..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical;">{{ $implementasi->catatan_kesiapan }}</textarea>
+                    <textarea name="catatan_kesiapan" class="form-control" rows="3" placeholder="Tuliskan catatan kesiapan..." {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical;">{{ $implementasi->catatan_kesiapan }}</textarea>
                 </div>
 
                 <div style="margin-bottom: 15px;">
                     <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Potensi Risiko</label>
-                    <textarea name="potensi_risiko" class="form-control" rows="3" placeholder="Tuliskan potensi risiko..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical;">{{ $implementasi->potensi_risiko }}</textarea>
+                    <textarea name="potensi_risiko" class="form-control" rows="3" placeholder="Tuliskan potensi risiko..." {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical;">{{ $implementasi->potensi_risiko }}</textarea>
                 </div>
 
                 <div style="margin-bottom: 0;">
                     <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Rencana Mitigasi</label>
-                    <textarea name="rencana_mitigasi" class="form-control" rows="3" placeholder="Tuliskan rencana mitigasi..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical;">{{ $implementasi->rencana_mitigasi }}</textarea>
+                    <textarea name="rencana_mitigasi" class="form-control" rows="3" placeholder="Tuliskan rencana mitigasi..." {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical;">{{ $implementasi->rencana_mitigasi }}</textarea>
                 </div>
             </div>
         </form>
