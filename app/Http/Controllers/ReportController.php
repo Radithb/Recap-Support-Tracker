@@ -12,10 +12,12 @@ class ReportController extends Controller
 {
     public function index(Request $request)
     {
-        $year = $request->input('year');
-        if (empty($year)) {
-            $year = date('Y');
-        }
+        return redirect()->route('support.recap.diagram', $request->query());
+    }
+
+    public function diagram(Request $request)
+    {
+        $year = $request->input('year', date('Y'));
 
         // FR-10A: Monthly Bar Chart Data (Grouping by month based on tanggal_input)
         $monthlyTickets = Ticket::select(
@@ -30,6 +32,13 @@ class ReportController extends Controller
         for ($i = 1; $i <= 12; $i++) {
             $chartData[] = $monthlyTickets[$i] ?? 0;
         }
+
+        return view('support.recap-diagram', compact('year', 'chartData'));
+    }
+
+    public function table(Request $request)
+    {
+        $year = $request->input('year', date('Y'));
 
         // FR-10B: Category Crosstab (Done tickets based on tanggal_penyelesaian)
         $kategoris = MasterKategori::all();
@@ -61,7 +70,7 @@ class ReportController extends Controller
             }
         }
 
-        return view('support.recap', compact('year', 'chartData', 'crosstab'));
+        return view('support.recap-table', compact('year', 'crosstab'));
     }
 
     public function detail(Request $request)

@@ -315,6 +315,35 @@ html.dark-mode .status-done { color: #4ade80; }
 .sidebar-menu button:hover, .sidebar-menu a:hover{background:rgba(255,255,255,0.09); color:#fff;}
 .sidebar-menu button.active, .sidebar-menu a.active{background:var(--amber); color:#fff;}
 .sidebar-menu button.active .badge, .sidebar-menu a.active .badge{background:rgba(255,255,255,0.28);}
+
+/* Sidebar Dropdown & Submenu Styling */
+.sidebar-dropdown { width: 100%; display: flex; flex-direction: column; }
+.sidebar-dropdown-btn {
+  display: flex; align-items: center; gap: 12px; width: 100%; text-align: left;
+  padding: 11px 13px; border-radius: 9px; border: none; background: none; cursor: pointer;
+  font-family: var(--font-body); font-size: calc(13.5px * var(--text-scale, 1)); font-weight: 600; color: #C7D5F0; transition: .15s;
+}
+.sidebar-dropdown-btn:hover { background: rgba(255,255,255,0.09); color: #fff; }
+.sidebar-dropdown-btn .ic img { width: 16px; height: 16px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.7; }
+.sidebar-dropdown-btn:hover .ic img, .sidebar-dropdown-btn.active-parent .ic img { opacity: 1; }
+.sidebar-dropdown-btn.active-parent { background: rgba(255,255,255,0.12); color: #fff; }
+.sidebar-dropdown-btn .chevron-icon { transition: transform 0.2s ease; margin-left: auto; opacity: 0.75; }
+.sidebar-dropdown.open .chevron-icon { transform: rotate(180deg); }
+
+.sidebar-submenu {
+  display: flex; flex-direction: column; gap: 2px;
+  padding-left: 24px; margin-top: 4px; margin-bottom: 4px;
+}
+.sidebar-submenu a {
+  display: flex; align-items: center; gap: 9px; padding: 8px 12px;
+  border-radius: 7px; font-size: calc(12.5px * var(--text-scale, 1)); font-weight: 500;
+  color: #B6C6E8; text-decoration: none; transition: all 0.15s ease;
+}
+.sidebar-submenu a:hover { background: rgba(255, 255, 255, 0.08); color: #fff; }
+.sidebar-submenu a.active { background: var(--amber); color: #fff; font-weight: 600; }
+.sidebar-submenu .sub-dot {
+  width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: 0.7; flex-shrink: 0;
+}
 .sidebar-foot{
   margin-top:14px; padding-top:14px; border-top:1px solid rgba(255,255,255,0.14);
   display:flex; align-items:center; gap:10px; position:relative;

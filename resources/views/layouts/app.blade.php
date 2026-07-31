@@ -50,9 +50,24 @@
                 <a href="{{ route('support.master-data.index') }}" class="{{ request()->routeIs('support.master-data.*') ? 'active' : '' }}">
                     <span class="ic"><img src="{{ asset('folder.png') }}" alt=""></span> {{ __('messages.master_data') }}
                 </a>
-                <a href="{{ route('support.recap') }}" class="{{ request()->routeIs('support.recap') ? 'active' : '' }}">
-                    <span class="ic"><img src="{{ asset('file.png') }}" alt=""></span> {{ __('messages.recap_laporan') }}
-                </a>
+                @php
+                    $isRecapActive = request()->routeIs('support.recap*');
+                @endphp
+                <div class="sidebar-dropdown {{ $isRecapActive ? 'open' : '' }}">
+                    <button type="button" class="sidebar-dropdown-btn {{ $isRecapActive ? 'active-parent' : '' }}" onclick="toggleSidebarSubmenu(this)">
+                        <span class="ic"><img src="{{ asset('file.png') }}" alt=""></span>
+                        <span>{{ __('messages.recap_laporan') }}</span>
+                        <svg class="chevron-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="sidebar-submenu" style="{{ $isRecapActive ? 'display: flex;' : 'display: none;' }}">
+                        <a href="{{ route('support.recap.diagram') }}" class="{{ request()->routeIs('support.recap.diagram') ? 'active' : '' }}">
+                            <span class="sub-dot"></span> Diagram Rekap
+                        </a>
+                        <a href="{{ route('support.recap.table') }}" class="{{ request()->routeIs('support.recap.table') ? 'active' : '' }}">
+                            <span class="sub-dot"></span> Rekap Support
+                        </a>
+                    </div>
+                </div>
                 <a href="{{ route('implementasi.index') }}" class="{{ request()->routeIs('implementasi.*') ? 'active' : '' }}">
                     <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; opacity: 0.9;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></span> Monitoring Koperasi
                 </a>
@@ -345,6 +360,20 @@
             }, true);
         });
     });
+
+    function toggleSidebarSubmenu(btn) {
+        const parent = btn.closest('.sidebar-dropdown');
+        const submenu = parent.querySelector('.sidebar-submenu');
+        const isOpen = parent.classList.contains('open');
+        
+        if (isOpen) {
+            parent.classList.remove('open');
+            submenu.style.display = 'none';
+        } else {
+            parent.classList.add('open');
+            submenu.style.display = 'flex';
+        }
+    }
 </script>
 </body>
 </html>

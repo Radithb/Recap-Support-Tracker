@@ -84,6 +84,8 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
     
     // Reporting
     Route::get('/recap', [ReportController::class, 'index'])->name('recap');
+    Route::get('/recap/diagram', [ReportController::class, 'diagram'])->name('recap.diagram');
+    Route::get('/recap/table', [ReportController::class, 'table'])->name('recap.table');
     Route::get('/recap/detail', [ReportController::class, 'detail'])->name('recap.detail');
     
     // Master Data
