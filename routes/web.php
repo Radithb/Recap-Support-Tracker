@@ -37,6 +37,11 @@ Route::get('/fix-cutoff-columns', function () {
         'pic_validasi' => "ALTER TABLE implementasi_koperasi ADD COLUMN pic_validasi VARCHAR(255) NULL",
         'catatan_cutoff' => "ALTER TABLE implementasi_koperasi ADD COLUMN catatan_cutoff TEXT NULL",
         'status_cutoff' => "ALTER TABLE implementasi_koperasi ADD COLUMN status_cutoff VARCHAR(255) NULL DEFAULT 'Menunggu Penentuan Cut-Off'",
+        'tanggal_followup' => "ALTER TABLE implementasi_koperasi ADD COLUMN tanggal_followup DATE NULL",
+        'hasil_komunikasi' => "ALTER TABLE implementasi_koperasi ADD COLUMN hasil_komunikasi TEXT NULL",
+        'kendala_koperasi' => "ALTER TABLE implementasi_koperasi ADD COLUMN kendala_koperasi TEXT NULL",
+        'komitmen_koperasi' => "ALTER TABLE implementasi_koperasi ADD COLUMN komitmen_koperasi TEXT NULL",
+        'tanggal_followup_berikutnya' => "ALTER TABLE implementasi_koperasi ADD COLUMN tanggal_followup_berikutnya DATE NULL",
     ];
     foreach ($columns as $col => $sql) {
         if (!\Illuminate\Support\Facades\Schema::hasColumn('implementasi_koperasi', $col)) {

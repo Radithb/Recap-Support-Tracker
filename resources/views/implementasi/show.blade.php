@@ -943,10 +943,10 @@
 
             <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px;">
                 <div style="display: flex; flex-direction: column; gap: 16px;">
-                    <!-- Row 1 -->
+                    <!-- Row 1: Media Follow-Up & Tanggal Follow-Up -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 8px;">Jenis Aktivitas <span style="color: #ef4444;">*</span></label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 8px;">Media Follow-Up <span style="color: #ef4444;">*</span></label>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: white; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
                             @php
                                 $options = [
@@ -963,33 +963,63 @@
                             @endforeach
                         </div>
                     </div>
+                    <div style="display: flex; flex-direction: column; gap: 16px;">
+                        <div>
+                            <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tanggal Follow-Up</label>
+                            <input type="date" name="tanggal_followup" value="{{ $implementasi->tanggal_followup ? $implementasi->tanggal_followup->format('Y-m-d') : '' }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                            <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">Tanggal saat follow-up dilakukan.</div>
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tanggal Follow-Up Berikutnya</label>
+                            <input type="date" name="tanggal_followup_berikutnya" value="{{ $implementasi->tanggal_followup_berikutnya ? $implementasi->tanggal_followup_berikutnya->format('Y-m-d') : '' }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                            <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">Jadwal follow-up selanjutnya.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2: Nama Petugas & Status -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Nama Petugas</label>
+                        <input type="text" name="pic_tindakan" value="{{ $implementasi->pic_tindakan }}" placeholder="Nama petugas yang melakukan follow-up" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                    </div>
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Target Tanggal Tindakan</label>
                         <input type="date" name="target_tanggal_tindakan" value="{{ $implementasi->target_tanggal_tindakan ? $implementasi->target_tanggal_tindakan->format('Y-m-d') : '' }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
                     </div>
-                </div>
-
-                <!-- Row 2 -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">PIC Tindakan</label>
-                        <input type="text" name="pic_tindakan" value="{{ $implementasi->pic_tindakan }}" placeholder="Nama penanggung jawab tindakan" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
-                    </div>
-                    <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Status Tindakan</label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Status Follow-Up</label>
                         <select name="status_tindakan" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
-                            <option value="Belum Selesai" {{ $implementasi->status_tindakan == 'Belum Selesai' ? 'selected' : '' }}>Belum Selesai</option>
-                            <option value="Dalam Proses" {{ $implementasi->status_tindakan == 'Dalam Proses' ? 'selected' : '' }}>Dalam Proses</option>
-                            <option value="Selesai" {{ $implementasi->status_tindakan == 'Selesai' ? 'selected' : '' }}>Selesai</option>
-                            <option value="Dibatalkan" {{ $implementasi->status_tindakan == 'Dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
+                            <option value="Menunggu Konfirmasi Koperasi" {{ $implementasi->status_tindakan == 'Menunggu Konfirmasi Koperasi' ? 'selected' : '' }}>Menunggu Konfirmasi Koperasi</option>
+                            <option value="Koperasi Belum Siap" {{ $implementasi->status_tindakan == 'Koperasi Belum Siap' ? 'selected' : '' }}>Koperasi Belum Siap</option>
+                            <option value="Persiapan Data" {{ $implementasi->status_tindakan == 'Persiapan Data' ? 'selected' : '' }}>Persiapan Data</option>
+                            <option value="Siap Proses Migrasi" {{ $implementasi->status_tindakan == 'Siap Proses Migrasi' ? 'selected' : '' }}>Siap Proses Migrasi</option>
                         </select>
                     </div>
                 </div>
 
-                <!-- Row 3 (Full Width) -->
+                <!-- Row 3: Hasil Komunikasi -->
                 <div>
-                    <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Detail / Catatan Tindakan</label>
-                    <textarea name="tindakan_berikutnya" class="form-control" rows="4" placeholder="Tuliskan detail rencana tindakan lanjutan..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical; background: white;">{{ $implementasi->tindakan_berikutnya }}</textarea>
+                    <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Hasil Komunikasi</label>
+                    <textarea name="hasil_komunikasi" class="form-control" rows="3" placeholder="Tuliskan hasil percakapan / komunikasi dengan koperasi..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical; background: white;">{{ $implementasi->hasil_komunikasi }}</textarea>
+                </div>
+
+                <!-- Row 4: Kendala & Komitmen -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Kendala Koperasi</label>
+                        <textarea name="kendala_koperasi" class="form-control" rows="3" placeholder="Tuliskan kendala yang dihadapi koperasi..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical; background: white;">{{ $implementasi->kendala_koperasi }}</textarea>
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Komitmen Koperasi</label>
+                        <textarea name="komitmen_koperasi" class="form-control" rows="3" placeholder="Tuliskan komitmen yang diberikan koperasi..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical; background: white;">{{ $implementasi->komitmen_koperasi }}</textarea>
+                    </div>
+                </div>
+
+                <!-- Row 5: Tindakan Selanjutnya (Full Width) -->
+                <div>
+                    <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tindakan Selanjutnya</label>
+                    <textarea name="tindakan_berikutnya" class="form-control" rows="3" placeholder="Tuliskan rencana tindakan lanjutan..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical; background: white;">{{ $implementasi->tindakan_berikutnya }}</textarea>
                 </div>
                 </div>
             </div>

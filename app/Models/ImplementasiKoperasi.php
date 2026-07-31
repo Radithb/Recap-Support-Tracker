@@ -50,6 +50,11 @@ class ImplementasiKoperasi extends Model
         'catatan_cutoff',
         'status_cutoff',
         'jenis_tindakan',
+        'tanggal_followup',
+        'hasil_komunikasi',
+        'kendala_koperasi',
+        'komitmen_koperasi',
+        'tanggal_followup_berikutnya',
     ];
 
     protected $casts = [
@@ -61,6 +66,8 @@ class ImplementasiKoperasi extends Model
         'tanggal_tutup_buku' => 'date',
         'tanggal_mulai_aplikasi' => 'date',
         'progres' => 'decimal:2',
+        'tanggal_followup' => 'date',
+        'tanggal_followup_berikutnya' => 'date',
     ];
 
     public function instansi()

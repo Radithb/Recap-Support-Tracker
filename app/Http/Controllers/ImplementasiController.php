@@ -511,18 +511,28 @@ class ImplementasiController extends Controller
 
         $request->validate([
             'jenis_tindakan' => 'nullable|array',
+            'tanggal_followup' => 'nullable|date',
             'tindakan_berikutnya' => 'nullable|string',
             'pic_tindakan' => 'nullable|string',
             'target_tanggal_tindakan' => 'nullable|date',
             'status_tindakan' => 'nullable|string',
+            'hasil_komunikasi' => 'nullable|string',
+            'kendala_koperasi' => 'nullable|string',
+            'komitmen_koperasi' => 'nullable|string',
+            'tanggal_followup_berikutnya' => 'nullable|date',
         ]);
 
         $implementasi->update([
             'jenis_tindakan' => $request->has('jenis_tindakan') ? implode(', ', $request->jenis_tindakan) : null,
+            'tanggal_followup' => $request->tanggal_followup,
             'tindakan_berikutnya' => $request->tindakan_berikutnya,
             'pic_tindakan' => $request->pic_tindakan,
             'target_tanggal_tindakan' => $request->target_tanggal_tindakan,
-            'status_tindakan' => $request->status_tindakan ?? 'Belum Selesai',
+            'status_tindakan' => $request->status_tindakan ?? 'Menunggu Konfirmasi Koperasi',
+            'hasil_komunikasi' => $request->hasil_komunikasi,
+            'kendala_koperasi' => $request->kendala_koperasi,
+            'komitmen_koperasi' => $request->komitmen_koperasi,
+            'tanggal_followup_berikutnya' => $request->tanggal_followup_berikutnya,
         ]);
 
         ImplementasiLog::create([
