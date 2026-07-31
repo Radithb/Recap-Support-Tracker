@@ -262,14 +262,14 @@
         // Render TERAKHIR DI EDIT items
         let editListHtml = `
             <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.5;">
-                <strong style="color: #1e40af;">Solusi / Penyelesaian:</strong> ${solusi || 'Belum ada solusi diinput oleh PIC Support.'}
+                <strong style="color: var(--ink);">Solusi / Penyelesaian:</strong> ${solusi || 'Belum ada solusi diinput oleh PIC Support.'}
             </div>
         `;
 
         if (pencegahan && pencegahan.trim() !== '') {
             editListHtml += `
                 <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.5; margin-top: 4px;">
-                    <strong style="color: #854d0e;">Tindakan Pencegahan:</strong> ${pencegahan}
+                    <strong style="color: var(--ink);">Tindakan Pencegahan:</strong> ${pencegahan}
                 </div>
             `;
         }
