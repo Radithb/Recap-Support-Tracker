@@ -189,10 +189,34 @@
             </div>
         </div>
         
-        <div class="form-group">
-            <label class="form-label">Target Go-Live (Opsional)</label>
-            <input type="date" name="target_go_live" class="form-control" value="{{ old('target_go_live', $implementasi->target_go_live ? $implementasi->target_go_live->format('Y-m-d') : '') }}">
-            <small style="display: block; margin-top: 5px; color: #64748b; font-size: 12px;">Kosongkan jika belum ada kepastian tanggal rilis</small>
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label">Tanggal Go-Live (Opsional)</label>
+                <input type="date" name="target_go_live" class="form-control" value="{{ old('target_go_live', $implementasi->target_go_live ? $implementasi->target_go_live->format('Y-m-d') : '') }}">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Waktu Go-Live (Opsional)</label>
+                <input type="time" name="waktu_go_live" class="form-control" value="{{ old('waktu_go_live', $implementasi->waktu_go_live ? \Carbon\Carbon::parse($implementasi->waktu_go_live)->format('H:i') : '') }}">
+            </div>
+        </div>
+        
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label">Tempat (Zoom/GMeet/Lokasi)</label>
+                <select name="tempat_go_live" class="form-control">
+                    <option value="">Pilih Tempat</option>
+                    <option value="Zoom" {{ old('tempat_go_live', $implementasi->tempat_go_live) == 'Zoom' ? 'selected' : '' }}>Zoom</option>
+                    <option value="Gmeet" {{ old('tempat_go_live', $implementasi->tempat_go_live) == 'Gmeet' ? 'selected' : '' }}>Gmeet</option>
+                    <option value="Lokasi" {{ old('tempat_go_live', $implementasi->tempat_go_live) == 'Lokasi' ? 'selected' : '' }}>Lokasi</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Status Go-Live</label>
+                <select name="status_go_live" class="form-control">
+                    <option value="Belum Done" {{ old('status_go_live', $implementasi->status_go_live) == 'Belum Done' ? 'selected' : '' }}>Belum Done</option>
+                    <option value="Done" {{ old('status_go_live', $implementasi->status_go_live) == 'Done' ? 'selected' : '' }}>Done</option>
+                </select>
+            </div>
         </div>
 
         <div class="form-group">

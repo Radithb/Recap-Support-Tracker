@@ -220,7 +220,7 @@
                     <th>Koperasi</th>
                     <th>Aplikasi</th>
                     <th>Anggota Yang Hadir</th>
-                    <th>Target Go-Live</th>
+                    <th>Go-Live</th>
                     <th>Progres</th>
                     <th>Status</th>
                     <th>Next Action</th>

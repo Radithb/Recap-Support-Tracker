@@ -460,7 +460,7 @@
         </button>
         <button class="md-tab-btn" onclick="openTab('tab-target-golive', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-            Target Go-Live
+            Go-Live
         </button>
         <button class="md-tab-btn" onclick="openTab('tab-cut-off', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
@@ -480,7 +480,7 @@
     <div id="tab-ringkasan" class="tab-content active">
         <div class="summary-grid">
             <div class="summary-item">
-                <div class="summary-label">Target Go-Live</div>
+                <div class="summary-label">Go-Live</div>
                 <div class="summary-value">{{ $implementasi->target_go_live ? $implementasi->target_go_live->format('d M Y') : 'Belum Ditentukan' }}</div>
             </div>
             <div class="summary-item">
@@ -666,17 +666,48 @@
         @endif
     </div>
 
-    <!-- TAB 4: TARGET GO-LIVE -->
+    <!-- TAB 4: GO-LIVE -->
     <div id="tab-target-golive" class="tab-content">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Target Go-Live</h4>
-        </div>
-        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 24px; text-align: center;">
-            <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Target Go-Live</div>
-            <div style="font-size: 24px; font-weight: 700; color: #2563eb;">
-                {{ $implementasi->target_go_live ? $implementasi->target_go_live->format('d M Y') : '-' }}
+        <form action="{{ route('implementasi.golive.update', $implementasi->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Detail Go-Live</h4>
+                <button type="submit" style="background-color: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">Simpan Perubahan</button>
             </div>
-        </div>
+            
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 15px;">
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tanggal</label>
+                        <input type="date" name="target_go_live" class="form-control" value="{{ $implementasi->target_go_live ? $implementasi->target_go_live->format('Y-m-d') : '' }}" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Waktu</label>
+                        <input type="time" name="waktu_go_live" class="form-control" value="{{ $implementasi->waktu_go_live ? \Carbon\Carbon::parse($implementasi->waktu_go_live)->format('H:i') : '' }}" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tempat</label>
+                        <select name="tempat_go_live" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                            <option value="">Pilih Tempat</option>
+                            <option value="Zoom" {{ $implementasi->tempat_go_live == 'Zoom' ? 'selected' : '' }}>Zoom</option>
+                            <option value="Gmeet" {{ $implementasi->tempat_go_live == 'Gmeet' ? 'selected' : '' }}>Gmeet</option>
+                            <option value="Lokasi" {{ $implementasi->tempat_go_live == 'Lokasi' ? 'selected' : '' }}>Lokasi</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Status</label>
+                        <select name="status_go_live" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                            <option value="Belum Done" {{ $implementasi->status_go_live == 'Belum Done' ? 'selected' : '' }}>Belum Done</option>
+                            <option value="Done" {{ $implementasi->status_go_live == 'Done' ? 'selected' : '' }}>Done</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 
     <!-- TAB 5: TGL CUT-OFF -->

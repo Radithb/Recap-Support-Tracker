@@ -120,6 +120,9 @@ class ImplementasiController extends Controller
             'email_pic' => 'nullable|email',
             'catatan_pelatihan' => 'nullable|string',
             'target_go_live' => 'nullable|date',
+            'waktu_go_live' => 'nullable|date_format:H:i',
+            'tempat_go_live' => 'nullable|string',
+            'status_go_live' => 'nullable|string',
         ]);
 
         // Generate Nomor Implementasi: IMP/SAKTI/YYYY/001
@@ -141,6 +144,9 @@ class ImplementasiController extends Controller
             'email_pic' => $request->email_pic,
             'catatan_pelatihan' => $request->catatan_pelatihan,
             'target_go_live' => $request->target_go_live,
+            'waktu_go_live' => $request->waktu_go_live,
+            'tempat_go_live' => $request->tempat_go_live,
+            'status_go_live' => $request->status_go_live ?? 'Belum Done',
             'status' => 'Pelatihan Selesai',
             'tindakan_berikutnya' => 'Follow-Up Kesiapan Koperasi',
             'pic_tindakan' => is_array($request->anggota_hadir) ? implode(', ', $request->anggota_hadir) : ($request->anggota_hadir ?? 'Tim Support'),
@@ -358,6 +364,9 @@ class ImplementasiController extends Controller
             'email_pic' => 'nullable|email',
             'catatan_pelatihan' => 'nullable|string',
             'target_go_live' => 'nullable|date',
+            'waktu_go_live' => 'nullable|date_format:H:i',
+            'tempat_go_live' => 'nullable|string',
+            'status_go_live' => 'nullable|string',
         ]);
 
         $implementasi->update([
@@ -372,6 +381,9 @@ class ImplementasiController extends Controller
             'email_pic' => $request->email_pic,
             'catatan_pelatihan' => $request->catatan_pelatihan,
             'target_go_live' => $request->target_go_live,
+            'waktu_go_live' => $request->waktu_go_live,
+            'tempat_go_live' => $request->tempat_go_live,
+            'status_go_live' => $request->status_go_live ?? 'Belum Done',
             'pic_tindakan' => is_array($request->anggota_hadir) ? implode(', ', $request->anggota_hadir) : ($request->anggota_hadir ?? 'Tim Support'),
         ]);
 
@@ -388,6 +400,37 @@ class ImplementasiController extends Controller
         ]);
 
         return redirect()->route('implementasi.index')->with('success', 'Data Implementasi berhasil diperbarui.');
+    }
+
+    /**
+     * Memperbarui data Go-Live
+     */
+    public function updateGoLive(Request $request, $id)
+    {
+        $implementasi = ImplementasiKoperasi::findOrFail($id);
+
+        $request->validate([
+            'target_go_live' => 'nullable|date',
+            'waktu_go_live' => 'nullable|date_format:H:i',
+            'tempat_go_live' => 'nullable|string',
+            'status_go_live' => 'nullable|string',
+        ]);
+
+        $implementasi->update([
+            'target_go_live' => $request->target_go_live,
+            'waktu_go_live' => $request->waktu_go_live,
+            'tempat_go_live' => $request->tempat_go_live,
+            'status_go_live' => $request->status_go_live ?? 'Belum Done',
+        ]);
+
+        ImplementasiLog::create([
+            'implementasi_id' => $implementasi->id,
+            'user_id' => Auth::id(),
+            'aktivitas' => 'Detail Go-Live Diperbarui',
+            'catatan' => 'Data Go-Live diperbarui melalui halaman detail.'
+        ]);
+
+        return redirect()->route('implementasi.show', $id)->with('success', 'Detail Go-Live berhasil diperbarui.');
     }
 
     /**
