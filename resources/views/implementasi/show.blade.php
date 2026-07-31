@@ -479,12 +479,42 @@
     <!-- TAB 1: RINGKASAN -->
     <div id="tab-ringkasan" class="tab-content active">
         <div class="summary-grid">
-            <div class="summary-item">
-                <div class="summary-label">Go-Live</div>
+            <div class="summary-item" style="position: relative;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div class="summary-label">Go-Live</div>
+                    <div style="position: relative;">
+                        <button onclick="document.getElementById('golive-dropdown').style.display = document.getElementById('golive-dropdown').style.display === 'none' ? 'block' : 'none';" style="background: none; border: none; cursor: pointer; color: #64748b; padding: 0;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle><circle cx="5" cy="12" r="1.5"></circle></svg>
+                        </button>
+                        <div id="golive-dropdown" style="display: none; position: absolute; right: 0; top: 100%; background: white; border: 1px solid #e2e8f0; border-radius: 6px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); z-index: 10; min-width: 120px;">
+                            <a href="#" onclick="event.preventDefault(); document.getElementById('golive-dropdown').style.display = 'none'; openTab('tab-target-golive', document.querySelector('[onclick*=\'tab-target-golive\']'))" style="display: block; padding: 10px 14px; color: #475569; text-decoration: none; font-size: 13px; font-weight: 500; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f1f5f9'" onmouseout="this.style.backgroundColor='transparent'">
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                    Edit
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <div class="summary-value">{{ $implementasi->target_go_live ? $implementasi->target_go_live->format('d M Y') : 'Belum Ditentukan' }}</div>
             </div>
-            <div class="summary-item">
-                <div class="summary-label">Tgl Cut-Off</div>
+            <div class="summary-item" style="position: relative;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                    <div class="summary-label">Tgl Cut-Off</div>
+                    <div style="position: relative;">
+                        <button onclick="document.getElementById('cutoff-dropdown').style.display = document.getElementById('cutoff-dropdown').style.display === 'none' ? 'block' : 'none';" style="background: none; border: none; cursor: pointer; color: #64748b; padding: 0;">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle><circle cx="5" cy="12" r="1.5"></circle></svg>
+                        </button>
+                        <div id="cutoff-dropdown" style="display: none; position: absolute; right: 0; top: 100%; background: white; border: 1px solid #e2e8f0; border-radius: 6px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); z-index: 10; min-width: 120px;">
+                            <a href="#" onclick="event.preventDefault(); document.getElementById('cutoff-dropdown').style.display = 'none'; openTab('tab-cut-off', document.querySelector('[onclick*=\'tab-cut-off\']'))" style="display: block; padding: 10px 14px; color: #475569; text-decoration: none; font-size: 13px; font-weight: 500; transition: background 0.2s;" onmouseover="this.style.backgroundColor='#f1f5f9'" onmouseout="this.style.backgroundColor='transparent'">
+                                <div style="display: flex; align-items: center; gap: 6px;">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                    Edit
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
                 <div class="summary-value">{{ $implementasi->tanggal_cut_off ? $implementasi->tanggal_cut_off->format('d M Y') : 'Belum Ditentukan' }}</div>
             </div>
             <div class="summary-item">
@@ -495,6 +525,16 @@
                         @if($implementasi->tanggal_selesai && $implementasi->tanggal_selesai->format('Y-m-d') !== $implementasi->tanggal_pelatihan->format('Y-m-d'))
                             - {{ $implementasi->tanggal_selesai->format('d M Y') }}
                         @endif
+                    @else
+                        -
+                    @endif
+                </div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-label">Berita Acara</div>
+                <div class="summary-value">
+                    @if($implementasi->berita_acara)
+                        <a href="{{ Storage::url($implementasi->berita_acara) }}" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 500;">Lihat PDF</a>
                     @else
                         -
                     @endif
@@ -678,6 +718,38 @@
             </div>
             
             <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px;">
+                <!-- Auto-filled Fields -->
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 15px;">
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Aplikasi / Modul</label>
+                        <input type="text" class="form-control" value="{{ $implementasi->aplikasis && $implementasi->aplikasis->count() > 0 ? $implementasi->aplikasis->pluck('nama_aplikasi')->join(', ') : ($implementasi->aplikasi->nama_aplikasi ?? '-') }}" readonly style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: #e2e8f0; color: #64748b; cursor: not-allowed;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">PIC PT SAKTI</label>
+                        <input type="text" class="form-control" value="{{ $implementasi->nama_trainer ?? '-' }}" readonly style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: #e2e8f0; color: #64748b; cursor: not-allowed;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">PIC Koperasi</label>
+                        <input type="text" class="form-control" value="{{ $implementasi->anggota_hadir ?? '-' }}" readonly style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: #e2e8f0; color: #64748b; cursor: not-allowed;">
+                    </div>
+                </div>
+
+                <!-- Scheduling & Location -->
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 15px;">
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Metode Pendampingan</label>
+                        <select name="metode_pendampingan" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                            <option value="">Pilih Metode</option>
+                            <option value="Online (Zoom/Meet)" {{ $implementasi->metode_pendampingan == 'Online (Zoom/Meet)' ? 'selected' : '' }}>Online (Zoom/Meet)</option>
+                            <option value="Offline (Kunjungan)" {{ $implementasi->metode_pendampingan == 'Offline (Kunjungan)' ? 'selected' : '' }}>Offline (Kunjungan)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Link Meeting</label>
+                        <input type="text" name="link_meeting" class="form-control" value="{{ $implementasi->link_meeting }}" placeholder="Masukkan link meeting jika online" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
+                    </div>
+                </div>
+
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 15px;">
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tanggal</label>
@@ -688,7 +760,8 @@
                         <input type="time" name="waktu_go_live" class="form-control" value="{{ $implementasi->waktu_go_live ? \Carbon\Carbon::parse($implementasi->waktu_go_live)->format('H:i') : '' }}" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
                     </div>
                 </div>
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 15px;">
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tempat</label>
                         <select name="tempat_go_live" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
@@ -701,10 +774,26 @@
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Status</label>
                         <select name="status_go_live" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
-                            <option value="Belum Done" {{ $implementasi->status_go_live == 'Belum Done' ? 'selected' : '' }}>Belum Done</option>
-                            <option value="Done" {{ $implementasi->status_go_live == 'Done' ? 'selected' : '' }}>Done</option>
+                            <option value="Belum Siap Go Live" {{ $implementasi->status_go_live == 'Belum Siap Go Live' ? 'selected' : '' }}>Belum Siap Go Live</option>
+                            <option value="Siap Go Live" {{ $implementasi->status_go_live == 'Siap Go Live' ? 'selected' : '' }}>Siap Go Live</option>
                         </select>
                     </div>
+                </div>
+
+                <!-- Textareas -->
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Catatan Kesiapan</label>
+                    <textarea name="catatan_kesiapan" class="form-control" rows="3" placeholder="Tuliskan catatan kesiapan..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical;">{{ $implementasi->catatan_kesiapan }}</textarea>
+                </div>
+
+                <div style="margin-bottom: 15px;">
+                    <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Potensi Risiko</label>
+                    <textarea name="potensi_risiko" class="form-control" rows="3" placeholder="Tuliskan potensi risiko..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical;">{{ $implementasi->potensi_risiko }}</textarea>
+                </div>
+
+                <div style="margin-bottom: 0;">
+                    <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Rencana Mitigasi</label>
+                    <textarea name="rencana_mitigasi" class="form-control" rows="3" placeholder="Tuliskan rencana mitigasi..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical;">{{ $implementasi->rencana_mitigasi }}</textarea>
                 </div>
             </div>
         </form>

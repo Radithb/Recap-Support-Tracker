@@ -73,7 +73,7 @@
         </div>
     @endif
 
-    <form action="{{ route('implementasi.update', $implementasi->id) }}" method="POST">
+    <form action="{{ route('implementasi.update', $implementasi->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         
@@ -132,6 +132,17 @@
                     <option value="Offline (Kunjungan)" {{ old('metode_pelatihan', $implementasi->metode_pelatihan) == 'Offline (Kunjungan)' ? 'selected' : '' }}>Offline (Kunjungan)</option>
                 </select>
             </div>
+        </div>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label class="form-label">Berita Acara (PDF, Max 5MB)</label>
+                <input type="file" name="berita_acara" class="form-control" accept=".pdf">
+                @if($implementasi->berita_acara)
+                    <small style="display: block; margin-top: 5px;"><a href="{{ Storage::url($implementasi->berita_acara) }}" target="_blank">Lihat file saat ini</a></small>
+                @endif
+            </div>
+            <div></div>
         </div>
 
         <div class="grid-2">
@@ -213,8 +224,8 @@
             <div class="form-group">
                 <label class="form-label">Status Go-Live</label>
                 <select name="status_go_live" class="form-control">
-                    <option value="Belum Done" {{ old('status_go_live', $implementasi->status_go_live) == 'Belum Done' ? 'selected' : '' }}>Belum Done</option>
-                    <option value="Done" {{ old('status_go_live', $implementasi->status_go_live) == 'Done' ? 'selected' : '' }}>Done</option>
+                    <option value="Belum Siap Go Live" {{ old('status_go_live', $implementasi->status_go_live) == 'Belum Siap Go Live' ? 'selected' : '' }}>Belum Siap Go Live</option>
+                    <option value="Siap Go Live" {{ old('status_go_live', $implementasi->status_go_live) == 'Siap Go Live' ? 'selected' : '' }}>Siap Go Live</option>
                 </select>
             </div>
         </div>

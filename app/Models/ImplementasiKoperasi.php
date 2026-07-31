@@ -18,6 +18,7 @@ class ImplementasiKoperasi extends Model
         'tanggal_pelatihan',
         'tanggal_selesai',
         'metode_pelatihan',
+        'berita_acara',
         'nama_trainer',
         'pic_sakti_id',
         'anggota_hadir',
@@ -29,6 +30,11 @@ class ImplementasiKoperasi extends Model
         'waktu_go_live',
         'tempat_go_live',
         'status_go_live',
+        'metode_pendampingan',
+        'link_meeting',
+        'catatan_kesiapan',
+        'potensi_risiko',
+        'rencana_mitigasi',
         'tanggal_cut_off',
         'status',
         'progres',
@@ -97,5 +103,43 @@ class ImplementasiKoperasi extends Model
         $this->update(['progres' => round($persentase, 2)]);
 
         return round($persentase, 2);
+    }
+    public function checkAndSetGoLiveDate()
+    {
+        if ($this->target_go_live !== null) {
+            return;
+        }
+
+        $allDone = ['Sudah Valid', 'Done', 'Selesai'];
+
+        // 1. Data utama sudah tersedia (Kategori: Data Utama) & 6. User aplikasi (Kategori: Data Utama)
+        $dataUtamaNotDone = $this->checklists()->where('kategori', 'Data Utama')->whereNotIn('status', $allDone)->count();
+
+        // 2. Data cut-off sudah disepakati
+        $cutOffSet = !empty($this->tanggal_cut_off);
+
+        // 3. Migrasi selesai
+        $migrasiNotDone = $this->checklists()->where('kategori', 'Migrasi')->whereNotIn('status', $allDone)->count();
+
+        // 4. Koperasi sudah siap menjalankan transaksi (catatan_kesiapan terisi)
+        $ready = !empty($this->catatan_kesiapan);
+
+        // 5. PIC koperasi telah ditentukan (anggota_hadir atau pic_koperasi terisi)
+        $picSet = !empty($this->anggota_hadir) || !empty($this->pic_koperasi);
+
+        // 6. Jadwal pendampingan telah disiapkan (metode_pendampingan terisi)
+        $jadwalSet = !empty($this->metode_pendampingan);
+
+        if ($dataUtamaNotDone === 0 && $cutOffSet && $migrasiNotDone === 0 && $ready && $picSet && $jadwalSet) {
+            $this->target_go_live = \Carbon\Carbon::today();
+            $this->save();
+
+            \App\Models\ImplementasiLog::create([
+                'implementasi_id' => $this->id,
+                'user_id' => \Illuminate\Support\Facades\Auth::id() ?? 1,
+                'aktivitas' => 'Otomatis Set Tanggal Go-Live',
+                'catatan' => 'Semua prasyarat telah terpenuhi, tanggal Go-Live otomatis diisi dengan tanggal hari ini.'
+            ]);
+        }
     }
 }

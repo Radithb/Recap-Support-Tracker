@@ -404,7 +404,7 @@
             <h3 style="margin: 0; font-size: 16px;">Tambah Data Implementasi</h3>
             <button class="btn-close-modal" onclick="closeModal('modalDataBaru')">&times;</button>
         </div>
-        <form action="{{ route('implementasi.store') }}" method="POST">
+        <form action="{{ route('implementasi.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="modal-body">
                 <div class="form-group">
@@ -454,7 +454,10 @@
                             <option value="Offline (Kunjungan)">Offline (Kunjungan)</option>
                         </select>
                     </div>
-                    <div></div>
+                    <div class="form-group">
+                        <label class="form-label">Berita Acara (PDF, Max 5MB)</label>
+                        <input type="file" name="berita_acara" class="form-control" accept=".pdf">
+                    </div>
                 </div>
 
                 <div class="grid-2">

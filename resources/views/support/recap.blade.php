@@ -155,13 +155,24 @@
 
             // Render chart after content is visible
             const ctx = document.getElementById('monthlyChart').getContext('2d');
+            const chartData = @json($chartData);
+            const maxValue = Math.max(...chartData, 0);
+            const baseLabels = ["{{ __('messages.jan') }}", "{{ __('messages.feb') }}", "{{ __('messages.mar') }}", "{{ __('messages.apr') }}", "{{ __('messages.may') }}", "{{ __('messages.jun') }}", "{{ __('messages.jul') }}", "{{ __('messages.aug') }}", "{{ __('messages.sep') }}", "{{ __('messages.oct') }}", "{{ __('messages.nov') }}", "{{ __('messages.dec') }}"];
+            
+            const multiLabels = baseLabels.map((month, index) => {
+                const val = chartData[index];
+                const percent = maxValue > 0 ? Math.round((val / maxValue) * 100) : 0;
+                // Only show percentage if value is > 0, or show 0% if preferred. Let's show 0% always as requested.
+                return [month, percent + "%"];
+            });
+
             new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ["{{ __('messages.jan') }}", "{{ __('messages.feb') }}", "{{ __('messages.mar') }}", "{{ __('messages.apr') }}", "{{ __('messages.may') }}", "{{ __('messages.jun') }}", "{{ __('messages.jul') }}", "{{ __('messages.aug') }}", "{{ __('messages.sep') }}", "{{ __('messages.oct') }}", "{{ __('messages.nov') }}", "{{ __('messages.dec') }}"],
+                    labels: multiLabels,
                     datasets: [{
                         label: "{{ __('messages.jumlah_tiket') }}",
-                        data: @json($chartData),
+                        data: chartData,
                         backgroundColor: document.documentElement.classList.contains('dark-mode') ? '#3A3A40' : '#e2e8f0',
                         borderWidth: 0,
                         borderRadius: 4
