@@ -505,6 +505,36 @@ class ImplementasiController extends Controller
         return redirect()->route('implementasi.show', $id)->with('success', 'Detail Cut-Off berhasil diperbarui.');
     }
 
+    public function updateFollowUp(Request $request, $id)
+    {
+        $implementasi = ImplementasiKoperasi::findOrFail($id);
+
+        $request->validate([
+            'jenis_tindakan' => 'nullable|array',
+            'tindakan_berikutnya' => 'nullable|string',
+            'pic_tindakan' => 'nullable|string',
+            'target_tanggal_tindakan' => 'nullable|date',
+            'status_tindakan' => 'nullable|string',
+        ]);
+
+        $implementasi->update([
+            'jenis_tindakan' => $request->has('jenis_tindakan') ? implode(', ', $request->jenis_tindakan) : null,
+            'tindakan_berikutnya' => $request->tindakan_berikutnya,
+            'pic_tindakan' => $request->pic_tindakan,
+            'target_tanggal_tindakan' => $request->target_tanggal_tindakan,
+            'status_tindakan' => $request->status_tindakan ?? 'Belum Selesai',
+        ]);
+
+        ImplementasiLog::create([
+            'implementasi_id' => $implementasi->id,
+            'user_id' => Auth::id(),
+            'aktivitas' => 'Aktivitas Follow-Up Diperbarui',
+            'catatan' => 'Data Follow-Up diperbarui melalui halaman detail.'
+        ]);
+
+        return redirect()->route('implementasi.show', $id)->with('success', 'Aktivitas Follow-Up berhasil diperbarui.');
+    }
+
     /**
      * Menghapus data implementasi
      */

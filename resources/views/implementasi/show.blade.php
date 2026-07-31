@@ -51,7 +51,7 @@
     /* Sub-Sidebar Layout (Master Data Style) */
     .md-layout {
         display: flex;
-        align-items: flex-start;
+        align-items: stretch;
         gap: 1.5rem;
         margin-top: 20px;
     }
@@ -466,6 +466,10 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
             Tgl Cut-Off
         </button>
+        <button class="md-tab-btn" onclick="openTab('tab-followup', this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+            Aktivitas Follow-Up
+        </button>
         <button class="md-tab-btn" onclick="openTab('tab-aktivitas', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
             Aktivitas & Log
@@ -473,8 +477,8 @@
     </div>
 
     <!-- MAIN CONTENT AREA -->
-    <div style="flex-grow: 1; min-width: 0;">
-        <div class="detail-card" style="margin-top: 0;">
+    <div style="flex-grow: 1; min-width: 0; display: flex; flex-direction: column;">
+        <div class="detail-card" style="margin-top: 0; flex-grow: 1;">
 
     <!-- TAB 1: RINGKASAN -->
     <div id="tab-ringkasan" class="tab-content active">
@@ -926,7 +930,73 @@
         </form>
     </div>
 
-    <!-- TAB 6: AKTIVITAS & LOG -->
+    <!-- TAB 6: AKTIVITAS FOLLOW-UP -->
+    <div id="tab-followup" class="tab-content">
+        <form action="{{ route('implementasi.followup.update', $implementasi->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Detail Tindakan & Follow-Up</h4>
+                <button type="submit" style="background-color: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">Simpan Perubahan</button>
+            </div>
+
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px;">
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <!-- Row 1 -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 8px;">Jenis Aktivitas <span style="color: #ef4444;">*</span></label>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: white; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                            @php
+                                $options = [
+                                    'Telepon', 'WhatsApp', 'Email', 'Meeting',
+                                    'Permintaan data', 'Pengiriman file', 'Perubahan status', 'Perubahan target'
+                                ];
+                                $selected_jenis = array_map('trim', explode(',', $implementasi->jenis_tindakan ?? ''));
+                            @endphp
+                            @foreach($options as $opt)
+                                <label style="display: flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; color: #475569; margin: 0;">
+                                    <input type="checkbox" name="jenis_tindakan[]" value="{{ $opt }}" {{ in_array($opt, $selected_jenis) ? 'checked' : '' }} style="cursor: pointer; margin: 0;">
+                                    {{ $opt }}
+                                </label>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Target Tanggal Tindakan</label>
+                        <input type="date" name="target_tanggal_tindakan" value="{{ $implementasi->target_tanggal_tindakan ? $implementasi->target_tanggal_tindakan->format('Y-m-d') : '' }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                    </div>
+                </div>
+
+                <!-- Row 2 -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">PIC Tindakan</label>
+                        <input type="text" name="pic_tindakan" value="{{ $implementasi->pic_tindakan }}" placeholder="Nama penanggung jawab tindakan" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Status Tindakan</label>
+                        <select name="status_tindakan" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                            <option value="Belum Selesai" {{ $implementasi->status_tindakan == 'Belum Selesai' ? 'selected' : '' }}>Belum Selesai</option>
+                            <option value="Dalam Proses" {{ $implementasi->status_tindakan == 'Dalam Proses' ? 'selected' : '' }}>Dalam Proses</option>
+                            <option value="Selesai" {{ $implementasi->status_tindakan == 'Selesai' ? 'selected' : '' }}>Selesai</option>
+                            <option value="Dibatalkan" {{ $implementasi->status_tindakan == 'Dibatalkan' ? 'selected' : '' }}>Dibatalkan</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Row 3 (Full Width) -->
+                <div>
+                    <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Detail / Catatan Tindakan</label>
+                    <textarea name="tindakan_berikutnya" class="form-control" rows="4" placeholder="Tuliskan detail rencana tindakan lanjutan..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical; background: white;">{{ $implementasi->tindakan_berikutnya }}</textarea>
+                </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- TAB 7: AKTIVITAS & LOG -->
     <div id="tab-aktivitas" class="tab-content">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
             <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Riwayat Aktivitas & Log</h4>

@@ -82,6 +82,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/{id}', [\App\Http\Controllers\ImplementasiController::class, 'update'])->name('update');
         Route::put('/{id}/golive', [\App\Http\Controllers\ImplementasiController::class, 'updateGoLive'])->name('golive.update');
         Route::put('/{id}/cutoff', [\App\Http\Controllers\ImplementasiController::class, 'updateCutOff'])->name('cutoff.update');
+        Route::put('/{id}/followup', [\App\Http\Controllers\ImplementasiController::class, 'updateFollowUp'])->name('followup.update');
         Route::get('/{id}', [\App\Http\Controllers\ImplementasiController::class, 'show'])->name('show');
         Route::delete('/{id}', [\App\Http\Controllers\ImplementasiController::class, 'destroy'])->name('destroy');
         Route::put('/checklist/{id}', [\App\Http\Controllers\ImplementasiController::class, 'updateChecklist'])->name('checklist.update');

@@ -49,6 +49,7 @@ class ImplementasiKoperasi extends Model
         'pic_validasi',
         'catatan_cutoff',
         'status_cutoff',
+        'jenis_tindakan',
     ];
 
     protected $casts = [
