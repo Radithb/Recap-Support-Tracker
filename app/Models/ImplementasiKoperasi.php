@@ -42,6 +42,13 @@ class ImplementasiKoperasi extends Model
         'pic_tindakan',
         'target_tanggal_tindakan',
         'status_tindakan',
+        'periode_transaksi_terakhir',
+        'saldo_terakhir',
+        'tanggal_tutup_buku',
+        'tanggal_mulai_aplikasi',
+        'pic_validasi',
+        'catatan_cutoff',
+        'status_cutoff',
     ];
 
     protected $casts = [
@@ -50,6 +57,8 @@ class ImplementasiKoperasi extends Model
         'target_go_live' => 'date',
         'tanggal_cut_off' => 'date',
         'target_tanggal_tindakan' => 'date',
+        'tanggal_tutup_buku' => 'date',
+        'tanggal_mulai_aplikasi' => 'date',
         'progres' => 'decimal:2',
     ];
 

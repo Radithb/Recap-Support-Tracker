@@ -463,6 +463,48 @@ class ImplementasiController extends Controller
         return redirect()->route('implementasi.show', $id)->with('success', 'Detail Go-Live berhasil diperbarui.');
     }
 
+    public function updateCutOff(Request $request, $id)
+    {
+        if (Auth::user()->role === UserRole::PELAPOR) {
+            abort(403, 'Akses ditolak.');
+        }
+
+        $implementasi = ImplementasiKoperasi::findOrFail($id);
+
+        $request->validate([
+            'tanggal_cut_off' => 'nullable|date',
+            'periode_transaksi_terakhir' => 'nullable|string',
+            'saldo_terakhir' => 'nullable|string',
+            'tanggal_tutup_buku' => 'nullable|date',
+            'tanggal_mulai_aplikasi' => 'nullable|date',
+            'pic_validasi' => 'nullable|string',
+            'catatan_cutoff' => 'nullable|string',
+            'status_cutoff' => 'nullable|string',
+        ]);
+
+        $implementasi->update([
+            'tanggal_cut_off' => $request->tanggal_cut_off,
+            'periode_transaksi_terakhir' => $request->periode_transaksi_terakhir,
+            'saldo_terakhir' => $request->saldo_terakhir,
+            'tanggal_tutup_buku' => $request->tanggal_tutup_buku,
+            'tanggal_mulai_aplikasi' => $request->tanggal_mulai_aplikasi,
+            'pic_validasi' => $request->pic_validasi,
+            'catatan_cutoff' => $request->catatan_cutoff,
+            'status_cutoff' => $request->status_cutoff ?? 'Menunggu Penentuan Cut-Off',
+        ]);
+
+        ImplementasiLog::create([
+            'implementasi_id' => $implementasi->id,
+            'user_id' => Auth::id(),
+            'aktivitas' => 'Detail Cut-Off Diperbarui',
+            'catatan' => 'Data Cut-Off diperbarui melalui halaman detail.'
+        ]);
+
+        $implementasi->checkAndSetGoLiveDate();
+
+        return redirect()->route('implementasi.show', $id)->with('success', 'Detail Cut-Off berhasil diperbarui.');
+    }
+
     /**
      * Menghapus data implementasi
      */

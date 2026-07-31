@@ -801,15 +801,93 @@
 
     <!-- TAB 5: TGL CUT-OFF -->
     <div id="tab-cut-off" class="tab-content">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Tanggal Cut-Off</h4>
-        </div>
-        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 24px; text-align: center;">
-            <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Tanggal Cut-Off</div>
-            <div style="font-size: 24px; font-weight: 700; color: #0284c7;">
-                {{ $implementasi->tanggal_cut_off ? $implementasi->tanggal_cut_off->format('d M Y') : '-' }}
+        <form action="{{ route('implementasi.cutoff.update', $implementasi->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+            @php
+                $isCutoffComplete = !empty($implementasi->tanggal_cut_off) && 
+                                    !empty($implementasi->periode_transaksi_terakhir) && 
+                                    !empty($implementasi->saldo_terakhir) && 
+                                    !empty($implementasi->tanggal_tutup_buku) && 
+                                    !empty($implementasi->tanggal_mulai_aplikasi) && 
+                                    !empty($implementasi->pic_validasi);
+            @endphp
+            
+            @if(!$isCutoffComplete)
+                <div style="background-color: #fffbeb; border-left: 4px solid #f59e0b; border-radius: 6px; padding: 15px; margin-bottom: 20px;">
+                    <div style="display: flex; align-items: flex-start; gap: 10px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                        <div>
+                            <h5 style="margin: 0 0 4px 0; color: #b45309; font-size: 14px; font-weight: 600;">Data Belum Lengkap</h5>
+                            <p style="margin: 0; color: #b45309; font-size: 13px; line-height: 1.5;">Harap lengkapi semua rincian data di bawah ini sebelum tanggal cut-off dapat dikonfirmasi dan status diubah menjadi Valid.</p>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0;">
+                <div>
+                    <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; color: #1e293b;">Data Cut-Off & Transisi</h4>
+                    <p style="margin: 0; font-size: 13px; color: #64748b;">Lengkapi informasi mengenai masa cut-off dan migrasi data.</p>
+                </div>
+                <div style="display: flex; gap: 15px; align-items: flex-end;">
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Status Cut-Off</label>
+                        <select name="status_cutoff" class="form-control" style="border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 4px; background: white; min-width: 200px;">
+                            <option value="Menunggu Penentuan Cut-Off" {{ $implementasi->status_cutoff == 'Menunggu Penentuan Cut-Off' ? 'selected' : '' }}>Menunggu Penentuan Cut-Off</option>
+                            <option value="Cut-Off Dijadwalkan" {{ $implementasi->status_cutoff == 'Cut-Off Dijadwalkan' ? 'selected' : '' }}>Cut-Off Dijadwalkan</option>
+                            <option value="Cut-Off Diterima" {{ $implementasi->status_cutoff == 'Cut-Off Diterima' ? 'selected' : '' }}>Cut-Off Diterima</option>
+                            <option value="Cut-Off Perlu Revisi" {{ $implementasi->status_cutoff == 'Cut-Off Perlu Revisi' ? 'selected' : '' }}>Cut-Off Perlu Revisi</option>
+                            <option value="Cut-Off Valid" {{ $implementasi->status_cutoff == 'Cut-Off Valid' ? 'selected' : '' }}>Cut-Off Valid</option>
+                        </select>
+                    </div>
+                    <button type="submit" style="background: #0ea5e9; color: white; border: none; padding: 9px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; transition: background 0.2s; box-shadow: 0 2px 4px rgba(14, 165, 233, 0.2); height: 38px;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+                        Simpan
+                    </button>
+                </div>
             </div>
-        </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <!-- Column 1 -->
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tanggal Cut-Off <span style="color: #ef4444;">*</span></label>
+                        <input type="date" name="tanggal_cut_off" value="{{ $implementasi->tanggal_cut_off ? $implementasi->tanggal_cut_off->format('Y-m-d') : '' }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                        <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">Syarat Go-Live otomatis.</div>
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Periode Transaksi Terakhir</label>
+                        <input type="text" name="periode_transaksi_terakhir" value="{{ $implementasi->periode_transaksi_terakhir }}" placeholder="Misal: Januari 2026" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Saldo Terakhir</label>
+                        <input type="text" name="saldo_terakhir" value="{{ $implementasi->saldo_terakhir }}" placeholder="Misal: Rp 150.000.000" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                    </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tanggal Penutupan Pembukuan Lama</label>
+                        <input type="date" name="tanggal_tutup_buku" value="{{ $implementasi->tanggal_tutup_buku ? $implementasi->tanggal_tutup_buku->format('Y-m-d') : '' }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tanggal Mulai Menggunakan Aplikasi Baru</label>
+                        <input type="date" name="tanggal_mulai_aplikasi" value="{{ $implementasi->tanggal_mulai_aplikasi ? $implementasi->tanggal_mulai_aplikasi->format('Y-m-d') : '' }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Penanggung Jawab Validasi Data</label>
+                        <input type="text" name="pic_validasi" value="{{ $implementasi->pic_validasi }}" placeholder="Nama Penanggung Jawab" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 16px;">
+                <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Catatan Khusus Cut-Off</label>
+                <textarea name="catatan_cutoff" class="form-control" rows="3" placeholder="Tuliskan catatan khusus terkait cut-off..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical; background: white;">{{ $implementasi->catatan_cutoff }}</textarea>
+            </div>
+        </form>
     </div>
 
     <!-- TAB 6: AKTIVITAS & LOG -->
