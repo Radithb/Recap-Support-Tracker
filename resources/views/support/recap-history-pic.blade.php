@@ -34,7 +34,6 @@
 
 <div class="page-head fade-up" style="animation-delay: 0.1s; margin-bottom: 2rem;">
     <div>
-        <p class="eyebrow" style="text-transform: uppercase; letter-spacing: 2px; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.5rem; font-weight: 600; font-family: 'Inter', sans-serif;">TIM SUPPORT • {{ strtoupper(Auth::user()->nama ?? 'USER') }}</p>
         <h1 style="margin: 0; font-size: 2rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">History Edit Tiket PIC</h1>
     </div>
 </div>
