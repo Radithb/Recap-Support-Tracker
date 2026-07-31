@@ -18,7 +18,7 @@
 
 {{-- FILTER CARD (KOSONG SEMENTARA) --}}
 <div class="glass-panel fade-up" style="animation-delay: 0.15s; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;">
-    <p style="color: var(--text-muted); margin: 0; font-size: 0.9rem;">Filter rekap akan ditambahkan di sini nantinya.</p>
+    <p style="color: var(--text-muted); margin: 0; font-size: 0.9rem;">Filter</p>
 </div>
 
 {{-- TABLE CARD (KOSONG SEMENTARA) --}}
@@ -28,7 +28,7 @@
     </div>
     
     <div style="padding: 3rem; text-align: center; color: var(--text-muted);">
-        Belum ada data template surat. Fitur ini masih dalam tahap pengembangan.
+        Belum ada data template surat.
     </div>
 </div>
 
