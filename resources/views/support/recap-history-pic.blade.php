@@ -85,7 +85,7 @@
                     <th style="padding: 1rem 1.25rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">No Tiket & Koperasi</th>
                     <th style="padding: 1rem 1.25rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">PIC Support Editor</th>
                     <th style="padding: 1rem 1.25rem; text-align: center; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Waktu Edit Terakhir</th>
-                    <th style="padding: 1rem 1.25rem; text-align: center; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Detail Log</th>
+                    <th style="padding: 1rem 1.25rem; text-align: center; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Detail</th>
                 </tr>
             </thead>
             <tbody>
@@ -119,8 +119,7 @@
                         </td>
                         <td style="padding: 1rem 1.25rem; text-align: center; vertical-align: middle;">
                             <button type="button" onclick="showLogModal('{{ $tkt->ticket_id }}', '{{ addslashes($tkt->pelapor->instansi->nama_instansi ?? 'Koperasi') }}', '{{ addslashes($tkt->picSupport->nama ?? 'Sistem') }}', '{{ $tkt->updated_at ? $tkt->updated_at->format('d M Y H:i') : '' }}', '{{ $stVal }}', '{{ addslashes($tkt->kategori->nama_kategori ?? '-') }}', '{{ addslashes($tkt->penyelesaian ?? '-') }}')" style="background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                Detail Log
+                                Detail
                             </button>
                         </td>
                     </tr>
