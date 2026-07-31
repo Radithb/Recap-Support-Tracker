@@ -182,7 +182,35 @@ class TicketController extends Controller
             $data['lampiran_support'] = count($lampiranSupportPaths) > 0 ? $lampiranSupportPaths : null;
         }
 
+        $oldData = [
+            'status' => is_object($ticket->status) ? $ticket->status->value : $ticket->status,
+            'kategori_id' => $ticket->kategori_id,
+            'penyelesaian' => $ticket->penyelesaian,
+            'pencegahan' => $ticket->pencegahan,
+            'link_ticket' => $ticket->link_ticket,
+        ];
+
         $ticket->update($data);
+
+        // Record Ticket Log secara aman
+        try {
+            \App\Models\TicketLog::create([
+                'ticket_id' => $ticket->ticket_id,
+                'user_id' => Auth::id(),
+                'aktivitas' => 'Update Tiket oleh PIC Support',
+                'data_sebelum' => $oldData,
+                'data_sesudah' => [
+                    'status' => is_object($ticket->status) ? $ticket->status->value : $ticket->status,
+                    'kategori_id' => $ticket->kategori_id,
+                    'penyelesaian' => $ticket->penyelesaian,
+                    'pencegahan' => $ticket->pencegahan,
+                    'link_ticket' => $ticket->link_ticket,
+                ],
+                'catatan' => 'Tiket diperbarui oleh ' . (Auth::user()->nama ?? 'PIC Support')
+            ]);
+        } catch (\Throwable $e) {
+            \Log::error('TicketLog error: ' . $e->getMessage());
+        }
 
         // Jika opsi is_faq dicentang, otomatis simpan/update ke Master Data FAQ
         if ($data['is_faq'] && !empty($ticket->kategori_id) && !empty($ticket->penyelesaian)) {

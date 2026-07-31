@@ -89,4 +89,35 @@ class ReportController extends Controller
 
         return view('support.recap-detail', compact('tickets', 'year', 'month', 'monthName'));
     }
+
+    public function historyPic(Request $request)
+    {
+        $query = Ticket::with(['pelapor.instansi', 'kategori', 'picSupport', 'logs.user'])
+            ->whereNotNull('pic_support_id');
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('ticket_id', 'like', "%{$search}%")
+                  ->orWhere('permasalahan', 'like', "%{$search}%")
+                  ->orWhereHas('pelapor.instansi', function($iq) use ($search) {
+                      $iq->where('nama_instansi', 'like', "%{$search}%");
+                  });
+            });
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('pic_id')) {
+            $query->where('pic_support_id', $request->pic_id);
+        }
+
+        $tickets = $query->orderBy('updated_at', 'desc')->paginate(15)->appends($request->all());
+
+        $supportUsers = \App\Models\User::whereIn('role', [\App\Enums\UserRole::SUPPORT->value, \App\Enums\UserRole::SUPERADMIN->value])->get();
+
+        return view('support.recap-history-pic', compact('tickets', 'supportUsers'));
+    }
 }

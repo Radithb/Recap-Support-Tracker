@@ -57,6 +57,11 @@ class Ticket extends Model
     {
         return $this->belongsTo(User::class, 'pic_support_id', 'user_id');
     }
+
+    public function logs()
+    {
+        return $this->hasMany(TicketLog::class, 'ticket_id', 'ticket_id')->orderBy('created_at', 'desc');
+    }
     
     protected static function boot()
     {

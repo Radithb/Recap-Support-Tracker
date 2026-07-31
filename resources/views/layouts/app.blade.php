@@ -66,6 +66,9 @@
                         <a href="{{ route('support.recap.table') }}" class="{{ request()->routeIs('support.recap.table') ? 'active' : '' }}">
                             <span class="sub-dot"></span> Rekap Support
                         </a>
+                        <a href="{{ route('support.recap.history-pic') }}" class="{{ request()->routeIs('support.recap.history-pic') ? 'active' : '' }}">
+                            <span class="sub-dot"></span> History Edit PIC
+                        </a>
                     </div>
                 </div>
                 <a href="{{ route('implementasi.index') }}" class="{{ request()->routeIs('implementasi.*') ? 'active' : '' }}">
