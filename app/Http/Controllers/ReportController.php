@@ -120,4 +120,10 @@ class ReportController extends Controller
 
         return view('support.recap-history-pic', compact('tickets', 'supportUsers'));
     }
+
+    public function templateSurat(Request $request)
+    {
+        // Kerangka sementara, data kosong
+        return view('support.recap-template-surat');
+    }
 }
