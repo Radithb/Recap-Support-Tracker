@@ -100,12 +100,12 @@
                         elseif ($stLower === 'done') { $badgeBg = '#dcfce3'; $badgeClr = '#166534'; }
                     @endphp
                     <tr style="border-bottom: 1px solid var(--line);">
-                        <td style="padding: 1rem 1.25rem; vertical-align: top;">
+                        <td style="padding: 1rem 1.25rem; vertical-align: middle;">
                             <div style="font-weight: 700; color: #2563eb; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace;">{{ $tkt->ticket_id }}</div>
                             <div style="font-size: 0.85rem; color: var(--ink); font-weight: 600; margin-top: 2px;">{{ $tkt->pelapor->instansi->nama_instansi ?? 'Koperasi' }}</div>
                             <div style="font-size: 0.78rem; color: var(--text-muted);">Pelapor: {{ $tkt->pelapor->nama ?? '-' }}</div>
                         </td>
-                        <td style="padding: 1rem 1.25rem; vertical-align: top;">
+                        <td style="padding: 1rem 1.25rem; vertical-align: middle;">
                             @if($tkt->picSupport)
                                 <div>
                                     <div style="font-weight: 600; font-size: 0.88rem; color: var(--ink);">{{ $tkt->picSupport->nama }}</div>
@@ -114,10 +114,10 @@
                                 <span style="color: var(--text-muted); font-size: 0.85rem;">-</span>
                             @endif
                         </td>
-                        <td style="padding: 1rem 1.25rem; text-align: center; vertical-align: top; font-size: 0.82rem; color: var(--text-muted);">
+                        <td style="padding: 1rem 1.25rem; text-align: center; vertical-align: middle; font-size: 0.82rem; color: var(--text-muted);">
                             {{ $tkt->updated_at ? $tkt->updated_at->format('d M Y - H:i') : '-' }}
                         </td>
-                        <td style="padding: 1rem 1.25rem; text-align: center; vertical-align: top;">
+                        <td style="padding: 1rem 1.25rem; text-align: center; vertical-align: middle;">
                             <button type="button" onclick="showLogModal('{{ $tkt->ticket_id }}', '{{ addslashes($tkt->pelapor->instansi->nama_instansi ?? 'Koperasi') }}', '{{ addslashes($tkt->picSupport->nama ?? 'Sistem') }}', '{{ $tkt->updated_at ? $tkt->updated_at->format('d M Y H:i') : '' }}', '{{ $stVal }}', '{{ addslashes($tkt->kategori->nama_kategori ?? '-') }}', '{{ addslashes($tkt->penyelesaian ?? '-') }}')" style="background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;">
                                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                                 Detail Log
