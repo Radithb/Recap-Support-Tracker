@@ -450,24 +450,13 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
             {{ __('messages.tab_checklist_kesiapan') }}
         </button>
-<<<<<<< HEAD
-=======
-        <button class="md-tab-btn" onclick="openTab('tab-migrasi', this)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-            {{ __('messages.tab_migrasi_data') }}
-        </button>
-        <button class="md-tab-btn" onclick="openTab('tab-target-golive', this)">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-            {{ __('messages.tab_go_live') }}
-        </button>
->>>>>>> 2350d18 (Fitur: Menambahkan notifikasi follow-up otomatis dan multi-bahasa)
         <button class="md-tab-btn" onclick="openTab('tab-cut-off', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
             {{ __('messages.tab_tgl_cutoff') }}
         </button>
         <button class="md-tab-btn" onclick="openTab('tab-migrasi', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-            Migrasi Data
+            {{ __('messages.tab_migrasi_data') }}
         </button>
         <button class="md-tab-btn" onclick="openTab('tab-followup', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
@@ -475,7 +464,7 @@
         </button>
         <button class="md-tab-btn" onclick="openTab('tab-target-golive', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-            Go-Live
+            {{ __('messages.tab_go_live') }}
         </button>
         <button class="md-tab-btn" onclick="openTab('tab-aktivitas', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
@@ -635,13 +624,8 @@
                                         $doneStyle .= $isDone ? " opacity: 0.5; cursor: not-allowed;" : " cursor: pointer;";
                                     @endphp
                                     <div style="display: flex; gap: 6px; align-items: center; justify-content: center;">
-<<<<<<< HEAD
-                                        <button type="button" id="btn-simpan-{{ $chk->id }}" onclick="updateChecklist({{ $chk->id }})" style="{{ $simpanStyle }}" {{ $isDone ? 'disabled' : '' }}>Simpan</button>
+                                        <button type="button" id="btn-simpan-{{ $chk->id }}" onclick="updateChecklist({{ $chk->id }})" style="{{ $simpanStyle }}" {{ $isDone ? 'disabled' : '' }}>{{ __('messages.btn_simpan') }}</button>
                                         <button type="button" id="btn-done-{{ $chk->id }}" onclick="markAsDone({{ $chk->id }})" style="{{ $doneStyle }}" title="Tandai Selesai & Naikkan Progres" {{ $isDone ? 'disabled' : '' }}>
-=======
-                                        <button type="button" onclick="updateChecklist({{ $chk->id }})" style="background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 500;">{{ __('messages.btn_simpan') }}</button>
-                                        <button type="button" onclick="markAsDone({{ $chk->id }})" style="background: #10b981; color: #fff; border: none; padding: 6px 9px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;" title="Tandai Selesai & Naikkan Progres">
->>>>>>> 2350d18 (Fitur: Menambahkan notifikasi follow-up otomatis dan multi-bahasa)
                                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                         </button>
                                     </div>
@@ -720,13 +704,8 @@
                                         $doneStyle .= $isDone ? " opacity: 0.5; cursor: not-allowed;" : " cursor: pointer;";
                                     @endphp
                                     <div style="display: flex; gap: 6px; align-items: center; justify-content: center;">
-<<<<<<< HEAD
-                                        <button type="button" id="btn-simpan-{{ $chk->id }}" onclick="updateChecklist({{ $chk->id }})" style="{{ $simpanStyle }}" {{ $isDone ? 'disabled' : '' }}>Simpan</button>
+                                        <button type="button" id="btn-simpan-{{ $chk->id }}" onclick="updateChecklist({{ $chk->id }})" style="{{ $simpanStyle }}" {{ $isDone ? 'disabled' : '' }}>{{ __('messages.btn_simpan') }}</button>
                                         <button type="button" id="btn-done-{{ $chk->id }}" onclick="markAsDone({{ $chk->id }})" style="{{ $doneStyle }}" title="Tandai Selesai" {{ $isDone ? 'disabled' : '' }}>
-=======
-                                        <button type="button" onclick="updateChecklist({{ $chk->id }})" style="background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 500;">{{ __('messages.btn_simpan') }}</button>
-                                        <button type="button" onclick="markAsDone({{ $chk->id }})" style="background: #10b981; color: #fff; border: none; padding: 6px 9px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;" title="Tandai Selesai">
->>>>>>> 2350d18 (Fitur: Menambahkan notifikasi follow-up otomatis dan multi-bahasa)
                                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                         </button>
                                     </div>
@@ -982,11 +961,7 @@
                     <!-- Row 1: Media Follow-Up & Tanggal Follow-Up -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div>
-<<<<<<< HEAD
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 8px;">Media Follow-Up <span style="color: #ef4444;">*</span></label>
-=======
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 8px;">{{ __('messages.jenis_aktivitas') }} <span style="color: #ef4444;">*</span></label>
->>>>>>> 2350d18 (Fitur: Menambahkan notifikasi follow-up otomatis dan multi-bahasa)
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: white; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
                             @php
                                 $options = [
