@@ -26,6 +26,29 @@ Route::get('/run-migrations', function () {
     }
 });
 
+// ROUTE SEMENTARA: Fix kolom cutoff yang belum ada
+Route::get('/fix-cutoff-columns', function () {
+    $results = [];
+    $columns = [
+        'periode_transaksi_terakhir' => "ALTER TABLE implementasi_koperasi ADD COLUMN periode_transaksi_terakhir VARCHAR(255) NULL",
+        'saldo_terakhir' => "ALTER TABLE implementasi_koperasi ADD COLUMN saldo_terakhir VARCHAR(255) NULL",
+        'tanggal_tutup_buku' => "ALTER TABLE implementasi_koperasi ADD COLUMN tanggal_tutup_buku DATE NULL",
+        'tanggal_mulai_aplikasi' => "ALTER TABLE implementasi_koperasi ADD COLUMN tanggal_mulai_aplikasi DATE NULL",
+        'pic_validasi' => "ALTER TABLE implementasi_koperasi ADD COLUMN pic_validasi VARCHAR(255) NULL",
+        'catatan_cutoff' => "ALTER TABLE implementasi_koperasi ADD COLUMN catatan_cutoff TEXT NULL",
+        'status_cutoff' => "ALTER TABLE implementasi_koperasi ADD COLUMN status_cutoff VARCHAR(255) NULL DEFAULT 'Menunggu Penentuan Cut-Off'",
+    ];
+    foreach ($columns as $col => $sql) {
+        if (!\Illuminate\Support\Facades\Schema::hasColumn('implementasi_koperasi', $col)) {
+            \Illuminate\Support\Facades\DB::statement($sql);
+            $results[] = "Kolom '{$col}' berhasil ditambahkan.";
+        } else {
+            $results[] = "Kolom '{$col}' sudah ada (skip).";
+        }
+    }
+    return "<pre>" . implode("\n", $results) . "\n\nSelesai! Silakan kembali ke halaman implementasi.</pre>";
+});
+
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'register'])->name('register');

@@ -14,12 +14,24 @@ class AddCutoffDetailsToImplementasiKoperasisTable extends Migration
     public function up()
     {
         Schema::table('implementasi_koperasi', function (Blueprint $table) {
-            $table->string('periode_transaksi_terakhir')->nullable();
-            $table->string('saldo_terakhir')->nullable();
-            $table->date('tanggal_tutup_buku')->nullable();
-            $table->date('tanggal_mulai_aplikasi')->nullable();
-            $table->string('pic_validasi')->nullable();
-            $table->text('catatan_cutoff')->nullable();
+            if (!Schema::hasColumn('implementasi_koperasi', 'periode_transaksi_terakhir')) {
+                $table->string('periode_transaksi_terakhir')->nullable();
+            }
+            if (!Schema::hasColumn('implementasi_koperasi', 'saldo_terakhir')) {
+                $table->string('saldo_terakhir')->nullable();
+            }
+            if (!Schema::hasColumn('implementasi_koperasi', 'tanggal_tutup_buku')) {
+                $table->date('tanggal_tutup_buku')->nullable();
+            }
+            if (!Schema::hasColumn('implementasi_koperasi', 'tanggal_mulai_aplikasi')) {
+                $table->date('tanggal_mulai_aplikasi')->nullable();
+            }
+            if (!Schema::hasColumn('implementasi_koperasi', 'pic_validasi')) {
+                $table->string('pic_validasi')->nullable();
+            }
+            if (!Schema::hasColumn('implementasi_koperasi', 'catatan_cutoff')) {
+                $table->text('catatan_cutoff')->nullable();
+            }
         });
     }
 

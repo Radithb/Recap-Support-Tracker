@@ -14,7 +14,9 @@ class AddStatusCutoffToImplementasiKoperasiTable extends Migration
     public function up()
     {
         Schema::table('implementasi_koperasi', function (Blueprint $table) {
-            $table->string('status_cutoff')->default('Menunggu Penentuan Cut-Off')->nullable();
+            if (!Schema::hasColumn('implementasi_koperasi', 'status_cutoff')) {
+                $table->string('status_cutoff')->default('Menunggu Penentuan Cut-Off')->nullable();
+            }
         });
     }
 
