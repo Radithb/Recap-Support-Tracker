@@ -109,14 +109,9 @@
                         </td>
                         <td style="padding: 1rem 1.25rem; vertical-align: top;">
                             @if($tkt->picSupport)
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    <div style="width: 28px; height: 28px; border-radius: 50%; background: #2563eb; color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center;">
-                                        {{ substr($tkt->picSupport->nama ?? 'P', 0, 1) }}
-                                    </div>
-                                    <div>
-                                        <div style="font-weight: 600; font-size: 0.88rem; color: var(--ink);">{{ $tkt->picSupport->nama }}</div>
-                                        <div style="font-size: 0.75rem; color: var(--text-muted);">{{ $tkt->picSupport->posisi ?? 'PIC Support' }}</div>
-                                    </div>
+                                <div>
+                                    <div style="font-weight: 600; font-size: 0.88rem; color: var(--ink);">{{ $tkt->picSupport->nama }}</div>
+                                    <div style="font-size: 0.75rem; color: var(--text-muted);">{{ $tkt->picSupport->posisi ?? 'PIC Support' }}</div>
                                 </div>
                             @else
                                 <span style="color: var(--text-muted); font-size: 0.85rem;">-</span>
