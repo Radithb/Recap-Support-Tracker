@@ -84,8 +84,6 @@
                 <tr>
                     <th style="padding: 1rem 1.25rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">No Tiket & Koperasi</th>
                     <th style="padding: 1rem 1.25rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">PIC Support Editor</th>
-                    <th style="padding: 1rem 1.25rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Kategori & Permasalahan</th>
-                    <th style="padding: 1rem 1.25rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Status & Solusi</th>
                     <th style="padding: 1rem 1.25rem; text-align: center; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Waktu Edit Terakhir</th>
                     <th style="padding: 1rem 1.25rem; text-align: center; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Detail Log</th>
                 </tr>
@@ -117,26 +115,6 @@
                                 <span style="color: var(--text-muted); font-size: 0.85rem;">-</span>
                             @endif
                         </td>
-                        <td style="padding: 1rem 1.25rem; vertical-align: top; max-width: 250px;">
-                            <span style="font-size: 0.75rem; font-weight: 600; background: #e2e8f0; color: #475569; padding: 2px 8px; border-radius: 4px; display: inline-block; margin-bottom: 4px;">
-                                {{ $tkt->kategori->nama_kategori ?? 'Belum Ada Kategori' }}
-                            </span>
-                            <div style="font-size: 0.85rem; color: var(--ink); line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;" title="{{ $tkt->permasalahan }}">
-                                {{ $tkt->permasalahan }}
-                            </div>
-                        </td>
-                        <td style="padding: 1rem 1.25rem; vertical-align: top; max-width: 250px;">
-                            <span style="background: {{ $badgeBg }}; color: {{ $badgeClr }}; padding: 3px 10px; border-radius: 20px; font-size: 0.78rem; font-weight: 600; display: inline-block; margin-bottom: 4px;">
-                                {{ $stVal }}
-                            </span>
-                            @if($tkt->penyelesaian)
-                                <div style="font-size: 0.82rem; color: var(--text-muted); line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;" title="{{ $tkt->penyelesaian }}">
-                                    <strong>Solusi:</strong> {{ $tkt->penyelesaian }}
-                                </div>
-                            @else
-                                <div style="font-size: 0.78rem; color: #94a3b8; font-style: italic;">Belum ada solusi diinput</div>
-                            @endif
-                        </td>
                         <td style="padding: 1rem 1.25rem; text-align: center; vertical-align: top; font-size: 0.82rem; color: var(--text-muted);">
                             {{ $tkt->updated_at ? $tkt->updated_at->format('d M Y - H:i') : '-' }}
                         </td>
@@ -149,7 +127,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" style="padding: 3rem; text-align: center; color: var(--text-muted);">
+                        <td colspan="4" style="padding: 3rem; text-align: center; color: var(--text-muted);">
                             Tidak ada riwayat edit tiket yang ditemukan.
                         </td>
                     </tr>
