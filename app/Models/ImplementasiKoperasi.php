@@ -106,7 +106,7 @@ class ImplementasiKoperasi extends Model
      */
     public function updateProgres()
     {
-        $query = $this->checklists()->where('kategori', '!=', 'Migrasi');
+        $query = $this->checklists();
         $totalChecklist = $query->count();
 
         if ($totalChecklist == 0) {
