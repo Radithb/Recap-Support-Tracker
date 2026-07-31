@@ -67,7 +67,7 @@
                             <span class="sub-dot"></span> Rekap Support
                         </a>
                         <a href="{{ route('support.recap.history-pic') }}" class="{{ request()->routeIs('support.recap.history-pic') ? 'active' : '' }}">
-                            <span class="sub-dot"></span> History Edit PIC
+                            <span class="sub-dot"></span> History Update PIC
                         </a>
                     </div>
                 </div>

@@ -29,12 +29,12 @@
 {{-- ═══════════════════════════════════════════ --}}
 <div class="content-wrap" id="actual-content" style="display: none;">
 
-@section('page_title', 'History Edit PIC')
+@section('page_title', 'History Update PIC')
 @section('page_subtitle', 'internal.ptskk.id')
 
 <div class="page-head fade-up" style="animation-delay: 0.1s; margin-bottom: 2rem;">
     <div>
-        <h1 style="margin: 0; font-size: 2rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">History Edit Tiket PIC</h1>
+        <h1 style="margin: 0; font-size: 2rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">History Update Tiket PIC</h1>
     </div>
 </div>
 
@@ -73,7 +73,7 @@
 {{-- TABLE CARD --}}
 <div class="glass-panel fade-up" style="animation-delay: 0.2s; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; margin-bottom: 2rem;">
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--line);">
-        <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">Riwayat Perubahan Tiket oleh PIC</h3>
+        <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">Riwayat Update Tiket oleh PIC</h3>
         <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">Total {{ $tickets->total() }} Tiket</span>
     </div>
     
@@ -82,8 +82,8 @@
             <thead style="background: var(--paper-sunken);">
                 <tr>
                     <th style="padding: 1rem 1.25rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">No Tiket & Koperasi</th>
-                    <th style="padding: 1rem 1.25rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">PIC Support Editor</th>
-                    <th style="padding: 1rem 1.25rem; text-align: center; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Waktu Edit Terakhir</th>
+                    <th style="padding: 1rem 1.25rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">PIC Support Updater</th>
+                    <th style="padding: 1rem 1.25rem; text-align: center; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Waktu Update Terakhir</th>
                     <th style="padding: 1rem 1.25rem; text-align: center; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Detail</th>
                 </tr>
             </thead>
@@ -138,7 +138,7 @@
                 @empty
                     <tr>
                         <td colspan="4" style="padding: 3rem; text-align: center; color: var(--text-muted);">
-                            Tidak ada riwayat edit tiket yang ditemukan.
+                            Tidak ada riwayat update tiket yang ditemukan.
                         </td>
                     </tr>
                 @endforelse
@@ -162,7 +162,7 @@
         {{-- MODAL HEADER --}}
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--line); background: var(--paper-raised);">
             <div>
-                <h4 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: var(--ink); font-family: 'Poppins', sans-serif;" id="modalLogTitle">Detail Edit Tiket</h4>
+                <h4 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: var(--ink); font-family: 'Poppins', sans-serif;" id="modalLogTitle">Detail Update Tiket</h4>
                 <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;" id="modalLogSubtitle">Koperasi</div>
             </div>
             <button type="button" onclick="closeLogModal()" style="background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text-muted); line-height: 1;">&times;</button>
@@ -174,11 +174,11 @@
             {{-- PETUGAS & WAKTU --}}
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: var(--paper-sunken); border-radius: 10px; padding: 1rem; border: 1px solid var(--line);">
                 <div>
-                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">PETUGAS EDIT PIC</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">PETUGAS UPDATE PIC</div>
                     <div style="font-size: 0.92rem; font-weight: 700; color: #2563eb; margin-top: 3px;" id="modalLogPic">-</div>
                 </div>
                 <div>
-                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">WAKTU EDIT TERAKHIR</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">WAKTU UPDATE TERAKHIR</div>
                     <div style="font-size: 0.88rem; font-weight: 600; color: var(--ink); margin-top: 3px;" id="modalLogTime">-</div>
                 </div>
             </div>
@@ -203,7 +203,7 @@
 
             {{-- TERAKHIR DI EDIT --}}
             <div style="background: #eff6ff; border-radius: 10px; padding: 1rem; border: 1px solid #bfdbfe;">
-                <div style="font-size: 0.72rem; color: #1e40af; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px;">TERAKHIR DI EDIT</div>
+                <div style="font-size: 0.72rem; color: #1e40af; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px;">TERAKHIR DI UPDATE</div>
                 <div style="display: flex; flex-direction: column; gap: 8px;" id="modalLogEditList">
                     <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.5;" id="modalLogSolusi">-</div>
                 </div>
@@ -242,7 +242,7 @@
         const solusi = el.getAttribute('data-solusi');
         const pencegahan = el.getAttribute('data-pencegahan');
 
-        document.getElementById('modalLogTitle').innerText = 'Detail Edit Tiket ' + ticketId;
+        document.getElementById('modalLogTitle').innerText = 'Detail Update Tiket ' + ticketId;
         document.getElementById('modalLogSubtitle').innerText = instansi + ' (Pelapor: ' + pelapor + ')';
         document.getElementById('modalLogPic').innerText = pic;
         document.getElementById('modalLogTime').innerText = time;
