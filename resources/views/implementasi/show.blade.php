@@ -714,7 +714,7 @@
             $migrasiNotDone = $implementasi->checklists()->where('kategori', 'Migrasi')->whereNotIn('status', $allDone)->count();
             
             $syarat = [
-                'Pelatihan Selesai' => !empty($implementasi->tanggal_selesai),
+                'Pelatihan Selesai' => !empty($implementasi->tanggal_selesai) || !empty($implementasi->tanggal_pelatihan) || !empty($implementasi->berita_acara),
                 'Data Utama & User Aplikasi Tersedia' => $dataUtamaNotDone === 0,
                 'Data Cut-Off Disepakati' => !empty($implementasi->tanggal_cut_off),
                 'Migrasi Selesai' => $migrasiNotDone === 0,
