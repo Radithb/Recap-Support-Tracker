@@ -201,16 +201,12 @@
                 <div style="font-size: 0.88rem; color: var(--ink); line-height: 1.5; white-space: pre-line;" id="modalLogPermasalahan">-</div>
             </div>
 
-            {{-- SOLUSI TERAKHIR --}}
+            {{-- TERAKHIR DI EDIT --}}
             <div style="background: #eff6ff; border-radius: 10px; padding: 1rem; border: 1px solid #bfdbfe;">
-                <div style="font-size: 0.72rem; color: #1e40af; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px;">HASIL EDIT / SOLUSI PIC SUPPORT</div>
-                <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.5; white-space: pre-line;" id="modalLogSolusi">-</div>
-            </div>
-
-            {{-- PENCEGAHAN (IF ANY) --}}
-            <div id="modalLogPencegahanWrap" style="display: none; background: #fefce8; border-radius: 10px; padding: 1rem; border: 1px solid #fef08a;">
-                <div style="font-size: 0.72rem; color: #854d0e; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px;">TINDAKAN PENCEGAHAN</div>
-                <div style="font-size: 0.88rem; color: #451a03; line-height: 1.5; white-space: pre-line;" id="modalLogPencegahan">-</div>
+                <div style="font-size: 0.72rem; color: #1e40af; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px;">TERAKHIR DI EDIT</div>
+                <div style="display: flex; flex-direction: column; gap: 8px;" id="modalLogEditList">
+                    <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.5;" id="modalLogSolusi">-</div>
+                </div>
             </div>
 
         </div>
@@ -263,17 +259,22 @@
 
         document.getElementById('modalLogStatusBadge').innerHTML = `<span style="background: ${badgeBg}; color: ${badgeClr}; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; display: inline-block;">${status}</span>`;
 
-        // Solusi
-        document.getElementById('modalLogSolusi').innerText = solusi || 'Belum ada solusi diinput oleh PIC Support.';
+        // Render TERAKHIR DI EDIT items
+        let editListHtml = `
+            <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.5;">
+                <strong style="color: #1e40af;">Solusi / Penyelesaian:</strong> ${solusi || 'Belum ada solusi diinput oleh PIC Support.'}
+            </div>
+        `;
 
-        // Pencegahan
-        const pencegahanWrap = document.getElementById('modalLogPencegahanWrap');
         if (pencegahan && pencegahan.trim() !== '') {
-            document.getElementById('modalLogPencegahan').innerText = pencegahan;
-            pencegahanWrap.style.display = 'block';
-        } else {
-            pencegahanWrap.style.display = 'none';
+            editListHtml += `
+                <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.5; margin-top: 4px;">
+                    <strong style="color: #854d0e;">Tindakan Pencegahan:</strong> ${pencegahan}
+                </div>
+            `;
         }
+
+        document.getElementById('modalLogEditList').innerHTML = editListHtml;
 
         document.getElementById('modalDetailLog').style.display = 'flex';
     }
