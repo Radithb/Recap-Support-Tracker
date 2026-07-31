@@ -615,9 +615,16 @@
                             </td>
                             <td style="text-align: center;">
                                 @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
+                                    @php
+                                        $isDone = ($chk->status == 'Sudah Valid' || $chk->status == 'Done');
+                                        $simpanStyle = "background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 500;";
+                                        $simpanStyle .= $isDone ? " opacity: 0.5; cursor: not-allowed;" : " cursor: pointer;";
+                                        $doneStyle = "background: #10b981; color: #fff; border: none; padding: 6px 9px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center;";
+                                        $doneStyle .= $isDone ? " opacity: 0.5; cursor: not-allowed;" : " cursor: pointer;";
+                                    @endphp
                                     <div style="display: flex; gap: 6px; align-items: center; justify-content: center;">
-                                        <button type="button" onclick="updateChecklist({{ $chk->id }})" style="background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 500;">Simpan</button>
-                                        <button type="button" onclick="markAsDone({{ $chk->id }})" style="background: #10b981; color: #fff; border: none; padding: 6px 9px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;" title="Tandai Selesai & Naikkan Progres">
+                                        <button type="button" id="btn-simpan-{{ $chk->id }}" onclick="updateChecklist({{ $chk->id }})" style="{{ $simpanStyle }}" {{ $isDone ? 'disabled' : '' }}>Simpan</button>
+                                        <button type="button" id="btn-done-{{ $chk->id }}" onclick="markAsDone({{ $chk->id }})" style="{{ $doneStyle }}" title="Tandai Selesai & Naikkan Progres" {{ $isDone ? 'disabled' : '' }}>
                                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                         </button>
                                     </div>
@@ -688,9 +695,16 @@
                             </td>
                             <td style="text-align: center;">
                                 @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
+                                    @php
+                                        $isDone = ($chk->status == 'Sudah Valid' || $chk->status == 'Done');
+                                        $simpanStyle = "background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 500;";
+                                        $simpanStyle .= $isDone ? " opacity: 0.5; cursor: not-allowed;" : " cursor: pointer;";
+                                        $doneStyle = "background: #10b981; color: #fff; border: none; padding: 6px 9px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center;";
+                                        $doneStyle .= $isDone ? " opacity: 0.5; cursor: not-allowed;" : " cursor: pointer;";
+                                    @endphp
                                     <div style="display: flex; gap: 6px; align-items: center; justify-content: center;">
-                                        <button type="button" onclick="updateChecklist({{ $chk->id }})" style="background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 500;">Simpan</button>
-                                        <button type="button" onclick="markAsDone({{ $chk->id }})" style="background: #10b981; color: #fff; border: none; padding: 6px 9px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;" title="Tandai Selesai">
+                                        <button type="button" id="btn-simpan-{{ $chk->id }}" onclick="updateChecklist({{ $chk->id }})" style="{{ $simpanStyle }}" {{ $isDone ? 'disabled' : '' }}>Simpan</button>
+                                        <button type="button" id="btn-done-{{ $chk->id }}" onclick="markAsDone({{ $chk->id }})" style="{{ $doneStyle }}" title="Tandai Selesai" {{ $isDone ? 'disabled' : '' }}>
                                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                         </button>
                                     </div>
@@ -1246,6 +1260,34 @@
                 // Update Progress UI dynamically
                 document.getElementById('progres-text').innerText = data.new_progres + '%';
                 document.getElementById('progres-fill').style.width = data.new_progres + '%';
+                
+                // Update buttons state
+                const btnSimpan = document.getElementById('btn-simpan-' + id);
+                const btnDone = document.getElementById('btn-done-' + id);
+                
+                if (status === 'Sudah Valid' || status === 'Done') {
+                    if (btnSimpan) {
+                        btnSimpan.disabled = true;
+                        btnSimpan.style.opacity = '0.5';
+                        btnSimpan.style.cursor = 'not-allowed';
+                    }
+                    if (btnDone) {
+                        btnDone.disabled = true;
+                        btnDone.style.opacity = '0.5';
+                        btnDone.style.cursor = 'not-allowed';
+                    }
+                } else {
+                    if (btnSimpan) {
+                        btnSimpan.disabled = false;
+                        btnSimpan.style.opacity = '1';
+                        btnSimpan.style.cursor = 'pointer';
+                    }
+                    if (btnDone) {
+                        btnDone.disabled = false;
+                        btnDone.style.opacity = '1';
+                        btnDone.style.cursor = 'pointer';
+                    }
+                }
                 
                 // Show Toast Notification
                 showToast('Checklist berhasil di-update!');
