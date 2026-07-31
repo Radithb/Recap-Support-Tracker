@@ -117,7 +117,20 @@
                             {{ $tkt->updated_at ? $tkt->updated_at->format('d M Y - H:i') : '-' }}
                         </td>
                         <td style="padding: 1rem 1.25rem; text-align: center; vertical-align: middle;">
-                            <button type="button" onclick="showLogModal('{{ $tkt->ticket_id }}', '{{ addslashes($tkt->pelapor->instansi->nama_instansi ?? 'Koperasi') }}', '{{ addslashes($tkt->picSupport->nama ?? 'Sistem') }}', '{{ $tkt->updated_at ? $tkt->updated_at->format('d M Y H:i') : '' }}', '{{ $stVal }}', '{{ addslashes($tkt->kategori->nama_kategori ?? '-') }}', '{{ addslashes($tkt->penyelesaian ?? '-') }}')" style="background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px;">
+                            <button type="button" 
+                                    class="btn-detail-log"
+                                    data-ticket-id="{{ $tkt->ticket_id }}"
+                                    data-instansi="{{ $tkt->pelapor->instansi->nama_instansi ?? 'Koperasi' }}"
+                                    data-pelapor="{{ $tkt->pelapor->nama ?? '-' }}"
+                                    data-pic="{{ $tkt->picSupport->nama ?? 'Sistem' }}"
+                                    data-time="{{ $tkt->updated_at ? $tkt->updated_at->format('d M Y - H:i') : '-' }}"
+                                    data-status="{{ $stVal }}"
+                                    data-kategori="{{ $tkt->kategori->nama_kategori ?? '-' }}"
+                                    data-permasalahan="{{ $tkt->permasalahan ?? '-' }}"
+                                    data-solusi="{{ $tkt->penyelesaian ?? '' }}"
+                                    data-pencegahan="{{ $tkt->pencegahan ?? '' }}"
+                                    onclick="openLogModalFromEl(this)"
+                                    style="background: #2563eb; color: #fff; border: none; padding: 7px 16px; border-radius: 6px; font-size: 0.78rem; font-weight: 600; cursor: pointer;">
                                 Detail
                             </button>
                         </td>
@@ -144,39 +157,67 @@
 
 {{-- MODAL DETAIL LOG TIKET --}}
 <div id="modalDetailLog" style="display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); z-index: 9999; backdrop-filter: blur(4px); justify-content: center; align-items: center; padding: 20px;">
-    <div style="background: var(--paper-raised); border-radius: 12px; border: 1px solid var(--line); width: 100%; max-width: 520px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--line);">
+    <div style="background: var(--paper-raised); border-radius: 14px; border: 1px solid var(--line); width: 100%; max-width: 580px; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);">
+        
+        {{-- MODAL HEADER --}}
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--line); background: var(--paper-raised);">
             <div>
-                <h4 style="margin: 0; font-size: 1.1rem; font-weight: 700; color: var(--ink);" id="modalLogTitle">Detail Log Tiket</h4>
-                <div style="font-size: 0.8rem; color: var(--text-muted);" id="modalLogSubtitle">Koperasi</div>
+                <h4 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: var(--ink); font-family: 'Poppins', sans-serif;" id="modalLogTitle">Detail Edit Tiket</h4>
+                <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;" id="modalLogSubtitle">Koperasi</div>
             </div>
-            <button type="button" onclick="closeLogModal()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-muted);">&times;</button>
+            <button type="button" onclick="closeLogModal()" style="background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text-muted); line-height: 1;">&times;</button>
         </div>
-        <div style="padding: 1.5rem;">
-            <div style="background: var(--paper-sunken); border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
-                <div style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">PETUGAS EDIT PIC</div>
-                <div style="font-size: 0.95rem; font-weight: 700; color: #2563eb;" id="modalLogPic">-</div>
-                <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;" id="modalLogTime">-</div>
-            </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 1rem;">
-                <div style="background: var(--paper-sunken); border-radius: 8px; padding: 0.85rem;">
-                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">STATUS HARI INI</div>
-                    <div style="font-size: 0.9rem; font-weight: 700; color: var(--ink); margin-top: 2px;" id="modalLogStatus">-</div>
+        {{-- MODAL BODY --}}
+        <div style="padding: 1.5rem; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 1.1rem;">
+            
+            {{-- PETUGAS & WAKTU --}}
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: var(--paper-sunken); border-radius: 10px; padding: 1rem; border: 1px solid var(--line);">
+                <div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">PETUGAS EDIT PIC</div>
+                    <div style="font-size: 0.92rem; font-weight: 700; color: #2563eb; margin-top: 3px;" id="modalLogPic">-</div>
                 </div>
-                <div style="background: var(--paper-sunken); border-radius: 8px; padding: 0.85rem;">
-                    <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;">KATEGORI TIKET</div>
-                    <div style="font-size: 0.9rem; font-weight: 700; color: var(--ink); margin-top: 2px;" id="modalLogKategori">-</div>
+                <div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">WAKTU EDIT TERAKHIR</div>
+                    <div style="font-size: 0.88rem; font-weight: 600; color: var(--ink); margin-top: 3px;" id="modalLogTime">-</div>
                 </div>
             </div>
 
-            <div style="background: var(--paper-sunken); border-radius: 8px; padding: 1rem;">
-                <div style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600; margin-bottom: 4px;">SOLUSI / PENYELESAIAN TERAKHIR</div>
-                <div style="font-size: 0.88rem; color: var(--ink); line-height: 1.45;" id="modalLogSolusi">-</div>
+            {{-- STATUS & KATEGORI --}}
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                <div style="background: var(--paper-sunken); border-radius: 10px; padding: 0.85rem 1rem; border: 1px solid var(--line);">
+                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">STATUS TIKET</div>
+                    <div style="margin-top: 4px;" id="modalLogStatusBadge">-</div>
+                </div>
+                <div style="background: var(--paper-sunken); border-radius: 10px; padding: 0.85rem 1rem; border: 1px solid var(--line);">
+                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">KATEGORI MASALAH</div>
+                    <div style="font-size: 0.88rem; font-weight: 600; color: var(--ink); margin-top: 4px;" id="modalLogKategori">-</div>
+                </div>
             </div>
+
+            {{-- PERMASALAHAN --}}
+            <div style="background: var(--paper-sunken); border-radius: 10px; padding: 1rem; border: 1px solid var(--line);">
+                <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px;">📌 PERMASALAHAN / KENDALA TIKET</div>
+                <div style="font-size: 0.88rem; color: var(--ink); line-height: 1.5; white-space: pre-line;" id="modalLogPermasalahan">-</div>
+            </div>
+
+            {{-- SOLUSI TERAKHIR --}}
+            <div style="background: #eff6ff; border-radius: 10px; padding: 1rem; border: 1px solid #bfdbfe;">
+                <div style="font-size: 0.72rem; color: #1e40af; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px;">💡 HASIL EDIT / SOLUSI PIC SUPPORT</div>
+                <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.5; white-space: pre-line;" id="modalLogSolusi">-</div>
+            </div>
+
+            {{-- PENCEGAHAN (IF ANY) --}}
+            <div id="modalLogPencegahanWrap" style="display: none; background: #fefce8; border-radius: 10px; padding: 1rem; border: 1px solid #fef08a;">
+                <div style="font-size: 0.72rem; color: #854d0e; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px;">🛡️ TINDAKAN PENCEGAHAN</div>
+                <div style="font-size: 0.88rem; color: #451a03; line-height: 1.5; white-space: pre-line;" id="modalLogPencegahan">-</div>
+            </div>
+
         </div>
+
+        {{-- MODAL FOOTER --}}
         <div style="padding: 1rem 1.5rem; background: var(--paper-sunken); border-top: 1px solid var(--line); text-align: right;">
-            <button type="button" onclick="closeLogModal()" style="background: #475569; color: #fff; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer;">Tutup</button>
+            <button type="button" onclick="closeLogModal()" style="background: #475569; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;">Tutup</button>
         </div>
     </div>
 </div>
@@ -193,14 +234,46 @@
         }, 350);
     });
 
-    function showLogModal(ticketId, instansi, pic, time, status, kategori, solusi) {
-        document.getElementById('modalLogTitle').innerText = 'Detail Log Tiket ' + ticketId;
-        document.getElementById('modalLogSubtitle').innerText = instansi;
+    function openLogModalFromEl(el) {
+        const ticketId = el.getAttribute('data-ticket-id');
+        const instansi = el.getAttribute('data-instansi');
+        const pelapor = el.getAttribute('data-pelapor');
+        const pic = el.getAttribute('data-pic');
+        const time = el.getAttribute('data-time');
+        const status = el.getAttribute('data-status');
+        const kategori = el.getAttribute('data-kategori');
+        const permasalahan = el.getAttribute('data-permasalahan');
+        const solusi = el.getAttribute('data-solusi');
+        const pencegahan = el.getAttribute('data-pencegahan');
+
+        document.getElementById('modalLogTitle').innerText = 'Detail Edit Tiket ' + ticketId;
+        document.getElementById('modalLogSubtitle').innerText = instansi + ' (Pelapor: ' + pelapor + ')';
         document.getElementById('modalLogPic').innerText = pic;
-        document.getElementById('modalLogTime').innerText = 'Waktu Update: ' + (time || '-');
-        document.getElementById('modalLogStatus').innerText = status;
+        document.getElementById('modalLogTime').innerText = time;
         document.getElementById('modalLogKategori').innerText = kategori;
-        document.getElementById('modalLogSolusi').innerText = solusi || 'Belum ada solusi diinput';
+        document.getElementById('modalLogPermasalahan').innerText = permasalahan || '-';
+
+        // Status Badge
+        let stLower = (status || '').toLowerCase();
+        let badgeBg = '#e2e8f0', badgeClr = '#475569';
+        if (stLower === 'open') { badgeBg = '#fee2e2'; badgeClr = '#b91c1c'; }
+        else if (stLower === 'proses') { badgeBg = '#dbeafe'; badgeClr = '#1d4ed8'; }
+        else if (stLower === 'pending') { badgeBg = '#fef08a'; badgeClr = '#854d0e'; }
+        else if (stLower === 'done') { badgeBg = '#dcfce3'; badgeClr = '#166534'; }
+
+        document.getElementById('modalLogStatusBadge').innerHTML = `<span style="background: ${badgeBg}; color: ${badgeClr}; padding: 3px 12px; border-radius: 20px; font-size: 0.78rem; font-weight: 700; display: inline-block;">${status}</span>`;
+
+        // Solusi
+        document.getElementById('modalLogSolusi').innerText = solusi || 'Belum ada solusi diinput oleh PIC Support.';
+
+        // Pencegahan
+        const pencegahanWrap = document.getElementById('modalLogPencegahanWrap');
+        if (pencegahan && pencegahan.trim() !== '') {
+            document.getElementById('modalLogPencegahan').innerText = pencegahan;
+            pencegahanWrap.style.display = 'block';
+        } else {
+            pencegahanWrap.style.display = 'none';
+        }
 
         document.getElementById('modalDetailLog').style.display = 'flex';
     }
