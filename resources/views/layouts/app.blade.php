@@ -61,21 +61,21 @@
                     </button>
                     <div class="sidebar-submenu" style="{{ $isRecapActive ? 'display: flex;' : 'display: none;' }}">
                         <a href="{{ route('support.recap.diagram') }}" class="{{ request()->routeIs('support.recap.diagram') ? 'active' : '' }}">
-                            <span class="sub-dot"></span> Diagram Rekap
+                            <span class="sub-dot"></span> {{ __('messages.recap_diagram') }}
                         </a>
                         <a href="{{ route('support.recap.table') }}" class="{{ request()->routeIs('support.recap.table') ? 'active' : '' }}">
-                            <span class="sub-dot"></span> Rekap Support
+                            <span class="sub-dot"></span> {{ __('messages.recap_support') }}
                         </a>
                         <a href="{{ route('support.recap.history-pic') }}" class="{{ request()->routeIs('support.recap.history-pic') ? 'active' : '' }}">
-                            <span class="sub-dot"></span> History Update PIC
+                            <span class="sub-dot"></span> {{ __('messages.recap_history_pic') }}
                         </a>
                         <a href="{{ route('support.recap.template-surat') }}" class="{{ request()->routeIs('support.recap.template-surat') ? 'active' : '' }}">
-                            <span class="sub-dot"></span> Rekap Template Surat
+                            <span class="sub-dot"></span> {{ __('messages.recap_template_surat') }}
                         </a>
                     </div>
                 </div>
                 <a href="{{ route('implementasi.index') }}" class="{{ request()->routeIs('implementasi.*') ? 'active' : '' }}">
-                    <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; opacity: 0.9;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></span> Monitoring Koperasi
+                    <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; opacity: 0.9;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg></span> {{ __('messages.monitoring_koperasi') }}
                 </a>
                 
                 @if(Auth::user()->role === \App\Enums\UserRole::SUPERADMIN)
@@ -160,7 +160,41 @@
                     <div class="tag">@yield('page_subtitle', 'SAKTI Desk')</div>
                 @endif
             </div>
-            <div class="app-topbar-right">
+            <div class="app-topbar-right" style="display: flex; align-items: center;">
+                <div class="notification-dropdown" style="position: relative; margin-right: 15px;">
+                    @php
+                        $unreadCount = Auth::user()->unreadNotifications->count();
+                    @endphp
+                    <button class="notif-btn" onclick="toggleNotifDropdown(event)" style="background: none; border: none; cursor: pointer; position: relative; padding: 5px;">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                        @if($unreadCount > 0)
+                            <span style="position: absolute; top: 0; right: 0; background: #ef4444; color: white; border-radius: 50%; font-size: 10px; width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; font-weight: bold;">{{ $unreadCount > 9 ? '9+' : $unreadCount }}</span>
+                        @endif
+                    </button>
+                    
+                    <div id="notif-dropdown-menu" style="display: none; position: absolute; right: 0; top: 40px; width: 320px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); z-index: 50;">
+                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+                            <strong style="font-size: 14px;">{{ __('messages.notifikasi_title') }}</strong>
+                            @if($unreadCount > 0)
+                                <form action="{{ route('notifications.markAllRead') }}" method="POST" style="margin: 0;">
+                                    @csrf
+                                    <button type="submit" style="background: none; border: none; color: #3b82f6; font-size: 12px; cursor: pointer; padding: 0;">{{ __('messages.mark_all_read') }}</button>
+                                </form>
+                            @endif
+                        </div>
+                        <div style="max-height: 300px; overflow-y: auto;">
+                            @forelse(Auth::user()->unreadNotifications as $notification)
+                                <a href="{{ route('notifications.read', $notification->id) }}" style="display: block; padding: 12px 15px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: inherit; transition: background 0.2s;">
+                                    <div style="font-size: 13px; font-weight: 600; color: #1e293b; margin-bottom: 4px;">{{ $notification->data['title'] ?? 'Pengingat' }}</div>
+                                    <div style="font-size: 12px; color: #64748b; line-height: 1.4;">{{ $notification->data['message'] ?? '' }}</div>
+                                    <div style="font-size: 11px; color: #94a3b8; margin-top: 6px;">{{ $notification->created_at->diffForHumans() }}</div>
+                                </a>
+                            @empty
+                                <div style="padding: 20px; text-align: center; color: #94a3b8; font-size: 13px;">{{ __('messages.no_new_notif') }}</div>
+                            @endforelse
+                        </div>
+                    </div>
+                </div>
                 @yield('topbar_right')
             </div>
         </div>
@@ -380,6 +414,22 @@
             submenu.style.display = 'flex';
         }
     }
+
+    function toggleNotifDropdown(e) {
+        e.preventDefault();
+        const menu = document.getElementById('notif-dropdown-menu');
+        menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+    }
+
+    document.addEventListener('click', function(e) {
+        const notifMenu = document.getElementById('notif-dropdown-menu');
+        const notifBtn = document.querySelector('.notif-btn');
+        if (notifMenu && notifBtn) {
+            if (!notifMenu.contains(e.target) && !notifBtn.contains(e.target)) {
+                notifMenu.style.display = 'none';
+            }
+        }
+    });
 </script>
 </body>
 </html>

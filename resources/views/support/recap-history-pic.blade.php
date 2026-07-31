@@ -29,12 +29,12 @@
 {{-- ═══════════════════════════════════════════ --}}
 <div class="content-wrap" id="actual-content" style="display: none;">
 
-@section('page_title', 'History Update PIC')
+@section('page_title', __('messages.title_history_pic'))
 @section('page_subtitle', 'internal.ptskk.id')
 
 <div class="page-head fade-up" style="animation-delay: 0.1s; margin-bottom: 2rem;">
     <div>
-        <h1 style="margin: 0; font-size: 2rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">History Update Tiket PIC</h1>
+        <h1 style="margin: 0; font-size: 2rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">{{ __('messages.title_history_pic') }}</h1>
     </div>
 </div>
 
@@ -42,29 +42,29 @@
 <div class="glass-panel fade-up" style="animation-delay: 0.15s; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;">
     <form action="{{ route('support.recap.history-pic') }}" method="GET" style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin: 0;">
         <div style="flex: 1; min-width: 220px;">
-            <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari No Tiket, Koperasi, Permasalahan..." style="width: 100%; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.88rem; outline: none; background: var(--paper-sunken); color: var(--ink);">
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('messages.search_ticket_placeholder') }}" style="width: 100%; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.88rem; outline: none; background: var(--paper-sunken); color: var(--ink);">
         </div>
         <div style="min-width: 160px;">
             <select name="status" style="width: 100%; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.88rem; outline: none; background: var(--paper-sunken); color: var(--ink); cursor: pointer;">
-                <option value="">-- Semua Status --</option>
+                <option value="">{{ __('messages.all_statuses') }}</option>
                 <option value="Open" {{ request('status') == 'Open' ? 'selected' : '' }}>Open</option>
                 <option value="Proses" {{ request('status') == 'Proses' ? 'selected' : '' }}>Proses</option>
                 <option value="Pending" {{ request('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
-                <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>Done (Selesai)</option>
+                <option value="Done" {{ request('status') == 'Done' ? 'selected' : '' }}>Done ({{ __('messages.done_status') }})</option>
             </select>
         </div>
         <div style="min-width: 180px;">
             <select name="pic_id" style="width: 100%; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.88rem; outline: none; background: var(--paper-sunken); color: var(--ink); cursor: pointer;">
-                <option value="">-- Semua PIC Support --</option>
+                <option value="">{{ __('messages.all_pic_support') }}</option>
                 @foreach($supportUsers as $sup)
                     <option value="{{ $sup->user_id }}" {{ request('pic_id') == $sup->user_id ? 'selected' : '' }}>{{ $sup->nama }}</option>
                 @endforeach
             </select>
         </div>
         <div style="display: flex; gap: 8px;">
-            <button type="submit" class="btn btn-primary" style="padding: 9px 18px; font-weight: 600; font-size: 0.88rem; border-radius: 8px;">Cari</button>
+            <button type="submit" class="btn btn-primary" style="padding: 9px 18px; font-weight: 600; font-size: 0.88rem; border-radius: 8px;">{{ __('messages.btn_search') }}</button>
             @if(request()->anyFilled(['search', 'status', 'pic_id']))
-                <a href="{{ route('support.recap.history-pic') }}" class="btn" style="padding: 9px 14px; background: #e2e8f0; color: #475569; font-weight: 600; font-size: 0.88rem; border-radius: 8px; text-decoration: none;">Reset</a>
+                <a href="{{ route('support.recap.history-pic') }}" class="btn" style="padding: 9px 14px; background: #e2e8f0; color: #475569; font-weight: 600; font-size: 0.88rem; border-radius: 8px; text-decoration: none;">{{ __('messages.btn_reset') }}</a>
             @endif
         </div>
     </form>
@@ -73,18 +73,18 @@
 {{-- TABLE CARD --}}
 <div class="glass-panel fade-up" style="animation-delay: 0.2s; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; margin-bottom: 2rem;">
     <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--line);">
-        <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">Riwayat Update Tiket oleh PIC</h3>
-        <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">Total {{ $tickets->total() }} Tiket</span>
+        <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">{{ __('messages.history_update_ticket_pic') }}</h3>
+        <span style="font-size: 0.85rem; color: var(--text-muted); font-weight: 500;">{{ __('messages.total_tickets', ['count' => $tickets->total()]) }}</span>
     </div>
     
     <div style="overflow-x: auto;">
         <table style="width: 100%; border-collapse: collapse; min-width: 900px;">
             <thead style="background: var(--paper-sunken);">
                 <tr>
-                    <th style="padding: 1rem 1.25rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">No Tiket & Koperasi</th>
-                    <th style="padding: 1rem 1.25rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">PIC Support Updater</th>
-                    <th style="padding: 1rem 1.25rem; text-align: center; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Waktu Update Terakhir</th>
-                    <th style="padding: 1rem 1.25rem; text-align: center; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">Detail</th>
+                    <th style="padding: 1rem 1.25rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">{{ __('messages.col_ticket_koperasi') }}</th>
+                    <th style="padding: 1rem 1.25rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">{{ __('messages.col_pic_updater') }}</th>
+                    <th style="padding: 1rem 1.25rem; text-align: center; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">{{ __('messages.col_last_update') }}</th>
+                    <th style="padding: 1rem 1.25rem; text-align: center; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">{{ __('messages.col_detail') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -138,7 +138,7 @@
                 @empty
                     <tr>
                         <td colspan="4" style="padding: 3rem; text-align: center; color: var(--text-muted);">
-                            Tidak ada riwayat update tiket yang ditemukan.
+                            {{ __('messages.empty_history_update_ticket') }}
                         </td>
                     </tr>
                 @endforelse
@@ -162,7 +162,7 @@
         {{-- MODAL HEADER --}}
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--line); background: var(--paper-raised);">
             <div>
-                <h4 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: var(--ink); font-family: 'Poppins', sans-serif;" id="modalLogTitle">Detail Update Tiket</h4>
+                <h4 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: var(--ink); font-family: 'Poppins', sans-serif;" id="modalLogTitle">{{ __('messages.modal_log_title') }}</h4>
                 <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;" id="modalLogSubtitle">Koperasi</div>
             </div>
             <button type="button" onclick="closeLogModal()" style="background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text-muted); line-height: 1;">&times;</button>
@@ -174,11 +174,11 @@
             {{-- PETUGAS & WAKTU --}}
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: var(--paper-sunken); border-radius: 10px; padding: 1rem; border: 1px solid var(--line);">
                 <div>
-                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">PETUGAS UPDATE PIC</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">{{ __('messages.modal_log_pic') }}</div>
                     <div style="font-size: 0.92rem; font-weight: 700; color: #2563eb; margin-top: 3px;" id="modalLogPic">-</div>
                 </div>
                 <div>
-                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">WAKTU UPDATE TERAKHIR</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">{{ __('messages.modal_log_time') }}</div>
                     <div style="font-size: 0.88rem; font-weight: 600; color: var(--ink); margin-top: 3px;" id="modalLogTime">-</div>
                 </div>
             </div>
@@ -186,24 +186,24 @@
             {{-- STATUS & KATEGORI --}}
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                 <div style="background: var(--paper-sunken); border-radius: 10px; padding: 0.85rem 1rem; border: 1px solid var(--line);">
-                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">STATUS TIKET</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">{{ __('messages.modal_log_status') }}</div>
                     <div style="margin-top: 4px;" id="modalLogStatusBadge">-</div>
                 </div>
                 <div style="background: var(--paper-sunken); border-radius: 10px; padding: 0.85rem 1rem; border: 1px solid var(--line);">
-                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">KATEGORI MASALAH</div>
+                    <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">{{ __('messages.modal_log_category') }}</div>
                     <div style="font-size: 0.88rem; font-weight: 600; color: var(--ink); margin-top: 4px;" id="modalLogKategori">-</div>
                 </div>
             </div>
 
             {{-- PERMASALAHAN --}}
             <div style="background: var(--paper-sunken); border-radius: 10px; padding: 1rem; border: 1px solid var(--line);">
-                <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px;">PERMASALAHAN / KENDALA TIKET</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px;">{{ __('messages.modal_log_problem') }}</div>
                 <div style="font-size: 0.88rem; color: var(--ink); line-height: 1.5; white-space: pre-line;" id="modalLogPermasalahan">-</div>
             </div>
 
             {{-- TERAKHIR DI EDIT --}}
             <div style="background: #eff6ff; border-radius: 10px; padding: 1rem; border: 1px solid #bfdbfe;">
-                <div style="font-size: 0.72rem; color: #1e40af; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px;">TERAKHIR DI UPDATE</div>
+                <div style="font-size: 0.72rem; color: #1e40af; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px;">{{ __('messages.modal_log_last_edit') }}</div>
                 <div style="display: flex; flex-direction: column; gap: 8px;" id="modalLogEditList">
                     <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.5;" id="modalLogSolusi">-</div>
                 </div>
@@ -213,7 +213,7 @@
 
         {{-- MODAL FOOTER --}}
         <div style="padding: 1rem 1.5rem; background: var(--paper-sunken); border-top: 1px solid var(--line); text-align: right;">
-            <button type="button" onclick="closeLogModal()" style="background: #475569; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;">Tutup</button>
+            <button type="button" onclick="closeLogModal()" style="background: #475569; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; font-weight: 600; font-size: 0.85rem; cursor: pointer;">{{ __('messages.btn_tutup') }}</button>
         </div>
     </div>
 </div>
@@ -242,8 +242,8 @@
         const solusi = el.getAttribute('data-solusi');
         const pencegahan = el.getAttribute('data-pencegahan');
 
-        document.getElementById('modalLogTitle').innerText = 'Detail Update Tiket ' + ticketId;
-        document.getElementById('modalLogSubtitle').innerText = instansi + ' (Pelapor: ' + pelapor + ')';
+        document.getElementById('modalLogTitle').innerText = '{{ __('messages.modal_log_title') }} ' + ticketId;
+        document.getElementById('modalLogSubtitle').innerText = instansi + ' ({{ __('messages.reporter') }}: ' + pelapor + ')';
         document.getElementById('modalLogPic').innerText = pic;
         document.getElementById('modalLogTime').innerText = time;
         document.getElementById('modalLogKategori').innerText = kategori;

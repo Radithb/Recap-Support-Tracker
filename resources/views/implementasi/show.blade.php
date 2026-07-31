@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('page_title', 'Detail Implementasi')
+@section('page_title', __('messages.detail_implementasi'))
 @section('page_subtitle', $implementasi->instansi->nama_instansi ?? 'Koperasi')
 
 @section('topbar_right')
     <a href="{{ route('implementasi.index') }}" style="background-color: #64748b; color: white; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); transition: background 0.2s;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"></path><polyline points="12 19 5 12 12 5"></polyline></svg>
-        Kembali
+        {{ __('messages.btn_kembali') }}
     </a>
 @endsection
 
@@ -337,13 +337,11 @@
 <div class="modal-overlay" id="modalKelolaChecklist" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(2px); z-index: 9999; justify-content: center; align-items: center;">
     <div style="background: #fff; border-radius: 12px; width: 90%; max-width: 550px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); animation: fadeUpDoneModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
         <div style="padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
-            <h4 style="margin: 0; font-size: 16px; font-weight: 700; color: #1e293b;">Kelola Item Checklist Kesiapan</h4>
+            <h4 style="margin: 0; font-size: 16px; font-weight: 600; color: #1e293b;">{{ __('messages.kelola_item_checklist') }}</h4>
             <button type="button" onclick="closeKelolaModal()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b;">&times;</button>
         </div>
         <div style="padding: 20px; overflow-y: auto; flex-grow: 1;">
-            <p style="margin: 0 0 15px; font-size: 13px; color: #64748b;">
-                Hapus item checklist yang tidak diperlukan oleh koperasi ini. Progres kesiapan akan otomatis dihitung ulang.
-            </p>
+
             <div id="kelola-checklist-list" style="display: flex; flex-direction: column; gap: 8px;">
                 @foreach($implementasi->checklists as $chk)
                 <div id="modal-item-{{ $chk->id }}" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px;">
@@ -353,7 +351,7 @@
                     </div>
                     <button type="button" onclick="deleteChecklist({{ $chk->id }}, '{{ addslashes($chk->nama_item) }}')" style="background: #ef4444; color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px;" title="Hapus Item Ini">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                        Hapus
+                        {{ __('messages.btn_hapus') }}
                     </button>
                 </div>
                 @endforeach
@@ -361,11 +359,11 @@
 
             <!-- Tambah Item Kustom -->
             <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed #cbd5e1;">
-                <h5 style="margin: 0 0 10px; font-size: 13px; font-weight: 600; color: #475569;">+ Tambah Item Checklist Kustom</h5>
+                <h5 style="margin: 0 0 10px; font-size: 13px; font-weight: 600; color: #475569;">{{ __('messages.tambah_item_kustom') }}</h5>
                 <div style="display: flex; gap: 8px;">
-                    <input type="text" id="new-item-kategori" placeholder="Kategori" style="width: 110px; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;">
-                    <input type="text" id="new-item-nama" placeholder="Nama Item Checklist" style="flex-grow: 1; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;">
-                    <button type="button" onclick="addCustomChecklist({{ $implementasi->id }})" style="background: #2563eb; color: #fff; border: none; padding: 7px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; white-space: nowrap;">Tambah</button>
+                    <input type="text" id="new-item-kategori" placeholder="{{ __('messages.kategori') }}" style="width: 110px; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;">
+                    <input type="text" id="new-item-nama" placeholder="{{ __('messages.nama_item_checklist') }}" style="flex-grow: 1; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;">
+                    <button type="button" onclick="addCustomChecklist({{ $implementasi->id }})" style="background: #2563eb; color: #fff; border: none; padding: 7px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; white-space: nowrap;">{{ __('messages.btn_tambah') }}</button>
                 </div>
             </div>
         </div>
@@ -376,13 +374,11 @@
 <div class="modal-overlay" id="modalKelolaMigrasi" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(2px); z-index: 9999; justify-content: center; align-items: center;">
     <div style="background: #fff; border-radius: 12px; width: 90%; max-width: 550px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); animation: fadeUpDoneModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
         <div style="padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
-            <h4 style="margin: 0; font-size: 16px; font-weight: 700; color: #1e293b;">Kelola Item Migrasi Data</h4>
+            <h4 style="margin: 0; font-size: 16px; font-weight: 700; color: #1e293b;">{{ __('messages.kelola_item_migrasi') }}</h4>
             <button type="button" onclick="closeKelolaMigrasiModal()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b;">&times;</button>
         </div>
         <div style="padding: 20px; overflow-y: auto; flex-grow: 1;">
-            <p style="margin: 0 0 15px; font-size: 13px; color: #64748b;">
-                Hapus item migrasi data yang tidak diperlukan oleh koperasi ini.
-            </p>
+
             <div id="kelola-migrasi-list" style="display: flex; flex-direction: column; gap: 8px;">
                 @foreach($implementasi->checklists->where('kategori', 'Migrasi') as $chk)
                 <div id="modal-item-{{ $chk->id }}" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px;">
@@ -391,7 +387,7 @@
                     </div>
                     <button type="button" onclick="deleteChecklist({{ $chk->id }}, '{{ addslashes($chk->nama_item) }}')" style="background: #ef4444; color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px;" title="Hapus Item Ini">
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
-                        Hapus
+                        {{ __('messages.btn_hapus') }}
                     </button>
                 </div>
                 @endforeach
@@ -399,15 +395,15 @@
 
             <!-- Tambah Item Migrasi Kustom -->
             <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed #cbd5e1;">
-                <h5 style="margin: 0 0 10px; font-size: 13px; font-weight: 600; color: #475569;">+ Tambah Item Migrasi Kustom</h5>
+                <h5 style="margin: 0 0 10px; font-size: 13px; font-weight: 600; color: #475569;">{{ __('messages.tambah_migrasi_kustom') }}</h5>
                 <div style="display: flex; gap: 8px;">
-                    <input type="text" id="new-migrasi-nama" placeholder="Nama Item Migrasi" style="flex-grow: 1; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;">
-                    <button type="button" onclick="addCustomMigrasi({{ $implementasi->id }})" style="background: #2563eb; color: #fff; border: none; padding: 7px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; white-space: nowrap;">Tambah</button>
+                    <input type="text" id="new-migrasi-nama" placeholder="{{ __('messages.nama_item_migrasi') }}" style="flex-grow: 1; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;">
+                    <button type="button" onclick="addCustomMigrasi({{ $implementasi->id }})" style="background: #2563eb; color: #fff; border: none; padding: 7px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; white-space: nowrap;">{{ __('messages.btn_tambah') }}</button>
                 </div>
             </div>
         </div>
         <div style="padding: 12px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end;">
-            <button type="button" onclick="closeKelolaMigrasiModal()" style="padding: 7px 16px; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff; color: #475569; font-weight: 600; cursor: pointer; font-size: 13px;">Selesai</button>
+            <button type="button" onclick="closeKelolaMigrasiModal()" style="padding: 7px 16px; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff; color: #475569; font-weight: 600; cursor: pointer; font-size: 13px;">{{ __('messages.btn_selesai') }}</button>
         </div>
     </div>
 </div>
@@ -429,7 +425,7 @@
         
         <div class="progress-wrapper">
             <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-size: 13px; font-weight: 600;">
-                <span>Progres Kesiapan</span>
+                <span>{{ __('messages.progres_kesiapan') }}</span>
                 <span id="progres-text">{{ $implementasi->progres }}%</span>
             </div>
             <div class="progress-bar-bg">
@@ -448,15 +444,26 @@
     <div class="md-sidebar">
         <button class="md-tab-btn active" onclick="openTab('tab-ringkasan', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-            Ringkasan
+            {{ __('messages.tab_ringkasan') }}
         </button>
         <button class="md-tab-btn" onclick="openTab('tab-checklist', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-            Checklist Kesiapan
+            {{ __('messages.tab_checklist_kesiapan') }}
         </button>
+<<<<<<< HEAD
+=======
+        <button class="md-tab-btn" onclick="openTab('tab-migrasi', this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            {{ __('messages.tab_migrasi_data') }}
+        </button>
+        <button class="md-tab-btn" onclick="openTab('tab-target-golive', this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+            {{ __('messages.tab_go_live') }}
+        </button>
+>>>>>>> 2350d18 (Fitur: Menambahkan notifikasi follow-up otomatis dan multi-bahasa)
         <button class="md-tab-btn" onclick="openTab('tab-cut-off', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-            Tgl Cut-Off
+            {{ __('messages.tab_tgl_cutoff') }}
         </button>
         <button class="md-tab-btn" onclick="openTab('tab-migrasi', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
@@ -464,7 +471,7 @@
         </button>
         <button class="md-tab-btn" onclick="openTab('tab-followup', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-            Aktivitas Follow-Up
+            {{ __('messages.tab_aktivitas_followup') }}
         </button>
         <button class="md-tab-btn" onclick="openTab('tab-target-golive', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
@@ -472,7 +479,7 @@
         </button>
         <button class="md-tab-btn" onclick="openTab('tab-aktivitas', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-            Aktivitas & Log
+            {{ __('messages.tab_aktivitas_log') }}
         </button>
     </div>
 
@@ -485,7 +492,7 @@
         <div class="summary-grid">
             <div class="summary-item" style="position: relative;">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                    <div class="summary-label">Go-Live</div>
+                    <div class="summary-label">{{ __('messages.ringkasan_golive') }}</div>
                     <div style="position: relative;">
                         <button onclick="document.getElementById('golive-dropdown').style.display = document.getElementById('golive-dropdown').style.display === 'none' ? 'block' : 'none';" style="background: none; border: none; cursor: pointer; color: #64748b; padding: 0;">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle><circle cx="5" cy="12" r="1.5"></circle></svg>
@@ -504,7 +511,7 @@
             </div>
             <div class="summary-item" style="position: relative;">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                    <div class="summary-label">Tgl Cut-Off</div>
+                    <div class="summary-label">{{ __('messages.ringkasan_tgl_cutoff') }}</div>
                     <div style="position: relative;">
                         <button onclick="document.getElementById('cutoff-dropdown').style.display = document.getElementById('cutoff-dropdown').style.display === 'none' ? 'block' : 'none';" style="background: none; border: none; cursor: pointer; color: #64748b; padding: 0;">
                             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"></circle><circle cx="19" cy="12" r="1.5"></circle><circle cx="5" cy="12" r="1.5"></circle></svg>
@@ -522,7 +529,7 @@
                 <div class="summary-value">{{ $implementasi->tanggal_cut_off ? $implementasi->tanggal_cut_off->format('d M Y') : 'Belum Ditentukan' }}</div>
             </div>
             <div class="summary-item">
-                <div class="summary-label">Tgl Pelatihan</div>
+                <div class="summary-label">{{ __('messages.ringkasan_tgl_pelatihan') }}</div>
                 <div class="summary-value">
                     @if($implementasi->tanggal_pelatihan)
                         {{ $implementasi->tanggal_pelatihan->format('d M Y') }}
@@ -535,7 +542,7 @@
                 </div>
             </div>
             <div class="summary-item">
-                <div class="summary-label">Berita Acara</div>
+                <div class="summary-label">{{ __('messages.ringkasan_berita_acara') }}</div>
                 <div class="summary-value">
                     @if($implementasi->berita_acara)
                         <a href="{{ Storage::url($implementasi->berita_acara) }}" target="_blank" style="color: #2563eb; text-decoration: underline; font-weight: 500;">Lihat PDF</a>
@@ -545,17 +552,22 @@
                 </div>
             </div>
             <div class="summary-item">
-                <div class="summary-label">Anggota Yang Hadir</div>
+                <div class="summary-label">{{ __('messages.ringkasan_anggota_hadir') }}</div>
                 <div class="summary-value">{{ $implementasi->anggota_hadir ?? '-' }}</div>
             </div>
             <div class="summary-item">
-                <div class="summary-label">Kontak PIC Koperasi</div>
+                <div class="summary-label">{{ __('messages.ringkasan_kontak_pic') }}</div>
                 <div class="summary-value">
                     <span style="font-weight:400; font-size:12px;">WA: {{ $implementasi->kontak_pic }}<br>Email: {{ $implementasi->email_pic ?? '-' }}</span>
                 </div>
             </div>
+<<<<<<< HEAD
             <div class="summary-item">
                 <div class="summary-label">Tindakan Berikutnya (Next Action)</div>
+=======
+            <div class="summary-item" style="border-left: 3px solid #f59e0b;">
+                <div class="summary-label" style="color: #b45309;">{{ __('messages.ringkasan_tindakan_berikutnya') }}</div>
+>>>>>>> 2350d18 (Fitur: Menambahkan notifikasi follow-up otomatis dan multi-bahasa)
                 <div class="summary-value">{{ $implementasi->tindakan_berikutnya ?? 'Belum ada' }}</div>
                 <div style="font-size: 12px; margin-top: 5px;">PIC: {{ $implementasi->pic_tindakan ?? '-' }}</div>
             </div>
@@ -565,11 +577,11 @@
     <!-- TAB 2: CHECKLIST -->
     <div id="tab-checklist" class="tab-content">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Checklist Kesiapan Implementasi</h4>
+            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">{{ __('messages.checklist_kesiapan_impl') }}</h4>
             @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
                 <button type="button" onclick="openKelolaModal()" style="background: #475569; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;" title="Hapus atau Tambah Item Checklist">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-                    Edit
+                    {{ __('messages.btn_edit') }}
                 </button>
             @endif
         </div>
@@ -581,11 +593,11 @@
                 <table class="checklist-table">
                     <thead>
                         <tr>
-                            <th>Kategori</th>
-                            <th>Item Kesiapan</th>
-                            <th style="width: 200px;">Status</th>
-                            <th>Catatan Tambahan</th>
-                            <th style="width: 120px; text-align: center;">Aksi</th>
+                            <th>{{ __('messages.kategori') }}</th>
+                            <th>{{ __('messages.item_kesiapan') }}</th>
+                            <th style="width: 200px;">{{ __('messages.status') }}</th>
+                            <th>{{ __('messages.catatan_tambahan') }}</th>
+                            <th style="width: 120px; text-align: center;">{{ __('messages.aksi') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -623,8 +635,13 @@
                                         $doneStyle .= $isDone ? " opacity: 0.5; cursor: not-allowed;" : " cursor: pointer;";
                                     @endphp
                                     <div style="display: flex; gap: 6px; align-items: center; justify-content: center;">
+<<<<<<< HEAD
                                         <button type="button" id="btn-simpan-{{ $chk->id }}" onclick="updateChecklist({{ $chk->id }})" style="{{ $simpanStyle }}" {{ $isDone ? 'disabled' : '' }}>Simpan</button>
                                         <button type="button" id="btn-done-{{ $chk->id }}" onclick="markAsDone({{ $chk->id }})" style="{{ $doneStyle }}" title="Tandai Selesai & Naikkan Progres" {{ $isDone ? 'disabled' : '' }}>
+=======
+                                        <button type="button" onclick="updateChecklist({{ $chk->id }})" style="background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 500;">{{ __('messages.btn_simpan') }}</button>
+                                        <button type="button" onclick="markAsDone({{ $chk->id }})" style="background: #10b981; color: #fff; border: none; padding: 6px 9px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;" title="Tandai Selesai & Naikkan Progres">
+>>>>>>> 2350d18 (Fitur: Menambahkan notifikasi follow-up otomatis dan multi-bahasa)
                                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                         </button>
                                     </div>
@@ -647,7 +664,7 @@
     <!-- TAB 3: MIGRASI DATA -->
     <div id="tab-migrasi" class="tab-content">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Item Migrasi Data Koperasi</h4>
+            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">{{ __('messages.item_migrasi_data_koperasi') }}</h4>
             @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
                 <button type="button" onclick="openKelolaMigrasiModal()" style="background: #475569; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;" title="Hapus atau Tambah Item Migrasi">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
@@ -663,10 +680,10 @@
                 <table class="checklist-table">
                     <thead>
                         <tr>
-                            <th>Item Migrasi Data</th>
-                            <th style="width: 200px;">Status</th>
-                            <th>Catatan Tambahan</th>
-                            <th style="width: 120px; text-align: center;">Aksi</th>
+                            <th>{{ __('messages.item_migrasi_data') }}</th>
+                            <th style="width: 200px;">{{ __('messages.status') }}</th>
+                            <th>{{ __('messages.catatan_tambahan') }}</th>
+                            <th style="width: 120px; text-align: center;">{{ __('messages.aksi') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -678,11 +695,11 @@
                                     <span style="font-weight:600; color: #475569;">{{ $chk->status }}</span>
                                 @else
                                     <select id="status-{{ $chk->id }}" class="checklist-select">
-                                        <option value="Belum Dikirim" {{ $chk->status == 'Belum Dikirim' ? 'selected' : '' }}>Belum Dikirim</option>
-                                        <option value="Sudah Dikirim" {{ $chk->status == 'Sudah Dikirim' ? 'selected' : '' }}>Sudah Dikirim</option>
-                                        <option value="Sedang Diproses" {{ $chk->status == 'Sedang Diproses' ? 'selected' : '' }}>Sedang Diproses</option>
-                                        <option value="Perlu Revisi" {{ $chk->status == 'Perlu Revisi' ? 'selected' : '' }}>Perlu Revisi</option>
-                                        <option value="Sudah Valid" {{ ($chk->status == 'Sudah Valid' || $chk->status == 'Done') ? 'selected' : '' }}>Sudah Valid (Done)</option>
+                                        <option value="Belum Dikirim" {{ $chk->status == 'Belum Dikirim' ? 'selected' : '' }}>{{ __('messages.status_belum_dikirim') }}</option>
+                                        <option value="Sudah Dikirim" {{ $chk->status == 'Sudah Dikirim' ? 'selected' : '' }}>{{ __('messages.status_sudah_dikirim') }}</option>
+                                        <option value="Sedang Diproses" {{ $chk->status == 'Sedang Diproses' ? 'selected' : '' }}>{{ __('messages.status_sedang_diproses') }}</option>
+                                        <option value="Perlu Revisi" {{ $chk->status == 'Perlu Revisi' ? 'selected' : '' }}>{{ __('messages.status_perlu_revisi') }}</option>
+                                        <option value="Sudah Valid" {{ ($chk->status == 'Sudah Valid' || $chk->status == 'Done') ? 'selected' : '' }}>{{ __('messages.status_sudah_valid') }}</option>
                                     </select>
                                 @endif
                             </td>
@@ -690,7 +707,7 @@
                                 @if(Auth::user()->role === \App\Enums\UserRole::PELAPOR)
                                     <span style="color: #64748b; font-style: italic;">{{ $chk->catatan ?? '-' }}</span>
                                 @else
-                                    <input type="text" id="catatan-{{ $chk->id }}" class="checklist-input" value="{{ $chk->catatan }}" placeholder="Tambahkan catatan...">
+                                    <input type="text" id="catatan-{{ $chk->id }}" class="checklist-input" value="{{ $chk->catatan }}" placeholder="{{ __('messages.placeholder_catatan') }}">
                                 @endif
                             </td>
                             <td style="text-align: center;">
@@ -703,8 +720,13 @@
                                         $doneStyle .= $isDone ? " opacity: 0.5; cursor: not-allowed;" : " cursor: pointer;";
                                     @endphp
                                     <div style="display: flex; gap: 6px; align-items: center; justify-content: center;">
+<<<<<<< HEAD
                                         <button type="button" id="btn-simpan-{{ $chk->id }}" onclick="updateChecklist({{ $chk->id }})" style="{{ $simpanStyle }}" {{ $isDone ? 'disabled' : '' }}>Simpan</button>
                                         <button type="button" id="btn-done-{{ $chk->id }}" onclick="markAsDone({{ $chk->id }})" style="{{ $doneStyle }}" title="Tandai Selesai" {{ $isDone ? 'disabled' : '' }}>
+=======
+                                        <button type="button" onclick="updateChecklist({{ $chk->id }})" style="background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 500;">{{ __('messages.btn_simpan') }}</button>
+                                        <button type="button" onclick="markAsDone({{ $chk->id }})" style="background: #10b981; color: #fff; border: none; padding: 6px 9px; border-radius: 4px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center;" title="Tandai Selesai">
+>>>>>>> 2350d18 (Fitur: Menambahkan notifikasi follow-up otomatis dan multi-bahasa)
                                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                         </button>
                                     </div>
@@ -770,23 +792,23 @@
             @method('PUT')
             
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Detail Go-Live</h4>
-                <button type="submit" {{ !$canGoLive ? 'disabled' : '' }} style="background-color: {{ $canGoLive ? '#3b82f6' : '#94a3b8' }}; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; {{ $canGoLive ? 'cursor: pointer;' : 'cursor: not-allowed;' }}">Simpan Perubahan</button>
+                <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">{{ __('messages.detail_go_live') }}</h4>
+                <button type="submit" {{ !$canGoLive ? 'disabled' : '' }} style="background-color: {{ $canGoLive ? '#3b82f6' : '#94a3b8' }}; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; {{ $canGoLive ? 'cursor: pointer;' : 'cursor: not-allowed;' }}">{{ __('messages.simpan_perubahan') }}</button>
             </div>
             
             <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px;">
                 <!-- Auto-filled Fields -->
                 <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 15px;">
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Aplikasi / Modul</label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.aplikasi_modul_label') }}</label>
                         <input type="text" class="form-control" value="{{ $implementasi->aplikasis && $implementasi->aplikasis->count() > 0 ? $implementasi->aplikasis->pluck('nama_aplikasi')->join(', ') : ($implementasi->aplikasi->nama_aplikasi ?? '-') }}" readonly style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: #e2e8f0; color: #64748b; cursor: not-allowed;">
                     </div>
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">PIC PT SAKTI</label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.pic_sakti') }}</label>
                         <input type="text" class="form-control" value="{{ $implementasi->nama_trainer ?? '-' }}" readonly style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: #e2e8f0; color: #64748b; cursor: not-allowed;">
                     </div>
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">PIC Koperasi</label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.pic_koperasi') }}</label>
                         <input type="text" class="form-control" value="{{ $implementasi->anggota_hadir ?? '-' }}" readonly style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: #e2e8f0; color: #64748b; cursor: not-allowed;">
                     </div>
                 </div>
@@ -794,63 +816,63 @@
                 <!-- Scheduling & Location -->
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 15px;">
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Metode Pendampingan</label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.metode_pendampingan') }}</label>
                         <select name="metode_pendampingan" class="form-control" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
-                            <option value="">Pilih Metode</option>
+                            <option value="">{{ __('messages.pilih_metode') }}</option>
                             <option value="Online (Zoom/Meet)" {{ $implementasi->metode_pendampingan == 'Online (Zoom/Meet)' ? 'selected' : '' }}>Online (Zoom/Meet)</option>
                             <option value="Offline (Kunjungan)" {{ $implementasi->metode_pendampingan == 'Offline (Kunjungan)' ? 'selected' : '' }}>Offline (Kunjungan)</option>
                         </select>
                     </div>
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Link Meeting</label>
-                        <input type="text" name="link_meeting" class="form-control" value="{{ $implementasi->link_meeting }}" placeholder="Masukkan link meeting jika online" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.link_meeting') }}</label>
+                        <input type="text" name="link_meeting" class="form-control" value="{{ $implementasi->link_meeting }}" placeholder="{{ __('messages.placeholder_link_meeting') }}" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
                     </div>
                 </div>
 
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 15px;">
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tanggal</label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.tanggal') }}</label>
                         <input type="date" name="target_go_live" class="form-control" value="{{ $implementasi->target_go_live ? $implementasi->target_go_live->format('Y-m-d') : '' }}" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
                     </div>
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Waktu</label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.waktu') }}</label>
                         <input type="time" name="waktu_go_live" class="form-control" value="{{ $implementasi->waktu_go_live ? \Carbon\Carbon::parse($implementasi->waktu_go_live)->format('H:i') : '' }}" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
                     </div>
                 </div>
 
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 15px;">
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tempat</label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.tempat') }}</label>
                         <select name="tempat_go_live" class="form-control" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
-                            <option value="">Pilih Tempat</option>
+                            <option value="">{{ __('messages.pilih_tempat') }}</option>
                             <option value="Zoom" {{ $implementasi->tempat_go_live == 'Zoom' ? 'selected' : '' }}>Zoom</option>
                             <option value="Gmeet" {{ $implementasi->tempat_go_live == 'Gmeet' ? 'selected' : '' }}>Gmeet</option>
                             <option value="Lokasi" {{ $implementasi->tempat_go_live == 'Lokasi' ? 'selected' : '' }}>Lokasi</option>
                         </select>
                     </div>
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Status</label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.status') }}</label>
                         <select name="status_go_live" class="form-control" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
-                            <option value="Belum Siap Go Live" {{ $implementasi->status_go_live == 'Belum Siap Go Live' ? 'selected' : '' }}>Belum Siap Go Live</option>
-                            <option value="Siap Go Live" {{ $implementasi->status_go_live == 'Siap Go Live' ? 'selected' : '' }}>Siap Go Live</option>
+                            <option value="Belum Siap Go Live" {{ $implementasi->status_go_live == 'Belum Siap Go Live' ? 'selected' : '' }}>{{ __('messages.status_belum_siap_golive') }}</option>
+                            <option value="Siap Go Live" {{ $implementasi->status_go_live == 'Siap Go Live' ? 'selected' : '' }}>{{ __('messages.status_siap_golive') }}</option>
                         </select>
                     </div>
                 </div>
 
                 <!-- Textareas -->
                 <div style="margin-bottom: 15px;">
-                    <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Catatan Kesiapan</label>
-                    <textarea name="catatan_kesiapan" class="form-control" rows="3" placeholder="Tuliskan catatan kesiapan..." {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical;">{{ $implementasi->catatan_kesiapan }}</textarea>
+                    <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.catatan_kesiapan') }}</label>
+                    <textarea name="catatan_kesiapan" class="form-control" rows="3" placeholder="{{ __('messages.placeholder_catatan_kesiapan') }}" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical;">{{ $implementasi->catatan_kesiapan }}</textarea>
                 </div>
 
                 <div style="margin-bottom: 15px;">
-                    <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Potensi Risiko</label>
-                    <textarea name="potensi_risiko" class="form-control" rows="3" placeholder="Tuliskan potensi risiko..." {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical;">{{ $implementasi->potensi_risiko }}</textarea>
+                    <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.potensi_risiko') }}</label>
+                    <textarea name="potensi_risiko" class="form-control" rows="3" placeholder="{{ __('messages.placeholder_potensi_risiko') }}" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical;">{{ $implementasi->potensi_risiko }}</textarea>
                 </div>
 
                 <div style="margin-bottom: 0;">
-                    <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Rencana Mitigasi</label>
-                    <textarea name="rencana_mitigasi" class="form-control" rows="3" placeholder="Tuliskan rencana mitigasi..." {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical;">{{ $implementasi->rencana_mitigasi }}</textarea>
+                    <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.rencana_mitigasi') }}</label>
+                    <textarea name="rencana_mitigasi" class="form-control" rows="3" placeholder="{{ __('messages.placeholder_rencana_mitigasi') }}" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical;">{{ $implementasi->rencana_mitigasi }}</textarea>
                 </div>
             </div>
         </form>
@@ -874,30 +896,30 @@
                 <div style="background-color: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 8px 12px; margin-bottom: 16px; display: flex; align-items: center; gap: 8px;">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                     <span style="color: #b45309; font-size: 12px; font-weight: 500;">
-                        <strong style="font-weight: 700;">Data Belum Lengkap:</strong> Harap lengkapi rincian data di bawah ini sebelum tanggal cut-off dikonfirmasi & status menjadi Valid.
+                        {{ __('messages.data_belum_lengkap_cutoff') }}
                     </span>
                 </div>
             @endif
 
             <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0;">
                 <div>
-                    <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; color: #1e293b;">Data Cut-Off & Transisi</h4>
-                    <p style="margin: 0; font-size: 13px; color: #64748b;">Lengkapi informasi mengenai masa cut-off dan migrasi data.</p>
+                    <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; color: #1e293b;">{{ __('messages.data_cutoff_transisi') }}</h4>
+
                 </div>
                 <div style="display: flex; gap: 15px; align-items: flex-end;">
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Status Cut-Off</label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.status_cutoff') }}</label>
                         <select name="status_cutoff" class="form-control" style="border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 4px; background: white; min-width: 200px;">
-                            <option value="Menunggu Penentuan Cut-Off" {{ $implementasi->status_cutoff == 'Menunggu Penentuan Cut-Off' ? 'selected' : '' }}>Menunggu Penentuan Cut-Off</option>
-                            <option value="Cut-Off Dijadwalkan" {{ $implementasi->status_cutoff == 'Cut-Off Dijadwalkan' ? 'selected' : '' }}>Cut-Off Dijadwalkan</option>
-                            <option value="Cut-Off Diterima" {{ $implementasi->status_cutoff == 'Cut-Off Diterima' ? 'selected' : '' }}>Cut-Off Diterima</option>
-                            <option value="Cut-Off Perlu Revisi" {{ $implementasi->status_cutoff == 'Cut-Off Perlu Revisi' ? 'selected' : '' }}>Cut-Off Perlu Revisi</option>
-                            <option value="Cut-Off Valid" {{ $implementasi->status_cutoff == 'Cut-Off Valid' ? 'selected' : '' }}>Cut-Off Valid</option>
+                            <option value="Menunggu Penentuan Cut-Off" {{ $implementasi->status_cutoff == 'Menunggu Penentuan Cut-Off' ? 'selected' : '' }}>{{ __('messages.cutoff_menunggu') }}</option>
+                            <option value="Cut-Off Dijadwalkan" {{ $implementasi->status_cutoff == 'Cut-Off Dijadwalkan' ? 'selected' : '' }}>{{ __('messages.cutoff_dijadwalkan') }}</option>
+                            <option value="Cut-Off Diterima" {{ $implementasi->status_cutoff == 'Cut-Off Diterima' ? 'selected' : '' }}>{{ __('messages.cutoff_diterima') }}</option>
+                            <option value="Cut-Off Perlu Revisi" {{ $implementasi->status_cutoff == 'Cut-Off Perlu Revisi' ? 'selected' : '' }}>{{ __('messages.cutoff_perlu_revisi') }}</option>
+                            <option value="Cut-Off Valid" {{ $implementasi->status_cutoff == 'Cut-Off Valid' ? 'selected' : '' }}>{{ __('messages.cutoff_valid') }}</option>
                         </select>
                     </div>
                     <button type="submit" style="background: #0ea5e9; color: white; border: none; padding: 9px 16px; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 13px; transition: background 0.2s; box-shadow: 0 2px 4px rgba(14, 165, 233, 0.2); height: 38px;">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
-                        Simpan
+                        {{ __('messages.btn_simpan') }}
                     </button>
                 </div>
             </div>
@@ -906,40 +928,40 @@
                 <!-- Column 1 -->
                 <div style="display: flex; flex-direction: column; gap: 16px;">
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tanggal Cut-Off <span style="color: #ef4444;">*</span></label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.tanggal_cutoff') }} <span style="color: #ef4444;">*</span></label>
                         <input type="date" name="tanggal_cut_off" value="{{ $implementasi->tanggal_cut_off ? $implementasi->tanggal_cut_off->format('Y-m-d') : '' }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
-                        <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">Syarat Go-Live otomatis.</div>
+                        <div style="font-size: 11px; color: #94a3b8; margin-top: 4px;">{{ __('messages.syarat_golive_otomatis') }}</div>
                     </div>
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Periode Transaksi Terakhir</label>
-                        <input type="text" name="periode_transaksi_terakhir" value="{{ $implementasi->periode_transaksi_terakhir }}" placeholder="Misal: Januari 2026" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.periode_transaksi_terakhir') }}</label>
+                        <input type="text" name="periode_transaksi_terakhir" value="{{ $implementasi->periode_transaksi_terakhir }}" placeholder="{{ __('messages.placeholder_periode_transaksi') }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
                     </div>
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Saldo Terakhir</label>
-                        <input type="text" name="saldo_terakhir" value="{{ $implementasi->saldo_terakhir }}" placeholder="Misal: Rp 150.000.000" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.saldo_terakhir') }}</label>
+                        <input type="text" name="saldo_terakhir" value="{{ $implementasi->saldo_terakhir }}" placeholder="{{ __('messages.placeholder_saldo_terakhir') }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
                     </div>
                 </div>
 
                 <!-- Column 2 -->
                 <div style="display: flex; flex-direction: column; gap: 16px;">
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tanggal Penutupan Pembukuan Lama</label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.tgl_penutupan_buku') }}</label>
                         <input type="date" name="tanggal_tutup_buku" value="{{ $implementasi->tanggal_tutup_buku ? $implementasi->tanggal_tutup_buku->format('Y-m-d') : '' }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
                     </div>
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tanggal Mulai Menggunakan Aplikasi Baru</label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.tgl_mulai_aplikasi_baru') }}</label>
                         <input type="date" name="tanggal_mulai_aplikasi" value="{{ $implementasi->tanggal_mulai_aplikasi ? $implementasi->tanggal_mulai_aplikasi->format('Y-m-d') : '' }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
                     </div>
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Penanggung Jawab Validasi Data</label>
-                        <input type="text" name="pic_validasi" value="{{ $implementasi->pic_validasi }}" placeholder="Nama Penanggung Jawab" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.pic_validasi_data') }}</label>
+                        <input type="text" name="pic_validasi" value="{{ $implementasi->pic_validasi }}" placeholder="{{ __('messages.placeholder_pic_validasi') }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
                     </div>
                 </div>
             </div>
             
             <div style="margin-top: 16px;">
-                <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Catatan Khusus Cut-Off</label>
-                <textarea name="catatan_cutoff" class="form-control" rows="3" placeholder="Tuliskan catatan khusus terkait cut-off..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical; background: white;">{{ $implementasi->catatan_cutoff }}</textarea>
+                <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.catatan_khusus_cutoff') }}</label>
+                <textarea name="catatan_cutoff" class="form-control" rows="3" placeholder="{{ __('messages.placeholder_catatan_cutoff') }}" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical; background: white;">{{ $implementasi->catatan_cutoff }}</textarea>
             </div>
         </form>
     </div>
@@ -951,8 +973,8 @@
             @method('PUT')
             
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Detail Tindakan & Follow-Up</h4>
-                <button type="submit" style="background-color: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">Simpan Perubahan</button>
+                <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">{{ __('messages.detail_tindakan_followup') }}</h4>
+                <button type="submit" style="background-color: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">{{ __('messages.simpan_perubahan') }}</button>
             </div>
 
             <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px;">
@@ -960,7 +982,11 @@
                     <!-- Row 1: Media Follow-Up & Tanggal Follow-Up -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div>
+<<<<<<< HEAD
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 8px;">Media Follow-Up <span style="color: #ef4444;">*</span></label>
+=======
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 8px;">{{ __('messages.jenis_aktivitas') }} <span style="color: #ef4444;">*</span></label>
+>>>>>>> 2350d18 (Fitur: Menambahkan notifikasi follow-up otomatis dan multi-bahasa)
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: white; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
                             @php
                                 $options = [
@@ -994,15 +1020,15 @@
                 <!-- Row 2: Nama Petugas & Status -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Nama Petugas</label>
-                        <input type="text" name="pic_tindakan" value="{{ $implementasi->pic_tindakan }}" placeholder="Nama petugas yang melakukan follow-up" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.pic_tindakan') }}</label>
+                        <input type="text" name="pic_tindakan" value="{{ $implementasi->pic_tindakan }}" placeholder="{{ __('messages.placeholder_pic_tindakan') }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
                     </div>
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Target Tanggal Tindakan</label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.target_tanggal_tindakan') }}</label>
                         <input type="date" name="target_tanggal_tindakan" value="{{ $implementasi->target_tanggal_tindakan ? $implementasi->target_tanggal_tindakan->format('Y-m-d') : '' }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
                     </div>
                     <div>
-                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Status Follow-Up</label>
+                        <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.status_tindakan') }}</label>
                         <select name="status_tindakan" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
                             <option value="Menunggu Konfirmasi Koperasi" {{ $implementasi->status_tindakan == 'Menunggu Konfirmasi Koperasi' ? 'selected' : '' }}>Menunggu Konfirmasi Koperasi</option>
                             <option value="Koperasi Belum Siap" {{ $implementasi->status_tindakan == 'Koperasi Belum Siap' ? 'selected' : '' }}>Koperasi Belum Siap</option>
@@ -1032,8 +1058,8 @@
 
                 <!-- Row 5: Tindakan Selanjutnya (Full Width) -->
                 <div>
-                    <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tindakan Selanjutnya</label>
-                    <textarea name="tindakan_berikutnya" class="form-control" rows="3" placeholder="Tuliskan rencana tindakan lanjutan..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical; background: white;">{{ $implementasi->tindakan_berikutnya }}</textarea>
+                    <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.detail_catatan_tindakan') }}</label>
+                    <textarea name="tindakan_berikutnya" class="form-control" rows="4" placeholder="{{ __('messages.placeholder_detail_tindakan') }}" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical; background: white;">{{ $implementasi->tindakan_berikutnya }}</textarea>
                 </div>
                 </div>
             </div>
@@ -1043,7 +1069,7 @@
     <!-- TAB 7: AKTIVITAS & LOG -->
     <div id="tab-aktivitas" class="tab-content">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Riwayat Aktivitas & Log</h4>
+            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">{{ __('messages.riwayat_aktivitas_log') }}</h4>
         </div>
         <div class="timeline">
             @forelse($implementasi->logs as $log)
@@ -1054,7 +1080,7 @@
                     }
                 @endphp
                 <div class="timeline-item">
-                    <div class="timeline-time">{{ $logTime }} | <strong>{{ $log->user->nama ?? 'Sistem' }}</strong></div>
+                    <div class="timeline-time">{{ $logTime }} | <strong>{{ $log->user->nama ?? __('messages.sistem') }}</strong></div>
                     <div class="timeline-content">
                         <div style="font-weight: 600; margin-bottom: 5px;">{{ $log->aktivitas }}</div>
                         @if($log->catatan && !str_contains(strtolower($log->catatan), 'ajax'))
@@ -1070,8 +1096,8 @@
             @empty
                 <div style="text-align: center; padding: 40px 20px; color: #64748b; background: #f8fafc; border-radius: 8px; border: 1px dashed #cbd5e1;">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 10px;"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
-                    <div style="font-weight: 600; font-size: 14px; color: #475569; margin-bottom: 4px;">Belum Ada Aktivitas</div>
-                    <div style="font-size: 13px; color: #64748b;">Setiap perubahan status checklist atau update implementasi akan otomatis tercatat di sini.</div>
+                    <div style="font-weight: 600; font-size: 14px; color: #475569; margin-bottom: 4px;">{{ __('messages.belum_ada_aktivitas') }}</div>
+                    <div style="font-size: 13px; color: #64748b;">{{ __('messages.desc_belum_ada_aktivitas') }}</div>
                 </div>
             @endforelse
         </div>
@@ -1163,7 +1189,7 @@
                 document.getElementById('progres-text').innerText = data.new_progres + '%';
                 document.getElementById('progres-fill').style.width = data.new_progres + '%';
 
-                showToast('Item checklist berhasil dihapus!');
+                showToast("{{ __('messages.toast_item_deleted') }}");
             }
         })
         .catch(err => {
@@ -1200,7 +1226,7 @@
                 document.getElementById('progres-text').innerText = data.new_progres + '%';
                 document.getElementById('progres-fill').style.width = data.new_progres + '%';
 
-                showToast('Item checklist baru berhasil ditambahkan! Silakan refresh untuk memuat ulang tabel.');
+                showToast("{{ __('messages.toast_item_added') }}");
                 setTimeout(() => location.reload(), 1200);
             }
         })
@@ -1231,7 +1257,7 @@
         .then(data => {
             if (data.success) {
                 namaInput.value = '';
-                showToast('Item migrasi baru berhasil ditambahkan!');
+                showToast("{{ __('messages.toast_migrasi_added') }}");
                 setTimeout(() => location.reload(), 1000);
             }
         })
@@ -1290,7 +1316,7 @@
                 }
                 
                 // Show Toast Notification
-                showToast('Checklist berhasil di-update!');
+                showToast("{{ __('messages.toast_checklist_updated') }}");
             }
         })
         .catch(error => {

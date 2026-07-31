@@ -122,6 +122,10 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
     
     // Master Data
     Route::get('/master-data', [MasterDataController::class, 'index'])->name('master-data.index');
+
+    // Notifications
+    Route::get('/notifications/{id}/read', [App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::post('/notifications/mark-all-read', [App\Http\Controllers\NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
     Route::get('/master-data/export', [MasterDataController::class, 'export'])->name('master-data.export');
     Route::post('/master-data/aplikasi', [MasterDataController::class, 'storeAplikasi'])->name('master-data.aplikasi.store');
     Route::put('/master-data/aplikasi/{id}', [MasterDataController::class, 'updateAplikasi'])->name('master-data.aplikasi.update');

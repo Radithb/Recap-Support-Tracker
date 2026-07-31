@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('page_title', 'Monitoring Koperasi')
-@section('page_subtitle', 'Dashboard Monitoring')
+@section('page_title', __('messages.monitoring_koperasi'))
+@section('page_subtitle', __('messages.dashboard_monitoring'))
 
 @section('content')
 <style>
@@ -198,9 +198,9 @@
 <div style="max-width: 1280px; margin: 0 auto; padding: 20px 30px;">
     <div class="dashboard-card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <h2 style="font-size: 18px; font-weight: 600; margin: 0;">Monitoring Running Koperasi ({{ $implementasis->count() }})</h2>
+            <h2 style="font-size: 18px; font-weight: 600; margin: 0;">{{ __('messages.monitoring_running_koperasi', ['count' => $implementasis->count()]) }}</h2>
         @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
-            <button class="btn-action" style="background-color: #10b981;" onclick="openModal('modalDataBaru')">+ Data Baru</button>
+            <button class="btn-action" style="background-color: #10b981;" onclick="openModal('modalDataBaru')">{{ __('messages.data_baru') }}</button>
         @endif
     </div>
 
@@ -216,15 +216,15 @@
         <table class="implementasi-table">
             <thead>
                 <tr>
-                    <th>No. Impl</th>
-                    <th>Koperasi</th>
-                    <th>Aplikasi</th>
-                    <th>Anggota Yang Hadir</th>
-                    <th>Go-Live</th>
-                    <th>Progres</th>
-                    <th>Status</th>
-                    <th>Next Action</th>
-                    <th>Aksi</th>
+                    <th>{{ __('messages.no_impl') }}</th>
+                    <th>{{ __('messages.koperasi') }}</th>
+                    <th>{{ __('messages.aplikasi') }}</th>
+                    <th>{{ __('messages.anggota_hadir') }}</th>
+                    <th>{{ __('messages.go_live') }}</th>
+                    <th>{{ __('messages.progres') }}</th>
+                    <th>{{ __('messages.status') }}</th>
+                    <th>{{ __('messages.next_action') }}</th>
+                    <th>{{ __('messages.aksi') }}</th>
                 </tr>
             </thead>
             <!-- Skeleton Loading Rows -->
@@ -298,7 +298,7 @@
                         </td>
                         <td>
                             <div style="display: flex; gap: 8px; align-items: center;">
-                                <a href="{{ route('implementasi.show', $impl->id) }}" class="btn-action">Detail</a>
+                                <a href="{{ route('implementasi.show', $impl->id) }}" class="btn-action">{{ __('messages.col_detail') }}</a>
                                 
                                 @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
                                 <div class="dropdown-kebab">
@@ -306,11 +306,11 @@
                                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
                                     </button>
                                     <div id="kebab-menu-{{ $impl->id }}" class="kebab-menu-content">
-                                        <button type="button" class="kebab-item" onclick="openEditModal({{ $impl->id }})">Edit</button>
-                                        <form action="{{ route('implementasi.destroy', $impl->id) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data implementasi ini?');">
+                                        <button type="button" class="kebab-item" onclick="openEditModal({{ $impl->id }})">{{ __('messages.btn_edit') }}</button>
+                                        <form action="{{ route('implementasi.destroy', $impl->id) }}" method="POST" style="margin: 0;" onsubmit="return confirm('{{ __('messages.confirm_delete_impl') }}');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="kebab-item text-red">Hapus</button>
+                                            <button type="submit" class="kebab-item text-red">{{ __('messages.btn_hapus') }}</button>
                                         </form>
                                     </div>
                                 </div>
@@ -320,7 +320,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="10" style="text-align: center; padding: 30px; color: #64748b;">Belum ada data implementasi koperasi.</td>
+                        <td colspan="10" style="text-align: center; padding: 30px; color: #64748b;">{{ __('messages.empty_impl_data') }}</td>
                     </tr>
                 @endforelse
             </tbody>
@@ -401,7 +401,7 @@
 <div class="modal-overlay" id="modalDataBaru">
     <div class="modal-container">
         <div class="modal-header">
-            <h3 style="margin: 0; font-size: 16px;">Tambah Data Implementasi</h3>
+            <h3 style="margin: 0; font-size: 16px;">{{ __('messages.add_impl_data') }}</h3>
             <button class="btn-close-modal" onclick="closeModal('modalDataBaru')">&times;</button>
         </div>
         <form action="{{ route('implementasi.store') }}" method="POST" enctype="multipart/form-data">
@@ -423,9 +423,9 @@
                 @endif
                 
                 <div class="form-group">
-                    <label class="form-label">Koperasi</label>
+                    <label class="form-label">{{ __('messages.koperasi') }}</label>
                     <select name="instansi_id" class="form-control" required>
-                        <option value="">Pilih Koperasi</option>
+                        <option value="">{{ __('messages.select_koperasi') }}</option>
                         @foreach($instansis as $instansi)
                             <option value="{{ $instansi->instansi_id }}">{{ $instansi->nama_instansi }}</option>
                         @endforeach
@@ -433,11 +433,11 @@
                 </div>
                 
                 <div class="form-group">
-                    <label class="form-label">Aplikasi/Modul</label>
+                    <label class="form-label">{{ __('messages.aplikasi_modul') }}</label>
                     <div id="aplikasi-container">
                         <div class="aplikasi-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
                             <select name="aplikasi_id[]" class="form-control" required style="flex-grow: 1;">
-                                <option value="" disabled selected>Pilih Aplikasi</option>
+                                <option value="" disabled selected>{{ __('messages.select_aplikasi') }}</option>
                                 @foreach($aplikasis as $app)
                                     <option value="{{ $app->aplikasi_id }}">{{ $app->nama_aplikasi }}</option>
                                 @endforeach
@@ -448,14 +448,14 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Tanggal Pelatihan</label>
+                    <label class="form-label">{{ __('messages.tanggal_pelatihan') }}</label>
                     <div class="grid-2">
                         <div>
-                            <label class="form-label" style="font-weight: normal; font-size: 12px; color: #64748b;">Mulai</label>
+                            <label class="form-label" style="font-weight: normal; font-size: 12px; color: #64748b;">{{ __('messages.mulai') }}</label>
                             <input type="date" name="tanggal_pelatihan" class="form-control" required>
                         </div>
                         <div>
-                            <label class="form-label" style="font-weight: normal; font-size: 12px; color: #64748b;">Selesai</label>
+                            <label class="form-label" style="font-weight: normal; font-size: 12px; color: #64748b;">{{ __('messages.selesai') }}</label>
                             <input type="date" name="tanggal_selesai" class="form-control">
                         </div>
                     </div>
@@ -463,30 +463,30 @@
 
                 <div class="grid-2">
                     <div class="form-group">
-                        <label class="form-label">Metode Pelatihan</label>
+                        <label class="form-label">{{ __('messages.metode_pelatihan') }}</label>
                         <select name="metode_pelatihan" class="form-control" required>
                             <option value="Online (Zoom/Meet)">Online (Zoom/Meet)</option>
                             <option value="Offline (Kunjungan)">Offline (Kunjungan)</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Berita Acara (PDF, Max 5MB)</label>
+                        <label class="form-label">{{ __('messages.berita_acara_pdf') }}</label>
                         <input type="file" name="berita_acara" class="form-control" accept=".pdf">
                     </div>
                 </div>
 
                 <div class="grid-2">
                     <div class="form-group">
-                        <label class="form-label">Anggota Yang Hadir</label>
+                        <label class="form-label">{{ __('messages.anggota_hadir') }}</label>
                         <div id="anggota-container">
                             <div class="anggota-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
-                                <input type="text" name="anggota_hadir[]" class="form-control" placeholder="Nama Anggota" required>
+                                <input type="text" name="anggota_hadir[]" class="form-control" placeholder="{{ __('messages.nama_anggota') }}" required>
                                 <button type="button" class="btn-action" style="background-color: #10b981; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="addAnggotaInput()">+</button>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Nama Trainer</label>
+                        <label class="form-label">{{ __('messages.nama_trainer') }}</label>
                         <div id="trainer-container">
                             <div class="trainer-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
                                 <input type="text" name="nama_trainer[]" class="form-control">
@@ -498,23 +498,23 @@
 
                 <div class="grid-2">
                     <div class="form-group">
-                        <label class="form-label">Email PIC</label>
+                        <label class="form-label">{{ __('messages.email_pic') }}</label>
                         <input type="email" name="email_pic" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label class="form-label">WhatsApp PIC</label>
+                        <label class="form-label">{{ __('messages.whatsapp_pic') }}</label>
                         <input type="text" name="kontak_pic" class="form-control" required>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Catatan Pelatihan</label>
-                    <textarea name="catatan_pelatihan" class="form-control" rows="2" placeholder="Hasil pelatihan..."></textarea>
+                    <label class="form-label">{{ __('messages.catatan_pelatihan') }}</label>
+                    <textarea name="catatan_pelatihan" class="form-control" rows="2" placeholder="{{ __('messages.placeholder_hasil_pelatihan') }}"></textarea>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn-secondary" onclick="closeModal('modalDataBaru')">Batal</button>
-                <button type="submit" class="btn-primary">Simpan & Buat Checklist</button>
+                <button type="button" class="btn-secondary" onclick="closeModal('modalDataBaru')">{{ __('messages.btn_batal') }}</button>
+                <button type="submit" class="btn-primary">{{ __('messages.btn_simpan_checklist') }}</button>
             </div>
         </form>
     </div>
@@ -544,7 +544,7 @@
 <div class="modal-overlay" id="modalEditData">
     <div class="modal-container">
         <div class="modal-header">
-            <h3 style="margin: 0; font-size: 16px;">Edit Data Implementasi</h3>
+            <h3 style="margin: 0; font-size: 16px;">{{ __('messages.edit_impl_data') }}</h3>
             <button class="btn-close-modal" onclick="closeModal('modalEditData')">&times;</button>
         </div>
         <div id="edit-modal-content">
@@ -592,7 +592,7 @@
         inputGroup.style = 'display: flex; gap: 10px; margin-bottom: 10px;';
         
         inputGroup.innerHTML = `
-            <input type="text" name="anggota_hadir[]" class="form-control" placeholder="Nama Anggota" required>
+            <input type="text" name="anggota_hadir[]" class="form-control" placeholder="{{ __('messages.nama_anggota') }}" required>
             <button type="button" class="btn-action" style="background-color: #ef4444; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="removeAnggotaInput(this)">-</button>
         `;
         container.appendChild(inputGroup);
