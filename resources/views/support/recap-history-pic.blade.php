@@ -109,7 +109,6 @@
                             @if($tkt->picSupport)
                                 <div>
                                     <div style="font-weight: 600; font-size: 0.88rem; color: var(--ink);">{{ $tkt->picSupport->nama }}</div>
-                                    <div style="font-size: 0.75rem; color: var(--text-muted);">{{ $tkt->picSupport->posisi ?? 'PIC Support' }}</div>
                                 </div>
                             @else
                                 <span style="color: var(--text-muted); font-size: 0.85rem;">-</span>
