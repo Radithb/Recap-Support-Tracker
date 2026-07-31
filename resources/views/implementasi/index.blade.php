@@ -407,6 +407,21 @@
         <form action="{{ route('implementasi.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="modal-body">
+                @if($errors->any())
+                    <div style="background-color: #fef2f2; color: #b91c1c; padding: 10px 15px; border-radius: 6px; margin-bottom: 15px; border: 1px solid #fca5a5; font-size: 13px;">
+                        <ul style="margin: 0; padding-left: 20px;">
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                            openModal('modalDataBaru');
+                        });
+                    </script>
+                @endif
+                
                 <div class="form-group">
                     <label class="form-label">Koperasi</label>
                     <select name="instansi_id" class="form-control" required>
