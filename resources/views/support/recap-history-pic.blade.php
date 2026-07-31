@@ -197,19 +197,19 @@
 
             {{-- PERMASALAHAN --}}
             <div style="background: var(--paper-sunken); border-radius: 10px; padding: 1rem; border: 1px solid var(--line);">
-                <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px;">📌 PERMASALAHAN / KENDALA TIKET</div>
+                <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px;">PERMASALAHAN / KENDALA TIKET</div>
                 <div style="font-size: 0.88rem; color: var(--ink); line-height: 1.5; white-space: pre-line;" id="modalLogPermasalahan">-</div>
             </div>
 
             {{-- SOLUSI TERAKHIR --}}
             <div style="background: #eff6ff; border-radius: 10px; padding: 1rem; border: 1px solid #bfdbfe;">
-                <div style="font-size: 0.72rem; color: #1e40af; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px;">💡 HASIL EDIT / SOLUSI PIC SUPPORT</div>
+                <div style="font-size: 0.72rem; color: #1e40af; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px;">HASIL EDIT / SOLUSI PIC SUPPORT</div>
                 <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.5; white-space: pre-line;" id="modalLogSolusi">-</div>
             </div>
 
             {{-- PENCEGAHAN (IF ANY) --}}
             <div id="modalLogPencegahanWrap" style="display: none; background: #fefce8; border-radius: 10px; padding: 1rem; border: 1px solid #fef08a;">
-                <div style="font-size: 0.72rem; color: #854d0e; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px;">🛡️ TINDAKAN PENCEGAHAN</div>
+                <div style="font-size: 0.72rem; color: #854d0e; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 6px;">TINDAKAN PENCEGAHAN</div>
                 <div style="font-size: 0.88rem; color: #451a03; line-height: 1.5; white-space: pre-line;" id="modalLogPencegahan">-</div>
             </div>
 
