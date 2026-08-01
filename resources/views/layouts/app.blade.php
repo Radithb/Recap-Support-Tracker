@@ -59,7 +59,7 @@
                         <span>{{ __('messages.recap_laporan') }}</span>
                         <svg class="chevron-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
                     </button>
-                    <div class="sidebar-submenu" style="{{ $isRecapActive ? 'display: flex;' : 'display: none;' }}">
+                    <div class="sidebar-submenu" style="{{ $isRecapActive ? 'display: flex; flex-direction: column;' : 'display: none;' }}">
                         <a href="{{ route('support.recap.diagram') }}" class="{{ request()->routeIs('support.recap.diagram') ? 'active' : '' }}">
                             <span class="sub-dot"></span> {{ __('messages.recap_diagram') }}
                         </a>
@@ -443,6 +443,7 @@
         } else {
             parent.classList.add('open');
             submenu.style.display = 'flex';
+            submenu.style.flexDirection = 'column';
         }
     }
 

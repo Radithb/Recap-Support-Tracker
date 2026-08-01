@@ -59,6 +59,13 @@ Route::get('/fix-cutoff-columns', function () {
         $results[] = "Kolom 'template_laporan' pada tickets sudah ada (skip).";
     }
 
+    try {
+        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+        $results[] = "\nCache aplikasi berhasil dibersihkan (optimize:clear).";
+    } catch (\Exception $e) {
+        $results[] = "\nWarning Clear Cache: " . $e->getMessage();
+    }
+
     return "<pre>" . implode("\n", $results) . "\n\nSelesai! Silakan kembali ke halaman aplikasi.</pre>";
 });
 

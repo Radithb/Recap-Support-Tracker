@@ -447,14 +447,28 @@
                     </script>
                 @endif
                 
-                <div class="form-group">
-                    <label class="form-label">{{ __('messages.koperasi') }}</label>
-                    <select name="instansi_id" class="form-control" required>
-                        <option value="">{{ __('messages.select_koperasi') }}</option>
-                        @foreach($instansis as $instansi)
-                            <option value="{{ $instansi->instansi_id }}">{{ $instansi->nama_instansi }}</option>
-                        @endforeach
-                    </select>
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label class="form-label">{{ __('messages.koperasi') }}</label>
+                        <select name="instansi_id" class="form-control" required>
+                            <option value="">{{ __('messages.select_koperasi') }}</option>
+                            @foreach($instansis as $instansi)
+                                <option value="{{ $instansi->instansi_id }}">{{ $instansi->nama_instansi }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Status Awal</label>
+                        <select name="status" class="form-control" required>
+                            <option value="Pelatihan Dijadwalkan">Pelatihan Dijadwalkan</option>
+                            <option value="Pelatihan Selesai" selected>Pelatihan Selesai</option>
+                            <option value="Persiapan Data">Persiapan Data</option>
+                            <option value="Menunggu Data Koperasi">Menunggu Data Koperasi</option>
+                            <option value="Penentuan Cut-Off">Penentuan Cut-Off</option>
+                            <option value="Proses Migrasi">Proses Migrasi</option>
+                            <option value="Siap Go-Live">Siap Go-Live</option>
+                        </select>
+                    </div>
                 </div>
                 
                 <div class="form-group">

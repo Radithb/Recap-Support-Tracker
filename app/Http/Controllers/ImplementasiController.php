@@ -125,6 +125,7 @@ class ImplementasiController extends Controller
             'waktu_go_live' => 'nullable|date_format:H:i',
             'tempat_go_live' => 'nullable|string',
             'status_go_live' => 'nullable|string',
+            'status' => 'nullable|string',
         ]);
 
         // Generate Nomor Implementasi: IMP/SAKTI/YYYY/001
@@ -150,7 +151,7 @@ class ImplementasiController extends Controller
             'waktu_go_live' => $request->waktu_go_live,
             'tempat_go_live' => $request->tempat_go_live,
             'status_go_live' => $request->status_go_live ?? 'Belum Siap Go Live',
-            'status' => 'Pelatihan Selesai',
+            'status' => $request->status ?? 'Pelatihan Dijadwalkan',
             'tindakan_berikutnya' => 'Follow-Up Kesiapan Koperasi',
             'pic_tindakan' => is_array($request->anggota_hadir) ? implode(', ', $request->anggota_hadir) : ($request->anggota_hadir ?? 'Tim Support'),
         ]);
