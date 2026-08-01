@@ -424,7 +424,16 @@
                         <label>Surat Laporan Template</label>
                         <select name="template_laporan">
                             <option value="">-- Pilih Template --</option>
-                            <!-- Template file Word akan ditambahkan menyusul -->
+                            @php
+                                $templateFiles = glob(public_path('templates/*.{docx,doc,pdf}'), GLOB_BRACE) ?: [];
+                            @endphp
+                            @foreach($templateFiles as $filepath)
+                                @php
+                                    $filename = basename($filepath);
+                                    $displayName = str_replace(['_', '-'], ' ', pathinfo($filename, PATHINFO_FILENAME));
+                                @endphp
+                                <option value="{{ $filename }}">{{ $displayName }} ({{ strtoupper(pathinfo($filename, PATHINFO_EXTENSION)) }})</option>
+                            @endforeach
                         </select>
                         <div class="helper" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Pilih template untuk men-generate surat laporan otomatis.</div>
                     </div>
