@@ -117,6 +117,34 @@
         }
         .md-sidebar {
             width: 100%;
+            flex-direction: row;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 6px;
+            gap: 6px;
+            box-sizing: border-box;
+            -webkit-overflow-scrolling: touch;
+        }
+        .md-sidebar::-webkit-scrollbar {
+            height: 3px;
+        }
+        .md-sidebar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .md-tab-btn {
+            width: auto;
+            flex-shrink: 0;
+            padding: 8px 14px;
+            font-size: 13px;
+            white-space: nowrap;
+            justify-content: center;
+        }
+        .md-tab-btn svg {
+            display: none !important;
+        }
+        .md-tab-btn.active::before {
+            display: none;
         }
     }
     @keyframes fadeIn {
