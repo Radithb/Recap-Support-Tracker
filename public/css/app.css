@@ -1276,10 +1276,22 @@ html.dark-mode .login-split-right .bottom-text a {
         box-sizing: border-box !important;
     }
     
-    .table-scroll-wrapper, .table-responsive {
+    .app-main > * {
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    .glass-panel, .dashboard-card, .content-wrap, .md-content-area, .pelapor-panel {
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    .table-scroll-wrapper, .table-responsive, div[style*="overflow-x: auto"], div[style*="overflow-x:auto"] {
         max-width: 100% !important;
         width: 100% !important;
         box-sizing: border-box !important;
+        display: block !important;
     }
 
     /* Tampilkan komponen khusus mobile */
