@@ -8,7 +8,7 @@
     {{-- SKELETON LOADING STATE --}}
     <div class="skeleton-wrap" id="skeleton-loading">
         <div class="skel-panel" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; max-width: 100%;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 15px;">
                 <div>
                     <div class="skel" style="width: 250px; height: 28px; border-radius: 6px; margin-bottom: 12px;"></div>
                     <div class="skel" style="width: 450px; height: 14px; border-radius: 4px;"></div>
@@ -32,13 +32,13 @@
     <div class="content-wrap" id="actual-content" style="display: none;">
         <div class="glass-panel fade-up" style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; animation-delay: 0.1s;">
         
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 15px;">
             <div>
                 <h3 style="margin: 0; font-size: 1.25rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">{{ __('messages.laporan_detail_support_bulan', ['month' => $monthName, 'year' => $year]) }}</h3>
             </div>
             
             <div style="display: flex; gap: 1rem; align-items: center;">
-                <form action="{{ route('support.recap.detail') }}" method="GET" id="filterForm" style="display: flex; gap: 0.5rem; margin: 0;">
+                <form action="{{ route('support.recap.detail') }}" method="GET" id="filterForm" style="display: flex; gap: 0.5rem; margin: 0; flex-wrap: wrap;">
                     <select name="month" onchange="document.getElementById('filterForm').submit()" style="padding: 6px 12px; border-radius: 20px; border: 1px solid var(--line); font-family: var(--font-body); font-weight: 500; font-size: 0.85rem; color: var(--ink); background: var(--paper-raised); cursor: pointer; outline:none;">
                         @foreach(range(1, 12) as $m)
                             <option value="{{ $m }}" {{ $month == $m ? 'selected' : '' }}>{{ __('messages.month_' . $m) }}</option>
@@ -154,7 +154,7 @@
             </table>
         </div>
         
-        <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+        <div style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
             <a href="{{ route('support.recap') }}" class="btn btn-ghost" style="padding: 8px 16px; font-size: 0.85rem;">&larr; {{ __('messages.kembali_ke_recap_support') }}</a>
             
             <button onclick="exportTableToExcel('recap-table', 'Laporan_Detail_Support_{{ $monthName }}_{{ $year }}')" class="btn btn-primary" style="background: #10b981; color: white; border: none; padding: 8px 16px; font-size: 0.85rem; border-radius: 6px; display: flex; align-items: center; gap: 8px; font-weight: 600; cursor: pointer; transition: background 0.3s ease;">

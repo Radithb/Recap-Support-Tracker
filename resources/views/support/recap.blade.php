@@ -43,7 +43,7 @@
 </div>
 
 <div class="glass-panel fade-up" style="animation-delay: 0.15s; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 2rem; margin-bottom: 2rem;">
-    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem;">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 2rem; flex-wrap: wrap; gap: 15px;">
         <div>
             <h3 style="margin: 0; font-size: 1.25rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">{{ __('messages.rekap_tiket_bulanan') }}</h3>
         </div>
@@ -58,8 +58,10 @@
         </div>
     </div>
 
-    <div style="height: 250px; margin-bottom: 2rem;">
-        <canvas id="monthlyChart"></canvas>
+    <div style="overflow-x: auto; margin-bottom: 2rem;">
+        <div style="height: 250px; min-width: 700px;">
+            <canvas id="monthlyChart"></canvas>
+        </div>
     </div>
 
     @php
@@ -73,7 +75,7 @@
 </div>
 
 <div class="glass-panel fade-up" style="animation-delay: 0.2s; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 0; overflow: hidden; margin-bottom: 2rem;">
-    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line);">
+    <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.5rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; gap: 15px;">
         <div>
             <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">{!! __('messages.rekap_support_tahun', ['year' => $year]) !!}</h3>
         </div>
@@ -129,7 +131,7 @@
         </table>
     </div>
     
-    <div style="padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center;">
+    <div style="padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
         <div style="color: var(--text-muted); font-size: 0.85rem;">
             {!! __('messages.total_keseluruhan_tiket_tahun', ['total' => $grandTotal, 'year' => $year]) !!}
         </div>
@@ -184,7 +186,7 @@
                         y: { display: false, beginAtZero: true },
                         x: { 
                             grid: { display: false, drawBorder: false },
-                            ticks: { font: { size: 10, weight: 'bold' }, color: '#94a3b8' },
+                            ticks: { font: { size: 10, weight: 'bold' }, color: '#94a3b8', autoSkip: false },
                             border: { display: false }
                         }
                     },
