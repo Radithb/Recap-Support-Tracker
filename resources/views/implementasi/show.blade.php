@@ -550,8 +550,8 @@
                     <span style="font-weight:400; font-size:12px;">WA: {{ $implementasi->kontak_pic }}<br>Email: {{ $implementasi->email_pic ?? '-' }}</span>
                 </div>
             </div>
-            <div class="summary-item" style="border-left: 3px solid #f59e0b;">
-                <div class="summary-label" style="color: #b45309;">{{ __('messages.ringkasan_tindakan_berikutnya') }}</div>
+            <div class="summary-item">
+                <div class="summary-label">{{ __('messages.ringkasan_tindakan_berikutnya') }}</div>
                 <div class="summary-value">{{ $implementasi->tindakan_berikutnya ?? 'Belum ada' }}</div>
                 <div style="font-size: 12px; margin-top: 5px;">PIC: {{ $implementasi->pic_tindakan ?? '-' }}</div>
             </div>
