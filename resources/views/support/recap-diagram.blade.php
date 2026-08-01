@@ -84,12 +84,12 @@
             // Render chart after content is visible
             const ctx = document.getElementById('monthlyChart').getContext('2d');
             const chartData = @json($chartData);
-            const maxValue = Math.max(...chartData, 0);
+            const totalTickets = chartData.reduce((a, b) => a + b, 0);
             const baseLabels = ["{{ __('messages.jan') }}", "{{ __('messages.feb') }}", "{{ __('messages.mar') }}", "{{ __('messages.apr') }}", "{{ __('messages.may') }}", "{{ __('messages.jun') }}", "{{ __('messages.jul') }}", "{{ __('messages.aug') }}", "{{ __('messages.sep') }}", "{{ __('messages.oct') }}", "{{ __('messages.nov') }}", "{{ __('messages.dec') }}"];
             
             const multiLabels = baseLabels.map((month, index) => {
                 const val = chartData[index];
-                const percent = maxValue > 0 ? Math.round((val / maxValue) * 100) : 0;
+                const percent = totalTickets > 0 ? Math.round((val / totalTickets) * 100) : 0;
                 return [month, percent + "%"];
             });
 

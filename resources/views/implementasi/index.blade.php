@@ -267,8 +267,7 @@
                     </td>
                     <td><div class="skeleton-box" style="width: 100px; height: 24px; border-radius: 20px;"></div></td>
                     <td>
-                        <div class="skeleton-box" style="width: 130px; height: 14px; margin-bottom: 4px;"></div>
-                        <div class="skeleton-box" style="width: 80px; height: 11px;"></div>
+                        <div class="skeleton-box" style="width: 130px; height: 14px;"></div>
                     </td>
                     <td><div class="skeleton-box" style="width: 60px; height: 28px; border-radius: 6px;"></div></td>
                 </tr>
@@ -316,7 +315,6 @@
                         <td>
                             @if($impl->tindakan_berikutnya)
                                 <div style="font-size: 13px; font-weight: 500;">{{ $impl->tindakan_berikutnya }}</div>
-                                <div style="font-size: 11px; opacity: 0.7;">PIC: {{ $impl->pic_tindakan ?? '-' }}</div>
                             @else
                                 -
                             @endif

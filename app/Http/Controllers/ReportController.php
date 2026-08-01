@@ -40,16 +40,15 @@ class ReportController extends Controller
     {
         $year = $request->input('year', date('Y'));
 
-        // FR-10B: Category Crosstab (Done tickets based on tanggal_penyelesaian)
+        // FR-10B: Category Crosstab (All tickets based on tanggal_input, matching the diagram)
         $kategoris = MasterKategori::all();
         
         $crosstabData = Ticket::select(
             'kategori_id',
-            DB::raw('MONTH(tanggal_penyelesaian) as month'),
+            DB::raw('MONTH(tanggal_input) as month'),
             DB::raw('COUNT(*) as total')
         )
-        ->where('status', TicketStatus::DONE->value)
-        ->whereYear('tanggal_penyelesaian', $year)
+        ->whereYear('tanggal_input', $year)
         ->whereNotNull('kategori_id')
         ->groupBy('kategori_id', 'month')
         ->get();

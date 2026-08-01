@@ -175,7 +175,7 @@
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: var(--paper-sunken); border-radius: 10px; padding: 1rem; border: 1px solid var(--line);">
                 <div>
                     <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">{{ __('messages.modal_log_pic') }}</div>
-                    <div style="font-size: 0.92rem; font-weight: 700; color: #2563eb; margin-top: 3px;" id="modalLogPic">-</div>
+                    <div style="font-size: 0.92rem; font-weight: 700; color: var(--brand-primary); margin-top: 3px;" id="modalLogPic">-</div>
                 </div>
                 <div>
                     <div style="font-size: 0.72rem; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;">{{ __('messages.modal_log_time') }}</div>
@@ -202,10 +202,10 @@
             </div>
 
             {{-- TERAKHIR DI EDIT --}}
-            <div style="background: #eff6ff; border-radius: 10px; padding: 1rem; border: 1px solid #bfdbfe;">
-                <div style="font-size: 0.72rem; color: #1e40af; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px;">{{ __('messages.modal_log_last_edit') }}</div>
+            <div style="background: var(--brand-primary-soft); border-radius: 10px; padding: 1rem; border: 1px solid var(--line);">
+                <div style="font-size: 0.72rem; color: var(--brand-primary); font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px;">{{ __('messages.modal_log_last_edit') }}</div>
                 <div style="display: flex; flex-direction: column; gap: 8px;" id="modalLogEditList">
-                    <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.5;" id="modalLogSolusi">-</div>
+                    <div style="font-size: 0.88rem; color: var(--ink); line-height: 1.5;" id="modalLogSolusi">-</div>
                 </div>
             </div>
 
@@ -261,14 +261,14 @@
 
         // Render TERAKHIR DI EDIT items
         let editListHtml = `
-            <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.5;">
+            <div style="font-size: 0.88rem; color: var(--ink); line-height: 1.5;">
                 <strong style="color: var(--ink);">Solusi / Penyelesaian:</strong> ${solusi || 'Belum ada solusi diinput oleh PIC Support.'}
             </div>
         `;
 
         if (pencegahan && pencegahan.trim() !== '') {
             editListHtml += `
-                <div style="font-size: 0.88rem; color: #1e293b; line-height: 1.5; margin-top: 4px;">
+                <div style="font-size: 0.88rem; color: var(--ink); line-height: 1.5; margin-top: 4px;">
                     <strong style="color: var(--ink);">Tindakan Pencegahan:</strong> ${pencegahan}
                 </div>
             `;

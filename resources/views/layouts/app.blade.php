@@ -172,25 +172,25 @@
                         @endif
                     </button>
                     
-                    <div id="notif-dropdown-menu" style="display: none; position: absolute; right: 0; top: 40px; width: 320px; background: white; border: 1px solid #e2e8f0; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); z-index: 50;">
-                        <div style="padding: 12px 15px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
-                            <strong style="font-size: 14px;">{{ __('messages.notifikasi_title') }}</strong>
+                    <div id="notif-dropdown-menu" style="display: none; position: absolute; right: 0; top: 40px; width: 320px; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow); z-index: 50;">
+                        <div style="padding: 12px 15px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center;">
+                            <strong style="font-size: 14px; color: var(--ink);">{{ __('messages.notifikasi_title') }}</strong>
                             @if($unreadCount > 0)
                                 <form action="{{ route('notifications.markAllRead') }}" method="POST" style="margin: 0;">
                                     @csrf
-                                    <button type="submit" style="background: none; border: none; color: #3b82f6; font-size: 12px; cursor: pointer; padding: 0;">{{ __('messages.mark_all_read') }}</button>
+                                    <button type="submit" style="background: none; border: none; color: var(--brand-primary); font-size: 12px; cursor: pointer; padding: 0;">{{ __('messages.mark_all_read') }}</button>
                                 </form>
                             @endif
                         </div>
                         <div style="max-height: 300px; overflow-y: auto;">
                             @forelse(Auth::user()->unreadNotifications as $notification)
-                                <a href="{{ route('notifications.read', $notification->id) }}" style="display: block; padding: 12px 15px; border-bottom: 1px solid #f1f5f9; text-decoration: none; color: inherit; transition: background 0.2s;">
-                                    <div style="font-size: 13px; font-weight: 600; color: #1e293b; margin-bottom: 4px;">{{ $notification->data['title'] ?? 'Pengingat' }}</div>
-                                    <div style="font-size: 12px; color: #64748b; line-height: 1.4;">{{ $notification->data['message'] ?? '' }}</div>
-                                    <div style="font-size: 11px; color: #94a3b8; margin-top: 6px;">{{ $notification->created_at->diffForHumans() }}</div>
+                                <a href="{{ route('notifications.read', $notification->id) }}" style="display: block; padding: 12px 15px; border-bottom: 1px solid var(--line); text-decoration: none; color: inherit; transition: background 0.2s;" onmouseover="this.style.background='var(--paper-sunken)'" onmouseout="this.style.background='transparent'">
+                                    <div style="font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 4px;">{{ $notification->data['title'] ?? 'Pengingat' }}</div>
+                                    <div style="font-size: 12px; color: var(--ink-soft); line-height: 1.4;">{{ $notification->data['message'] ?? '' }}</div>
+                                    <div style="font-size: 11px; color: var(--ink-soft); margin-top: 6px;">{{ $notification->created_at->diffForHumans() }}</div>
                                 </a>
                             @empty
-                                <div style="padding: 20px; text-align: center; color: #94a3b8; font-size: 13px;">{{ __('messages.no_new_notif') }}</div>
+                                <div style="padding: 20px; text-align: center; color: var(--ink-soft); font-size: 13px;">{{ __('messages.no_new_notif') }}</div>
                             @endforelse
                         </div>
                     </div>
