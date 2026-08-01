@@ -271,7 +271,7 @@
             <img src="{{ asset('folder.png') }}" alt="Master data">
             <span>Master data</span>
         </a>
-        <a href="{{ route('support.recap') }}" class="{{ request()->routeIs('support.recap') ? 'active' : '' }}">
+        <a href="#" onclick="toggleMobileRecapMenu(event)" class="{{ request()->routeIs('support.recap*') ? 'active' : '' }}" id="mobile-recap-btn">
             <img src="{{ asset('file.png') }}" alt="Rekap">
             <span>Rekap</span>
         </a>
@@ -307,7 +307,38 @@
 </div>
 @endif
 
+<!-- Mobile Rekap Dropdown -->
+<div class="mobile-profile-overlay" id="mobile-recap-overlay" onclick="toggleMobileRecapMenu(event)"></div>
+<div class="mobile-profile-popup" id="mobile-recap-popup" style="bottom: 74px; top: auto; right: auto; left: 50%; transform: translateX(-50%); width: 260px;">
+    <div class="mp-head">
+        <strong>{{ __('messages.recap_laporan') }}</strong>
+    </div>
+    <div class="mp-body">
+        <a href="{{ route('support.recap.diagram') }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: none; background: transparent; border-radius: 8px; font-size: 13.5px; color: var(--ink); text-align: left; text-decoration: none; font-weight: 600;">
+            <span class="sub-dot" style="width: 6px; height: 6px; background: #3b82f6; border-radius: 50%;"></span> {{ __('messages.recap_diagram') }}
+        </a>
+        <a href="{{ route('support.recap.table') }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: none; background: transparent; border-radius: 8px; font-size: 13.5px; color: var(--ink); text-align: left; text-decoration: none; font-weight: 600;">
+            <span class="sub-dot" style="width: 6px; height: 6px; background: #3b82f6; border-radius: 50%;"></span> {{ __('messages.recap_support') }}
+        </a>
+        <a href="{{ route('support.recap.history-pic') }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: none; background: transparent; border-radius: 8px; font-size: 13.5px; color: var(--ink); text-align: left; text-decoration: none; font-weight: 600;">
+            <span class="sub-dot" style="width: 6px; height: 6px; background: #3b82f6; border-radius: 50%;"></span> {{ __('messages.recap_history_pic') }}
+        </a>
+        <a href="{{ route('support.recap.template-surat') }}" style="display: flex; align-items: center; gap: 10px; padding: 12px 14px; border: none; background: transparent; border-radius: 8px; font-size: 13.5px; color: var(--ink); text-align: left; text-decoration: none; font-weight: 600;">
+            <span class="sub-dot" style="width: 6px; height: 6px; background: #3b82f6; border-radius: 50%;"></span> {{ __('messages.recap_template_surat') }}
+        </a>
+    </div>
+</div>
+
 <script>
+    function toggleMobileRecapMenu(e) {
+        if(e) e.stopPropagation();
+        e.preventDefault();
+        const overlay = document.getElementById('mobile-recap-overlay');
+        const popup = document.getElementById('mobile-recap-popup');
+        if(overlay) overlay.classList.toggle('active');
+        if(popup) popup.classList.toggle('active');
+    }
+
     // Toggle Mobile Profile Popover
     function toggleMobileProfile(e) {
         if(e) e.stopPropagation();

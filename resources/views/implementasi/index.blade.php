@@ -193,9 +193,34 @@
     .kebab-item.text-red:hover { background: #fef2f2; }
     
     .dark-mode .progress-container { background-color: #334155; }
+    
+    @media (max-width: 768px) {
+        .dashboard-wrapper {
+            padding: 15px !important;
+            width: 100% !important;
+            max-width: 100vw !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+        }
+        .dashboard-card {
+            padding: 15px !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+            overflow: hidden !important;
+        }
+        .table-responsive {
+            display: block !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            overflow-x: auto !important;
+            -webkit-overflow-scrolling: touch !important;
+            border: none !important;
+        }
+    }
 </style>
 
-<div style="max-width: 1280px; margin: 0 auto; padding: 20px 30px;">
+<div class="dashboard-wrapper" style="max-width: 1280px; margin: 0 auto; padding: 20px 30px; box-sizing: border-box;">
     <div class="dashboard-card">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
             <h2 style="font-size: 18px; font-weight: 600; margin: 0;">{{ __('messages.monitoring_running_koperasi', ['count' => $implementasis->count()]) }}</h2>

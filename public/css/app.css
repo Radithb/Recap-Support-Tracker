@@ -1270,6 +1270,28 @@ html.dark-mode .login-split-right .bottom-text a {
     .app-main { 
         padding-top: 60px !important; /* Space untuk top header mobile */
         padding-bottom: 70px !important; /* Space untuk bottom nav */
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    .app-main > * {
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    .glass-panel, .dashboard-card, .content-wrap, .md-content-area, .pelapor-panel {
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+    }
+    
+    .table-scroll-wrapper, .table-responsive, div[style*="overflow-x: auto"], div[style*="overflow-x:auto"] {
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        display: block !important;
     }
 
     /* Tampilkan komponen khusus mobile */

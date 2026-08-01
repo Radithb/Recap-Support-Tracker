@@ -875,12 +875,12 @@
                 </div>
             @endif
 
-            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0;">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; gap: 15px;">
                 <div>
                     <h4 style="margin: 0 0 5px 0; font-size: 16px; font-weight: 600; color: #1e293b;">{{ __('messages.data_cutoff_transisi') }}</h4>
 
                 </div>
-                <div style="display: flex; gap: 15px; align-items: flex-end;">
+                <div style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.status_cutoff') }}</label>
                         <select name="status_cutoff" class="form-control" style="border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 4px; background: white; min-width: 200px;">
@@ -898,7 +898,7 @@
                 </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 20px;">
                 <!-- Column 1 -->
                 <div style="display: flex; flex-direction: column; gap: 16px;">
                     <div>
@@ -946,7 +946,7 @@
             @csrf
             @method('PUT')
             
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 15px;">
                 <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">{{ __('messages.detail_tindakan_followup') }}</h4>
                 <button type="submit" style="background-color: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">{{ __('messages.simpan_perubahan') }}</button>
             </div>
@@ -954,10 +954,10 @@
             <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px;">
                 <div style="display: flex; flex-direction: column; gap: 16px;">
                     <!-- Row 1: Media Follow-Up & Tanggal Follow-Up -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 20px;">
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 8px;">{{ __('messages.jenis_aktivitas') }} <span style="color: #ef4444;">*</span></label>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: white; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px;">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; background: white; padding: 12px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box;">
                             @php
                                 $options = [
                                     'Telepon', 'WhatsApp', 'Email', 'Meeting',
@@ -988,7 +988,7 @@
                 </div>
 
                 <!-- Row 2: Nama Petugas & Status -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 20px;">
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.pic_tindakan') }}</label>
                         <input type="text" name="pic_tindakan" value="{{ $implementasi->pic_tindakan }}" placeholder="{{ __('messages.placeholder_pic_tindakan') }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
@@ -1015,7 +1015,7 @@
                 </div>
 
                 <!-- Row 4: Kendala & Komitmen -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 20px;">
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Kendala Koperasi</label>
                         <textarea name="kendala_koperasi" class="form-control" rows="3" placeholder="Tuliskan kendala yang dihadapi koperasi..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical; background: white;">{{ $implementasi->kendala_koperasi }}</textarea>
