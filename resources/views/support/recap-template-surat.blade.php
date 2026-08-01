@@ -25,17 +25,12 @@
                 $ext = strtoupper(pathinfo($tplName, PATHINFO_EXTENSION));
             @endphp
             <div style="background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 1px 3px rgba(0,0,0,0.04); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
-                <div style="display: flex; align-items: center; gap: 12px; min-width: 0;">
-                    <div style="width: 42px; height: 42px; border-radius: 10px; background: #eff6ff; color: #2563eb; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; flex-shrink: 0;">
-                        📄
+                <div style="min-width: 0;">
+                    <div style="font-weight: 600; font-size: 0.9rem; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ $cleanName }}">
+                        {{ $cleanName }}
                     </div>
-                    <div style="min-width: 0;">
-                        <div style="font-weight: 600; font-size: 0.9rem; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="{{ $cleanName }}">
-                            {{ $cleanName }}
-                        </div>
-                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">
-                            File {{ $ext }}
-                        </div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">
+                        File {{ $ext }}
                     </div>
                 </div>
                 <div style="text-align: right; flex-shrink: 0; margin-left: 10px;">
@@ -105,7 +100,7 @@
                         </td>
                         <td style="padding: 1rem 1.5rem;">
                             <div style="display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; color: #1d4ed8; padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; border: 1px solid #bfdbfe;">
-                                📄 {{ str_replace(['_', '-'], ' ', pathinfo($t->template_laporan, PATHINFO_FILENAME)) }}
+                                {{ str_replace(['_', '-'], ' ', pathinfo($t->template_laporan, PATHINFO_FILENAME)) }}
                             </div>
                         </td>
                         <td style="padding: 1rem 1.5rem;">
