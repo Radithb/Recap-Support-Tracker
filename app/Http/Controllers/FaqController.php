@@ -29,7 +29,7 @@ class FaqController extends Controller
             'is_active'   => $request->boolean('is_active'),
         ]);
 
-        return back()->with('success', 'FAQ berhasil ditambahkan.');
+        return back()->with('success', 'FAQ successfully added');
     }
 
     /**
@@ -54,7 +54,7 @@ class FaqController extends Controller
             'is_active'   => $request->boolean('is_active'),
         ]);
 
-        return back()->with('success', 'FAQ berhasil diperbarui.');
+        return back()->with('success', 'FAQ successfully updated');
     }
 
     /**
@@ -65,7 +65,7 @@ class FaqController extends Controller
         $faq = Faq::findOrFail($id);
         $faq->delete();
 
-        return back()->with('success', 'FAQ berhasil dihapus.');
+        return back()->with('success', 'FAQ successfully deleted');
     }
 
     /**

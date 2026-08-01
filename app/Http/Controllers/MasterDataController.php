@@ -60,7 +60,7 @@ class MasterDataController extends Controller
             'is_active' => $request->boolean('is_active'),
         ]);
 
-        return back()->with('success', 'Aplikasi berhasil diperbarui.');
+        return back()->with('success', 'Application successfully updated');
     }
 
     public function destroyAplikasi($id)
@@ -100,7 +100,7 @@ class MasterDataController extends Controller
             'nama_kategori' => $request->nama_kategori,
         ]);
 
-        return back()->with('success', 'Kategori berhasil diperbarui.');
+        return back()->with('success', 'Category successfully updated');
     }
 
     public function destroyKategori($id)

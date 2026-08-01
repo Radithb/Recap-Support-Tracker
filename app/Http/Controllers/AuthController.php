@@ -365,6 +365,6 @@ class AuthController extends Controller
 
         DB::table('password_reset_tokens')->where('email', $request->email)->delete();
 
-        return redirect()->route('login')->with('success', 'Kata sandi Anda berhasil diperbarui! Silakan login dengan kata sandi baru.');
+        return redirect()->route('login')->with('success', 'Your password has been successfully updated! Please log in with your new password');
     }
 }
