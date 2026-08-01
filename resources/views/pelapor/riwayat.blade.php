@@ -216,6 +216,8 @@
                 @endforeach
                 </div>
             </div>
+            @endif
+
             @if($t->template_laporan)
             <div style="margin-bottom: 16px;">
                 <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Template Surat Dari Support</div>
