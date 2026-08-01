@@ -2,16 +2,46 @@
         @csrf
         @method('PUT')
         <div class="modal-body">
-            <div class="form-group">
-                <label class="form-label">Koperasi</label>
-                <select name="instansi_id" class="form-control" required>
-                    <option value="">Pilih Koperasi</option>
-                    @foreach($instansis as $instansi)
-                        <option value="{{ $instansi->instansi_id }}" {{ (old('instansi_id', $implementasi->instansi_id) == $instansi->instansi_id) ? 'selected' : '' }}>
-                            {{ $instansi->nama_instansi }}
-                        </option>
-                    @endforeach
-                </select>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label class="form-label">Koperasi</label>
+                    <select name="instansi_id" class="form-control" required>
+                        <option value="">Pilih Koperasi</option>
+                        @foreach($instansis as $instansi)
+                            <option value="{{ $instansi->instansi_id }}" {{ (old('instansi_id', $implementasi->instansi_id) == $instansi->instansi_id) ? 'selected' : '' }}>
+                                {{ $instansi->nama_instansi }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Status Implementasi</label>
+                    <select name="status" class="form-control" required>
+                        @php
+                            $statuses = [
+                                'Pelatihan Dijadwalkan',
+                                'Pelatihan Selesai',
+                                'Persiapan Data',
+                                'Menunggu Data Koperasi',
+                                'Penentuan Cut-Off',
+                                'Proses Migrasi',
+                                'Menunggu Validasi Koperasi',
+                                'Ada Revisi Data',
+                                'Siap Go-Live',
+                                'Go-Live',
+                                'Masa Pendampingan',
+                                'Running Stabil',
+                                'Implementasi Selesai',
+                                'On Hold',
+                                'Dibatalkan',
+                            ];
+                            $currentStatus = old('status', $implementasi->status);
+                        @endphp
+                        @foreach($statuses as $st)
+                            <option value="{{ $st }}" {{ $currentStatus == $st ? 'selected' : '' }}>{{ $st }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
             
             <div class="form-group">
