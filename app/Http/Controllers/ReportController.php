@@ -123,7 +123,43 @@ class ReportController extends Controller
 
     public function templateSurat(Request $request)
     {
-        // Kerangka sementara, data kosong
-        return view('support.recap-template-surat');
+        // 1. Scan folder public/templates/ untuk mendapatkan daftar semua template
+        $templateFiles = glob(public_path('templates/*.{docx,doc,pdf}'), GLOB_BRACE) ?: [];
+        $allTemplates = array_map(function($path) {
+            return basename($path);
+        }, $templateFiles);
+
+        // 2. Query tiket yang menggunakan template surat
+        $query = \App\Models\Ticket::whereNotNull('template_laporan')->where('template_laporan', '!=', '');
+
+        if ($request->filled('template')) {
+            $query->where('template_laporan', $request->template);
+        }
+
+        $tickets = $query->with(['pelapor.instansi', 'picSupport'])
+                         ->orderBy('updated_at', 'desc')
+                         ->paginate(15)
+                         ->appends($request->all());
+
+        // 3. Rekap jumlah penggunaan per template
+        $statsRaw = \App\Models\Ticket::whereNotNull('template_laporan')
+            ->where('template_laporan', '!=', '')
+            ->selectRaw('template_laporan, COUNT(*) as count')
+            ->groupBy('template_laporan')
+            ->pluck('count', 'template_laporan')
+            ->toArray();
+
+        // Gabungkan dengan file di folder publik agar file yang belum pernah dipakai tetap muncul dengan count 0
+        $templateStats = [];
+        foreach ($allTemplates as $tpl) {
+            $templateStats[$tpl] = $statsRaw[$tpl] ?? 0;
+        }
+        foreach ($statsRaw as $tpl => $cnt) {
+            if (!isset($templateStats[$tpl])) {
+                $templateStats[$tpl] = $cnt;
+            }
+        }
+
+        return view('support.recap-template-surat', compact('tickets', 'allTemplates', 'templateStats'));
     }
 }

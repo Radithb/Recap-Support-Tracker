@@ -46,12 +46,20 @@ Route::get('/fix-cutoff-columns', function () {
     foreach ($columns as $col => $sql) {
         if (!\Illuminate\Support\Facades\Schema::hasColumn('implementasi_koperasi', $col)) {
             \Illuminate\Support\Facades\DB::statement($sql);
-            $results[] = "Kolom '{$col}' berhasil ditambahkan.";
+            $results[] = "Kolom '{$col}' pada implementasi_koperasi berhasil ditambahkan.";
         } else {
-            $results[] = "Kolom '{$col}' sudah ada (skip).";
+            $results[] = "Kolom '{$col}' pada implementasi_koperasi sudah ada (skip).";
         }
     }
-    return "<pre>" . implode("\n", $results) . "\n\nSelesai! Silakan kembali ke halaman implementasi.</pre>";
+
+    if (!\Illuminate\Support\Facades\Schema::hasColumn('tickets', 'template_laporan')) {
+        \Illuminate\Support\Facades\DB::statement("ALTER TABLE tickets ADD COLUMN template_laporan VARCHAR(255) NULL");
+        $results[] = "Kolom 'template_laporan' pada tickets berhasil ditambahkan.";
+    } else {
+        $results[] = "Kolom 'template_laporan' pada tickets sudah ada (skip).";
+    }
+
+    return "<pre>" . implode("\n", $results) . "\n\nSelesai! Silakan kembali ke halaman aplikasi.</pre>";
 });
 
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');

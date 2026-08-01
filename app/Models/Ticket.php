@@ -24,6 +24,7 @@ class Ticket extends Model
         'pencegahan',
         'status',
         'link_ticket',
+        'template_laporan',
         'is_faq',
         'tanggal_input',
         'tanggal_penyelesaian',

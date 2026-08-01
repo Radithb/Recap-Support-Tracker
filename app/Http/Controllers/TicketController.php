@@ -139,12 +139,13 @@ class TicketController extends Controller
             'penyelesaian' => 'required_if:status,Done|nullable|string',
             'pencegahan' => 'nullable|string',
             'link_ticket' => 'nullable|string',
+            'template_laporan' => 'nullable|string',
             'is_faq' => 'nullable|boolean',
             'lampiran_support' => 'nullable|array|max:5',
             'lampiran_support.*' => 'file|mimes:jpg,jpeg,png,mp4,pdf|max:5120',
         ]);
 
-        $data = $request->only(['status', 'kategori_id', 'penyelesaian', 'pencegahan', 'link_ticket']);
+        $data = $request->only(['status', 'kategori_id', 'penyelesaian', 'pencegahan', 'link_ticket', 'template_laporan']);
         $data['is_faq'] = $request->has('is_faq');
         
         // Selalu ubah PIC Support ke user yang sedang melakukan update

@@ -262,6 +262,14 @@
                 @endforeach
                 </div>
             </div>
+            @if($t->template_laporan)
+            <div style="margin-bottom: 16px;">
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Template Surat Dari Support</div>
+                <a href="{{ asset('templates/' . $t->template_laporan) }}" download class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid #3b82f6; color: #1d4ed8; background: #eff6ff; padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    <span>Unduh {{ str_replace(['_', '-'], ' ', pathinfo($t->template_laporan, PATHINFO_FILENAME)) }} ({{ strtoupper(pathinfo($t->template_laporan, PATHINFO_EXTENSION)) }})</span>
+                </a>
+            </div>
             @endif
 
             <div style="display: grid; grid-template-columns: 1fr; gap: 16px;">
