@@ -15,11 +15,42 @@
     }
     
     .table-responsive {
-        overflow-x: auto;
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: scroll !important; /* FORCED to always show scrollbar */
+        -webkit-overflow-scrolling: touch !important;
+        margin-bottom: 10px;
+    }
+    
+    /* Force custom scrollbar so it's always visible on desktop & mobile */
+    .table-responsive::-webkit-scrollbar {
+        height: 12px !important; /* Ensure height is thick enough */
+        display: block !important;
+    }
+    .table-responsive::-webkit-scrollbar-track {
+        background: #f1f5f9 !important; 
+        border-radius: 8px !important;
+    }
+    .table-responsive::-webkit-scrollbar-thumb {
+        background-color: #cbd5e1 !important; 
+        border-radius: 8px !important;
+        border: 2px solid #f1f5f9 !important;
+    }
+    .table-responsive::-webkit-scrollbar-thumb:hover {
+        background-color: #94a3b8 !important; 
+    }
+    .dark-mode .table-responsive::-webkit-scrollbar-track {
+        background: #1e293b !important;
+    }
+    .dark-mode .table-responsive::-webkit-scrollbar-thumb {
+        background-color: #475569 !important;
+        border: 2px solid #1e293b !important;
     }
     
     .implementasi-table {
-        width: 100%;
+        width: 100% !important;
+        min-width: 1100px !important; /* Forces table to be wide */
         border-collapse: collapse;
         font-size: 14px;
     }
@@ -28,13 +59,13 @@
         padding: 12px 15px;
         text-align: left;
         border-bottom: 1px solid #eee;
+        white-space: nowrap; /* Prevent text wrapping to force horizontal scroll */
     }
     
     .implementasi-table th {
         background-color: #f8f9fa;
         font-weight: 600;
         color: #333;
-        white-space: nowrap;
     }
     
     /* Dynamic Status Labels */
@@ -220,8 +251,8 @@
     }
 </style>
 
-<div class="dashboard-wrapper" style="max-width: 1280px; margin: 0 auto; padding: 20px 30px; box-sizing: border-box;">
-    <div class="dashboard-card">
+<div class="dashboard-wrapper" style="width: 100%; max-width: 100%; margin: 0 auto; padding: 20px 30px; box-sizing: border-box; overflow: hidden;">
+    <div class="dashboard-card" style="width: 100%; max-width: 100%; box-sizing: border-box; overflow: hidden;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
             <h2 style="font-size: 18px; font-weight: 600; margin: 0;">{{ __('messages.monitoring_running_koperasi', ['count' => $implementasis->count()]) }}</h2>
         @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)

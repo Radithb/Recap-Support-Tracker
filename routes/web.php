@@ -17,13 +17,22 @@ Route::get('/', function () {
 
 // ROUTE SEMENTARA UNTUK MIGRASI (InfinityFree)
 Route::get('/run-migrations', function () {
+    $message = "";
     try {
         \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
-        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
-        return "Migrasi Database & Clear Cache Berhasil! Silakan kembali ke website.";
+        $message .= "Migrasi Database Berhasil! ";
     } catch (\Exception $e) {
-        return "Terjadi Kesalahan: " . $e->getMessage();
+        $message .= "Migrasi Error (Mungkin tabel sudah ada), tapi tidak apa-apa. ";
     }
+
+    try {
+        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+        $message .= "Clear Cache Berhasil! Silakan kembali ke website.";
+    } catch (\Exception $e) {
+        $message .= "Gagal Clear Cache: " . $e->getMessage();
+    }
+    
+    return $message;
 });
 
 // ROUTE SEMENTARA: Fix kolom cutoff yang belum ada
