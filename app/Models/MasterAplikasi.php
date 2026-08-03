@@ -13,6 +13,8 @@ class MasterAplikasi extends Model
         'nama_aplikasi',
         'deskripsi',
         'link',
+        'username',
+        'password',
         'is_active',
     ];
 
