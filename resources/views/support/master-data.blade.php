@@ -680,6 +680,14 @@
                         <label>{{ __('messages.link_aplikasi') }}</label>
                         <input type="url" name="link" placeholder="{{ __('messages.masukkan_link_aplikasi') }}">
                     </div>
+                    <div class="field">
+                        <label>Username</label>
+                        <input type="text" name="username" placeholder="Masukkan username">
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input type="text" name="password" placeholder="Masukkan password">
+                    </div>
                 </div>
                 <div class="modal-foot">
                     <button type="button" class="btn btn-ghost" onclick="closeModal('modal-add-aplikasi')">{{ __('messages.batal') }}</button>
@@ -741,6 +749,14 @@
                     <div class="field">
                         <label>{{ __('messages.link_aplikasi') }}</label>
                         <input type="url" name="link" value="{{ $app->link }}" placeholder="{{ __('messages.masukkan_link_aplikasi') }}">
+                    </div>
+                    <div class="field">
+                        <label>Username</label>
+                        <input type="text" name="username" value="{{ $app->username }}" placeholder="Masukkan username">
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input type="text" name="password" value="{{ $app->password }}" placeholder="Masukkan password">
                     </div>
                     <div class="field">
                         <label>Status Aplikasi <span style="color:var(--danger)">*</span></label>

@@ -35,6 +35,30 @@ Route::get('/run-migrations', function () {
     return $message;
 });
 
+// ROUTE SEMENTARA: Hapus Aplikasi Duplikat
+Route::get('/cleanup-duplicates', function () {
+    try {
+        $duplicates = \Illuminate\Support\Facades\DB::select("
+            SELECT nama_aplikasi, MIN(aplikasi_id) as min_id
+            FROM master_aplikasis
+            GROUP BY nama_aplikasi
+            HAVING COUNT(aplikasi_id) > 1
+        ");
+        
+        $deleted = 0;
+        foreach ($duplicates as $dup) {
+            $deleted += \Illuminate\Support\Facades\DB::table('master_aplikasis')
+                ->where('nama_aplikasi', $dup->nama_aplikasi)
+                ->where('aplikasi_id', '>', $dup->min_id)
+                ->delete();
+        }
+        
+        return "Berhasil menghapus {$deleted} data aplikasi yang duplikat. Silakan kembali ke halaman sebelumnya.";
+    } catch (\Exception $e) {
+        return "Terjadi Kesalahan: " . $e->getMessage();
+    }
+});
+
 // ROUTE SEMENTARA: Fix kolom cutoff yang belum ada
 Route::get('/fix-cutoff-columns', function () {
     $results = [];
