@@ -188,12 +188,12 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
     Route::post('/notifications/mark-all-read', [App\Http\Controllers\NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
     Route::get('/master-data/export', [MasterDataController::class, 'export'])->name('master-data.export');
     Route::post('/master-data/aplikasi', [MasterDataController::class, 'storeAplikasi'])->name('master-data.aplikasi.store');
-    Route::put('/master-data/aplikasi/{id}', [MasterDataController::class, 'updateAplikasi'])->name('master-data.aplikasi.update');
+    Route::match(['PUT', 'POST'], '/master-data/aplikasi/{id}', [MasterDataController::class, 'updateAplikasi'])->name('master-data.aplikasi.update');
     Route::delete('/master-data/aplikasi/{id}', [MasterDataController::class, 'destroyAplikasi'])->name('master-data.aplikasi.destroy');
     Route::post('/master-data/kategori', [MasterDataController::class, 'storeKategori'])->name('master-data.kategori.store');
-    Route::put('/master-data/kategori/{id}', [MasterDataController::class, 'updateKategori'])->name('master-data.kategori.update');
+    Route::match(['PUT', 'POST'], '/master-data/kategori/{id}', [MasterDataController::class, 'updateKategori'])->name('master-data.kategori.update');
     Route::delete('/master-data/kategori/{id}', [MasterDataController::class, 'destroyKategori'])->name('master-data.kategori.destroy');
-    Route::put('/master-data/koperasi/{id}', [MasterDataController::class, 'updateKoperasi'])->name('master-data.koperasi.update');
+    Route::match(['PUT', 'POST'], '/master-data/koperasi/{id}', [MasterDataController::class, 'updateKoperasi'])->name('master-data.koperasi.update');
     Route::delete('/master-data/koperasi/{id}', [MasterDataController::class, 'destroyKoperasi'])->name('master-data.koperasi.destroy');
 
     // Verifikasi Akun Pelapor
