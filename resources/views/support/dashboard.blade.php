@@ -270,9 +270,9 @@
 
             @if($t->surat_balasan)
             <div style="margin-bottom: 24px;">
-                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Surat Balasan (Dari Pelapor)</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">{{ __('messages.surat_balasan_dari_pelapor') }}</div>
                 <a href="{{ Storage::url($t->surat_balasan) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none;">
-                    Lihat Surat Balasan
+                    {{ __('messages.lihat_surat_balasan') }}
                 </a>
             </div>
             @endif
@@ -416,10 +416,10 @@
 
                     @if($t->surat_balasan)
                     <div style="margin-bottom: 16px;">
-                        <label>Surat Balasan (Dari Pelapor)</label>
+                        <label>{{ __('messages.surat_balasan_dari_pelapor') }}</label>
                         <div style="margin-top: 8px;">
                             <a href="{{ Storage::url($t->surat_balasan) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none;">
-                                Lihat Surat Balasan
+                                {{ __('messages.lihat_surat_balasan') }}
                             </a>
                         </div>
                     </div>
@@ -441,7 +441,7 @@
                     </div>
 
                     <div class="field">
-                        <label>Surat Laporan Template</label>
+                        <label>{{ __('messages.surat_laporan_template') }}</label>
                         <select name="template_laporan">
                             <option value="">-- Pilih Template --</option>
                             @php
@@ -495,7 +495,7 @@
                     </div>
 
                     <div class="field" style="margin-top: 14px;">
-                        <label>Lampiran Respons (Opsional)</label>
+                        <label>{{ __('messages.lampiran_respons_opsional') }}</label>
                         <div style="display: flex; gap: 8px; align-items: center;">
                             <input type="file" id="lampiran_input_supp_{{ $t->ticket_id }}" name="lampiran_support[]" multiple accept=".jpg,.jpeg,.png,.mp4,.pdf" style="flex: 1; width:100%; font-size: calc(13px * var(--text-scale, 1)); font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;" onchange="
                                 if (!window.dtSupportMap) window.dtSupportMap = {};

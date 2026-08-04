@@ -274,12 +274,12 @@
             </div>
 
             <div style="margin-bottom: 16px; background: var(--paper-sunken); padding: 12px; border-radius: 8px; border: 1px solid var(--line);">
-                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Surat Balasan (Dari Pelapor)</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">{{ __('messages.surat_balasan_dari_pelapor') }}</div>
                 
                 @if($t->surat_balasan)
                     <div style="margin-bottom: 10px;">
                         <a href="{{ Storage::url($t->surat_balasan) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none;">
-                            Lihat Surat Balasan Saat Ini
+                            {{ __('messages.lihat_surat_balasan_saat_ini') }}
                         </a>
                     </div>
                 @endif
@@ -287,9 +287,9 @@
                 <form action="{{ route('pelapor.tickets.upload_balasan', $t->ticket_id) }}" method="POST" enctype="multipart/form-data" style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
                     @csrf
                     <input type="file" name="surat_balasan" required accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="flex: 1; min-width: 200px; font-size: 13px; padding: 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--paper);">
-                    <button type="submit" class="btn btn-primary btn-sm" style="padding: 6px 12px;">Unggah</button>
+                    <button type="submit" class="btn btn-primary btn-sm" style="padding: 6px 12px;">{{ __('messages.unggah') }}</button>
                 </form>
-                <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">Format: PDF, DOC, DOCX, JPG, PNG. Max: 5MB</div>
+                <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">{{ __('messages.format_lampiran_surat_balasan') }}</div>
             </div>
             @endif
 

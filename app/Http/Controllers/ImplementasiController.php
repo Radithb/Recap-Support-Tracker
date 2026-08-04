@@ -197,7 +197,7 @@ class ImplementasiController extends Controller
             'catatan' => 'Pelatihan selesai, lanjut ke follow up kesiapan.'
         ]);
 
-        return redirect()->route('implementasi.index')->with('success', 'Implementation data successfully added');
+        return redirect()->route('implementasi.index')->with('success', __('messages.impl_added'));
     }
 
     /**
@@ -420,7 +420,7 @@ class ImplementasiController extends Controller
 
         $implementasi->checkAndSetGoLiveDate();
 
-        return redirect()->route('implementasi.index')->with('success', 'Implementation data successfully updated');
+        return redirect()->route('implementasi.index')->with('success', __('messages.impl_updated'));
     }
 
     /**
@@ -463,7 +463,7 @@ class ImplementasiController extends Controller
 
         $implementasi->checkAndSetGoLiveDate();
 
-        return redirect()->route('implementasi.show', $id)->with('success', 'Go-Live details successfully updated');
+        return redirect()->route('implementasi.show', $id)->with('success', __('messages.golive_updated'));
     }
 
     public function updateCutOff(Request $request, $id)
@@ -505,7 +505,7 @@ class ImplementasiController extends Controller
 
         $implementasi->checkAndSetGoLiveDate();
 
-        return redirect()->route('implementasi.show', $id)->with('success', 'Cut-Off details successfully updated');
+        return redirect()->route('implementasi.show', $id)->with('success', __('messages.cutoff_updated'));
     }
 
     public function updateFollowUp(Request $request, $id)
@@ -545,7 +545,7 @@ class ImplementasiController extends Controller
             'catatan' => 'Data Follow-Up diperbarui melalui halaman detail.'
         ]);
 
-        return redirect()->route('implementasi.show', $id)->with('success', 'Follow-Up activity successfully updated');
+        return redirect()->route('implementasi.show', $id)->with('success', __('messages.followup_updated'));
     }
 
     /**
@@ -565,6 +565,6 @@ class ImplementasiController extends Controller
         // Hapus data (relasi checklist dan log otomatis terhapus karena foreign key onDelete cascade)
         $implementasi->delete();
 
-        return redirect()->route('implementasi.index')->with('success', 'Implementation data successfully deleted');
+        return redirect()->route('implementasi.index')->with('success', __('messages.impl_deleted'));
     }
 }

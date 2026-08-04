@@ -121,7 +121,7 @@ class TicketController extends Controller
             'surat_balasan' => $path
         ]);
 
-        return back()->with('success', 'Surat balasan berhasil diunggah.');
+        return back()->with('success', __('messages.surat_balasan_berhasil_diunggah'));
     }
 
     // --- SUPPORT METHODS ---

@@ -759,7 +759,7 @@
                         <input type="text" name="password" value="{{ $app->password }}" placeholder="Masukkan password">
                     </div>
                     <div class="field">
-                        <label>Status Aplikasi <span style="color:var(--danger)">*</span></label>
+                        <label>{{ __('messages.status_aplikasi') }} <span style="color:var(--danger)">*</span></label>
                         <select name="is_active" required style="width: 100%; padding: 0.65rem 0.8rem; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-raised); color: var(--ink); font-size: 0.9rem;">
                             <option value="1" {{ $app->is_active ? 'selected' : '' }}>Aktif</option>
                             <option value="0" {{ !$app->is_active ? 'selected' : '' }}>Nonaktif</option>
@@ -781,8 +781,8 @@
         <div class="modal w-sm modal-centered">
             <div class="modal-head">
                 <div>
-                    <h3>Edit Master Kategori</h3>
-                    <p>Ubah nama kategori</p>
+                    <h3>{{ __('messages.edit_master_kategori') }}</h3>
+                    <p>{{ __('messages.ubah_nama_kategori') }}</p>
                 </div>
                 <button type="button" class="modal-x" onclick="closeModal('modal-edit-kategori-{{ $kategori->kategori_id }}')">✕</button>
             </div>

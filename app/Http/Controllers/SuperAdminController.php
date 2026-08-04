@@ -16,7 +16,7 @@ class SuperAdminController extends Controller
     {
         // Pastikan hanya Super Admin yang bisa mengakses
         if (Auth::user()->role !== UserRole::SUPERADMIN) {
-            return redirect('/login')->with('error', 'Akses ditolak.');
+            return redirect('/login')->with('error', __('messages.akses_ditolak'));
         }
 
         $query = User::with('instansi');

@@ -1017,15 +1017,15 @@
                     <!-- Row 1: Tanggal-tanggalan -->
                     <div class="grid-3-col">
                         <div>
-                            <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tanggal Follow-Up</label>
+                            <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.tanggal_follow_up') }}</label>
                             <input type="date" name="tanggal_followup" value="{{ $implementasi->tanggal_followup ? $implementasi->tanggal_followup->format('Y-m-d') : '' }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 7px; border-radius: 4px; background: white;">
                         </div>
                         <div>
-                            <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Tgl Follow-Up Berikutnya</label>
+                            <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.tgl_follow_up_berikutnya') }}</label>
                             <input type="date" name="tanggal_followup_berikutnya" value="{{ $implementasi->tanggal_followup_berikutnya ? $implementasi->tanggal_followup_berikutnya->format('Y-m-d') : '' }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 7px; border-radius: 4px; background: white;">
                         </div>
                         <div>
-                            <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Target Tgl Tindakan</label>
+                            <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.target_tgl_tindakan') }}</label>
                             <input type="date" name="target_tanggal_tindakan" value="{{ $implementasi->target_tanggal_tindakan ? $implementasi->target_tanggal_tindakan->format('Y-m-d') : '' }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 7px; border-radius: 4px; background: white;">
                         </div>
                     </div>
@@ -1070,11 +1070,11 @@
                     <!-- Row 3: Textareas Group 1 -->
                     <div class="grid-2-col">
                         <div>
-                            <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Hasil Komunikasi</label>
+                            <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.hasil_komunikasi') }}</label>
                             <textarea name="hasil_komunikasi" class="form-control" rows="2" placeholder="Tuliskan hasil percakapan / komunikasi..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical; background: white;">{{ $implementasi->hasil_komunikasi }}</textarea>
                         </div>
                         <div>
-                            <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Kendala Koperasi</label>
+                            <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.kendala_koperasi') }}</label>
                             <textarea name="kendala_koperasi" class="form-control" rows="2" placeholder="Tuliskan kendala yang dihadapi koperasi..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical; background: white;">{{ $implementasi->kendala_koperasi }}</textarea>
                         </div>
                     </div>
@@ -1082,7 +1082,7 @@
                     <!-- Row 4: Textareas Group 2 -->
                     <div class="grid-2-col">
                         <div>
-                            <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">Komitmen Koperasi</label>
+                            <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.komitmen_koperasi') }}</label>
                             <textarea name="komitmen_koperasi" class="form-control" rows="2" placeholder="Tuliskan komitmen yang diberikan koperasi..." style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; resize: vertical; background: white;">{{ $implementasi->komitmen_koperasi }}</textarea>
                         </div>
                         <div>

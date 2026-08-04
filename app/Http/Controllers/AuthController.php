@@ -314,7 +314,7 @@ class AuthController extends Controller
 
         Mail::to($request->email)->send(new ResetPasswordMail($token, $request->email));
 
-        return back()->with('success', 'Tautan reset kata sandi telah dikirim ke email Anda.');
+        return back()->with('success', __('messages.reset_link_sent'));
     }
 
     public function showResetPassword($token, Request $request)
@@ -365,6 +365,6 @@ class AuthController extends Controller
 
         DB::table('password_reset_tokens')->where('email', $request->email)->delete();
 
-        return redirect()->route('login')->with('success', 'Your password has been successfully updated! Please log in with your new password');
+        return redirect()->route('login')->with('success', __('messages.password_reset_success'));
     }
 }
