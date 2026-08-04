@@ -92,6 +92,14 @@ Route::get('/fix-cutoff-columns', function () {
         $results[] = "Kolom 'template_laporan' pada tickets sudah ada (skip).";
     }
 
+    if (!\Illuminate\Support\Facades\Schema::hasColumn('master_aplikasis', 'username')) {
+        \Illuminate\Support\Facades\DB::statement("ALTER TABLE master_aplikasis ADD COLUMN username VARCHAR(255) NULL");
+        \Illuminate\Support\Facades\DB::statement("ALTER TABLE master_aplikasis ADD COLUMN password VARCHAR(255) NULL");
+        $results[] = "Kolom 'username' dan 'password' pada master_aplikasis berhasil ditambahkan.";
+    } else {
+        $results[] = "Kolom 'username' dan 'password' pada master_aplikasis sudah ada (skip).";
+    }
+
     try {
         \Illuminate\Support\Facades\Artisan::call('optimize:clear');
         $results[] = "\nCache aplikasi berhasil dibersihkan (optimize:clear).";
