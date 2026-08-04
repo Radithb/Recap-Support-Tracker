@@ -108,7 +108,40 @@ Route::get('/run-migrations', function () {
     return $message;
 });
 
+Route::get('/check-templates', function() {
+    $message = "<h3>📁 Cek Folder Templates di Server</h3>";
+    
+    $paths = [
+        'public_path("templates")' => public_path('templates'),
+        'public_path("../../templates")' => public_path('../../templates'),
+        'base_path("../templates")' => base_path('../templates'),
+        'storage_path("app/public/templates")' => storage_path('app/public/templates'),
+    ];
+
+    foreach ($paths as $name => $path) {
+        $message .= "<b>$name</b><br> Path Asli: $path<br>";
+        if (is_dir($path)) {
+            $files = scandir($path);
+            $message .= "✅ Folder ditemukan! Isi file:<br><ul>";
+            foreach ($files as $f) {
+                if ($f !== '.' && $f !== '..') {
+                    $size = is_file("$path/$f") ? round(filesize("$path/$f") / 1024, 2) . " KB" : 'DIR';
+                    $message .= "<li>$f ($size)</li>";
+                }
+            }
+            $message .= "</ul>";
+        } else {
+            $message .= "❌ Folder tidak ditemukan!<br><br>";
+        }
+    }
+    
+    return $message;
+});
+
 Route::get('/download-template/{filename}', function($filename) {
+    // decode once more just in case
+    $filename = urldecode($filename);
+    
     // try to find it in public/templates first
     $path = public_path('templates/' . $filename);
     if (file_exists($path)) {
@@ -132,8 +165,12 @@ Route::get('/download-template/{filename}', function($filename) {
         return Storage::disk('public')->download('templates/' . $filename);
     }
 
-    abort(404, 'File template "' . htmlspecialchars($filename) . '" tidak ditemukan di server.');
+    return "<h2>❌ ERROR: File Template Tidak Ditemukan!</h2>
+            <p>Sistem mencari file bernama: <b>" . htmlspecialchars($filename) . "</b></p>
+            <p>Namun file tersebut tidak ada di folder manapun di server. Silakan cek nama filenya apakah sama persis (huruf besar/kecil berpengaruh) dan pastikan sudah diupload.</p>
+            <p><a href='/check-templates'>Klik di sini untuk melihat daftar file yang ada di server</a></p>";
 })->where('filename', '.*')->name('download.template');
+
 
 // ROUTE SEMENTARA: Hapus Aplikasi Duplikat
 Route::get('/cleanup-duplicates', function () {
