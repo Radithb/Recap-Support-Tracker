@@ -60,23 +60,6 @@
     </div>
 @endif
 
-@if(session('error'))
-    <div id="error-alert" class="alert-dismiss fade-up" style="animation-delay: 0.1s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: #fef2f2; color: #b91c1c; border-radius: 8px; margin-bottom: 24px; font-size: calc(13.5px * var(--text-scale, 1)); font-weight: 600; border: 1px solid #fecaca;">
-        <span>{{ session('error') }}</span>
-        <button type="button" onclick="document.getElementById('error-alert').style.display='none'" style="background: none; border: none; color: #b91c1c; cursor: pointer; font-size: calc(18px * var(--text-scale, 1)); font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
-    </div>
-@endif
-
-@if($errors->any())
-    <div id="errors-alert" class="alert-dismiss fade-up" style="animation-delay: 0.1s; padding: 12px 14px; background: #fef2f2; color: #b91c1c; border-radius: 8px; margin-bottom: 24px; font-size: calc(13.5px * var(--text-scale, 1)); font-weight: 600; border: 1px solid #fecaca;">
-        <ul style="margin: 0; padding-left: 20px;">
-            @foreach($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
 <div class="page-head fade-up" style="animation-delay: 0.1s;">
     <div>
         <p class="eyebrow">{{ __('messages.dashboard_support') }}</p>
@@ -209,10 +192,11 @@
                 {{ $t->tanggal_input->format('d M Y') }}
             </td>
             <td>
-                @php $statusValStr = is_object($t->status) ? $t->status->value : $t->status; @endphp
-                <button class="btn btn-ghost btn-sm" onclick="openModal('modal-edit-{{ $t->ticket_id }}')">
-                    {{ $statusValStr === 'Done' ? __('messages.selesai') : __('messages.respons') }}
-                </button>
+                @if($t->status === \App\Enums\TicketStatus::DONE)
+                    <button class="btn btn-ghost btn-sm" disabled style="cursor: not-allowed; opacity: 0.5;" title="{{ __('messages.tiket_selesai_desc') }}">{{ __('messages.selesai') }}</button>
+                @else
+                    <button class="btn btn-ghost btn-sm" onclick="openModal('modal-edit-{{ $t->ticket_id }}')">{{ __('messages.respons') }}</button>
+                @endif
             </td>
         </tr>
         @endforeach
@@ -287,9 +271,19 @@
             @if($t->surat_balasan)
             <div style="margin-bottom: 24px;">
                 <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">{{ __('messages.surat_balasan_dari_pelapor') }}</div>
-                <a href="{{ Storage::url($t->surat_balasan) }}" download="Surat_Balasan_{{ $t->ticket_id }}.{{ pathinfo($t->surat_balasan, PATHINFO_EXTENSION) }}" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none;">
-                    {{ __('messages.lihat_surat_balasan') }}
-                </a>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    @php
+                        $balasanFiles = json_decode($t->surat_balasan, true);
+                        if (!is_array($balasanFiles)) {
+                            $balasanFiles = [$t->surat_balasan];
+                        }
+                    @endphp
+                    @foreach($balasanFiles as $index => $file)
+                        <a href="{{ Storage::url($file) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none; width: fit-content;">
+                            {{ __('messages.lihat_surat_balasan') }} {{ count($balasanFiles) > 1 ? '#' . ($index + 1) : '' }}
+                        </a>
+                    @endforeach
+                </div>
             </div>
             @endif
 
@@ -370,7 +364,11 @@
         </div>
         <div class="modal-foot" style="display: flex; gap: 12px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--line);">
             <button type="button" class="btn btn-ghost" onclick="closeModal('modal-preview-{{ $t->ticket_id }}')">{{ __('messages.tutup') }}</button>
-            <button type="button" class="btn btn-primary" onclick="closeModal('modal-preview-{{ $t->ticket_id }}'); openModal('modal-edit-{{ $t->ticket_id }}')">{{ __('messages.respons_tiket') }}</button>
+            @if($t->status === \App\Enums\TicketStatus::DONE)
+                <button type="button" class="btn btn-primary" disabled style="cursor: not-allowed; opacity: 0.5;" title="{{ __('messages.tiket_selesai_desc') }}">{{ __('messages.selesai') }}</button>
+            @else
+                <button type="button" class="btn btn-primary" onclick="closeModal('modal-preview-{{ $t->ticket_id }}'); openModal('modal-edit-{{ $t->ticket_id }}')">{{ __('messages.respons_tiket') }}</button>
+            @endif
         </div>
     </div>
 </div>
@@ -429,17 +427,25 @@
                     @if($t->surat_balasan)
                     <div style="margin-bottom: 16px;">
                         <label>{{ __('messages.surat_balasan_dari_pelapor') }}</label>
-                        <div style="margin-top: 8px;">
-                            <a href="{{ Storage::url($t->surat_balasan) }}" download="Surat_Balasan_{{ $t->ticket_id }}.{{ pathinfo($t->surat_balasan, PATHINFO_EXTENSION) }}" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none;">
-                                {{ __('messages.lihat_surat_balasan') }}
-                            </a>
+                        <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 8px;">
+                            @php
+                                $balasanFiles = json_decode($t->surat_balasan, true);
+                                if (!is_array($balasanFiles)) {
+                                    $balasanFiles = [$t->surat_balasan];
+                                }
+                            @endphp
+                            @foreach($balasanFiles as $index => $file)
+                                <a href="{{ Storage::url($file) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none; width: fit-content;">
+                                    {{ __('messages.lihat_surat_balasan') }} {{ count($balasanFiles) > 1 ? '#' . ($index + 1) : '' }}
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                     @endif
 
                     <div class="field">
                         <label>{{ __('messages.kategori_tiket') }}</label>
-                        <select name="kategori_id">
+                        <select name="kategori_id" required>
                             <option value="">{{ __('messages.pilih_kategori') }}</option>
                             @foreach($kategoris as $kat)
                                 <option value="{{ $kat->kategori_id }}" {{ $t->kategori_id == $kat->kategori_id ? 'selected' : '' }}>{{ $kat->nama_kategori }}</option>
@@ -475,14 +481,13 @@
                 <div>
                     <div class="field">
                         <label>{{ __('messages.status') }}</label>
-                        @php $currentStatusStr = is_object($t->status) ? $t->status->value : $t->status; @endphp
                         <select name="status" required>
-                            <option value="Open" {{ $currentStatusStr === 'Open' ? 'selected' : '' }}>Open</option>
-                            <option value="Proses" {{ $currentStatusStr === 'Proses' ? 'selected' : '' }}>Proses</option>
-                            <option value="In Review" {{ $currentStatusStr === 'In Review' ? 'selected' : '' }}>In Review</option>
-                            <option value="Waiting" {{ $currentStatusStr === 'Waiting' ? 'selected' : '' }}>Waiting</option>
-                            <option value="Pending" {{ $currentStatusStr === 'Pending' ? 'selected' : '' }}>Pending</option>
-                            <option value="Done" {{ $currentStatusStr === 'Done' ? 'selected' : '' }}>Done</option>
+                            <option value="Open" {{ $t->status === \App\Enums\TicketStatus::OPEN ? 'selected' : '' }}>Open</option>
+                            <option value="Proses" {{ $t->status === \App\Enums\TicketStatus::PROSES ? 'selected' : '' }}>Proses</option>
+                            <option value="In Review" {{ $t->status === \App\Enums\TicketStatus::REVIEW ? 'selected' : '' }}>In Review</option>
+                            <option value="Waiting" {{ $t->status === \App\Enums\TicketStatus::WAITING ? 'selected' : '' }}>Waiting</option>
+                            <option value="Pending" {{ $t->status === \App\Enums\TicketStatus::PENDING ? 'selected' : '' }}>Pending</option>
+                            <option value="Done" {{ $t->status === \App\Enums\TicketStatus::DONE ? 'selected' : '' }}>Done</option>
                         </select>
                     </div>
 

@@ -720,7 +720,7 @@ return [
     'lihat_surat_balasan_saat_ini' => 'View Current Reply Letter',
     'lihat_surat_balasan' => 'View Reply Letter',
     'unggah' => 'Upload',
-    'format_lampiran_surat_balasan' => 'Format: PDF, DOC, DOCX, JPG, PNG. Max: 5MB',
+    'format_lampiran_surat_balasan' => 'Format: PDF, DOC, DOCX, XLSX, CSV, PPTX, PPSX, XLSM, DOCM, XLSB. Max: 5MB',
     'surat_balasan_berhasil_diunggah' => 'Reply letter uploaded successfully.',
     'surat_laporan_template' => 'Report Template Letter',
     'lampiran_respons_opsional' => 'Response Attachment (Optional)',

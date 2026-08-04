@@ -108,20 +108,70 @@ class TicketController extends Controller
         }
 
         $request->validate([
-            'surat_balasan' => 'required|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:5120',
+            'surat_balasan' => 'required',
+            'surat_balasan.*' => 'file|mimes:pdf,doc,docx,xlsx,csv,pptx,ppsx,xlsm,docm,xlsb|max:5120',
         ]);
 
-        if ($ticket->surat_balasan && \Illuminate\Support\Facades\Storage::disk('public')->exists($ticket->surat_balasan)) {
-            \Illuminate\Support\Facades\Storage::disk('public')->delete($ticket->surat_balasan);
+        $paths = [];
+        if ($ticket->surat_balasan) {
+            $existing = json_decode($ticket->surat_balasan, true);
+            if (is_array($existing)) {
+                $paths = $existing;
+            } else {
+                // Backward compatibility if it wasn't JSON
+                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($ticket->surat_balasan)) {
+                    $paths = [$ticket->surat_balasan];
+                }
+            }
         }
 
-        $path = $request->file('surat_balasan')->store('surat_balasan', 'public');
+        if ($request->hasFile('surat_balasan')) {
+            $files = $request->file('surat_balasan');
+            if (!is_array($files)) {
+                $files = [$files];
+            }
 
-        $ticket->update([
-            'surat_balasan' => $path
-        ]);
+            foreach ($files as $file) {
+                // Generate safe filename with timestamp to prevent collision
+                $filename = time() . '_' . $file->getClientOriginalName();
+                // Replace spaces with underscores for better URL safety
+                $filename = str_replace(' ', '_', $filename);
+                
+                $paths[] = $file->storeAs('surat_balasan', $filename, 'public');
+            }
+
+            $ticket->update([
+                'surat_balasan' => json_encode($paths)
+            ]);
+        }
 
         return back()->with('success', __('messages.surat_balasan_berhasil_diunggah'));
+    }
+
+    public function deleteBalasan(Request $request, Ticket $ticket, $index)
+    {
+        if ($ticket->pelapor_id !== Auth::id()) {
+            abort(403);
+        }
+
+        if ($ticket->surat_balasan) {
+            $existing = json_decode($ticket->surat_balasan, true);
+            if (is_array($existing) && isset($existing[$index])) {
+                $path = $existing[$index];
+                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($path)) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($path);
+                }
+                unset($existing[$index]);
+                // Re-index array
+                $existing = array_values($existing);
+                
+                $ticket->update([
+                    'surat_balasan' => count($existing) > 0 ? json_encode($existing) : null
+                ]);
+            }
+        }
+
+        return back()->with('success', 'File balasan berhasil dihapus.');
     }
 
     // --- SUPPORT METHODS ---

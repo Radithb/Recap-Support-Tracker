@@ -912,7 +912,7 @@ return [
     'lihat_surat_balasan_saat_ini' => 'Lihat Surat Balasan Saat Ini',
     'lihat_surat_balasan' => 'Lihat Surat Balasan',
     'unggah' => 'Unggah',
-    'format_lampiran_surat_balasan' => 'Format: PDF, DOC, DOCX, JPG, PNG. Max: 5MB',
+    'format_lampiran_surat_balasan' => 'Format: PDF, DOC, DOCX, XLSX, CSV, PPTX, PPSX, XLSM, DOCM, XLSB. Max: 5MB',
     'surat_balasan_berhasil_diunggah' => 'Surat balasan berhasil diunggah.',
     'surat_laporan_template' => 'Surat Laporan Template',
     'lampiran_respons_opsional' => 'Lampiran Respons (Opsional)',
