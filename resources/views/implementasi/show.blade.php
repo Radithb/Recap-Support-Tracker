@@ -467,6 +467,13 @@
 </div>
 
 <div style="max-width: 1280px; margin: 0 auto; padding: 20px 30px;">
+@if(session('success'))
+    <div id="success-alert" class="alert-dismiss fade-up" style="animation-delay: 0.1s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: #d1fae5; color: #065f46; border-radius: 8px; margin-bottom: 24px; font-size: 13.5px; font-weight: 600; border: 1px solid #34d399; transition: opacity 0.6s ease, transform 0.6s ease;">
+        <span>{{ session('success') }}</span>
+        <button type="button" onclick="document.getElementById('success-alert').style.display='none'" style="background: none; border: none; color: #065f46; cursor: pointer; font-size: 18px; font-weight: bold; line-height: 1; padding: 0 4px; margin-left: 10px;">&times;</button>
+    </div>
+@endif
+
 <div class="detail-card">
     <div class="detail-header">
         <div>
