@@ -17,33 +17,94 @@ Route::get('/', function () {
 
 // ROUTE SEMENTARA UNTUK MIGRASI & FORCE CLEAR CACHE (InfinityFree)
 Route::get('/run-migrations', function () {
-    $message = "";
-    try {
-        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
-        $message .= "Migrasi Database Berhasil! <br>";
-    } catch (\Exception $e) {
-        $message .= "Migrasi Error: " . $e->getMessage() . " <br>";
+    $message = "<h3>🔧 Server Diagnostik & Clear Cache</h3>";
+
+    // 1. Diagnostik: Cek versi file routes/web.php di server
+    $routeFile = base_path('routes/web.php');
+    $message .= "<b>📄 routes/web.php</b><br>";
+    $message .= "Ukuran: " . filesize($routeFile) . " bytes<br>";
+    $message .= "Terakhir diubah: " . date('Y-m-d H:i:s', filemtime($routeFile)) . "<br>";
+    
+    // Cek apakah file routes/web.php mengandung kata 'koperasi.update'
+    $routeContent = file_get_contents($routeFile);
+    if (str_contains($routeContent, "master-data.koperasi.update")) {
+        $message .= "✅ Route koperasi.update <b>DITEMUKAN</b> di file routes/web.php<br>";
+    } else {
+        $message .= "❌ Route koperasi.update <b>TIDAK ADA</b> di file routes/web.php! <b>File belum terupload!</b><br>";
     }
 
+    // Cek versi file master-data.blade.php
+    $viewFile = resource_path('views/support/master-data.blade.php');
+    if (file_exists($viewFile)) {
+        $message .= "<br><b>📄 master-data.blade.php</b><br>";
+        $message .= "Ukuran: " . filesize($viewFile) . " bytes<br>";
+        $message .= "Terakhir diubah: " . date('Y-m-d H:i:s', filemtime($viewFile)) . "<br>";
+    }
+
+    // Cek AppServiceProvider
+    $aspFile = app_path('Providers/AppServiceProvider.php');
+    if (file_exists($aspFile)) {
+        $aspContent = file_get_contents($aspFile);
+        $message .= "<br><b>📄 AppServiceProvider.php</b><br>";
+        $message .= "Ukuran: " . filesize($aspFile) . " bytes<br>";
+        if (str_contains($aspContent, "forceScheme")) {
+            $message .= "✅ forceScheme('https') <b>ADA</b><br>";
+        } else {
+            $message .= "❌ forceScheme('https') <b>BELUM ADA</b>! File belum terupload!<br>";
+        }
+    }
+
+    $message .= "<hr>";
+
+    // 2. Migrasi
     try {
-        // Hapus manual file cache di bootstrap/cache
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        $message .= "✅ Migrasi Database Berhasil!<br>";
+    } catch (\Exception $e) {
+        $message .= "⚠️ Migrasi: " . $e->getMessage() . "<br>";
+    }
+
+    // 3. Force Clear Cache
+    try {
         $cacheFiles = glob(base_path('bootstrap/cache/*.php'));
         foreach ($cacheFiles as $file) {
             @unlink($file);
         }
 
-        // Hapus manual compiled view di storage/framework/views
         $viewFiles = glob(storage_path('framework/views/*.php'));
+        $viewCount = count($viewFiles);
         foreach ($viewFiles as $file) {
             @unlink($file);
         }
 
         \Illuminate\Support\Facades\Artisan::call('optimize:clear');
-        $message .= "<b>Force Clear Cache Berhasil! Seluruh Route & View Cache telah dihapus total.</b>";
+        $message .= "✅ Force Clear Cache Berhasil! ($viewCount view cache files dihapus)<br>";
     } catch (\Exception $e) {
-        $message .= "Gagal Clear Cache: " . $e->getMessage();
+        $message .= "❌ Gagal Clear Cache: " . $e->getMessage() . "<br>";
     }
-    
+
+    // 4. Cek route terdaftar
+    $message .= "<hr><b>🔍 Cek Route Terdaftar:</b><br>";
+    $routeCollection = Route::getRoutes();
+    $checkRoutes = [
+        'support.master-data.koperasi.update',
+        'support.master-data.aplikasi.update',
+        'support.master-data.kategori.update',
+        'support.tickets.update',
+    ];
+    foreach ($checkRoutes as $routeName) {
+        try {
+            $r = $routeCollection->getByName($routeName);
+            if ($r) {
+                $message .= "✅ $routeName → " . implode('|', $r->methods()) . " " . $r->uri() . "<br>";
+            } else {
+                $message .= "❌ $routeName → TIDAK TERDAFTAR<br>";
+            }
+        } catch (\Exception $e) {
+            $message .= "❌ $routeName → ERROR: " . $e->getMessage() . "<br>";
+        }
+    }
+
     return $message;
 });
 
