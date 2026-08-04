@@ -15,19 +15,31 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-// ROUTE SEMENTARA UNTUK MIGRASI (InfinityFree)
+// ROUTE SEMENTARA UNTUK MIGRASI & FORCE CLEAR CACHE (InfinityFree)
 Route::get('/run-migrations', function () {
     $message = "";
     try {
         \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
-        $message .= "Migrasi Database Berhasil! ";
+        $message .= "Migrasi Database Berhasil! <br>";
     } catch (\Exception $e) {
-        $message .= "Migrasi Error (Mungkin tabel sudah ada), tapi tidak apa-apa. ";
+        $message .= "Migrasi Error: " . $e->getMessage() . " <br>";
     }
 
     try {
+        // Hapus manual file cache di bootstrap/cache
+        $cacheFiles = glob(base_path('bootstrap/cache/*.php'));
+        foreach ($cacheFiles as $file) {
+            @unlink($file);
+        }
+
+        // Hapus manual compiled view di storage/framework/views
+        $viewFiles = glob(storage_path('framework/views/*.php'));
+        foreach ($viewFiles as $file) {
+            @unlink($file);
+        }
+
         \Illuminate\Support\Facades\Artisan::call('optimize:clear');
-        $message .= "Clear Cache Berhasil! Silakan kembali ke website.";
+        $message .= "<b>Force Clear Cache Berhasil! Seluruh Route & View Cache telah dihapus total.</b>";
     } catch (\Exception $e) {
         $message .= "Gagal Clear Cache: " . $e->getMessage();
     }
