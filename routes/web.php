@@ -187,7 +187,7 @@ Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/register', [AuthController::class, 'storeRegister']);
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::match(['GET', 'POST'], '/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Lupa Kata Sandi & Reset Password (via Email SMTP)
 Route::get('/forgot-password', [AuthController::class, 'showForgotPassword'])->name('password.request');
