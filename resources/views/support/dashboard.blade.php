@@ -268,6 +268,15 @@
             </div>
             @endif
 
+            @if($t->surat_balasan)
+            <div style="margin-bottom: 24px;">
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Surat Balasan (Dari Pelapor)</div>
+                <a href="{{ Storage::url($t->surat_balasan) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none;">
+                    <span>📄</span> Lihat Surat Balasan
+                </a>
+            </div>
+            @endif
+
             @if($t->status === \App\Enums\TicketStatus::DONE || $t->penyelesaian)
                 <!-- Tindakan Penyelesaian -->
                 <div style="margin-bottom: 24px;">
@@ -401,6 +410,17 @@
                                 </a>
                             @endif
                         @endforeach
+                        </div>
+                    </div>
+                    @endif
+
+                    @if($t->surat_balasan)
+                    <div style="margin-bottom: 16px;">
+                        <label>Surat Balasan (Dari Pelapor)</label>
+                        <div style="margin-top: 8px;">
+                            <a href="{{ Storage::url($t->surat_balasan) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none;">
+                                <span>📄</span> Lihat Surat Balasan
+                            </a>
                         </div>
                     </div>
                     @endif

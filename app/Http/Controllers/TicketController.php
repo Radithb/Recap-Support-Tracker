@@ -101,6 +101,29 @@ class TicketController extends Controller
         return back()->with('success', __('messages.ticket_deleted'));
     }
 
+    public function uploadBalasan(Request $request, Ticket $ticket)
+    {
+        if ($ticket->pelapor_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $request->validate([
+            'surat_balasan' => 'required|file|mimes:pdf,doc,docx,jpg,jpeg,png|max:5120',
+        ]);
+
+        if ($ticket->surat_balasan && \Illuminate\Support\Facades\Storage::disk('public')->exists($ticket->surat_balasan)) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($ticket->surat_balasan);
+        }
+
+        $path = $request->file('surat_balasan')->store('surat_balasan', 'public');
+
+        $ticket->update([
+            'surat_balasan' => $path
+        ]);
+
+        return back()->with('success', 'Surat balasan berhasil diunggah.');
+    }
+
     // --- SUPPORT METHODS ---
     public function supportDashboard(Request $request)
     {
