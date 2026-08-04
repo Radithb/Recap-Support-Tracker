@@ -677,7 +677,7 @@
                             <td style="text-align: center;">
                                 @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
                                     @php
-                                        $isDone = ($chk->status == 'Sudah Valid' || $chk->status == 'Done');
+                                        $isDone = ($chk->status == 'Sudah Valid' || $chk->status == 'Done' || $chk->status == 'Migrasi Selesai' || $chk->status == 'Selesai');
                                         $simpanStyle = "background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 500;";
                                         $simpanStyle .= $isDone ? " opacity: 0.5; cursor: not-allowed;" : " cursor: pointer;";
                                         $doneStyle = "background: #10b981; color: #fff; border: none; padding: 6px 9px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center;";
@@ -759,7 +759,7 @@
                             <td style="text-align: center;">
                                 @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
                                     @php
-                                        $isDone = ($chk->status == 'Sudah Valid' || $chk->status == 'Done');
+                                        $isDone = ($chk->status == 'Sudah Valid' || $chk->status == 'Done' || $chk->status == 'Migrasi Selesai' || $chk->status == 'Selesai');
                                         $simpanStyle = "background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 500;";
                                         $simpanStyle .= $isDone ? " opacity: 0.5; cursor: not-allowed;" : " cursor: pointer;";
                                         $doneStyle = "background: #10b981; color: #fff; border: none; padding: 6px 9px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center;";
@@ -1184,7 +1184,12 @@
         if (selectedChecklistId) {
             const select = document.getElementById('status-' + selectedChecklistId);
             if (select) {
-                select.value = 'Sudah Valid';
+                let hasMigrasiSelesai = Array.from(select.options).some(opt => opt.value === 'Migrasi Selesai');
+                if (hasMigrasiSelesai) {
+                    select.value = 'Migrasi Selesai';
+                } else {
+                    select.value = 'Sudah Valid';
+                }
             }
             updateChecklist(selectedChecklistId);
             closeDoneModal();
@@ -1333,7 +1338,7 @@
                 const btnSimpan = document.getElementById('btn-simpan-' + id);
                 const btnDone = document.getElementById('btn-done-' + id);
                 
-                if (status === 'Sudah Valid' || status === 'Done') {
+                if (status === 'Sudah Valid' || status === 'Done' || status === 'Migrasi Selesai' || status === 'Selesai') {
                     if (btnSimpan) {
                         btnSimpan.disabled = true;
                         btnSimpan.style.opacity = '0.5';

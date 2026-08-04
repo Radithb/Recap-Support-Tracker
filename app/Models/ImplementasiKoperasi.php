@@ -114,7 +114,7 @@ class ImplementasiKoperasi extends Model
             return 0;
         }
 
-        $validChecklist = (clone $query)->whereIn('status', ['Sudah Valid', 'Selesai', 'Done'])->count();
+        $validChecklist = (clone $query)->whereIn('status', ['Sudah Valid', 'Selesai', 'Done', 'Migrasi Selesai'])->count();
         $persentase = ($validChecklist / $totalChecklist) * 100;
 
         $this->update(['progres' => round($persentase, 2)]);
@@ -127,7 +127,7 @@ class ImplementasiKoperasi extends Model
             return;
         }
 
-        $allDone = ['Sudah Valid', 'Done', 'Selesai'];
+        $allDone = ['Sudah Valid', 'Done', 'Selesai', 'Migrasi Selesai'];
 
         // 1. Data utama sudah tersedia (Kategori: Data Utama) & 6. User aplikasi (Kategori: Data Utama)
         $dataUtamaNotDone = $this->checklists()->where('kategori', 'Data Utama')->whereNotIn('status', $allDone)->count();
