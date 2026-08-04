@@ -240,7 +240,7 @@
                 </button>
 
                 <div class="desktop-export" style="margin-top: 1rem; border-top: 1px solid var(--line); padding-top: 1rem;">
-                    <a href="{{ route('support.master-data.export') }}" class="btn" style="display: flex; justify-content: center; align-items: center; gap: 8px; padding: 0.8rem; border-radius: 8px; font-weight: 600; text-decoration: none; background-color: #10b981; color: white; border: 1px solid #10b981; transition: opacity 0.2s; width: 100%;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                    <a href="{{ url('/support/master-data/export') }}" class="btn" style="display: flex; justify-content: center; align-items: center; gap: 8px; padding: 0.8rem; border-radius: 8px; font-weight: 600; text-decoration: none; background-color: #10b981; color: white; border: 1px solid #10b981; transition: opacity 0.2s; width: 100%;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
                         Export Excel
                     </a>
@@ -313,7 +313,7 @@
                                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                                                     Edit Aplikasi
                                                 </button>
-                                                <form action="{{ route('support.master-data.aplikasi.destroy', $app->aplikasi_id) }}" method="POST" onsubmit="return confirm('{{ __('messages.konfirmasi_hapus_aplikasi') }}');" style="margin: 0;">
+                                                <form action="{{ url('/support/master-data/aplikasi/' . $app->aplikasi_id) }}" method="POST" onsubmit="return confirm('{{ __('messages.konfirmasi_hapus_aplikasi') }}');" style="margin: 0;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" onclick="closeAllMdDropdowns();" style="width: 100%; background: none; border: none; padding: 8px 12px; text-align: left; font-size: 0.85rem; font-weight: 500; color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: 6px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'">
@@ -369,7 +369,7 @@
                                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                                                 {{ __('messages.edit_kategori') }}
                                             </button>
-                                            <form action="{{ route('support.master-data.kategori.destroy', $kategori->kategori_id) }}" method="POST" onsubmit="return confirm('{{ __('messages.konfirmasi_hapus_kategori') }}');" style="margin: 0;">
+                                            <form action="{{ url('/support/master-data/kategori/' . $kategori->kategori_id) }}" method="POST" onsubmit="return confirm('{{ __('messages.konfirmasi_hapus_kategori') }}');" style="margin: 0;">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" onclick="closeAllMdDropdowns();" style="width: 100%; background: none; border: none; padding: 8px 12px; text-align: left; font-size: 0.85rem; font-weight: 500; color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: 6px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'">
@@ -448,7 +448,7 @@
                                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                                                     Edit Koperasi
                                                 </button>
-                                                <form action="{{ route('support.master-data.koperasi.destroy', $ins->instansi_id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data koperasi ini?');" style="margin: 0;">
+                                                <form action="{{ url('/support/master-data/koperasi/' . $ins->instansi_id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data koperasi ini?');" style="margin: 0;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" onclick="closeAllMdDropdowns();" style="width: 100%; background: none; border: none; padding: 8px 12px; text-align: left; font-size: 0.85rem; font-weight: 500; color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: 6px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'">
@@ -640,7 +640,7 @@
                                                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                                                         {{ __('messages.edit_faq') }}
                                                     </button>
-                                                    <form action="{{ route('support.master-data.faq.destroy', $faq->faq_id) }}" method="POST" onsubmit="return confirm('{{ __('messages.yakin_hapus_faq') }}');" style="margin: 0;">
+                                                    <form action="{{ url('/support/master-data/faq/' . $faq->faq_id) }}" method="POST" onsubmit="return confirm('{{ __('messages.yakin_hapus_faq') }}');" style="margin: 0;">
                                                         @csrf
                                                         @method('DELETE')
                                                         <button type="submit" onclick="closeAllMdDropdowns();" style="width: 100%; background: none; border: none; padding: 8px 12px; text-align: left; font-size: 0.85rem; font-weight: 500; color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: 6px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'">
@@ -668,7 +668,7 @@
             </div>
             
             <div class="mobile-export" style="display: none;">
-                <a href="{{ route('support.master-data.export') }}" class="btn" style="display: flex; justify-content: center; align-items: center; gap: 8px; padding: 0.8rem; border-radius: 8px; font-weight: 600; text-decoration: none; background-color: #10b981; color: white; border: 1px solid #10b981; transition: opacity 0.2s; width: 100%;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
+                <a href="{{ url('/support/master-data/export') }}" class="btn" style="display: flex; justify-content: center; align-items: center; gap: 8px; padding: 0.8rem; border-radius: 8px; font-weight: 600; text-decoration: none; background-color: #10b981; color: white; border: 1px solid #10b981; transition: opacity 0.2s; width: 100%;" onmouseover="this.style.opacity='0.9'" onmouseout="this.style.opacity='1'">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="12" y1="18" x2="12" y2="12"></line><line x1="9" y1="15" x2="15" y2="15"></line></svg>
                     Export Excel
                 </a>
@@ -687,7 +687,7 @@
                 </div>
                 <button type="button" class="modal-x" onclick="closeModal('modal-add-aplikasi')">✕</button>
             </div>
-            <form action="{{ route('support.master-data.aplikasi.store') }}" method="POST">
+            <form action="{{ url('/support/master-data/aplikasi') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="field">
@@ -729,7 +729,7 @@
                 </div>
                 <button type="button" class="modal-x" onclick="closeModal('modal-add-kategori')">✕</button>
             </div>
-            <form action="{{ route('support.master-data.kategori.store') }}" method="POST">
+            <form action="{{ url('/support/master-data/kategori') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="field">
@@ -756,7 +756,7 @@
                 </div>
                 <button type="button" class="modal-x" onclick="closeModal('modal-edit-aplikasi-{{ $app->aplikasi_id }}')">✕</button>
             </div>
-            <form action="{{ route('support.master-data.aplikasi.update', $app->aplikasi_id) }}" method="POST">
+            <form action="{{ url('/support/master-data/aplikasi/' . $app->aplikasi_id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
@@ -808,7 +808,7 @@
                 </div>
                 <button type="button" class="modal-x" onclick="closeModal('modal-edit-kategori-{{ $kategori->kategori_id }}')">✕</button>
             </div>
-            <form action="{{ route('support.master-data.kategori.update', $kategori->kategori_id) }}" method="POST">
+            <form action="{{ url('/support/master-data/kategori/' . $kategori->kategori_id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
@@ -837,7 +837,7 @@
                 </div>
                 <button type="button" class="modal-x" onclick="closeModal('modal-edit-koperasi-{{ $ins->instansi_id }}')">✕</button>
             </div>
-            <form action="{{ route('support.master-data.koperasi.update', $ins->instansi_id) }}" method="POST">
+            <form action="{{ url('/support/master-data/koperasi/' . $ins->instansi_id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
@@ -873,7 +873,7 @@
                 </div>
                 <button type="button" class="modal-x" onclick="closeModal('modal-add-faq')">✕</button>
             </div>
-            <form action="{{ route('support.master-data.faq.store') }}" method="POST">
+            <form action="{{ url('/support/master-data/faq') }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     <div class="field">
@@ -929,7 +929,7 @@
                 </div>
                 <button type="button" class="modal-x" onclick="closeModal('modal-edit-faq-{{ $faq->faq_id }}')">✕</button>
             </div>
-            <form action="{{ route('support.master-data.faq.update', $faq->faq_id) }}" method="POST">
+            <form action="{{ url('/support/master-data/faq/' . $faq->faq_id) }}" method="POST">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
