@@ -158,8 +158,8 @@ class TicketController extends Controller
     {
         $request->validate([
             'status' => 'required|string',
-            'kategori_id' => 'required_if:status,Done',
-            'penyelesaian' => 'required_if:status,Done|nullable|string',
+            'kategori_id' => 'nullable',
+            'penyelesaian' => 'nullable|string',
             'pencegahan' => 'nullable|string',
             'link_ticket' => 'nullable|string',
             'template_laporan' => 'nullable|string',
@@ -174,7 +174,10 @@ class TicketController extends Controller
         // Selalu ubah PIC Support ke user yang sedang melakukan update
         $data['pic_support_id'] = Auth::id();
         
-        if ($data['status'] === TicketStatus::DONE->value && $ticket->status !== TicketStatus::DONE) {
+        $targetStatus = $data['status'];
+        $currentStatusStr = is_object($ticket->status) ? $ticket->status->value : (string)$ticket->status;
+
+        if ($targetStatus === TicketStatus::DONE->value && $currentStatusStr !== TicketStatus::DONE->value) {
             $data['tanggal_penyelesaian'] = now();
         }
 
