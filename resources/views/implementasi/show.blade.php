@@ -466,6 +466,28 @@
     </div>
 </div>
 
+<!-- Modal Preview Follow-Up -->
+<div class="modal-overlay" id="modalPreviewFollowUp" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(2px); z-index: 9999; justify-content: center; align-items: center;">
+    <div style="background: #fff; border-radius: 12px; width: 90%; max-width: 500px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); animation: fadeUpDoneModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
+        <div style="padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 12px 12px 0 0;">
+            <h4 style="margin: 0; font-size: 16px; font-weight: 600; color: #1e293b; display: flex; align-items: center; gap: 8px;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                Preview Aktivitas Follow-Up
+            </h4>
+            <button type="button" onclick="closePreviewFollowUp()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b;">&times;</button>
+        </div>
+        <div style="padding: 20px; overflow-y: auto; flex-grow: 1; font-family: monospace; font-size: 13px; line-height: 1.6; color: #334155; white-space: pre-wrap;" id="previewContent">
+        </div>
+        <div style="padding: 12px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 10px; background: #f8fafc; border-radius: 0 0 12px 12px;">
+            <button type="button" onclick="copyPreviewFollowUp()" style="padding: 7px 16px; border-radius: 6px; border: none; background: #10b981; color: white; font-weight: 600; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 6px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                Salin Teks
+            </button>
+            <button type="button" onclick="closePreviewFollowUp()" style="padding: 7px 16px; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff; color: #475569; font-weight: 600; cursor: pointer; font-size: 13px;">Tutup</button>
+        </div>
+    </div>
+</div>
+
 <div style="max-width: 1280px; margin: 0 auto; padding: 20px 30px;">
 @if(session('success'))
     <div id="success-alert" class="alert-dismiss fade-up" style="animation-delay: 0.1s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: #d1fae5; color: #065f46; border-radius: 8px; margin-bottom: 24px; font-size: 13.5px; font-weight: 600; border: 1px solid #34d399; transition: opacity 0.6s ease, transform 0.6s ease;">
@@ -1015,7 +1037,13 @@
             
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 15px;">
                 <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">{{ __('messages.detail_tindakan_followup') }}</h4>
-                <button type="submit" style="background-color: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">{{ __('messages.simpan_perubahan') }}</button>
+                <div style="display: flex; gap: 10px;">
+                    <button type="button" onclick="previewFollowUp()" style="background-color: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                        Preview
+                    </button>
+                    <button type="submit" style="background-color: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">{{ __('messages.simpan_perubahan') }}</button>
+                </div>
             </div>
 
             <div class="tab-pane-inner">
@@ -1106,6 +1134,50 @@
                 </div>
             </div>
         </form>
+
+        <!-- Riwayat Follow Up Section -->
+        <div style="margin-top: 30px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Riwayat Aktivitas Follow-Up</h4>
+            </div>
+            
+            @if($implementasi->followUps && $implementasi->followUps->count() > 0)
+                <div class="timeline" style="background: white; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                    @foreach($implementasi->followUps as $fu)
+                        <div class="timeline-item">
+                            <div class="timeline-time">
+                                {{ $fu->created_at->format('d M Y - H:i') }} | <strong>{{ $fu->creator->nama ?? 'Sistem' }}</strong>
+                            </div>
+                            <div class="timeline-content" style="background: #f8fafc;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <div style="font-weight: 600; font-size: 14px; color: #1e293b;">
+                                        {{ $fu->jenis_tindakan ?? 'Update Aktivitas' }}
+                                    </div>
+                                    <span style="font-size: 11px; padding: 2px 6px; background: #dbeafe; color: #1d4ed8; border-radius: 4px; font-weight: 600;">
+                                        {{ $fu->status_tindakan }}
+                                    </span>
+                                </div>
+                                <div style="font-size: 13px; color: #475569; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                                    <div><strong>PIC Tindakan:</strong> {{ $fu->pic_tindakan ?? '-' }}</div>
+                                    <div><strong>Tgl Follow-Up:</strong> {{ $fu->tanggal_followup ? $fu->tanggal_followup->format('d M Y') : '-' }}</div>
+                                </div>
+                                
+                                <div style="border-top: 1px dashed #cbd5e1; padding-top: 8px; font-size: 12px;">
+                                    <div style="margin-bottom: 6px;"><strong>Hasil Komunikasi:</strong><br/>{{ $fu->hasil_komunikasi ?? '-' }}</div>
+                                    <div style="margin-bottom: 6px;"><strong>Kendala:</strong><br/>{{ $fu->kendala_koperasi ?? '-' }}</div>
+                                    <div style="margin-bottom: 6px;"><strong>Komitmen:</strong><br/>{{ $fu->komitmen_koperasi ?? '-' }}</div>
+                                    <div><strong>Tindakan Berikutnya:</strong><br/>{{ $fu->tindakan_berikutnya ?? '-' }} (Target: {{ $fu->target_tanggal_tindakan ? $fu->target_tanggal_tindakan->format('d M Y') : '-' }})</div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div style="text-align: center; padding: 40px; color: #64748b; background: white; border-radius: 8px; border: 1px dashed #cbd5e1;">
+                    Belum ada riwayat aktivitas follow-up.
+                </div>
+            @endif
+        </div>
     </div>
 
     <!-- TAB 7: AKTIVITAS & LOG -->
@@ -1165,6 +1237,61 @@
         } else if (event && event.currentTarget) {
             event.currentTarget.classList.add('active');
         }
+    }
+
+    // Preview Follow-Up
+    function previewFollowUp() {
+        const koperasi = "{{ $implementasi->instansi->nama_instansi ?? 'Koperasi' }}";
+        
+        // Get form values
+        const form = document.querySelector('#tab-followup form');
+        const tglFollowup = form.querySelector('[name="tanggal_followup"]').value;
+        const tglNext = form.querySelector('[name="tanggal_followup_berikutnya"]').value;
+        const tglTarget = form.querySelector('[name="target_tanggal_tindakan"]').value;
+        
+        const jenisRadios = form.querySelectorAll('[name="jenis_tindakan"]:checked');
+        let jenis = '';
+        if(jenisRadios.length > 0) jenis = jenisRadios[0].value;
+        
+        const pic = form.querySelector('[name="pic_tindakan"]').value;
+        const status = form.querySelector('[name="status_tindakan"]').value;
+        
+        const hasil = form.querySelector('[name="hasil_komunikasi"]').value;
+        const kendala = form.querySelector('[name="kendala_koperasi"]').value;
+        const komitmen = form.querySelector('[name="komitmen_koperasi"]').value;
+        const detail = form.querySelector('[name="tindakan_berikutnya"]').value;
+        
+        let text = `*Laporan Aktivitas Follow-Up*\n`;
+        text += `Koperasi: *${koperasi}*\n`;
+        if (tglFollowup) text += `Tanggal: ${tglFollowup}\n`;
+        text += `\n*Informasi Aktivitas:*\n`;
+        text += `- Jenis: ${jenis || '-'}\n`;
+        text += `- Status: ${status || '-'}\n`;
+        text += `- PIC: ${pic || '-'}\n`;
+        
+        text += `\n*Hasil Komunikasi:*\n${hasil || '-'}\n`;
+        text += `\n*Kendala Koperasi:*\n${kendala || '-'}\n`;
+        text += `\n*Komitmen Koperasi:*\n${komitmen || '-'}\n`;
+        
+        text += `\n*Tindakan Berikutnya (Next Action):*\n${detail || '-'}\n`;
+        if (tglTarget) text += `- Target Tindakan: ${tglTarget}\n`;
+        if (tglNext) text += `- Follow-Up Berikutnya: ${tglNext}\n`;
+        
+        document.getElementById('previewContent').innerText = text;
+        document.getElementById('modalPreviewFollowUp').style.display = 'flex';
+    }
+
+    function closePreviewFollowUp() {
+        document.getElementById('modalPreviewFollowUp').style.display = 'none';
+    }
+
+    function copyPreviewFollowUp() {
+        const text = document.getElementById('previewContent').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            showToast("Teks berhasil disalin!");
+        }).catch(err => {
+            alert("Gagal menyalin teks.");
+        });
     }
 
     // Quick Mark as Done Modal

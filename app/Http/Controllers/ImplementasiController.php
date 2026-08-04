@@ -49,7 +49,8 @@ class ImplementasiController extends Controller
             'checklists' => function($q) {
                 $q->orderBy('kategori', 'asc')->orderBy('id', 'asc');
             }, 
-            'logs'
+            'logs',
+            'followUps.creator'
         ])->findOrFail($id);
 
         // Security check for Pelapor
@@ -543,6 +544,21 @@ class ImplementasiController extends Controller
             'user_id' => Auth::id(),
             'aktivitas' => 'Aktivitas Follow-Up Diperbarui',
             'catatan' => 'Data Follow-Up diperbarui melalui halaman detail.'
+        ]);
+
+        \App\Models\ImplementasiFollowUp::create([
+            'implementasi_id' => $implementasi->id,
+            'jenis_tindakan' => $request->jenis_tindakan,
+            'tanggal_followup' => $request->tanggal_followup,
+            'tindakan_berikutnya' => $request->tindakan_berikutnya,
+            'pic_tindakan' => $request->pic_tindakan,
+            'target_tanggal_tindakan' => $request->target_tanggal_tindakan,
+            'status_tindakan' => $request->status_tindakan ?? 'Menunggu Konfirmasi Koperasi',
+            'hasil_komunikasi' => $request->hasil_komunikasi,
+            'kendala_koperasi' => $request->kendala_koperasi,
+            'komitmen_koperasi' => $request->komitmen_koperasi,
+            'tanggal_followup_berikutnya' => $request->tanggal_followup_berikutnya,
+            'created_by' => Auth::id()
         ]);
 
         return redirect()->route('implementasi.show', $id)->with('success', __('messages.followup_updated'));

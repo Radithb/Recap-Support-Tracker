@@ -100,6 +100,11 @@ class ImplementasiKoperasi extends Model
         return $this->hasMany(ImplementasiLog::class, 'implementasi_id')->orderBy('created_at', 'desc');
     }
 
+    public function followUps()
+    {
+        return $this->hasMany(ImplementasiFollowUp::class, 'implementasi_id')->orderBy('created_at', 'desc');
+    }
+
     /**
      * Menghitung persentase progres secara otomatis berdasarkan jumlah checklist
      * yang berstatus 'Sudah Valid' lalu mengupdate kolom progres.
