@@ -124,6 +124,37 @@ class MasterDataController extends Controller
         return back()->with('success', __('messages.cat_deleted'));
     }
 
+    public function updateKoperasi(Request $request, $id)
+    {
+        $request->validate([
+            'nama_instansi' => 'required|string|max:255',
+            'alamat' => 'nullable|string',
+            'no_telp' => 'nullable|string|max:255',
+        ]);
+
+        $instansi = Instansi::findOrFail($id);
+        $instansi->update([
+            'nama_instansi' => $request->nama_instansi,
+            'alamat' => $request->alamat,
+            'no_telp' => $request->no_telp,
+        ]);
+
+        return back()->with('success', 'Data koperasi berhasil diperbarui.');
+    }
+
+    public function destroyKoperasi($id)
+    {
+        $instansi = Instansi::findOrFail($id);
+
+        if ($instansi->users()->count() > 0) {
+            return back()->with('error', 'Koperasi tidak dapat dihapus karena memiliki akun terdaftar.');
+        }
+
+        $instansi->delete();
+
+        return back()->with('success', 'Data koperasi berhasil dihapus.');
+    }
+
     public function export()
     {
         $aplikasis = MasterAplikasi::all();

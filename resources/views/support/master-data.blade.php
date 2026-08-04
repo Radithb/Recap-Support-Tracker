@@ -409,6 +409,7 @@
                                     <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.kontak') }}</th>
                                     <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.total_akun') }}</th>
                                     <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.total_tiket') }}</th>
+                                    <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.aksi') }}</th>
                                 </tr>
                             </thead>
                             <tbody id="tbody-koperasi">
@@ -436,6 +437,27 @@
                                         <span style="background: #fef3c7; color: #d97706; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 600; white-space: nowrap;">
                                             {{ $ins->tickets_count ?? 0 }} {{ __('messages.tiket') }}
                                         </span>
+                                    </td>
+                                    <td class="td-action-cell" style="padding: 1.25rem 1.5rem; text-align: center; position: relative; vertical-align: top;">
+                                        <div style="position: relative; display: inline-block;">
+                                            <button type="button" onclick="toggleMdDropdown(event, 'dropdown-ins-{{ $ins->instansi_id }}')" style="background: var(--paper-raised); border: 1.5px solid var(--line); border-radius: 8px; width: 32px; height: 32px; cursor: pointer; color: var(--ink); display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--border-hover)'; this.style.background='var(--paper-sunken)'" onmouseout="this.style.borderColor='var(--line)'; this.style.background='var(--paper-raised)'" title="{{ __('messages.aksi') }}">
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1.5"></circle><circle cx="12" cy="5" r="1.5"></circle><circle cx="12" cy="19" r="1.5"></circle></svg>
+                                            </button>
+                                            <div id="dropdown-ins-{{ $ins->instansi_id }}" class="md-dropdown-menu" style="display: none; position: absolute; right: 0; top: calc(100% + 4px); background: var(--paper-raised); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.15); min-width: 140px; z-index: 100; text-align: left; padding: 6px; backdrop-filter: blur(8px);">
+                                                <button type="button" onclick="openModal('modal-edit-koperasi-{{ $ins->instansi_id }}'); closeAllMdDropdowns();" style="width: 100%; background: none; border: none; padding: 8px 12px; text-align: left; font-size: 0.85rem; font-weight: 500; color: var(--ink); cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: 6px;" onmouseover="this.style.background='var(--paper-sunken)'" onmouseout="this.style.background='none'">
+                                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                                    Edit Koperasi
+                                                </button>
+                                                <form action="{{ route('support.master-data.koperasi.destroy', $ins->instansi_id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data koperasi ini?');" style="margin: 0;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" onclick="closeAllMdDropdowns();" style="width: 100%; background: none; border: none; padding: 8px 12px; text-align: left; font-size: 0.85rem; font-weight: 500; color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 8px; border-radius: 6px;" onmouseover="this.style.background='#fef2f2'" onmouseout="this.style.background='none'">
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                                                        {{ __('messages.hapus') }}
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -797,6 +819,43 @@
                 </div>
                 <div class="modal-foot">
                     <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-kategori-{{ $kategori->kategori_id }}')">{{ __('messages.batal') }}</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    @endforeach
+
+    <!-- Modals Edit Koperasi -->
+    @foreach($instansis as $ins)
+    <div class="overlay" id="modal-edit-koperasi-{{ $ins->instansi_id }}">
+        <div class="modal w-sm modal-centered">
+            <div class="modal-head">
+                <div>
+                    <h3>Edit Master Koperasi</h3>
+                    <p>Ubah nama, alamat, atau kontak koperasi</p>
+                </div>
+                <button type="button" class="modal-x" onclick="closeModal('modal-edit-koperasi-{{ $ins->instansi_id }}')">✕</button>
+            </div>
+            <form action="{{ route('support.master-data.koperasi.update', $ins->instansi_id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="field">
+                        <label>Nama Koperasi <span style="color:var(--danger)">*</span></label>
+                        <input type="text" name="nama_instansi" required value="{{ $ins->nama_instansi }}" placeholder="Contoh: Koperasi Kredit Sejahtera">
+                    </div>
+                    <div class="field">
+                        <label>Alamat Koperasi</label>
+                        <textarea name="alamat" placeholder="Masukkan alamat..." rows="3">{{ $ins->alamat }}</textarea>
+                    </div>
+                    <div class="field">
+                        <label>No. Telepon / Kontak</label>
+                        <input type="text" name="no_telp" value="{{ $ins->no_telp }}" placeholder="Contoh: 081234567890">
+                    </div>
+                </div>
+                <div class="modal-foot">
+                    <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-koperasi-{{ $ins->instansi_id }}')">Batal</button>
                     <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                 </div>
             </form>
