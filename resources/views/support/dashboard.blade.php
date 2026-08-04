@@ -287,7 +287,7 @@
             @if($t->surat_balasan)
             <div style="margin-bottom: 24px;">
                 <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">{{ __('messages.surat_balasan_dari_pelapor') }}</div>
-                <a href="{{ Storage::url($t->surat_balasan) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none;">
+                <a href="{{ Storage::url($t->surat_balasan) }}" download="Surat_Balasan_{{ $t->ticket_id }}.{{ pathinfo($t->surat_balasan, PATHINFO_EXTENSION) }}" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none;">
                     {{ __('messages.lihat_surat_balasan') }}
                 </a>
             </div>
@@ -430,7 +430,7 @@
                     <div style="margin-bottom: 16px;">
                         <label>{{ __('messages.surat_balasan_dari_pelapor') }}</label>
                         <div style="margin-top: 8px;">
-                            <a href="{{ Storage::url($t->surat_balasan) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none;">
+                            <a href="{{ Storage::url($t->surat_balasan) }}" download="Surat_Balasan_{{ $t->ticket_id }}.{{ pathinfo($t->surat_balasan, PATHINFO_EXTENSION) }}" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none;">
                                 {{ __('messages.lihat_surat_balasan') }}
                             </a>
                         </div>
