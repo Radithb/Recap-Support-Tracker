@@ -513,7 +513,7 @@ class ImplementasiController extends Controller
         $implementasi = ImplementasiKoperasi::findOrFail($id);
 
         $request->validate([
-            'jenis_tindakan' => 'nullable|array',
+            'jenis_tindakan' => 'nullable|string',
             'tanggal_followup' => 'nullable|date',
             'tindakan_berikutnya' => 'nullable|string',
             'pic_tindakan' => 'nullable|string',
@@ -526,7 +526,7 @@ class ImplementasiController extends Controller
         ]);
 
         $implementasi->update([
-            'jenis_tindakan' => $request->has('jenis_tindakan') ? implode(', ', $request->jenis_tindakan) : null,
+            'jenis_tindakan' => $request->jenis_tindakan,
             'tanggal_followup' => $request->tanggal_followup,
             'tindakan_berikutnya' => $request->tindakan_berikutnya,
             'pic_tindakan' => $request->pic_tindakan,

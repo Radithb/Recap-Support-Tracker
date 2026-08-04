@@ -1051,7 +1051,7 @@
                                 @endphp
                                 @foreach($options as $opt)
                                     <label style="display: flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; color: #475569; margin: 0;">
-                                        <input type="checkbox" name="jenis_tindakan[]" value="{{ $opt }}" {{ in_array($opt, $selected_jenis) ? 'checked' : '' }} style="cursor: pointer; margin: 0;">
+                                        <input type="radio" name="jenis_tindakan" value="{{ $opt }}" {{ in_array($opt, $selected_jenis) ? 'checked' : '' }} style="cursor: pointer; margin: 0;">
                                         {{ $opt }}
                                     </label>
                                 @endforeach
