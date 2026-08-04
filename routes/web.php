@@ -170,7 +170,7 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
     Route::get('/tickets/{ticket}', function () {
         return redirect()->route('support.dashboard');
     });
-    Route::put('/tickets/{ticket}', [TicketController::class, 'updateSupport'])->name('tickets.update');
+    Route::match(['PUT', 'POST'], '/tickets/{ticket}', [TicketController::class, 'updateSupport'])->name('tickets.update');
     
     // Reporting
     Route::get('/recap', [ReportController::class, 'index'])->name('recap');
