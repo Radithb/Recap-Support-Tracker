@@ -108,6 +108,33 @@ Route::get('/run-migrations', function () {
     return $message;
 });
 
+Route::get('/download-template/{filename}', function($filename) {
+    // try to find it in public/templates first
+    $path = public_path('templates/' . $filename);
+    if (file_exists($path)) {
+        return response()->download($path);
+    }
+    
+    // if not found, try to look at ../templates (in case it's in the htdocs/templates)
+    $altPath = public_path('../../templates/' . $filename);
+    if (file_exists($altPath)) {
+        return response()->download($altPath);
+    }
+    
+    // Try one directory up (if user uploaded to htdocs/templates and public is inside htdocs/sistem/public)
+    $basePath = base_path('../templates/' . $filename);
+    if (file_exists($basePath)) {
+        return response()->download($basePath);
+    }
+    
+    // Fallback: look directly in storage if it's there
+    if (Storage::disk('public')->exists('templates/' . $filename)) {
+        return Storage::disk('public')->download('templates/' . $filename);
+    }
+
+    abort(404, 'File template "' . htmlspecialchars($filename) . '" tidak ditemukan di server.');
+})->where('filename', '.*')->name('download.template');
+
 // ROUTE SEMENTARA: Hapus Aplikasi Duplikat
 Route::get('/cleanup-duplicates', function () {
     try {

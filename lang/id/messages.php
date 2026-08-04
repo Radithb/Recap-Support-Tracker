@@ -951,4 +951,7 @@ return [
     'faq_deleted' => 'FAQ berhasil dihapus.',
     'reset_link_sent' => 'Tautan reset kata sandi telah dikirim ke email Anda.',
     'password_reset_success' => 'Kata sandi Anda berhasil diperbarui! Silakan login dengan kata sandi baru Anda.',
+    'surat_balasan_dari_pelapor' => 'Surat Balasan Dari Pelapor',
+    'lihat_surat_balasan_saat_ini' => 'Lihat Surat Balasan Saat Ini',
+    'format_lampiran_surat_balasan' => 'Format yang didukung: PDF, DOC, DOCX, JPG, PNG',
 ];
