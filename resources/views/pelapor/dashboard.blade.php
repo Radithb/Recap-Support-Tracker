@@ -279,7 +279,7 @@
                 @if($t->surat_balasan)
                     <div style="margin-bottom: 10px;">
                         <a href="{{ Storage::url($t->surat_balasan) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none;">
-                            <span>📄</span> Lihat Surat Balasan Saat Ini
+                            Lihat Surat Balasan Saat Ini
                         </a>
                     </div>
                 @endif
