@@ -1062,6 +1062,11 @@
                                     <option value="Koperasi Belum Siap" {{ $implementasi->status_tindakan == 'Koperasi Belum Siap' ? 'selected' : '' }}>Koperasi Belum Siap</option>
                                     <option value="Persiapan Data" {{ $implementasi->status_tindakan == 'Persiapan Data' ? 'selected' : '' }}>Persiapan Data</option>
                                     <option value="Siap Proses Migrasi" {{ $implementasi->status_tindakan == 'Siap Proses Migrasi' ? 'selected' : '' }}>Siap Proses Migrasi</option>
+                                    <option value="Perubahan Aplikasi" {{ $implementasi->status_tindakan == 'Perubahan Aplikasi' ? 'selected' : '' }}>Perubahan Aplikasi</option>
+                                    <option value="Setting Buku" {{ $implementasi->status_tindakan == 'Setting Buku' ? 'selected' : '' }}>Setting Buku</option>
+                                    <option value="Pendampingan" {{ $implementasi->status_tindakan == 'Pendampingan' ? 'selected' : '' }}>Pendampingan</option>
+                                    <option value="Pelatihan Ulang" {{ $implementasi->status_tindakan == 'Pelatihan Ulang' ? 'selected' : '' }}>Pelatihan Ulang</option>
+                                    <option value="Olah Data" {{ $implementasi->status_tindakan == 'Olah Data' ? 'selected' : '' }}>Olah Data</option>
                                 </select>
                             </div>
                         </div>
