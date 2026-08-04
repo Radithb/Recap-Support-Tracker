@@ -167,6 +167,9 @@ Route::middleware(['auth', IsPelapor::class])->prefix('pelapor')->name('pelapor.
 // Akses Support
 Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.')->group(function () {
     Route::get('/dashboard', [TicketController::class, 'supportDashboard'])->name('dashboard');
+    Route::get('/tickets/{ticket}', function () {
+        return redirect()->route('support.dashboard');
+    });
     Route::put('/tickets/{ticket}', [TicketController::class, 'updateSupport'])->name('tickets.update');
     
     // Reporting
