@@ -439,7 +439,7 @@
 
                     <div class="field">
                         <label>{{ __('messages.kategori_tiket') }}</label>
-                        <select name="kategori_id" required>
+                        <select name="kategori_id">
                             <option value="">{{ __('messages.pilih_kategori') }}</option>
                             @foreach($kategoris as $kat)
                                 <option value="{{ $kat->kategori_id }}" {{ $t->kategori_id == $kat->kategori_id ? 'selected' : '' }}>{{ $kat->nama_kategori }}</option>
