@@ -17,7 +17,7 @@
 
 {{-- KARTU RINGKASAN REKAP PER TEMPLATE SURAT --}}
 <div class="fade-up" style="animation-delay: 0.12s; margin-bottom: 2rem;">
-    <h3 style="margin: 0 0 1rem; font-size: 1.1rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">Ringkasan Total Penggunaan per Template</h3>
+    <h3 style="margin: 0 0 1rem; font-size: 1.1rem; color: var(--ink); font-family: 'Poppins', sans-serif; font-weight: 700;">{{ __('messages.recap_template_summary_title') }}</h3>
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
         @forelse($templateStats as $tplName => $count)
             @php
@@ -35,7 +35,7 @@
                 </div>
                 <div style="text-align: right; flex-shrink: 0; margin-left: 10px;">
                     <span style="background: #dbeafe; color: #1d4ed8; padding: 4px 10px; border-radius: 20px; font-weight: 700; font-size: 0.85rem; display: inline-block;">
-                        {{ $count }} Surat
+                        {{ $count }} {{ __('messages.recap_template_surat_count') }}
                     </span>
                 </div>
             </div>
@@ -51,7 +51,7 @@
 <div class="glass-panel fade-up" style="animation-delay: 0.15s; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 12px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;">
     <form action="{{ route('support.recap.template-surat') }}" method="GET" style="display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; margin: 0;">
         <div style="flex-grow: 1; min-width: 200px;">
-            <label style="display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">Pilih Template Surat</label>
+            <label style="display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 4px;">{{ __('messages.recap_template_pilih_label') }}</label>
             <select name="template" onchange="this.form.submit()" style="width: 100%; padding: 8px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper-sunken); color: var(--ink); font-family: var(--font-body); outline: none;">
                 <option value="">Semua Template Surat</option>
                 @foreach($allTemplates as $tpl)
@@ -81,11 +81,11 @@
         <table style="width: 100%; border-collapse: collapse; min-width: 800px;">
             <thead style="background: var(--paper-sunken);">
                 <tr>
-                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">No Tiket</th>
-                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Koperasi / Mitra</th>
-                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Template Surat</th>
-                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Petugas Support</th>
-                    <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">Tanggal</th>
+                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.recap_template_th_no') }}</th>
+                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.recap_template_th_kop') }}</th>
+                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.recap_template_th_tpl') }}</th>
+                    <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.recap_template_th_pic') }}</th>
+                    <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--ink); font-weight: 700; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.recap_template_th_date') }}</th>
                 </tr>
             </thead>
             <tbody>

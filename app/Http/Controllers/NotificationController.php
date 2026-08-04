@@ -23,7 +23,7 @@ class NotificationController extends Controller
             return redirect()->route('implementasi.show', $notification->data['implementasi_id']);
         }
         
-        return back()->with('success', 'Notifikasi ditandai sudah dibaca.');
+        return back()->with('success', __('messages.notif_read'));
     }
 
     /**
@@ -32,6 +32,6 @@ class NotificationController extends Controller
     public function markAllAsRead()
     {
         Auth::user()->unreadNotifications->markAsRead();
-        return back()->with('success', 'Semua notifikasi ditandai sudah dibaca.');
+        return back()->with('success', __('messages.notif_read_all'));
     }
 }
