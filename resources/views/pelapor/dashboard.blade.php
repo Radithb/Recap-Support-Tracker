@@ -393,7 +393,7 @@
                 <div class="field" style="margin-top: 14px;">
                     <label>{{ __('messages.upload_lampiran_opsional') }}</label>
                     <div style="display: flex; gap: 8px; align-items: center;">
-                        <input type="file" id="lampiran_input" name="lampiran[]" multiple accept=".jpg,.jpeg,.png,.mp4,.pdf" style="flex: 1; width:100%; font-size: calc(13px * var(--text-scale, 1)); font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;" onchange="
+                        <input type="file" id="lampiran_input" name="lampiran[]" multiple accept=".jpg,.jpeg,.png,.mp4,.pdf,.doc,.docx,.xlsx,.csv,.pptx,.ppsx,.xlsm,.docm,.xlsb" style="flex: 1; width:100%; font-size: calc(13px * var(--text-scale, 1)); font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;" onchange="
                             if (!window.dtPelapor) window.dtPelapor = new DataTransfer();
                             for(let i=0; i<this.files.length; i++) {
                                 window.dtPelapor.items.add(this.files[i]);

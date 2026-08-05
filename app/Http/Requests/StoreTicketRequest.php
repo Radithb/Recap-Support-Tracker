@@ -17,7 +17,7 @@ class StoreTicketRequest extends FormRequest
             'aplikasi_id' => ['required', 'exists:master_aplikasis,aplikasi_id'],
             'permasalahan' => ['required', 'string', 'min:10'],
             'lampiran' => ['nullable', 'array', 'max:5'], // Max 5 files
-            'lampiran.*' => ['file', 'mimes:jpeg,png,jpg,mp4,pdf', 'max:5120'], // Max 5MB per file
+            'lampiran.*' => ['file', 'mimes:jpeg,png,jpg,mp4,pdf,doc,docx,xlsx,csv,pptx,ppsx,xlsm,docm,xlsb', 'max:5120'], // Max 5MB per file
         ];
     }
     
