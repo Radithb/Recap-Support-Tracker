@@ -98,7 +98,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Berita Acara (PDF, Max 5MB)</label>
+                    <label class="form-label">{{ __('messages.berita_acara_pdf') }}</label>
                     <input type="file" name="berita_acara" class="form-control" accept=".pdf">
                     @if($implementasi->berita_acara)
                         <small style="display: block; margin-top: 5px;"><a href="{{ Storage::url($implementasi->berita_acara) }}" target="_blank">Lihat file saat ini</a></small>
