@@ -1135,8 +1135,8 @@
                             <div class="checkbox-grid" style="padding: 10px;">
                                 @php
                                     $options = [
-                                        'Telepon', 'WhatsApp', 'Email', 'Meeting',
-                                        'Permintaan data', 'Pengiriman file', 'Perubahan status', 'Perubahan target'
+                                        'Telepon', 'WhatsApp', 'GMeet', 'Zoom',
+                                        'Permintaan data', 'Pengiriman file', 'Perubahan Data', 'Perubahan jadwal', 'Perubahan target'
                                     ];
                                     $selected_jenis = array_map('trim', explode(',', $implementasi->jenis_tindakan ?? ''));
                                 @endphp
