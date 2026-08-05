@@ -141,11 +141,6 @@
         </div>
         <div class="modal-body" style="padding: 24px;">
             @php $statusStr = is_object($t->status) ? $t->status->value : $t->status; @endphp
-            @if($statusStr === 'Open')
-                <div style="text-align: right; margin-bottom: 16px;">
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="closeModal('modal-detail-{{ $t->ticket_id }}'); openModal('modal-edit-{{ $t->ticket_id }}');" style="padding: 6px 12px; font-size: 13px;">✏️ Edit Laporan</button>
-                </div>
-            @endif
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
                 <div>
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.aplikasi') }}</div>
@@ -252,11 +247,8 @@
             </div>
         </div>
         <div class="modal-foot" style="display: flex; gap: 12px; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--line);">
-            @if($t->status === \App\Enums\TicketStatus::OPEN)
-                <button type="button" class="btn btn-danger" onclick="closeModal('modal-detail-{{ $t->ticket_id }}'); openModal('modal-delete-{{ $t->ticket_id }}')">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
-                    {{ __('messages.hapus_laporan') }}
-                </button>
+            @if($statusStr === 'Open')
+                <button type="button" class="btn btn-secondary btn-sm" onclick="closeModal('modal-detail-{{ $t->ticket_id }}'); openModal('modal-edit-{{ $t->ticket_id }}');" style="padding: 6px 12px; font-size: 13px;">Edit Laporan</button>
             @else
                 <div></div>
             @endif
@@ -286,7 +278,7 @@
             </p>
         </div>
         <div class="modal-foot" style="display: flex; gap: 12px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--line);">
-            <button type="button" class="btn btn-ghost" onclick="closeModal('modal-delete-{{ $t->ticket_id }}'); openModal('modal-detail-{{ $t->ticket_id }}')">{{ __('messages.batal') }}</button>
+            <button type="button" class="btn btn-ghost" onclick="closeModal('modal-delete-{{ $t->ticket_id }}'); openModal('modal-edit-{{ $t->ticket_id }}')">{{ __('messages.batal') }}</button>
             <form action="{{ route('pelapor.tickets.destroy', $t->ticket_id) }}" method="POST" style="margin:0;">
                 @csrf
                 @method('DELETE')
@@ -330,9 +322,15 @@
                     <div class="helper" style="font-size: 11px; margin-top: 4px;">{{ __('messages.format_lampiran') }}</div>
                 </div>
             </div>
-            <div class="modal-foot" style="display: flex; gap: 12px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--line);">
-                <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-{{ $t->ticket_id }}'); openModal('modal-detail-{{ $t->ticket_id }}');">{{ __('messages.batal') }}</button>
-                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+            <div class="modal-foot" style="display: flex; gap: 12px; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--line);">
+                <button type="button" class="btn btn-danger" onclick="closeModal('modal-edit-{{ $t->ticket_id }}'); openModal('modal-delete-{{ $t->ticket_id }}')">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                    {{ __('messages.hapus_laporan') }}
+                </button>
+                <div style="display: flex; gap: 12px;">
+                    <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-{{ $t->ticket_id }}'); openModal('modal-detail-{{ $t->ticket_id }}');">{{ __('messages.batal') }}</button>
+                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                </div>
             </div>
         </form>
     </div>
