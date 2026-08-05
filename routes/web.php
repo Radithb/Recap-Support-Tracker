@@ -56,9 +56,10 @@ Route::get('/run-migrations', function () {
 
     $message .= "<hr>";
 
-    // 2. Migrasi
+    // 2. Pembuatan Tabel implementasi_followups Secara Langsung
     try {
         if (!\Illuminate\Support\Facades\Schema::hasTable('implementasi_followups')) {
+            \Illuminate\Support\Facades\Schema::disableForeignKeyConstraints();
             \Illuminate\Support\Facades\Schema::create('implementasi_followups', function (\Illuminate\Database\Schema\Blueprint $table) {
                 $table->id();
                 $table->unsignedBigInteger('implementasi_id');
@@ -78,13 +79,21 @@ Route::get('/run-migrations', function () {
                 $table->foreign('implementasi_id')->references('id')->on('implementasi_koperasi')->onDelete('cascade');
                 $table->foreign('created_by')->references('user_id')->on('users')->onDelete('set null');
             });
-            $message .= "✅ Tabel 'implementasi_followups' Berhasil Dibuat!<br>";
+            \Illuminate\Support\Facades\Schema::enableForeignKeyConstraints();
+            $message .= "✅ Tabel 'implementasi_followups' BERHASIL DIBUAT!<br>";
+        } else {
+            $message .= "ℹ️ Tabel 'implementasi_followups' sudah ada.<br>";
         }
-
-        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
-        $message .= "✅ Migrasi Database Berhasil!<br>";
     } catch (\Exception $e) {
-        $message .= "⚠️ Migrasi: " . $e->getMessage() . "<br>";
+        $message .= "❌ Gagal membuat tabel implementasi_followups: " . $e->getMessage() . "<br>";
+    }
+
+    // 3. Jalankan Migrasi Sisa
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        $message .= "✅ Migrasi Sisa Berhasil!<br>";
+    } catch (\Exception $e) {
+        $message .= "⚠️ Migrasi Sisa: " . $e->getMessage() . "<br>";
     }
 
     // 3. Force Clear Cache
