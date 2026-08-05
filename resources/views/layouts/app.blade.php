@@ -369,15 +369,21 @@
         }
     });
 
-    // Generic Modal functions (will be used by panels in Phase 2)
+    // Generic Modal functions
     function openModal(id) {
         const modal = document.getElementById(id);
-        if(modal) modal.classList.add('active');
+        if(modal) {
+            modal.style.display = 'flex';
+            modal.classList.add('active');
+        }
     }
     
     function closeModal(id) {
         const modal = document.getElementById(id);
-        if(modal) modal.classList.remove('active');
+        if(modal) {
+            modal.style.display = 'none';
+            modal.classList.remove('active');
+        }
     }
 
     // Auto-dismiss alerts after 5 seconds

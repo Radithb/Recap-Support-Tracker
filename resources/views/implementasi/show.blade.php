@@ -1016,7 +1016,7 @@
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 15px;">
                 <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">{{ __('messages.detail_tindakan_followup') }}</h4>
                 <div style="display: flex; gap: 10px;">
-                    <button type="button" onclick="openModal('modalRiwayatFollowUp')" style="background-color: #64748b; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                    <button type="button" onclick="openRiwayatFollowUp()" style="background-color: #64748b; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                         Riwayat Aktivitas
                     </button>
@@ -1227,6 +1227,20 @@
 </div>
 
 <script>
+    function openRiwayatFollowUp() {
+        const modal = document.getElementById('modalRiwayatFollowUp');
+        if (modal) {
+            modal.style.display = 'flex';
+        }
+    }
+
+    function closeRiwayatFollowUp() {
+        const modal = document.getElementById('modalRiwayatFollowUp');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+
     function openModal(id) {
         const modal = document.getElementById(id);
         if (modal) {
@@ -1502,7 +1516,7 @@
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 Riwayat Aktivitas Follow-Up
             </h4>
-            <button type="button" onclick="closeModal('modalRiwayatFollowUp')" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b;">&times;</button>
+            <button type="button" onclick="closeRiwayatFollowUp()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b;">&times;</button>
         </div>
         <div style="padding: 20px; overflow-y: auto; flex-grow: 1;">
             @if($implementasi->followUps && $implementasi->followUps->count() > 0)
@@ -1543,7 +1557,7 @@
             @endif
         </div>
         <div style="padding: 12px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; background: #f8fafc; border-radius: 0 0 12px 12px;">
-            <button type="button" onclick="closeModal('modalRiwayatFollowUp')" style="padding: 7px 16px; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff; color: #475569; font-weight: 600; cursor: pointer; font-size: 13px;">Tutup</button>
+            <button type="button" onclick="closeRiwayatFollowUp()" style="padding: 7px 16px; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff; color: #475569; font-weight: 600; cursor: pointer; font-size: 13px;">Tutup</button>
         </div>
     </div>
 </div>
