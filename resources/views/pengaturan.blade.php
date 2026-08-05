@@ -130,6 +130,13 @@
     <div style="margin-bottom: 32px; display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px;">
         <button type="button" class="pill-filter active" id="btn-tampilan" onclick="switchSettingTab('tampilan')"><span class="icon-mask" style="--mask-url: url('{{ asset('application.png') }}');"></span> {{ __('messages.tab_personalisasi') }}</button>
         <button type="button" class="pill-filter" id="btn-bahasa" onclick="switchSettingTab('bahasa')"><span class="icon-mask" style="--mask-url: url('{{ asset('world.png') }}');"></span> {{ __('messages.tab_bahasa') }}</button>
+        <button type="button" class="pill-filter" id="btn-akun" onclick="switchSettingTab('akun')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.9;">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+            </svg>
+            {{ __('messages.keamanan_akun') }}
+        </button>
     </div>
     
     <div class="panel" id="panel-bahasa" style="padding: 30px; max-width: 100%; display: none;">
@@ -258,7 +265,41 @@
             </button>
         </div>
     </div>
-</div>
+
+    <!-- PANEL KEAMANAN AKUN -->
+    <div class="panel" id="panel-akun" style="padding: 30px; max-width: 100%; display: none;">
+        <div style="margin-bottom: 32px;">
+            <h3 style="font-size: calc(20px * var(--text-scale, 1)); display:flex; align-items:center; gap:8px; margin-bottom:6px; color: var(--ink);">
+                {{ __('messages.keamanan_akun') }}
+            </h3>
+            <p class="sub" style="margin-bottom:0; font-size: calc(14px * var(--text-scale, 1)); color:var(--ink-soft);">
+                {{ __('messages.keamanan_akun_desc') }}
+            </p>
+        </div>
+
+        <form action="{{ route('profil.password.update') }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="field" style="margin-bottom: 18px;">
+                <label>{{ __('messages.kata_sandi_saat_ini') }}</label>
+                <input type="password" name="current_password" required style="background: var(--paper-sunken);">
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px;">
+                <div class="field">
+                    <label>{{ __('messages.kata_sandi_baru') }}</label>
+                    <input type="password" name="password" required style="background: var(--paper-sunken);">
+                </div>
+                <div class="field">
+                    <label>{{ __('messages.konfirmasi_kata_sandi') }}</label>
+                    <input type="password" name="password_confirmation" required style="background: var(--paper-sunken);">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-ghost" style="border: 1px solid var(--line); background: var(--paper-sunken);">{{ __('messages.ubah_password') }}</button>
+        </form>
+    </div>
+
+    </div> <!-- Close actual-content -->
+</div> <!-- Close pelapor-panel -->
 
 <script>
     // Initialize radio buttons from localStorage
@@ -293,7 +334,7 @@
     });
 
     function switchSettingTab(tab) {
-        var tabs = ['tampilan', 'bahasa'];
+        var tabs = ['tampilan', 'bahasa', 'akun'];
         tabs.forEach(function(t) {
             var panel = document.getElementById('panel-' + t);
             if (!panel && t === 'tampilan') panel = document.getElementById('panel-tampilan-personal');
