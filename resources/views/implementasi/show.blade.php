@@ -1510,17 +1510,17 @@
 
 <!-- Modal Riwayat Follow-Up -->
 <div class="modal-overlay" id="modalRiwayatFollowUp" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(2px); z-index: 9999; justify-content: center; align-items: center;">
-    <div style="background: white; border-radius: 12px; width: 650px; max-width: 90%; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
-        <div style="padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 12px 12px 0 0;">
+    <div style="background: white; border-radius: 12px; width: 700px; max-width: 90%; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);">
+        <div style="padding: 18px 24px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 12px 12px 0 0;">
             <h4 style="margin: 0; font-size: 16px; font-weight: 600; color: #1e293b; display: flex; align-items: center; gap: 8px;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
                 Riwayat Aktivitas Follow-Up
             </h4>
             <button type="button" onclick="closeRiwayatFollowUp()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b;">&times;</button>
         </div>
-        <div style="padding: 20px; overflow-y: auto; flex-grow: 1;">
+        <div style="padding: 24px 30px; overflow-y: auto; flex-grow: 1;">
             @if($implementasi->followUps && $implementasi->followUps->count() > 0)
-                <div class="timeline" style="background: white; padding: 0;">
+                <div class="timeline" style="background: white; padding-left: 28px; padding-top: 4px; padding-bottom: 4px; margin-left: 6px;">
                     @foreach($implementasi->followUps as $fu)
                         <div class="timeline-item">
                             <div class="timeline-time">
