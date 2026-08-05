@@ -383,7 +383,7 @@
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
         <h4 style="margin: 0 0 8px; font-size: 17px; font-weight: 700; color: #1e293b;">Konfirmasi Selesai</h4>
-        <p style="margin: 0 0 24px; font-size: 13.5px; color: #64748b; line-height: 1.5;">Apakah Anda yakin ingin menandai item checklist ini sebagai <strong>Sudah Valid / Done</strong>?</p>
+        <p id="confirm-done-text" style="margin: 0 0 24px; font-size: 13.5px; color: #64748b; line-height: 1.5;">Apakah Anda yakin ingin menandai item checklist ini sebagai <strong>Sudah Valid / Done</strong>?</p>
         <div style="display: flex; gap: 10px; justify-content: center;">
             <button type="button" onclick="closeDoneModal()" style="flex: 1; padding: 9px 16px; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff; color: #475569; font-weight: 600; cursor: pointer; font-size: 13px;">Batal</button>
             <button type="button" id="btn-confirm-done" style="flex: 1; padding: 9px 16px; border-radius: 6px; border: none; background: #10b981; color: #fff; font-weight: 600; cursor: pointer; font-size: 13px; box-shadow: 0 2px 4px rgba(16,185,129,0.2);">Ya, Selesai</button>
@@ -1310,6 +1310,18 @@
 
     function markAsDone(id) {
         selectedChecklistId = id;
+        const select = document.getElementById('status-' + id);
+        const textElement = document.getElementById('confirm-done-text');
+        
+        if (select && textElement) {
+            let currentStatus = select.options[select.selectedIndex].text;
+            if (currentStatus !== 'Sudah Valid (Done)' && currentStatus !== 'Migrasi Selesai') {
+                textElement.innerHTML = `Status saat ini adalah <strong style="color: #ef4444;">${currentStatus}</strong>.<br><br>Apakah Anda yakin ingin menandainya menjadi <strong>Sudah Valid / Done</strong>?`;
+            } else {
+                textElement.innerHTML = `Apakah Anda yakin ingin menandai item checklist ini sebagai <strong>Sudah Valid / Done</strong>?`;
+            }
+        }
+        
         document.getElementById('modalConfirmDone').style.display = 'flex';
     }
 
