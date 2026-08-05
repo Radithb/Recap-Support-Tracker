@@ -256,11 +256,11 @@
                         </div>
                     @elseif($ext === 'mp4')
                         <a href="{{ Storage::url($lamp) }}" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
-                            <span>🎥</span> {{ __('messages.lihat_video') }}
+                            {{ __('messages.lihat_video') }}
                         </a>
                     @elseif($ext === 'pdf')
                         <a href="{{ Storage::url($lamp) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); text-decoration: none;">
-                            <span>📄</span> {{ __('messages.unduh_pdf') }}
+                            {{ __('messages.unduh_pdf') }}
                         </a>
                     @endif
                 @endforeach
