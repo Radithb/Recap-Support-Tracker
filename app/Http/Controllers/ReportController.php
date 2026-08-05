@@ -49,7 +49,6 @@ class ReportController extends Controller
             DB::raw('COUNT(*) as total')
         )
         ->whereYear('tanggal_input', $year)
-        ->whereNotNull('kategori_id')
         ->groupBy('kategori_id', 'month')
         ->get();
 
@@ -61,11 +60,18 @@ class ReportController extends Controller
                 'total_year' => 0
             ];
         }
+        
+        $crosstab['uncategorized'] = [
+            'nama' => 'Belum ada Kategori',
+            'months' => array_fill(1, 12, 0),
+            'total_year' => 0
+        ];
 
         foreach ($crosstabData as $data) {
-            if (isset($crosstab[$data->kategori_id])) {
-                $crosstab[$data->kategori_id]['months'][$data->month] = $data->total;
-                $crosstab[$data->kategori_id]['total_year'] += $data->total;
+            $catId = $data->kategori_id ?: 'uncategorized';
+            if (isset($crosstab[$catId])) {
+                $crosstab[$catId]['months'][$data->month] = $data->total;
+                $crosstab[$catId]['total_year'] += $data->total;
             }
         }
 

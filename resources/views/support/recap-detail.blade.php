@@ -241,7 +241,7 @@
             @php
                 $rekapKategori = [];
                 foreach($tickets as $t) {
-                    $kat = $t->kategori ? $t->kategori->nama_kategori : '-';
+                    $kat = $t->kategori ? $t->kategori->nama_kategori : 'Belum ada Kategori';
                     $stat = strtolower($t->status->value ?? $t->status);
                     
                     if(!isset($rekapKategori[$kat])) {
