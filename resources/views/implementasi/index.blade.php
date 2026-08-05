@@ -550,14 +550,14 @@
                             <div class="anggota-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
                                 <input type="text" name="anggota_hadir[]" class="form-control" placeholder="{{ __('messages.nama_anggota') }}" required style="flex: 1;">
                                 <select name="posisi_anggota[]" class="form-control" onchange="this.style.color = this.value ? '#1e293b' : '#94a3b8';" style="flex: 1; color: #94a3b8;">
-                                    <option value="" style="color: #94a3b8;">Posisi</option>
-                                    <option value="Manager">Manager</option>
-                                    <option value="Sekretaris">Sekretaris</option>
-                                    <option value="Bendahara">Bendahara</option>
-                                    <option value="Pengawas">Pengawas</option>
-                                    <option value="Admin">Admin</option>
-                                    <option value="Akuntansi">Akuntansi</option>
-                                    <option value="IT">IT</option>
+                                    <option value="" disabled selected hidden style="color: #94a3b8;">Posisi</option>
+                                    <option value="Manager" style="color: #1e293b;">Manager</option>
+                                    <option value="Sekretaris" style="color: #1e293b;">Sekretaris</option>
+                                    <option value="Bendahara" style="color: #1e293b;">Bendahara</option>
+                                    <option value="Pengawas" style="color: #1e293b;">Pengawas</option>
+                                    <option value="Admin" style="color: #1e293b;">Admin</option>
+                                    <option value="Akuntansi" style="color: #1e293b;">Akuntansi</option>
+                                    <option value="IT" style="color: #1e293b;">IT</option>
                                 </select>
                                 <button type="button" class="btn-action" style="background-color: #10b981; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="addAnggotaInput()">+</button>
                             </div>
@@ -672,14 +672,14 @@
         inputGroup.innerHTML = `
             <input type="text" name="anggota_hadir[]" class="form-control" placeholder="{{ __('messages.nama_anggota') }}" required style="flex: 1;">
             <select name="posisi_anggota[]" class="form-control" onchange="this.style.color = this.value ? '#1e293b' : '#94a3b8';" style="flex: 1; color: #94a3b8;">
-                <option value="" style="color: #94a3b8;">Posisi</option>
-                <option value="Manager">Manager</option>
-                <option value="Sekretaris">Sekretaris</option>
-                <option value="Bendahara">Bendahara</option>
-                <option value="Pengawas">Pengawas</option>
-                <option value="Admin">Admin</option>
-                <option value="Akuntansi">Akuntansi</option>
-                <option value="IT">IT</option>
+                <option value="" disabled selected hidden style="color: #94a3b8;">Posisi</option>
+                <option value="Manager" style="color: #1e293b;">Manager</option>
+                <option value="Sekretaris" style="color: #1e293b;">Sekretaris</option>
+                <option value="Bendahara" style="color: #1e293b;">Bendahara</option>
+                <option value="Pengawas" style="color: #1e293b;">Pengawas</option>
+                <option value="Admin" style="color: #1e293b;">Admin</option>
+                <option value="Akuntansi" style="color: #1e293b;">Akuntansi</option>
+                <option value="IT" style="color: #1e293b;">IT</option>
             </select>
             <button type="button" class="btn-action" style="background-color: #ef4444; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="removeAnggotaInput(this)">-</button>
         `;
