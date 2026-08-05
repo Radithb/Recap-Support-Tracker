@@ -7,6 +7,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}?v={{ date('YmdHis') }}">
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/css/tom-select.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/tom-select@2.2.2/dist/js/tom-select.complete.min.js"></script>
+    <style>
+        /* Hide disabled options in TomSelect dropdowns entirely */
+        .ts-dropdown .option.disabled {
+            display: none !important;
+        }
+    </style>
     <script>
         // Apply personalization before page render to prevent FOUC
         (function() {
@@ -461,6 +469,20 @@
                 notifMenu.style.display = 'none';
             }
         }
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.searchable-select').forEach(function(el) {
+            new TomSelect(el, {
+                create: false,
+                sortField: { field: "text", direction: "asc" },
+                placeholder: el.getAttribute('placeholder') || 'Pilih...',
+                onChange: function(value) {
+                    if (typeof updateAplikasiOptions === 'function') {
+                        updateAplikasiOptions();
+                    }
+                }
+            });
+        });
     });
 </script>
 </body>

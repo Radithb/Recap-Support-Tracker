@@ -79,7 +79,7 @@
         
         <div class="form-group">
             <label class="form-label">Koperasi</label>
-            <select name="instansi_id" class="form-control" required>
+            <select name="instansi_id" class="form-control searchable-select" required>
                 <option value="">Pilih Koperasi</option>
                 @foreach($instansis as $instansi)
                     <option value="{{ $instansi->instansi_id }}" {{ (old('instansi_id', $implementasi->instansi_id) == $instansi->instansi_id) ? 'selected' : '' }}>
@@ -102,7 +102,7 @@
                 @endphp
                 @foreach($oldAplikasis as $index => $oldAppId)
                 <div class="aplikasi-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
-                    <select name="aplikasi_id[]" class="form-control" required style="flex-grow: 1;">
+                    <select name="aplikasi_id[]" class="form-control searchable-select" required style="flex-grow: 1;">
                         <option value="" disabled {{ empty($oldAppId) ? 'selected' : '' }}>Pilih Aplikasi</option>
                         @foreach($aplikasis as $app)
                             <option value="{{ $app->aplikasi_id }}" {{ $oldAppId == $app->aplikasi_id ? 'selected' : '' }}>
@@ -245,17 +245,70 @@
 <script>
     function addAplikasiInput() {
         const container = document.getElementById('aplikasi-container');
-        const originalGroup = container.querySelector('.aplikasi-input-group');
-        const newGroup = originalGroup.cloneNode(true);
-        newGroup.querySelector('select').selectedIndex = 0;
+        const inputGroup = document.createElement('div');
+        inputGroup.className = 'aplikasi-input-group';
+        inputGroup.style = 'display: flex; gap: 10px; margin-bottom: 10px;';
         
-        const btn = newGroup.querySelector('button');
-        btn.textContent = '-';
-        btn.style.backgroundColor = '#ef4444';
-        btn.onclick = function() { removeInput(this); };
+        inputGroup.innerHTML = `
+            <select name="aplikasi_id[]" class="form-control searchable-select" required style="flex-grow: 1;">
+                <option value="" disabled selected>Pilih Aplikasi</option>
+                @foreach($aplikasis as $app)
+                    <option value="{{ $app->aplikasi_id }}">{{ $app->nama_aplikasi }}</option>
+                @endforeach
+            </select>
+            <button type="button" class="btn-action" style="background-color: #ef4444; padding: 0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; flex-shrink: 0; color: white; border: none; border-radius: 4px; cursor: pointer;" onclick="removeInput(this)">-</button>
+        `;
+        container.appendChild(inputGroup);
         
-        container.appendChild(newGroup);
+        const newSelect = inputGroup.querySelector('select');
+        if (typeof TomSelect !== 'undefined') {
+            new TomSelect(newSelect, {
+                create: false,
+                sortField: { field: "text", direction: "asc" },
+                placeholder: newSelect.getAttribute('placeholder') || 'Pilih...',
+                onChange: function(value) {
+                    if (typeof updateAplikasiOptions === 'function') updateAplikasiOptions();
+                }
+            });
+        }
+        updateAplikasiOptions();
     }
+    
+    function updateAplikasiOptions() {
+        const selects = document.querySelectorAll('select[name="aplikasi_id[]"]');
+        const selectedValues = Array.from(selects).map(s => s.value).filter(v => v);
+
+        selects.forEach(select => {
+            let ts = select.tomselect;
+            
+            if (ts) {
+                Array.from(select.options).forEach(option => {
+                    if (!option.value) return; 
+                    let shouldDisable = selectedValues.includes(option.value) && select.value !== option.value;
+                    let optionData = ts.options[option.value];
+                    if (optionData && optionData.disabled !== shouldDisable) {
+                        ts.updateOption(option.value, Object.assign({}, optionData, { disabled: shouldDisable }));
+                    }
+                });
+            } else {
+                Array.from(select.options).forEach(option => {
+                    if (!option.value) return; 
+                    let shouldDisable = selectedValues.includes(option.value) && select.value !== option.value;
+                    option.disabled = shouldDisable;
+                });
+            }
+        });
+    }
+
+    document.addEventListener('change', function(e) {
+        if (e.target.name === 'aplikasi_id[]') {
+            updateAplikasiOptions();
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        setTimeout(updateAplikasiOptions, 500);
+    });
     
     function addAnggotaInput() {
         const container = document.getElementById('anggota-container');
@@ -287,6 +340,9 @@
 
     function removeInput(btn) {
         btn.parentElement.remove();
+        if (typeof updateAplikasiOptions === 'function') {
+            updateAplikasiOptions();
+        }
     }
 </script>
 @endsection

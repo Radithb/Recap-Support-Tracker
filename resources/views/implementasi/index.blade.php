@@ -479,7 +479,7 @@
                 <div class="grid-2">
                     <div class="form-group">
                         <label class="form-label">{{ __('messages.koperasi') }}</label>
-                        <select name="instansi_id" class="form-control" required>
+                        <select name="instansi_id" class="form-control searchable-select" required>
                             <option value="">{{ __('messages.select_koperasi') }}</option>
                             @foreach($instansis as $instansi)
                                 <option value="{{ $instansi->instansi_id }}">{{ $instansi->nama_instansi }}</option>
@@ -504,7 +504,7 @@
                     <label class="form-label">{{ __('messages.aplikasi_modul') }}</label>
                     <div id="aplikasi-container">
                         <div class="aplikasi-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
-                            <select name="aplikasi_id[]" class="form-control" required style="flex-grow: 1;">
+                            <select name="aplikasi_id[]" class="form-control searchable-select" required style="flex-grow: 1;">
                                 <option value="" disabled selected>{{ __('messages.select_aplikasi') }}</option>
                                 @foreach($aplikasis as $app)
                                     <option value="{{ $app->aplikasi_id }}">{{ $app->nama_aplikasi }}</option>
@@ -694,7 +694,7 @@
         inputGroup.style = 'display: flex; gap: 10px; margin-bottom: 10px;';
         
         inputGroup.innerHTML = `
-            <select name="aplikasi_id[]" class="form-control" required style="flex-grow: 1;">
+            <select name="aplikasi_id[]" class="form-control searchable-select" required style="flex-grow: 1;">
                 <option value="" disabled selected>Pilih Aplikasi</option>
                 @foreach($aplikasis as $app)
                     <option value="{{ $app->aplikasi_id }}">{{ $app->nama_aplikasi }}</option>
@@ -703,11 +703,72 @@
             <button type="button" class="btn-action" style="background-color: #ef4444; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="removeAplikasiInput(this)">-</button>
         `;
         container.appendChild(inputGroup);
+        
+        const newSelect = inputGroup.querySelector('select');
+        if (typeof TomSelect !== 'undefined') {
+            new TomSelect(newSelect, {
+                create: false,
+                sortField: { field: "text", direction: "asc" },
+                placeholder: newSelect.getAttribute('placeholder') || 'Pilih...',
+                onChange: function(value) {
+                    if (typeof updateAplikasiOptions === 'function') updateAplikasiOptions();
+                }
+            });
+        }
+        updateAplikasiOptions();
     }
 
     function removeAplikasiInput(btn) {
         btn.parentElement.remove();
+        updateAplikasiOptions();
     }
+    
+    function updateAplikasiOptions() {
+        const containers = [
+            document.getElementById('modalDataBaru'),
+            document.getElementById('modalEditData')
+        ];
+        
+        containers.forEach(container => {
+            if (!container) return;
+            const selects = container.querySelectorAll('select[name="aplikasi_id[]"]');
+            if (selects.length === 0) return;
+            
+            const selectedValues = Array.from(selects).map(s => s.value).filter(v => v);
+    
+            selects.forEach(select => {
+                let ts = select.tomselect;
+                
+                if (ts) {
+                    Array.from(select.options).forEach(option => {
+                        if (!option.value) return; 
+                        let shouldDisable = selectedValues.includes(option.value) && select.value !== option.value;
+                        let optionData = ts.options[option.value];
+                        if (optionData && optionData.disabled !== shouldDisable) {
+                            ts.updateOption(option.value, Object.assign({}, optionData, { disabled: shouldDisable }));
+                        }
+                    });
+                } else {
+                    Array.from(select.options).forEach(option => {
+                        if (!option.value) return; 
+                        let shouldDisable = selectedValues.includes(option.value) && select.value !== option.value;
+                        option.disabled = shouldDisable;
+                    });
+                }
+            });
+        });
+    }
+
+    document.addEventListener('change', function(e) {
+        if (e.target.name === 'aplikasi_id[]') {
+            updateAplikasiOptions();
+        }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Run once on load to disable initially selected items
+        setTimeout(updateAplikasiOptions, 500);
+    });
     // Kebab Menu Logic
     function toggleKebab(id, event) {
         event.stopPropagation();
@@ -785,15 +846,39 @@
     function addEditAplikasiInput() {
         const container = document.getElementById('edit-aplikasi-container');
         const originalGroup = container.querySelector('.aplikasi-input-group');
-        const newGroup = originalGroup.cloneNode(true);
-        newGroup.querySelector('select').selectedIndex = 0;
+        const newGroup = document.createElement('div');
+        newGroup.className = 'aplikasi-input-group';
+        newGroup.style = 'display: flex; gap: 10px; margin-bottom: 10px;';
         
-        const btn = newGroup.querySelector('button');
+        const originalSelect = originalGroup.querySelector('select').cloneNode(true);
+        originalSelect.className = 'form-control searchable-select';
+        originalSelect.removeAttribute('id');
+        originalSelect.style.display = '';
+        originalSelect.selectedIndex = 0;
+        
+        newGroup.appendChild(originalSelect);
+        
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn-action';
+        btn.style = 'background-color: #ef4444; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; flex-shrink: 0;';
         btn.textContent = '-';
-        btn.style.backgroundColor = '#ef4444';
         btn.onclick = function() { removeEditInput(this); };
+        newGroup.appendChild(btn);
         
         container.appendChild(newGroup);
+        
+        if (typeof TomSelect !== 'undefined') {
+            new TomSelect(originalSelect, {
+                create: false,
+                sortField: { field: "text", direction: "asc" },
+                placeholder: originalSelect.getAttribute('placeholder') || 'Pilih...',
+                onChange: function(value) {
+                    if (typeof updateAplikasiOptions === 'function') updateAplikasiOptions();
+                }
+            });
+        }
+        if (typeof updateAplikasiOptions === 'function') updateAplikasiOptions();
     }
     
     function addEditAnggotaInput() {
@@ -826,6 +911,7 @@
 
     function removeEditInput(btn) {
         btn.parentElement.remove();
+        if (typeof updateAplikasiOptions === 'function') updateAplikasiOptions();
     }
 
     // Hide Skeleton Loading & Show Real Content

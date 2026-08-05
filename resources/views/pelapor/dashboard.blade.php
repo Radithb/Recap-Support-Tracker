@@ -186,6 +186,12 @@
             <button type="button" class="modal-x" onclick="closeModal('modal-ticket-{{ $t->ticket_id }}'); event.stopPropagation();">✕</button>
         </div>
         <div class="modal-body" style="padding: 24px;">
+            @php $statusStr = is_object($t->status) ? $t->status->value : $t->status; @endphp
+            @if($statusStr === 'Open')
+                <div style="text-align: right; margin-bottom: 16px;">
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="closeModal('modal-ticket-{{ $t->ticket_id }}'); openModal('modal-edit-{{ $t->ticket_id }}');" style="padding: 6px 12px; font-size: 13px;">✏️ Edit Laporan</button>
+                </div>
+            @endif
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
                 <div>
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.aplikasi') }}</div>
@@ -332,6 +338,46 @@
         </div>
     </div>
 </div>
+
+@if((is_object($t->status) ? $t->status->value : $t->status) === 'Open')
+<div class="overlay" id="modal-edit-{{ $t->ticket_id }}">
+    <div class="modal w-sm">
+        <div class="modal-head">
+            <div><h3>Edit Laporan</h3><p>{{ $t->ticket_id }}</p></div>
+            <button type="button" class="modal-x" onclick="closeModal('modal-edit-{{ $t->ticket_id }}'); openModal('modal-ticket-{{ $t->ticket_id }}');">✕</button>
+        </div>
+        <form action="{{ route('pelapor.tickets.update_pelapor', $t->ticket_id) }}" method="POST" enctype="multipart/form-data" onsubmit="return checkFileSize(this, 'edit_lampiran_input_{{ $t->ticket_id }}', 8);">
+            @csrf
+            @method('PUT')
+            <div class="modal-body" style="padding: 24px;">
+                <div class="field" style="margin-bottom: 16px;">
+                    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">{{ __('messages.aplikasi_bermasalah') }}</label>
+                    <select name="aplikasi_id" required style="width: 100%; padding: 8px; border: 1px solid var(--line); border-radius: 6px; font-family: var(--font-body); font-size: 14px;">
+                        <option value="">{{ __('messages.pilih_aplikasi') }}</option>
+                        @foreach($aplikasis as $app)
+                            <option value="{{ $app->aplikasi_id }}" {{ $t->aplikasi_id == $app->aplikasi_id ? 'selected' : '' }}>{{ $app->nama_aplikasi }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="field" style="margin-bottom: 16px;">
+                    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">{{ __('messages.deskripsi_kendala') }}</label>
+                    <textarea name="permasalahan" required style="width: 100%; padding: 8px; border: 1px solid var(--line); border-radius: 6px; font-family: var(--font-body); font-size: 14px; min-height: 100px;">{{ $t->permasalahan }}</textarea>
+                </div>
+                <div class="field" style="margin-bottom: 16px;">
+                    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Ganti Lampiran (Opsional)</label>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">Biarkan kosong jika tidak ingin mengganti lampiran saat ini. Jika diisi, lampiran lama akan terhapus.</div>
+                    <input type="file" id="edit_lampiran_input_{{ $t->ticket_id }}" name="lampiran[]" multiple accept=".jpg,.jpeg,.png,.mp4,.pdf,.doc,.docx,.xlsx,.csv,.pptx,.ppsx,.xlsm,.docm,.xlsb" style="width:100%; font-size: 13px; font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;">
+                    <div class="helper" style="font-size: 11px; margin-top: 4px;">{{ __('messages.format_lampiran') }}</div>
+                </div>
+            </div>
+            <div class="modal-foot">
+                <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-{{ $t->ticket_id }}'); openModal('modal-ticket-{{ $t->ticket_id }}');">{{ __('messages.batal') }}</button>
+                <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endif
 @endforeach
 
 <!-- Modals for FAQs -->

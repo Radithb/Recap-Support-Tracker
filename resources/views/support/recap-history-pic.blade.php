@@ -54,7 +54,7 @@
             </select>
         </div>
         <div style="min-width: 180px;">
-            <select name="pic_id" style="width: 100%; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.88rem; outline: none; background: var(--paper-sunken); color: var(--ink); cursor: pointer;">
+            <select name="pic_id" class="searchable-select" style="width: 100%; padding: 9px 14px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.88rem; outline: none; background: var(--paper-sunken); color: var(--ink); cursor: pointer;">
                 <option value="">{{ __('messages.all_pic_support') }}</option>
                 @foreach($supportUsers as $sup)
                     <option value="{{ $sup->user_id }}" {{ request('pic_id') == $sup->user_id ? 'selected' : '' }}>{{ $sup->nama }}</option>

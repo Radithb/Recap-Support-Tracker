@@ -101,6 +101,48 @@ class TicketController extends Controller
         return back()->with('success', __('messages.ticket_deleted'));
     }
 
+    public function updatePelapor(StoreTicketRequest $request, Ticket $ticket)
+    {
+        if ($ticket->pelapor_id !== Auth::id()) {
+            abort(403);
+        }
+
+        if ($ticket->status !== TicketStatus::OPEN) {
+            return back()->with('error', 'Laporan tidak dapat diubah karena sudah ditangani oleh Tim Support.');
+        }
+
+        $data = $request->validated();
+        
+        $updateData = [
+            'aplikasi_id' => $data['aplikasi_id'],
+            'permasalahan' => $data['permasalahan'],
+        ];
+
+        // Jika pelapor tidak memilih file, biarkan lampiran lama
+        // Jika pelapor mengunggah file baru, hapus file lama dan simpan yang baru
+        if ($request->hasFile('lampiran')) {
+            if ($ticket->lampiran) {
+                $lampirans = is_array($ticket->lampiran) ? $ticket->lampiran : [$ticket->lampiran];
+                foreach ($lampirans as $lamp) {
+                    if (\Illuminate\Support\Facades\Storage::disk('public')->exists($lamp)) {
+                        \Illuminate\Support\Facades\Storage::disk('public')->delete($lamp);
+                    }
+                }
+            }
+
+            $lampiranPaths = [];
+            foreach ($request->file('lampiran') as $file) {
+                $lampiranPaths[] = $file->store('lampiran_tiket', 'public');
+            }
+            $updateData['lampiran'] = count($lampiranPaths) > 0 ? $lampiranPaths : null;
+        }
+
+        $ticket->update($updateData);
+
+        return back()->with('success', 'Laporan berhasil diperbarui.');
+    }
+
+
     public function uploadBalasan(Request $request, Ticket $ticket)
     {
         if ($ticket->pelapor_id !== Auth::id()) {

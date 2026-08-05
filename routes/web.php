@@ -294,6 +294,7 @@ Route::middleware(['auth', IsPelapor::class])->prefix('pelapor')->name('pelapor.
     Route::get('/dashboard', [TicketController::class, 'pelaporDashboard'])->name('dashboard');
     Route::get('/riwayat', [TicketController::class, 'pelaporRiwayat'])->name('riwayat');
     Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
+    Route::put('/tickets/{ticket}/edit', [TicketController::class, 'updatePelapor'])->name('tickets.update_pelapor');
     Route::post('/tickets/{ticket}/upload-balasan', [TicketController::class, 'uploadBalasan'])->name('tickets.upload_balasan');
     Route::delete('/tickets/{ticket}/balasan/{index}', [TicketController::class, 'deleteBalasan'])->name('tickets.delete_balasan');
     Route::delete('/tickets/{ticket}', [TicketController::class, 'destroy'])->name('tickets.destroy');

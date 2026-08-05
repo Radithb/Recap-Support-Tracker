@@ -5,7 +5,7 @@
             <div class="grid-2">
                 <div class="form-group">
                     <label class="form-label">Koperasi</label>
-                    <select name="instansi_id" class="form-control" required>
+                    <select name="instansi_id" class="form-control searchable-select" required>
                         <option value="">Pilih Koperasi</option>
                         @foreach($instansis as $instansi)
                             <option value="{{ $instansi->instansi_id }}" {{ (old('instansi_id', $implementasi->instansi_id) == $instansi->instansi_id) ? 'selected' : '' }}>
@@ -57,7 +57,7 @@
                     @endphp
                     @foreach($oldAplikasis as $index => $oldAppId)
                     <div class="aplikasi-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
-                        <select name="aplikasi_id[]" class="form-control" required style="flex-grow: 1;">
+                        <select name="aplikasi_id[]" class="form-control searchable-select" required style="flex-grow: 1;">
                             <option value="" disabled {{ empty($oldAppId) ? 'selected' : '' }}>Pilih Aplikasi</option>
                             @foreach($aplikasis as $app)
                                 <option value="{{ $app->aplikasi_id }}" {{ $oldAppId == $app->aplikasi_id ? 'selected' : '' }}>
