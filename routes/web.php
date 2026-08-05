@@ -58,6 +58,29 @@ Route::get('/run-migrations', function () {
 
     // 2. Migrasi
     try {
+        if (!\Illuminate\Support\Facades\Schema::hasTable('implementasi_followups')) {
+            \Illuminate\Support\Facades\Schema::create('implementasi_followups', function (\Illuminate\Database\Schema\Blueprint $table) {
+                $table->id();
+                $table->unsignedBigInteger('implementasi_id');
+                $table->date('tanggal_followup')->nullable();
+                $table->date('tanggal_followup_berikutnya')->nullable();
+                $table->date('target_tanggal_tindakan')->nullable();
+                $table->string('jenis_tindakan')->nullable();
+                $table->string('pic_tindakan')->nullable();
+                $table->string('status_tindakan')->nullable();
+                $table->text('hasil_komunikasi')->nullable();
+                $table->text('kendala_koperasi')->nullable();
+                $table->text('komitmen_koperasi')->nullable();
+                $table->text('tindakan_berikutnya')->nullable();
+                $table->unsignedBigInteger('created_by')->nullable();
+                $table->timestamps();
+
+                $table->foreign('implementasi_id')->references('id')->on('implementasi_koperasi')->onDelete('cascade');
+                $table->foreign('created_by')->references('user_id')->on('users')->onDelete('set null');
+            });
+            $message .= "✅ Tabel 'implementasi_followups' Berhasil Dibuat!<br>";
+        }
+
         \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
         $message .= "✅ Migrasi Database Berhasil!<br>";
     } catch (\Exception $e) {

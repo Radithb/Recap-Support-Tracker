@@ -9,8 +9,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('master_aplikasis', function (Blueprint $table) {
-            $table->string('username')->nullable()->after('link');
-            $table->string('password')->nullable()->after('username');
+            if (!Schema::hasColumn('master_aplikasis', 'username')) {
+                $table->string('username')->nullable()->after('link');
+            }
+            if (!Schema::hasColumn('master_aplikasis', 'password')) {
+                $table->string('password')->nullable()->after('username');
+            }
         });
     }
 

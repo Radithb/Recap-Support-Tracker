@@ -11,7 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('implementasi_followups', function (Blueprint $table) {
+        if (!Schema::hasTable('implementasi_followups')) {
+            Schema::create('implementasi_followups', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('implementasi_id');
             $table->date('tanggal_followup')->nullable();
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->foreign('implementasi_id')->references('id')->on('implementasi_koperasi')->onDelete('cascade');
             $table->foreign('created_by')->references('user_id')->on('users')->onDelete('set null');
         });
+        }
     }
 
     /**
