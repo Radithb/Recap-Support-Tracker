@@ -166,8 +166,8 @@
                     @endphp
                     <div class="anggota-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
                         <input type="text" name="anggota_hadir[]" class="form-control" placeholder="Nama Anggota" value="{{ $namaVal }}" required style="flex: 1;">
-                        <select name="posisi_anggota[]" class="form-control" style="flex: 1;">
-                            <option value="">Posisi</option>
+                        <select name="posisi_anggota[]" class="form-control" onchange="this.style.color = this.value ? '#1e293b' : '#94a3b8';" style="flex: 1; color: {{ $posVal ? '#1e293b' : '#94a3b8' }};">
+                            <option value="" style="color: #94a3b8;">Posisi</option>
                             @foreach($rolesList as $role)
                                 <option value="{{ $role }}" {{ $posVal == $role ? 'selected' : '' }}>{{ $role }}</option>
                             @endforeach
