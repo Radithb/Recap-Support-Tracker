@@ -466,28 +466,6 @@
     </div>
 </div>
 
-<!-- Modal Preview Follow-Up -->
-<div class="modal-overlay" id="modalPreviewFollowUp" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(2px); z-index: 9999; justify-content: center; align-items: center;">
-    <div style="background: #fff; border-radius: 12px; width: 90%; max-width: 500px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); animation: fadeUpDoneModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
-        <div style="padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 12px 12px 0 0;">
-            <h4 style="margin: 0; font-size: 16px; font-weight: 600; color: #1e293b; display: flex; align-items: center; gap: 8px;">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                Preview Aktivitas Follow-Up
-            </h4>
-            <button type="button" onclick="closePreviewFollowUp()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b;">&times;</button>
-        </div>
-        <div style="padding: 20px; overflow-y: auto; flex-grow: 1; font-family: monospace; font-size: 13px; line-height: 1.6; color: #334155; white-space: pre-wrap;" id="previewContent">
-        </div>
-        <div style="padding: 12px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; gap: 10px; background: #f8fafc; border-radius: 0 0 12px 12px;">
-            <button type="button" onclick="copyPreviewFollowUp()" style="padding: 7px 16px; border-radius: 6px; border: none; background: #10b981; color: white; font-weight: 600; cursor: pointer; font-size: 13px; display: flex; align-items: center; gap: 6px;">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                Salin Teks
-            </button>
-            <button type="button" onclick="closePreviewFollowUp()" style="padding: 7px 16px; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff; color: #475569; font-weight: 600; cursor: pointer; font-size: 13px;">Tutup</button>
-        </div>
-    </div>
-</div>
-
 <div style="max-width: 1280px; margin: 0 auto; padding: 20px 30px;">
 @if(session('success'))
     <div id="success-alert" class="alert-dismiss fade-up" style="animation-delay: 0.1s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: #d1fae5; color: #065f46; border-radius: 8px; margin-bottom: 24px; font-size: 13.5px; font-weight: 600; border: 1px solid #34d399; transition: opacity 0.6s ease, transform 0.6s ease;">
@@ -1038,15 +1016,16 @@
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; flex-wrap: wrap; gap: 15px;">
                 <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">{{ __('messages.detail_tindakan_followup') }}</h4>
                 <div style="display: flex; gap: 10px;">
-                    <button type="button" onclick="previewFollowUp()" style="background-color: #10b981; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                        Preview
+                    <button type="button" id="btn-edit-followup" onclick="enableEditFollowUp()" style="background-color: #f59e0b; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                        Edit
                     </button>
-                    <button type="submit" style="background-color: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">{{ __('messages.simpan_perubahan') }}</button>
+                    <button type="submit" id="btn-simpan-followup" style="display: none; background-color: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">{{ __('messages.simpan_perubahan') }}</button>
                 </div>
             </div>
 
-            <div class="tab-pane-inner">
+            <fieldset id="followup-fieldset" disabled style="border: none; padding: 0; margin: 0;">
+                <div class="tab-pane-inner">
                 <div style="display: flex; flex-direction: column; gap: 15px;">
                     
                     <!-- Row 1: Tanggal-tanggalan -->
@@ -1133,6 +1112,7 @@
 
                 </div>
             </div>
+            </fieldset>
         </form>
 
         <!-- Riwayat Follow Up Section -->
@@ -1239,59 +1219,11 @@
         }
     }
 
-    // Preview Follow-Up
-    function previewFollowUp() {
-        const koperasi = "{{ $implementasi->instansi->nama_instansi ?? 'Koperasi' }}";
-        
-        // Get form values
-        const form = document.querySelector('#tab-followup form');
-        const tglFollowup = form.querySelector('[name="tanggal_followup"]').value;
-        const tglNext = form.querySelector('[name="tanggal_followup_berikutnya"]').value;
-        const tglTarget = form.querySelector('[name="target_tanggal_tindakan"]').value;
-        
-        const jenisRadios = form.querySelectorAll('[name="jenis_tindakan"]:checked');
-        let jenis = '';
-        if(jenisRadios.length > 0) jenis = jenisRadios[0].value;
-        
-        const pic = form.querySelector('[name="pic_tindakan"]').value;
-        const status = form.querySelector('[name="status_tindakan"]').value;
-        
-        const hasil = form.querySelector('[name="hasil_komunikasi"]').value;
-        const kendala = form.querySelector('[name="kendala_koperasi"]').value;
-        const komitmen = form.querySelector('[name="komitmen_koperasi"]').value;
-        const detail = form.querySelector('[name="tindakan_berikutnya"]').value;
-        
-        let text = `*Laporan Aktivitas Follow-Up*\n`;
-        text += `Koperasi: *${koperasi}*\n`;
-        if (tglFollowup) text += `Tanggal: ${tglFollowup}\n`;
-        text += `\n*Informasi Aktivitas:*\n`;
-        text += `- Jenis: ${jenis || '-'}\n`;
-        text += `- Status: ${status || '-'}\n`;
-        text += `- PIC: ${pic || '-'}\n`;
-        
-        text += `\n*Hasil Komunikasi:*\n${hasil || '-'}\n`;
-        text += `\n*Kendala Koperasi:*\n${kendala || '-'}\n`;
-        text += `\n*Komitmen Koperasi:*\n${komitmen || '-'}\n`;
-        
-        text += `\n*Tindakan Berikutnya (Next Action):*\n${detail || '-'}\n`;
-        if (tglTarget) text += `- Target Tindakan: ${tglTarget}\n`;
-        if (tglNext) text += `- Follow-Up Berikutnya: ${tglNext}\n`;
-        
-        document.getElementById('previewContent').innerText = text;
-        document.getElementById('modalPreviewFollowUp').style.display = 'flex';
-    }
-
-    function closePreviewFollowUp() {
-        document.getElementById('modalPreviewFollowUp').style.display = 'none';
-    }
-
-    function copyPreviewFollowUp() {
-        const text = document.getElementById('previewContent').innerText;
-        navigator.clipboard.writeText(text).then(() => {
-            showToast("Teks berhasil disalin!");
-        }).catch(err => {
-            alert("Gagal menyalin teks.");
-        });
+    // Edit Follow-Up
+    function enableEditFollowUp() {
+        document.getElementById('followup-fieldset').removeAttribute('disabled');
+        document.getElementById('btn-edit-followup').style.display = 'none';
+        document.getElementById('btn-simpan-followup').style.display = 'inline-block';
     }
 
     // Quick Mark as Done Modal
