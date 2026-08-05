@@ -479,12 +479,16 @@
         <div>
             <div class="impl-number">{{ $implementasi->nomor_implementasi }}</div>
             <div style="font-size: 14px; color: #64748b; margin-top: 5px;">
-                {{ $implementasi->instansi->nama_instansi ?? 'Koperasi' }} - 
-                @if($implementasi->aplikasis && $implementasi->aplikasis->count() > 0)
-                    {{ $implementasi->aplikasis->pluck('nama_aplikasi')->join(', ') }}
-                @else
-                    {{ $implementasi->aplikasi->nama_aplikasi ?? 'Aplikasi' }}
-                @endif
+                <strong>{{ $implementasi->instansi->nama_instansi ?? 'Koperasi' }}</strong>
+                <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px;">
+                    @if($implementasi->aplikasis && $implementasi->aplikasis->count() > 0)
+                        @foreach($implementasi->aplikasis as $appItem)
+                            <span style="display: inline-block; padding: 2px 8px; background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; border-radius: 4px; font-size: 12px; font-weight: 500;">{{ $appItem->nama_aplikasi }}</span>
+                        @endforeach
+                    @else
+                        <span style="display: inline-block; padding: 2px 8px; background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; border-radius: 4px; font-size: 12px; font-weight: 500;">{{ $implementasi->aplikasi->nama_aplikasi ?? 'Aplikasi' }}</span>
+                    @endif
+                </div>
             </div>
         </div>
         
@@ -605,9 +609,19 @@
                     @endif
                 </div>
             </div>
-            <div class="summary-item">
+            <div class="summary-item" style="max-width: 100%; word-break: break-word;">
                 <div class="summary-label">{{ __('messages.ringkasan_anggota_hadir') }}</div>
-                <div class="summary-value">{{ $implementasi->anggota_hadir ?? '-' }}</div>
+                <div class="summary-value">
+                    @if($implementasi->anggota_hadir)
+                        <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px;">
+                            @foreach(explode(',', $implementasi->anggota_hadir) as $anggotaItem)
+                                <span style="display: inline-block; padding: 2px 7px; background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 11.5px; font-weight: 500;">{{ trim($anggotaItem) }}</span>
+                            @endforeach
+                        </div>
+                    @else
+                        -
+                    @endif
+                </div>
             </div>
             <div class="summary-item">
                 <div class="summary-label">{{ __('messages.ringkasan_kontak_pic') }}</div>

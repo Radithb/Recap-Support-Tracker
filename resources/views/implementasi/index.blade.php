@@ -325,17 +325,31 @@
                         }
                     @endphp
                     <tr>
-                        <td><strong>{{ $impl->nomor_implementasi }}</strong></td>
-                        <td>{{ $impl->instansi->nama_instansi ?? '-' }}</td>
-                        <td>
+                        <td style="white-space: nowrap;"><strong>{{ $impl->nomor_implementasi }}</strong></td>
+                        <td style="max-width: 180px; word-break: break-word; white-space: normal;">{{ $impl->instansi->nama_instansi ?? '-' }}</td>
+                        <td style="max-width: 220px; word-break: break-word; white-space: normal;">
                             @if($impl->aplikasis && $impl->aplikasis->count() > 0)
-                                {{ $impl->aplikasis->pluck('nama_aplikasi')->join(', ') }}
+                                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                    @foreach($impl->aplikasis as $appItem)
+                                        <span style="display: inline-block; padding: 2px 7px; background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; border-radius: 4px; font-size: 11.5px; font-weight: 500;">{{ $appItem->nama_aplikasi }}</span>
+                                    @endforeach
+                                </div>
                             @else
-                                {{ $impl->aplikasi->nama_aplikasi ?? '-' }}
+                                <span style="display: inline-block; padding: 2px 7px; background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; border-radius: 4px; font-size: 11.5px; font-weight: 500;">{{ $impl->aplikasi->nama_aplikasi ?? '-' }}</span>
                             @endif
                         </td>
-                        <td>{{ $impl->anggota_hadir ?? '-' }}</td>
-                        <td>{{ $impl->target_go_live ? $impl->target_go_live->format('d M Y') : '-' }}</td>
+                        <td style="max-width: 250px; word-break: break-word; white-space: normal;">
+                            @if($impl->anggota_hadir)
+                                <div style="display: flex; flex-wrap: wrap; gap: 4px;">
+                                    @foreach(explode(',', $impl->anggota_hadir) as $anggotaItem)
+                                        <span style="display: inline-block; padding: 2px 7px; background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 11.5px; font-weight: 500;">{{ trim($anggotaItem) }}</span>
+                                    @endforeach
+                                </div>
+                            @else
+                                -
+                            @endif
+                        </td>
+                        <td style="white-space: nowrap;">{{ $impl->target_go_live ? $impl->target_go_live->format('d M Y') : '-' }}</td>
                         <td style="min-width: 120px;">
                             <div style="font-weight: 600;">{{ $impl->progres }}%</div>
                             <div class="progress-container">
@@ -343,7 +357,7 @@
                             </div>
                         </td>
                         <td><span class="badge {{ $badgeClass }}">{{ $impl->status }}</span></td>
-                        <td>
+                        <td style="max-width: 200px; word-break: break-word; white-space: normal;">
                             @if($impl->tindakan_berikutnya)
                                 <div style="font-size: 13px; font-weight: 500;">{{ $impl->tindakan_berikutnya }}</div>
                             @else
