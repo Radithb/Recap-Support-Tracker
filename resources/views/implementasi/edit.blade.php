@@ -167,7 +167,7 @@
                     <div class="anggota-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
                         <input type="text" name="anggota_hadir[]" class="form-control" placeholder="Nama Anggota" value="{{ $namaVal }}" required style="flex: 1;">
                         <select name="posisi_anggota[]" class="form-control" style="flex: 1;">
-                            <option value="">-- Pilih Posisi --</option>
+                            <option value="">Posisi</option>
                             @foreach($rolesList as $role)
                                 <option value="{{ $role }}" {{ $posVal == $role ? 'selected' : '' }}>{{ $role }}</option>
                             @endforeach

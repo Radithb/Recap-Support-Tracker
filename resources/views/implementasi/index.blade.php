@@ -550,7 +550,7 @@
                             <div class="anggota-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
                                 <input type="text" name="anggota_hadir[]" class="form-control" placeholder="{{ __('messages.nama_anggota') }}" required style="flex: 1;">
                                 <select name="posisi_anggota[]" class="form-control" style="flex: 1;">
-                                    <option value="">-- Pilih Posisi --</option>
+                                    <option value="">Posisi</option>
                                     <option value="Manager">Manager</option>
                                     <option value="Sekretaris">Sekretaris</option>
                                     <option value="Bendahara">Bendahara</option>
@@ -672,7 +672,7 @@
         inputGroup.innerHTML = `
             <input type="text" name="anggota_hadir[]" class="form-control" placeholder="{{ __('messages.nama_anggota') }}" required style="flex: 1;">
             <select name="posisi_anggota[]" class="form-control" style="flex: 1;">
-                <option value="">-- Pilih Posisi --</option>
+                <option value="">Posisi</option>
                 <option value="Manager">Manager</option>
                 <option value="Sekretaris">Sekretaris</option>
                 <option value="Bendahara">Bendahara</option>
