@@ -487,7 +487,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label class="form-label">Status Awal</label>
+                        <label class="form-label">Status</label>
                         <select name="status" class="form-control" required>
                             <option value="Pelatihan Dijadwalkan">Pelatihan Dijadwalkan</option>
                             <option value="Pelatihan Selesai" selected>Pelatihan Selesai</option>
