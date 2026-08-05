@@ -135,6 +135,17 @@ class ImplementasiController extends Controller
         $nextNumber = $lastImpl ? intval(substr($lastImpl->nomor_implementasi, -3)) + 1 : 1;
         $nomor_implementasi = 'IMP/SAKTI/' . $year . '/' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
 
+        $anggotaList = [];
+        if (is_array($request->anggota_hadir)) {
+            foreach ($request->anggota_hadir as $idx => $nama) {
+                $nama = trim($nama);
+                if (empty($nama)) continue;
+                $posisi = isset($request->posisi_anggota[$idx]) ? trim($request->posisi_anggota[$idx]) : '';
+                $anggotaList[] = !empty($posisi) ? "$nama ($posisi)" : $nama;
+            }
+        }
+        $anggotaHadirStr = implode(', ', $anggotaList);
+
         $implementasi = ImplementasiKoperasi::create([
             'nomor_implementasi' => $nomor_implementasi,
             'instansi_id' => $request->instansi_id,
@@ -144,7 +155,7 @@ class ImplementasiController extends Controller
             'metode_pelatihan' => $request->metode_pelatihan,
             'berita_acara' => $request->hasFile('berita_acara') ? $request->file('berita_acara')->store('berita_acara', 'public') : null,
             'nama_trainer' => is_array($request->nama_trainer) ? implode(', ', array_filter($request->nama_trainer)) : null,
-            'anggota_hadir' => implode(', ', $request->anggota_hadir),
+            'anggota_hadir' => $anggotaHadirStr,
             'kontak_pic' => $request->kontak_pic,
             'email_pic' => $request->email_pic,
             'catatan_pelatihan' => $request->catatan_pelatihan,
@@ -154,7 +165,7 @@ class ImplementasiController extends Controller
             'status_go_live' => $request->status_go_live ?? 'Belum Siap Go Live',
             'status' => $request->status ?? 'Pelatihan Dijadwalkan',
             'tindakan_berikutnya' => 'Follow-Up Kesiapan Koperasi',
-            'pic_tindakan' => is_array($request->anggota_hadir) ? implode(', ', $request->anggota_hadir) : ($request->anggota_hadir ?? 'Tim Support'),
+            'pic_tindakan' => $anggotaHadirStr ?: 'Tim Support',
         ]);
 
         // Sync pivot table
@@ -387,6 +398,17 @@ class ImplementasiController extends Controller
             $berita_acara_path = $request->file('berita_acara')->store('berita_acara', 'public');
         }
 
+        $anggotaList = [];
+        if (is_array($request->anggota_hadir)) {
+            foreach ($request->anggota_hadir as $idx => $nama) {
+                $nama = trim($nama);
+                if (empty($nama)) continue;
+                $posisi = isset($request->posisi_anggota[$idx]) ? trim($request->posisi_anggota[$idx]) : '';
+                $anggotaList[] = !empty($posisi) ? "$nama ($posisi)" : $nama;
+            }
+        }
+        $anggotaHadirStr = implode(', ', $anggotaList);
+
         $implementasi->update([
             'instansi_id' => $request->instansi_id,
             'aplikasi_id' => is_array($request->aplikasi_id) ? $request->aplikasi_id[0] : $request->aplikasi_id, // Backward compatibility
@@ -395,7 +417,7 @@ class ImplementasiController extends Controller
             'metode_pelatihan' => $request->metode_pelatihan,
             'berita_acara' => $berita_acara_path,
             'nama_trainer' => is_array($request->nama_trainer) ? implode(', ', array_filter($request->nama_trainer)) : null,
-            'anggota_hadir' => implode(', ', $request->anggota_hadir),
+            'anggota_hadir' => $anggotaHadirStr,
             'kontak_pic' => $request->kontak_pic,
             'email_pic' => $request->email_pic,
             'catatan_pelatihan' => $request->catatan_pelatihan,
@@ -404,7 +426,7 @@ class ImplementasiController extends Controller
             'tempat_go_live' => $request->tempat_go_live,
             'status_go_live' => $request->status_go_live ?? 'Belum Siap Go Live',
             'status' => $request->status ?? $implementasi->status,
-            'pic_tindakan' => is_array($request->anggota_hadir) ? implode(', ', $request->anggota_hadir) : ($request->anggota_hadir ?? 'Tim Support'),
+            'pic_tindakan' => $anggotaHadirStr ?: 'Tim Support',
         ]);
 
         // Sync pivot table

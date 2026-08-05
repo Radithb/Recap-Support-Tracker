@@ -548,7 +548,17 @@
                         <label class="form-label">{{ __('messages.anggota_hadir') }}</label>
                         <div id="anggota-container">
                             <div class="anggota-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
-                                <input type="text" name="anggota_hadir[]" class="form-control" placeholder="{{ __('messages.nama_anggota') }}" required>
+                                <input type="text" name="anggota_hadir[]" class="form-control" placeholder="{{ __('messages.nama_anggota') }}" required style="flex: 1;">
+                                <select name="posisi_anggota[]" class="form-control" style="flex: 1;">
+                                    <option value="">-- Pilih Posisi --</option>
+                                    <option value="Manager">Manager</option>
+                                    <option value="Sekretaris">Sekretaris</option>
+                                    <option value="Bendahara">Bendahara</option>
+                                    <option value="Pengawas">Pengawas</option>
+                                    <option value="Admin">Admin</option>
+                                    <option value="Akuntansi">Akuntansi</option>
+                                    <option value="IT">IT</option>
+                                </select>
                                 <button type="button" class="btn-action" style="background-color: #10b981; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="addAnggotaInput()">+</button>
                             </div>
                         </div>
@@ -660,7 +670,17 @@
         inputGroup.style = 'display: flex; gap: 10px; margin-bottom: 10px;';
         
         inputGroup.innerHTML = `
-            <input type="text" name="anggota_hadir[]" class="form-control" placeholder="{{ __('messages.nama_anggota') }}" required>
+            <input type="text" name="anggota_hadir[]" class="form-control" placeholder="{{ __('messages.nama_anggota') }}" required style="flex: 1;">
+            <select name="posisi_anggota[]" class="form-control" style="flex: 1;">
+                <option value="">-- Pilih Posisi --</option>
+                <option value="Manager">Manager</option>
+                <option value="Sekretaris">Sekretaris</option>
+                <option value="Bendahara">Bendahara</option>
+                <option value="Pengawas">Pengawas</option>
+                <option value="Admin">Admin</option>
+                <option value="Akuntansi">Akuntansi</option>
+                <option value="IT">IT</option>
+            </select>
             <button type="button" class="btn-action" style="background-color: #ef4444; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="removeAnggotaInput(this)">-</button>
         `;
         container.appendChild(inputGroup);

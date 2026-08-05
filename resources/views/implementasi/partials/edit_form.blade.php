@@ -114,10 +114,25 @@
                             $savedAnggota = $implementasi->anggota_hadir ? array_map('trim', explode(',', $implementasi->anggota_hadir)) : [];
                             $oldAnggota = old('anggota_hadir', $savedAnggota);
                             if(empty($oldAnggota)) $oldAnggota = [''];
+                            $rolesList = ['Manager', 'Sekretaris', 'Bendahara', 'Pengawas', 'Admin', 'Akuntansi', 'IT'];
                         @endphp
-                        @foreach($oldAnggota as $index => $anggota)
+                        @foreach($oldAnggota as $index => $anggotaStr)
+                        @php
+                            $namaVal = $anggotaStr;
+                            $posVal = '';
+                            if (preg_match('/^(.*?)(?:\s*\((.*?)\))?$/', $anggotaStr, $matches)) {
+                                $namaVal = trim($matches[1]);
+                                $posVal = isset($matches[2]) ? trim($matches[2]) : '';
+                            }
+                        @endphp
                         <div class="anggota-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
-                            <input type="text" name="anggota_hadir[]" class="form-control" placeholder="Nama Anggota" value="{{ $anggota }}" required>
+                            <input type="text" name="anggota_hadir[]" class="form-control" placeholder="Nama Anggota" value="{{ $namaVal }}" required style="flex: 1;">
+                            <select name="posisi_anggota[]" class="form-control" style="flex: 1;">
+                                <option value="">-- Pilih Posisi --</option>
+                                @foreach($rolesList as $role)
+                                    <option value="{{ $role }}" {{ $posVal == $role ? 'selected' : '' }}>{{ $role }}</option>
+                                @endforeach
+                            </select>
                             @if($index === 0)
                                 <button type="button" class="btn-action" style="background-color: #10b981; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="addEditAnggotaInput()">+</button>
                             @else
