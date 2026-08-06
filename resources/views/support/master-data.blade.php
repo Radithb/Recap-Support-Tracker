@@ -790,7 +790,7 @@
                 </div>
                 <div class="modal-foot">
                     <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-aplikasi-{{ $app->aplikasi_id }}')">{{ __('messages.batal') }}</button>
-                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    <button type="submit" class="btn btn-primary">{{ __('messages.simpan_perubahan') }}</button>
                 </div>
             </form>
         </div>
@@ -819,7 +819,7 @@
                 </div>
                 <div class="modal-foot">
                     <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-kategori-{{ $kategori->kategori_id }}')">{{ __('messages.batal') }}</button>
-                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    <button type="submit" class="btn btn-primary">{{ __('messages.simpan_perubahan') }}</button>
                 </div>
             </form>
         </div>
@@ -856,7 +856,7 @@
                 </div>
                 <div class="modal-foot">
                     <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-koperasi-{{ $ins->instansi_id }}')">Batal</button>
-                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    <button type="submit" class="btn btn-primary">{{ __('messages.simpan_perubahan') }}</button>
                 </div>
             </form>
         </div>

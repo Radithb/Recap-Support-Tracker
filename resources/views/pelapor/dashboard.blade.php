@@ -333,7 +333,7 @@
         </div>
         <div class="modal-foot" style="display: flex; gap: 12px; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--line);">
             @if($statusStr === 'Open')
-                <button type="button" class="btn btn-secondary btn-sm" onclick="closeModal('modal-ticket-{{ $t->ticket_id }}'); openModal('modal-edit-{{ $t->ticket_id }}');" style="padding: 6px 12px; font-size: 13px;">Edit Laporan</button>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="closeModal('modal-ticket-{{ $t->ticket_id }}'); openModal('modal-edit-{{ $t->ticket_id }}');" style="padding: 6px 12px; font-size: 13px;">{{ __('messages.btn_edit_report') }}</button>
             @else
                 <div></div>
             @endif
@@ -346,7 +346,7 @@
 <div class="overlay" id="modal-edit-{{ $t->ticket_id }}">
     <div class="modal w-sm">
         <div class="modal-head">
-            <div><h3>Edit Laporan</h3><p>{{ $t->ticket_id }}</p></div>
+            <div><h3>{{ __('messages.btn_edit_report') }}</h3><p>{{ $t->ticket_id }}</p></div>
             <button type="button" class="modal-x" onclick="closeModal('modal-edit-{{ $t->ticket_id }}'); openModal('modal-ticket-{{ $t->ticket_id }}');">✕</button>
         </div>
         <form action="{{ route('pelapor.tickets.update_pelapor', $t->ticket_id) }}" method="POST" enctype="multipart/form-data" onsubmit="return checkFileSize(this, 'edit_lampiran_input_{{ $t->ticket_id }}', 8);">
@@ -380,7 +380,7 @@
                 </button>
                 <div style="display: flex; gap: 12px;">
                     <button type="button" class="btn btn-ghost" onclick="closeModal('modal-edit-{{ $t->ticket_id }}'); openModal('modal-ticket-{{ $t->ticket_id }}');">{{ __('messages.batal') }}</button>
-                    <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
+                    <button type="submit" class="btn btn-primary">{{ __('messages.simpan_perubahan') }}</button>
                 </div>
             </div>
         </form>

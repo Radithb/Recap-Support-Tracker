@@ -759,4 +759,9 @@ return [
     'faq_deleted' => 'FAQ successfully deleted.',
     'reset_link_sent' => 'Password reset link has been sent to your email.',
     'password_reset_success' => 'Your password has been successfully updated! Please log in with your new password.',
+    'riwayat_aktivitas' => 'Activity History',
+    'riwayat_aktivitas_followup' => 'Follow-Up Activity History',
+    'belum_ada_riwayat_followup' => 'No follow-up activity history yet.',
+    'btn_edit_report' => 'Edit Report',
+    'report_updated_successfully' => 'Report updated successfully',
 ];

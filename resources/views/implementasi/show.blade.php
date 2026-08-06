@@ -1032,13 +1032,13 @@
                 <div style="display: flex; gap: 10px;">
                     <button type="button" onclick="openRiwayatFollowUp()" style="background-color: #64748b; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                        Riwayat Aktivitas
+                        {{ __('messages.riwayat_aktivitas') }}
                     </button>
                     <button type="button" id="btn-edit-followup" onclick="enableEditFollowUp()" style="background-color: #f59e0b; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px;">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                        Edit
+                        {{ __('messages.btn_edit') }}
                     </button>
-                    <button type="button" id="btn-batal-followup" onclick="cancelEditFollowUp()" style="display: none; background-color: #94a3b8; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">Batal</button>
+                    <button type="button" id="btn-batal-followup" onclick="cancelEditFollowUp()" style="display: none; background-color: #94a3b8; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">{{ __('messages.btn_batal') }}</button>
                     <button type="submit" id="btn-simpan-followup" style="display: none; background-color: #3b82f6; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; cursor: pointer;">{{ __('messages.simpan_perubahan') }}</button>
                 </div>
             </div>
@@ -1047,22 +1047,22 @@
             <div id="preview-followup" style="background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 20px;">
                 <div class="grid-3-col" style="margin-bottom: 20px; gap: 20px;">
                     <div>
-                        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">Tanggal Follow-Up</div>
+                        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">{{ __('messages.tanggal_follow_up') }}</div>
                         <div style="font-size: 14px; color: #1e293b; font-weight: 500;">{{ $implementasi->tanggal_followup ? $implementasi->tanggal_followup->format('d M Y') : '-' }}</div>
                     </div>
                     <div>
-                        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">Follow-Up Berikutnya</div>
+                        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">{{ __('messages.tgl_follow_up_berikutnya') }}</div>
                         <div style="font-size: 14px; color: #1e293b; font-weight: 500;">{{ $implementasi->tanggal_followup_berikutnya ? $implementasi->tanggal_followup_berikutnya->format('d M Y') : '-' }}</div>
                     </div>
                     <div>
-                        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">Target Tgl Tindakan</div>
+                        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">{{ __('messages.target_tgl_tindakan') }}</div>
                         <div style="font-size: 14px; color: #1e293b; font-weight: 500;">{{ $implementasi->target_tanggal_tindakan ? $implementasi->target_tanggal_tindakan->format('d M Y') : '-' }}</div>
                     </div>
                 </div>
 
                 <div class="grid-3-2-col" style="margin-bottom: 20px; gap: 20px; padding-top: 20px; border-top: 1px dashed #e2e8f0;">
                     <div>
-                        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">Jenis Aktivitas</div>
+                        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">{{ __('messages.jenis_aktivitas') }}</div>
                         <div style="font-size: 14px; color: #1e293b; font-weight: 500;">
                             @if($implementasi->jenis_tindakan)
                                 @foreach(explode(',', $implementasi->jenis_tindakan) as $jenis)
@@ -1075,11 +1075,11 @@
                     </div>
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                         <div>
-                            <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">PIC Tindakan</div>
+                            <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">{{ __('messages.pic_tindakan') }}</div>
                             <div style="font-size: 14px; color: #1e293b; font-weight: 500;">{{ $implementasi->pic_tindakan ?: '-' }}</div>
                         </div>
                         <div>
-                            <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">Status Tindakan</div>
+                            <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">{{ __('messages.status_tindakan') }}</div>
                             <div style="font-size: 14px; color: #1d4ed8; font-weight: 600;">
                                 <span style="display: inline-block; padding: 4px 10px; background: #eff6ff; border-radius: 6px;">{{ $implementasi->status_tindakan ?: '-' }}</span>
                             </div>
@@ -1089,19 +1089,19 @@
 
                 <div style="padding-top: 20px; border-top: 1px dashed #e2e8f0; display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div>
-                        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">Hasil Komunikasi</div>
+                        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">{{ __('messages.hasil_komunikasi') }}</div>
                         <div style="font-size: 13.5px; color: #334155; line-height: 1.5; background: #f8fafc; padding: 10px; border-radius: 6px;">{{ $implementasi->hasil_komunikasi ?: '-' }}</div>
                     </div>
                     <div>
-                        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">Kendala Koperasi</div>
+                        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">{{ __('messages.kendala_koperasi') }}</div>
                         <div style="font-size: 13.5px; color: #334155; line-height: 1.5; background: #f8fafc; padding: 10px; border-radius: 6px;">{{ $implementasi->kendala_koperasi ?: '-' }}</div>
                     </div>
                     <div>
-                        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">Komitmen Koperasi</div>
+                        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">{{ __('messages.komitmen_koperasi') }}</div>
                         <div style="font-size: 13.5px; color: #334155; line-height: 1.5; background: #f8fafc; padding: 10px; border-radius: 6px;">{{ $implementasi->komitmen_koperasi ?: '-' }}</div>
                     </div>
                     <div>
-                        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">Detail / Catatan Tindakan</div>
+                        <div style="font-size: 11px; color: #64748b; font-weight: 600; margin-bottom: 4px; text-transform: uppercase;">{{ __('messages.detail_catatan_tindakan') }}</div>
                         <div style="font-size: 13.5px; color: #334155; line-height: 1.5; background: #f8fafc; padding: 10px; border-radius: 6px;">{{ $implementasi->tindakan_berikutnya ?: '-' }}</div>
                     </div>
                 </div>
@@ -1540,7 +1540,7 @@
         <div style="padding: 18px 24px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 12px 12px 0 0;">
             <h4 style="margin: 0; font-size: 16px; font-weight: 600; color: #1e293b; display: flex; align-items: center; gap: 8px;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                Riwayat Aktivitas Follow-Up
+                {{ __('messages.riwayat_aktivitas_followup') }}
             </h4>
             <button type="button" onclick="closeRiwayatFollowUp()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b;">&times;</button>
         </div>
@@ -1578,12 +1578,12 @@
                 </div>
             @else
                 <div style="text-align: center; padding: 40px; color: #64748b; background: #f8fafc; border-radius: 8px; border: 1px dashed #cbd5e1;">
-                    Belum ada riwayat aktivitas follow-up.
+                    {{ __('messages.belum_ada_riwayat_followup') }}
                 </div>
             @endif
         </div>
         <div style="padding: 12px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end; background: #f8fafc; border-radius: 0 0 12px 12px;">
-            <button type="button" onclick="closeRiwayatFollowUp()" style="padding: 7px 16px; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff; color: #475569; font-weight: 600; cursor: pointer; font-size: 13px;">Tutup</button>
+            <button type="button" onclick="closeRiwayatFollowUp()" style="padding: 7px 16px; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff; color: #475569; font-weight: 600; cursor: pointer; font-size: 13px;">{{ __('messages.btn_tutup') }}</button>
         </div>
     </div>
 </div>

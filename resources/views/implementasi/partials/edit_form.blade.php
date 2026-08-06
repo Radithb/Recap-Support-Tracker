@@ -213,6 +213,6 @@
         </div>
         <div class="modal-footer">
             <button type="button" class="btn-secondary" onclick="closeModal('modalEditData')">Batal</button>
-            <button type="submit" class="btn-primary" style="background-color: #f59e0b; color: white; padding: 8px 15px; border-radius: 4px; border: none; cursor: pointer; font-weight: 500;">Simpan Perubahan</button>
+            <button type="submit" class="btn-primary" style="background-color: #f59e0b; color: white; padding: 8px 15px; border-radius: 4px; border: none; cursor: pointer; font-weight: 500;">{{ __('messages.simpan_perubahan') }}</button>
         </div>
     </form>

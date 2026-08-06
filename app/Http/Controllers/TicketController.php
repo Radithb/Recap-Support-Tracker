@@ -139,7 +139,7 @@ class TicketController extends Controller
 
         $ticket->update($updateData);
 
-        return back()->with('success', 'Laporan berhasil diperbarui.');
+        return back()->with('success', __('messages.report_updated_successfully'));
     }
 
 

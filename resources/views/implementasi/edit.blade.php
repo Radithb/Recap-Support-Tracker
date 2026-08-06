@@ -252,7 +252,7 @@
 
         <div class="form-footer">
             <a href="{{ route('implementasi.index') }}" class="btn-secondary">Batal</a>
-            <button type="submit" class="btn-primary">Simpan Perubahan</button>
+            <button type="submit" class="btn-primary">{{ __('messages.simpan_perubahan') }}</button>
         </div>
     </form>
 </div>
