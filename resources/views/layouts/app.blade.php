@@ -14,6 +14,12 @@
         .ts-dropdown .option.disabled {
             display: none !important;
         }
+        
+        /* Fix for Laravel default pagination SVG icons when Tailwind is missing */
+        nav[role="navigation"] svg, .pagination svg {
+            width: 1.25rem !important;
+            height: 1.25rem !important;
+        }
     </style>
     <script>
         // Apply personalization before page render to prevent FOUC
