@@ -257,7 +257,7 @@ class TicketController extends Controller
             'template_laporan' => 'nullable|string',
             'is_faq' => 'nullable|boolean',
             'lampiran_support' => 'nullable|array|max:5',
-            'lampiran_support.*' => 'file|mimes:jpg,jpeg,png,mp4,pdf|max:5120',
+            'lampiran_support.*' => 'file|mimes:jpg,jpeg,png,mp4,pdf,doc,docx,xls,xlsx,csv,ppt,pptx,ppsx,xlsm,docm,xlsb|max:5120',
         ]);
 
         $data = $request->only(['status', 'kategori_id', 'penyelesaian', 'pencegahan', 'link_ticket', 'template_laporan']);

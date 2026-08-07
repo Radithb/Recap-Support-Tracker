@@ -213,6 +213,10 @@
                         <a href="{{ Storage::url($lampSupp) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); text-decoration: none;">
                             {{ __('messages.unduh_pdf') }}
                         </a>
+                    @else
+                        <a href="{{ Storage::url($lampSupp) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); text-decoration: none;">
+                            Unduh {{ strtoupper($extSupp) }}
+                        </a>
                     @endif
                 @endforeach
                 </div>
