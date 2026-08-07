@@ -629,6 +629,7 @@ return [
     'jumlah' => 'Total',
     'laporan_detail_support_title' => 'Detailed Support Report',
     'total_tiket' => 'TOTAL TICKETS',
+    'tiket_aktif' => 'ACTIVE TICKETS',
     'tiket' => 'Tickets',
     'kembali_ke_recap_support' => 'Back to Support Recap',
     'laporan_detail_support_bulan' => 'Detailed Support Report :month :year',
