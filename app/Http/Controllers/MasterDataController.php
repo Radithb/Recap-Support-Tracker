@@ -17,9 +17,13 @@ class MasterDataController extends Controller
     {
         $aplikasis = MasterAplikasi::all();
         $kategoris = MasterKategori::all();
-        $instansis = Instansi::withCount(['users', 'tickets' => function ($query) {
-            $query->where('status', '!=', TicketStatus::DONE->value);
-        }])->with('users')->get();
+        $instansis = Instansi::withCount([
+            'users',
+            'tickets as active_tickets_count' => function ($query) {
+                $query->where('status', '!=', TicketStatus::DONE->value);
+            },
+            'tickets as total_tickets_count'
+        ])->with('users')->get();
         $supportPics = User::where('role', UserRole::SUPPORT)->get();
         $statuses = TicketStatus::cases();
         $faqs = Faq::with('kategori')->orderBy('kategori_id')->get();

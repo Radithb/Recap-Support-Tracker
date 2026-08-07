@@ -99,9 +99,10 @@
                             <div style="font-size: 0.8rem; color: var(--text-muted);">{{ $t->pelapor->nama ?? 'User Pelapor' }}</div>
                         </td>
                         <td style="padding: 1rem 1.5rem;">
-                            <div style="display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; color: #1d4ed8; padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; border: 1px solid #bfdbfe;">
+                            <a href="{{ route('download.template', ['filename' => $t->template_laporan]) }}" style="display: inline-flex; align-items: center; gap: 6px; background: #eff6ff; color: #1d4ed8; padding: 4px 10px; border-radius: 6px; font-weight: 600; font-size: 0.85rem; border: 1px solid #bfdbfe; text-decoration: none;" title="Unduh Template">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                                 {{ str_replace(['_', '-'], ' ', pathinfo($t->template_laporan, PATHINFO_FILENAME)) }}
-                            </div>
+                            </a>
                         </td>
                         <td style="padding: 1rem 1.5rem;">
                             <div style="font-weight: 500; color: var(--ink);">{{ $t->picSupport->nama ?? '-' }}</div>
@@ -123,7 +124,7 @@
 
     @if($tickets->hasPages())
         <div style="padding: 1rem 1.5rem; border-top: 1px solid var(--line);">
-            {{ $tickets->links() }}
+            {{ $tickets->appends(request()->query())->links('vendor.pagination.custom') }}
         </div>
     @endif
 </div>

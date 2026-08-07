@@ -148,7 +148,7 @@
 
     @if($tickets->hasPages())
         <div style="padding: 1rem 1.5rem; border-top: 1px solid var(--line);">
-            {{ $tickets->links() }}
+            {{ $tickets->appends(request()->query())->links('vendor.pagination.custom') }}
         </div>
     @endif
 </div>

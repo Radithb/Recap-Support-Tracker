@@ -156,11 +156,22 @@ class ReportController extends Controller
 
         // Gabungkan dengan file di folder publik agar file yang belum pernah dipakai tetap muncul dengan count 0
         $templateStats = [];
+        $normalizedMap = [];
+        
         foreach ($allTemplates as $tpl) {
-            $templateStats[$tpl] = $statsRaw[$tpl] ?? 0;
+            $norm = strtolower(str_replace(['_', '-'], ' ', $tpl));
+            $normalizedMap[$norm] = $tpl;
+            $templateStats[$tpl] = 0;
         }
+
         foreach ($statsRaw as $tpl => $cnt) {
-            if (!isset($templateStats[$tpl])) {
+            $norm = strtolower(str_replace(['_', '-'], ' ', $tpl));
+            if (isset($normalizedMap[$norm])) {
+                // Ada kecocokan dengan file fisik (abaikan beda huruf besar/kecil atau spasi/underscore)
+                $actualFile = $normalizedMap[$norm];
+                $templateStats[$actualFile] += $cnt;
+            } else {
+                // Template ada di DB tapi tidak ada di folder fisik
                 $templateStats[$tpl] = $cnt;
             }
         }

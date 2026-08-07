@@ -204,6 +204,12 @@
 </table>
 </div>
 
+@if($tickets->hasPages())
+    <div style="padding: 1rem 1.5rem; border-top: 1px solid var(--line); background: var(--paper);">
+        {{ $tickets->appends(request()->query())->links('vendor.pagination.custom') }}
+    </div>
+@endif
+
 </div>
 
 <!-- Modals for Tickets -->
@@ -284,6 +290,16 @@
                         </a>
                     @endforeach
                 </div>
+            </div>
+            @endif
+
+            @if($t->template_laporan)
+            <div style="margin-bottom: 24px;">
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Surat Laporan Template</div>
+                <a href="{{ route('download.template', ['filename' => $t->template_laporan]) }}" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid #3b82f6; color: #1d4ed8; background: #eff6ff; padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none; width: fit-content;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    <span>{{ str_replace(['_', '-'], ' ', pathinfo($t->template_laporan, PATHINFO_FILENAME)) }}</span>
+                </a>
             </div>
             @endif
 
@@ -470,7 +486,7 @@
                                     $filename = basename($filepath);
                                     $displayName = str_replace(['_', '-'], ' ', pathinfo($filename, PATHINFO_FILENAME));
                                 @endphp
-                                <option value="{{ $filename }}">{{ $displayName }} ({{ strtoupper(pathinfo($filename, PATHINFO_EXTENSION)) }})</option>
+                                <option value="{{ $filename }}" {{ $t->template_laporan == $filename ? 'selected' : '' }}>{{ $displayName }} ({{ strtoupper(pathinfo($filename, PATHINFO_EXTENSION)) }})</option>
                             @endforeach
                         </select>
                         <div class="helper" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Pilih template untuk men-generate surat laporan otomatis.</div>
