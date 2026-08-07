@@ -196,6 +196,14 @@
                         </select>
                         
                         <input type="text" name="instansi_baru" id="instansi-baru-add" placeholder="{{ __('messages.masukkan_nama_koperasi_baru') }}" style="display: none; width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem; margin-top: 8px;">
+                        
+                        <div id="btn-edit-koperasi-wrapper-add" style="display: none; margin-top: 8px;">
+                            <button type="button" class="btn btn-ghost btn-sm" onclick="showEditKoperasiInput('add')" style="padding: 6px 12px; font-size: 0.8rem; border: 1px solid var(--line); border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                                Edit Nama Koperasi
+                            </button>
+                        </div>
+                        <input type="text" name="edit_nama_instansi" id="edit-nama-instansi-add" placeholder="Ubah nama koperasi (opsional)" style="display: none; width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem; margin-top: 8px;">
                     </div>
                     <div class="field">
                         <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.kata_sandi') }} <span style="color:var(--danger)">*</span></label>
@@ -274,6 +282,14 @@
                     </select>
 
                     <input type="text" name="instansi_baru" id="instansi-baru-edit-{{ $user->user_id }}" placeholder="{{ __('messages.masukkan_nama_koperasi_baru') }}" style="display: none; width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem; margin-top: 8px;">
+                    
+                    <div id="btn-edit-koperasi-wrapper-edit-{{ $user->user_id }}" style="display: {{ ($user->role === \App\Enums\UserRole::PELAPOR && $user->instansi_id) ? 'block' : 'none' }}; margin-top: 8px;">
+                        <button type="button" class="btn btn-ghost btn-sm" onclick="showEditKoperasiInput('edit-{{ $user->user_id }}')" style="padding: 6px 12px; font-size: 0.8rem; border: 1px solid var(--line); border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                            Edit Nama Koperasi
+                        </button>
+                    </div>
+                    <input type="text" name="edit_nama_instansi" id="edit-nama-instansi-edit-{{ $user->user_id }}" placeholder="Ubah nama koperasi (opsional)" style="display: none; width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem; margin-top: 8px;" value="{{ $user->instansi ? $user->instansi->nama_instansi : '' }}">
                 </div>
                 <div class="field">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.ubah_kata_sandi') }}</label>
@@ -320,6 +336,10 @@
                 instansiSelect.value = "";
             }
             if(inputBaru) { inputBaru.style.display = 'none'; inputBaru.removeAttribute('required'); inputBaru.value = ""; }
+            let inputEdit = document.getElementById('edit-nama-instansi-' + suffix);
+            if(inputEdit) { inputEdit.style.display = 'none'; inputEdit.value = ""; }
+            let btnEditWrapper = document.getElementById('btn-edit-koperasi-wrapper-' + suffix);
+            if(btnEditWrapper) { btnEditWrapper.style.display = 'none'; }
             if(groupWhatsapp) groupWhatsapp.style.display = 'block';
             if(groupNik) groupNik.style.display = 'none';
             if(groupPosisi) groupPosisi.style.display = 'none';
@@ -331,6 +351,10 @@
                 instansiSelect.value = "";
             }
             if(inputBaru) { inputBaru.style.display = 'none'; inputBaru.removeAttribute('required'); inputBaru.value = ""; }
+            let inputEditSA = document.getElementById('edit-nama-instansi-' + suffix);
+            if(inputEditSA) { inputEditSA.style.display = 'none'; inputEditSA.value = ""; }
+            let btnEditWrapperSA = document.getElementById('btn-edit-koperasi-wrapper-' + suffix);
+            if(btnEditWrapperSA) { btnEditWrapperSA.style.display = 'none'; }
             if(groupWhatsapp) groupWhatsapp.style.display = 'none';
             if(groupNik) groupNik.style.display = 'none';
             if(groupPosisi) groupPosisi.style.display = 'none';
@@ -339,13 +363,39 @@
 
     function toggleInstansiBaru(selectElement, suffix) {
         let inputBaru = document.getElementById('instansi-baru-' + suffix);
+        let inputEdit = document.getElementById('edit-nama-instansi-' + suffix);
+        let btnEditWrapper = document.getElementById('btn-edit-koperasi-wrapper-' + suffix);
+        
         if (selectElement.value === 'new') {
             inputBaru.style.display = 'block';
             inputBaru.setAttribute('required', 'required');
+            if (inputEdit) { inputEdit.style.display = 'none'; inputEdit.value = ""; }
+            if (btnEditWrapper) { btnEditWrapper.style.display = 'none'; }
+        } else if (selectElement.value !== "") {
+            inputBaru.style.display = 'none';
+            inputBaru.removeAttribute('required');
+            inputBaru.value = "";
+            if (btnEditWrapper) { btnEditWrapper.style.display = 'block'; }
+            if (inputEdit) {
+                inputEdit.style.display = 'none';
+                inputEdit.value = selectElement.options[selectElement.selectedIndex].text;
+            }
         } else {
             inputBaru.style.display = 'none';
             inputBaru.removeAttribute('required');
             inputBaru.value = "";
+            if (inputEdit) { inputEdit.style.display = 'none'; inputEdit.value = ""; }
+            if (btnEditWrapper) { btnEditWrapper.style.display = 'none'; }
+        }
+    }
+
+    function showEditKoperasiInput(suffix) {
+        let inputEdit = document.getElementById('edit-nama-instansi-' + suffix);
+        if(inputEdit) {
+            inputEdit.style.display = inputEdit.style.display === 'none' ? 'block' : 'none';
+            if(inputEdit.style.display === 'block') {
+                inputEdit.focus();
+            }
         }
     }
 

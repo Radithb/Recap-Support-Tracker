@@ -66,8 +66,13 @@ class SuperAdminController extends Controller
                 $newInstansi = Instansi::create(['nama_instansi' => $request->instansi_baru]);
                 $data['instansi_id'] = $newInstansi->instansi_id;
             } else {
-                if (!Instansi::where('instansi_id', $data['instansi_id'])->exists()) {
+                $instansi = Instansi::where('instansi_id', $data['instansi_id'])->first();
+                if (!$instansi) {
                     return back()->with('error', __('messages.instansi_tidak_valid'));
+                }
+                
+                if ($request->filled('edit_nama_instansi') && $request->edit_nama_instansi !== $instansi->nama_instansi) {
+                    $instansi->update(['nama_instansi' => $request->edit_nama_instansi]);
                 }
             }
         } elseif ($data['role'] === UserRole::SUPPORT->value) {
@@ -115,8 +120,13 @@ class SuperAdminController extends Controller
                 $newInstansi = Instansi::create(['nama_instansi' => $request->instansi_baru]);
                 $data['instansi_id'] = $newInstansi->instansi_id;
             } else {
-                if (!Instansi::where('instansi_id', $data['instansi_id'])->exists()) {
+                $instansi = Instansi::where('instansi_id', $data['instansi_id'])->first();
+                if (!$instansi) {
                     return back()->with('error', __('messages.instansi_tidak_valid'));
+                }
+                
+                if ($request->filled('edit_nama_instansi') && $request->edit_nama_instansi !== $instansi->nama_instansi) {
+                    $instansi->update(['nama_instansi' => $request->edit_nama_instansi]);
                 }
             }
         } elseif ($data['role'] === UserRole::SUPPORT->value) {
