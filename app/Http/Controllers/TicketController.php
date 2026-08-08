@@ -149,6 +149,10 @@ class TicketController extends Controller
             abort(403);
         }
 
+        if ($ticket->status === TicketStatus::DONE) {
+            return back()->with('error', 'Tidak dapat mengunggah surat balasan karena status tiket sudah selesai.');
+        }
+
         $request->validate([
             'surat_balasan' => 'required',
             'surat_balasan.*' => 'file|mimes:pdf,doc,docx,xlsx,csv,pptx,ppsx,xlsm,docm,xlsb|max:5120',
@@ -194,6 +198,10 @@ class TicketController extends Controller
     {
         if ($ticket->pelapor_id !== Auth::id()) {
             abort(403);
+        }
+
+        if ($ticket->status === TicketStatus::DONE) {
+            return back()->with('error', 'Tidak dapat menghapus surat balasan karena status tiket sudah selesai.');
         }
 
         if ($ticket->surat_balasan) {
