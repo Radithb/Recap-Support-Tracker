@@ -961,4 +961,7 @@ return [
     'surat_balasan_dari_pelapor' => 'Surat Balasan Dari Pelapor',
     'lihat_surat_balasan_saat_ini' => 'Lihat Surat Balasan Saat Ini',
     'format_lampiran_surat_balasan' => 'Format yang didukung: PDF, DOC, DOCX, JPG, PNG',
+    'posisi_koperasi' => 'Posisi di Koperasi',
+    'pilih_posisi_anda' => 'Pilih Posisi Anda',
+    'pilih_posisi' => 'Pilih Posisi',
 ];

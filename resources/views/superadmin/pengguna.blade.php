@@ -167,7 +167,7 @@
                     <div class="field" id="posisi-group-add" style="display: none;">
                         <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.posisi') }}</label>
                         <select name="posisi" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                            <option value="">Pilih Posisi</option>
+                            <option value="">{{ __('messages.pilih_posisi') }}</option>
                             <option value="Manager">Manager</option>
                             <option value="Sekretaris">Sekretaris</option>
                             <option value="Bendahara">Bendahara</option>
@@ -253,7 +253,7 @@
                 <div class="field" id="posisi-group-edit-{{ $user->user_id }}" style="display: {{ $user->role === \App\Enums\UserRole::PELAPOR ? 'block' : 'none' }};">
                     <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: var(--ink);">{{ __('messages.posisi') }}</label>
                     <select name="posisi" style="width: 100%; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); font-size: 0.9rem;">
-                        <option value="">Pilih Posisi</option>
+                        <option value="">{{ __('messages.pilih_posisi') }}</option>
                         <option value="Manager" {{ $user->posisi == 'Manager' ? 'selected' : '' }}>Manager</option>
                         <option value="Sekretaris" {{ $user->posisi == 'Sekretaris' ? 'selected' : '' }}>Sekretaris</option>
                         <option value="Bendahara" {{ $user->posisi == 'Bendahara' ? 'selected' : '' }}>Bendahara</option>

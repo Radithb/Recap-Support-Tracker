@@ -123,9 +123,9 @@
 
                         {{-- Baris 1.5: Posisi --}}
                         <div class="field {{ $errors->has('posisi') ? 'field-error' : '' }}" style="margin-bottom: 14px;">
-                            <label for="posisi">Posisi di Koperasi</label>
+                            <label for="posisi">{{ __('messages.posisi_koperasi') }}</label>
                             <select id="posisi" name="posisi" required style="width: 100%; padding: 12px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); font-size: calc(14.5px * var(--text-scale, 1)); color: var(--ink); font-family: var(--font-body); appearance: auto;">
-                                <option value="" disabled selected>Pilih Posisi Anda</option>
+                                <option value="" disabled selected>{{ __('messages.pilih_posisi_anda') }}</option>
                                 <option value="Manager" {{ old('posisi') == 'Manager' ? 'selected' : '' }}>Manager</option>
                                 <option value="Sekretaris" {{ old('posisi') == 'Sekretaris' ? 'selected' : '' }}>Sekretaris</option>
                                 <option value="Bendahara" {{ old('posisi') == 'Bendahara' ? 'selected' : '' }}>Bendahara</option>

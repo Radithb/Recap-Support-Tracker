@@ -564,7 +564,7 @@
                             <div class="anggota-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
                                 <input type="text" name="anggota_hadir[]" class="form-control" placeholder="{{ __('messages.nama_anggota') }}" required style="flex: 1;">
                                 <select name="posisi_anggota[]" class="form-control" onchange="this.style.color = this.value ? '#1e293b' : '#94a3b8';" style="flex: 1; color: #94a3b8;">
-                                    <option value="" disabled selected hidden style="color: #94a3b8;">Posisi</option>
+                                    <option value="" disabled selected hidden style="color: #94a3b8;">{{ __('messages.posisi') }}</option>
                                     <option value="Manager" style="color: #1e293b;">Manager</option>
                                     <option value="Sekretaris" style="color: #1e293b;">Sekretaris</option>
                                     <option value="Bendahara" style="color: #1e293b;">Bendahara</option>
@@ -686,7 +686,7 @@
         inputGroup.innerHTML = `
             <input type="text" name="anggota_hadir[]" class="form-control" placeholder="{{ __('messages.nama_anggota') }}" required style="flex: 1;">
             <select name="posisi_anggota[]" class="form-control" onchange="this.style.color = this.value ? '#1e293b' : '#94a3b8';" style="flex: 1; color: #94a3b8;">
-                <option value="" disabled selected hidden style="color: #94a3b8;">Posisi</option>
+                <option value="" disabled selected hidden style="color: #94a3b8;">{{ __('messages.posisi') }}</option>
                 <option value="Manager" style="color: #1e293b;">Manager</option>
                 <option value="Sekretaris" style="color: #1e293b;">Sekretaris</option>
                 <option value="Bendahara" style="color: #1e293b;">Bendahara</option>

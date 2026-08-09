@@ -765,4 +765,7 @@ return [
     'belum_ada_riwayat_followup' => 'No follow-up activity history yet.',
     'btn_edit_report' => 'Edit Report',
     'report_updated_successfully' => 'Report updated successfully',
+    'posisi_koperasi' => 'Position in Cooperative',
+    'pilih_posisi_anda' => 'Select Your Position',
+    'pilih_posisi' => 'Select Position',
 ];

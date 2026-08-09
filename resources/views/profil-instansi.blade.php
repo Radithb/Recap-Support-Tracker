@@ -146,7 +146,7 @@
                 </div>
 
                 <div style="margin-bottom: 32px;">
-                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">Posisi di Koperasi</label>
+                    <label style="display:block; font-size: calc(12px * var(--text-scale, 1)); font-weight:600; color:var(--ink-soft); margin-bottom:6px;">{{ __('messages.posisi_koperasi') }}</label>
                     <div class="mono" style="color: var(--ink); font-size: calc(14.5px * var(--text-scale, 1));">{{ Auth::user()->posisi ?? '-' }}</div>
                 </div>
 
