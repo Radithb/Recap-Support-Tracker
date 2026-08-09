@@ -15,6 +15,17 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+// ROUTE SEMENTARA UNTUK RESET PASSWORD ADMIN
+Route::get('/reset-admin-password', function () {
+    $user = \App\Models\User::where('email', 'support@skk.co.id')->first();
+    if ($user) {
+        $user->password = \Illuminate\Support\Facades\Hash::make('password123');
+        $user->save();
+        return "Berhasil mereset password support@skk.co.id menjadi: <b>password123</b><br><a href='/login'>Kembali ke Login</a>";
+    }
+    return "User tidak ditemukan.";
+});
+
 // ROUTE SEMENTARA UNTUK MIGRASI & FORCE CLEAR CACHE (InfinityFree)
 Route::get('/run-migrations', function () {
     $message = "<h3>🔧 Server Diagnostik & Clear Cache</h3>";
