@@ -119,6 +119,8 @@
             align-items: center;
             gap: 8px;
             box-sizing: border-box;
+            max-width: 100%;
+            min-width: 0;
         }
         .md-sidebar::-webkit-scrollbar {
             display: none; /* Sembunyikan scrollbar agar lebih rapi seperti di aplikasi asli */

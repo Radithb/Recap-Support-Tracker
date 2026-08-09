@@ -124,6 +124,9 @@
             gap: 6px;
             box-sizing: border-box;
             -webkit-overflow-scrolling: touch;
+            align-items: center;
+            max-width: 100%;
+            min-width: 0;
         }
         .md-sidebar::-webkit-scrollbar {
             height: 3px;
