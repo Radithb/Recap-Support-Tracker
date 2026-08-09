@@ -117,6 +117,8 @@
             -webkit-overflow-scrolling: touch;
             display: flex;
             align-items: center;
+            gap: 8px;
+            box-sizing: border-box;
         }
         .md-sidebar::-webkit-scrollbar {
             display: none; /* Sembunyikan scrollbar agar lebih rapi seperti di aplikasi asli */
@@ -129,6 +131,7 @@
             background: var(--paper-raised);
             font-size: 0.85rem;
             color: var(--ink-soft);
+            flex-shrink: 0;
         }
         .md-tab-btn.active {
             background: var(--brand-primary-soft);
