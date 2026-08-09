@@ -408,7 +408,7 @@
 
     // Enable Drag-to-Scroll for horizontal tables
     document.addEventListener('DOMContentLoaded', function() {
-        const sliders = document.querySelectorAll('.table-scroll-wrapper');
+        const sliders = document.querySelectorAll('.table-scroll-wrapper, .md-sidebar');
         let isDown = false;
         let startX;
         let scrollLeft;
