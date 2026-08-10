@@ -224,6 +224,18 @@ class TicketController extends Controller
         return back()->with('success', 'File balasan berhasil dihapus.');
     }
 
+    public function dokumen($ticket_id)
+    {
+        $ticket = Ticket::with(['pelapor.instansi', 'aplikasi', 'kategori', 'picSupport'])->where('ticket_id', $ticket_id)->firstOrFail();
+        
+        // Ensure user is authorized to view it
+        if (Auth::user()->role === \App\Enums\UserRole::PELAPOR->value && $ticket->pelapor_id !== Auth::id()) {
+            abort(403);
+        }
+
+        return view('shared.dokumen', compact('ticket'));
+    }
+
     // --- SUPPORT METHODS ---
     public function supportDashboard(Request $request)
     {

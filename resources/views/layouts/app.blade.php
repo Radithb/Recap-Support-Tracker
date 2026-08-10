@@ -496,6 +496,103 @@
             });
         });
     });
+
+    function openUniversalPreview(url, extension, originalName = 'File') {
+        const modal = document.getElementById('universalPreviewModal');
+        const body = document.getElementById('universalPreviewBody');
+        const downloadBtn = document.getElementById('universalPreviewDownloadBtn');
+        const loading = document.getElementById('universalPreviewLoading');
+        
+        downloadBtn.href = url;
+        downloadBtn.download = originalName;
+        
+        Array.from(body.children).forEach(child => {
+            if (child.id !== 'universalPreviewLoading') {
+                body.removeChild(child);
+            }
+        });
+        
+        loading.style.display = 'block';
+        modal.style.display = 'flex';
+        
+        const ext = extension.toLowerCase();
+        
+        if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
+            const img = document.createElement('img');
+            img.src = url;
+            img.style.maxWidth = '100%';
+            img.style.maxHeight = '100%';
+            img.style.objectFit = 'contain';
+            img.onload = () => loading.style.display = 'none';
+            img.onerror = () => {
+                loading.style.display = 'none';
+                body.innerHTML += '<div style="color: #ef4444; padding: 20px;">Gagal memuat gambar.</div>';
+            };
+            body.appendChild(img);
+        } else if (ext === 'pdf') {
+            const iframe = document.createElement('iframe');
+            iframe.src = url;
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.border = 'none';
+            iframe.onload = () => loading.style.display = 'none';
+            body.appendChild(iframe);
+        } else if (ext === 'mp4' || ext === 'webm') {
+            const video = document.createElement('video');
+            video.src = url;
+            video.controls = true;
+            video.style.maxWidth = '100%';
+            video.style.maxHeight = '100%';
+            video.onloadeddata = () => loading.style.display = 'none';
+            body.appendChild(video);
+        } else if (['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'csv'].includes(ext)) {
+            const fullUrl = new URL(url, window.location.origin).href;
+            if (fullUrl.includes('localhost') || fullUrl.includes('127.0.0.1')) {
+                loading.style.display = 'none';
+                body.innerHTML += '<div style="padding: 20px; text-align: center; color: var(--text-muted);"><p>File Office tidak dapat dipreview secara offline/localhost.</p><a href="'+url+'" class="btn btn-primary" target="_blank">Unduh File</a></div>';
+            } else {
+                const iframe = document.createElement('iframe');
+                iframe.src = 'https://docs.google.com/gview?url=' + encodeURIComponent(fullUrl) + '&embedded=true';
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.border = 'none';
+                iframe.onload = () => loading.style.display = 'none';
+                body.appendChild(iframe);
+            }
+        } else {
+            loading.style.display = 'none';
+            body.innerHTML += '<div style="padding: 20px; text-align: center; color: var(--text-muted);"><p>Format file ini tidak mendukung preview.</p><a href="'+url+'" class="btn btn-primary" target="_blank">Unduh File</a></div>';
+        }
+    }
+
+    function closeUniversalPreview() {
+        document.getElementById('universalPreviewModal').style.display = 'none';
+        const body = document.getElementById('universalPreviewBody');
+        Array.from(body.children).forEach(child => {
+            if (child.id !== 'universalPreviewLoading') {
+                body.removeChild(child);
+            }
+        });
+    }
 </script>
+
+<!-- Universal Preview Modal -->
+<div class="modal" id="universalPreviewModal" style="display: none; align-items: center; justify-content: center; z-index: 10000;">
+    <div class="modal-content" style="max-width: 900px; width: 90%; height: 85vh; display: flex; flex-direction: column; padding: 0;">
+        <div class="modal-head" style="padding: 16px 24px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center;">
+            <h3 style="margin: 0; font-size: 1.1rem;">Preview Dokumen</h3>
+            <button class="close-btn" onclick="closeUniversalPreview()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);">&times;</button>
+        </div>
+        <div class="modal-body" id="universalPreviewBody" style="flex: 1; padding: 0; display: flex; align-items: center; justify-content: center; background: #f3f4f6; overflow: hidden; position: relative;">
+            <div id="universalPreviewLoading" style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--text-muted);">
+                Loading...
+            </div>
+        </div>
+        <div class="modal-foot" style="padding: 16px 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center;">
+            <a id="universalPreviewDownloadBtn" href="#" target="_blank" class="btn btn-primary" style="text-decoration: none;">Unduh File</a>
+            <button class="btn btn-ghost" onclick="closeUniversalPreview()">Tutup</button>
+        </div>
+    </div>
+</div>
 </body>
 </html>

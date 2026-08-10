@@ -120,7 +120,7 @@
             <th style="text-transform: uppercase;">{{ __('messages.col_pic_support') }}</th>
             <th width="100" style="text-transform: uppercase;">{{ __('messages.col_status') }}</th>
             <th width="120" style="text-transform: uppercase;">{{ __('messages.col_tanggal') }}</th>
-            <th width="80"></th>
+            <th width="100"></th>
         </tr>
     </thead>
     <tbody>
@@ -180,8 +180,11 @@
             <td>
                 @php
                     $statusClass = match($t->status) {
-                        \App\Enums\TicketStatus::OPEN, \App\Enums\TicketStatus::PROSES => 'status-open',
+                        \App\Enums\TicketStatus::OPEN => 'status-open',
+                        \App\Enums\TicketStatus::PROSES => 'status-proses',
                         \App\Enums\TicketStatus::PENDING => 'status-pending',
+                        \App\Enums\TicketStatus::REVIEW => 'status-review',
+                        \App\Enums\TicketStatus::WAITING => 'status-waiting',
                         \App\Enums\TicketStatus::DONE => 'status-done',
                         default => ''
                     };
@@ -191,8 +194,11 @@
             <td class="mono" style="color: var(--text-muted); font-size: 0.85rem; white-space: nowrap;">
                 {{ $t->updated_at->format('d M Y') }}
             </td>
-            <td>
-                <button class="btn btn-ghost btn-sm" onclick="openModal('modal-edit-{{ $t->ticket_id }}')">
+            <td style="display: flex; gap: 6px; justify-content: flex-end;">
+                <a href="{{ route('support.tickets.dokumen', $t->ticket_id) }}" class="btn btn-ghost btn-sm" style="padding: 6px 10px; color: #3b82f6; border: 1px solid #bfdbfe; background: #eff6ff;" title="Lihat Riwayat Dokumen">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                </a>
+                <button class="btn btn-primary btn-sm" onclick="openModal('modal-edit-{{ $t->ticket_id }}')">
                     {{ $t->status === \App\Enums\TicketStatus::DONE ? __('messages.selesai') : __('messages.respons') }}
                 </button>
             </td>
@@ -259,13 +265,17 @@
                             </a>
                         </div>
                     @elseif($ext === 'mp4')
-                        <a href="{{ Storage::url($lamp) }}" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+                        <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ basename($lamp) }}')" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
                             {{ __('messages.lihat_video') }}
-                        </a>
+                        </button>
                     @elseif($ext === 'pdf')
-                        <a href="{{ Storage::url($lamp) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); text-decoration: none;">
+                        <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); cursor: pointer;">
                             {{ __('messages.unduh_pdf') }}
-                        </a>
+                        </button>
+                    @else
+                        <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); cursor: pointer;">
+                            Lihat {{ strtoupper($ext) }}
+                        </button>
                     @endif
                 @endforeach
                 </div>
@@ -283,9 +293,9 @@
                         }
                     @endphp
                     @foreach($balasanFiles as $index => $file)
-                        <a href="{{ Storage::url($file) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none; width: fit-content;">
+                        <button type="button" onclick="openUniversalPreview('{{ Storage::url($file) }}', '{{ pathinfo($file, PATHINFO_EXTENSION) }}', '{{ basename($file) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer; width: fit-content;">
                             {{ __('messages.lihat_surat_balasan') }} {{ count($balasanFiles) > 1 ? '#' . ($index + 1) : '' }}
-                        </a>
+                        </button>
                     @endforeach
                 </div>
             </div>
@@ -294,10 +304,10 @@
             @if($t->template_laporan)
             <div style="margin-bottom: 24px;">
                 <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Surat Laporan Template</div>
-                <div class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid #3b82f6; color: #1d4ed8; background: #eff6ff; padding: 8px 14px; border-radius: 6px; font-weight: 600; width: fit-content; cursor: default;">
+                <button type="button" onclick="openUniversalPreview('{{ Storage::url($t->template_laporan) }}', '{{ pathinfo($t->template_laporan, PATHINFO_EXTENSION) }}', '{{ basename($t->template_laporan) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid #3b82f6; color: #1d4ed8; background: #eff6ff; padding: 8px 14px; border-radius: 6px; font-weight: 600; width: fit-content; cursor: pointer;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     <span>{{ str_replace(['_', '-'], ' ', pathinfo($t->template_laporan, PATHINFO_FILENAME)) }}</span>
-                </div>
+                </button>
             </div>
             @endif
 
@@ -331,13 +341,17 @@
                             </a>
                         </div>
                     @elseif($extSupp === 'mp4')
-                        <a href="{{ Storage::url($lampSupp) }}" target="_blank" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; text-decoration: none;">
+                        <button type="button" onclick="openUniversalPreview('{{ Storage::url($lampSupp) }}', '{{ $extSupp }}', '{{ basename($lampSupp) }}')" class="btn btn-primary btn-sm" style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
                             {{ __('messages.lihat_video') }}
-                        </a>
+                        </button>
                     @elseif($extSupp === 'pdf')
-                        <a href="{{ Storage::url($lampSupp) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); text-decoration: none;">
+                        <button type="button" onclick="openUniversalPreview('{{ Storage::url($lampSupp) }}', '{{ $extSupp }}', '{{ addslashes(basename($lampSupp)) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); cursor: pointer;">
                             {{ __('messages.unduh_pdf') }}
-                        </a>
+                        </button>
+                    @else
+                        <button type="button" onclick="openUniversalPreview('{{ Storage::url($lampSupp) }}', '{{ $extSupp }}', '{{ addslashes(basename($lampSupp)) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); cursor: pointer;">
+                            Lihat {{ strtoupper($extSupp) }}
+                        </button>
                     @endif
                 @endforeach
                 </div>
@@ -423,13 +437,17 @@
                                     </a>
                                 </div>
                             @elseif($ext === 'mp4')
-                                <a href="{{ Storage::url($lamp) }}" target="_blank" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; text-decoration: none;">
+                                <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ basename($lamp) }}')" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; cursor: pointer;">
                                     {{ __('messages.lihat_video') }}
-                                </a>
+                                </button>
                             @elseif($ext === 'pdf')
-                                <a href="{{ Storage::url($lamp) }}" target="_blank" class="btn btn-ghost" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--line); margin-top: 8px; text-decoration: none;">
+                                <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="btn btn-ghost" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--line); margin-top: 8px; cursor: pointer;">
                                     {{ __('messages.unduh_pdf') }}
-                                </a>
+                                </button>
+                            @else
+                                <button type="button" onclick="openUniversalPreview('{{ Storage::url($lamp) }}', '{{ $ext }}', '{{ addslashes(basename($lamp)) }}')" class="btn btn-ghost" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--line); margin-top: 8px; cursor: pointer;">
+                                    Lihat {{ strtoupper($ext) }}
+                                </button>
                             @endif
                         @endforeach
                         </div>
@@ -447,9 +465,9 @@
                                 }
                             @endphp
                             @foreach($balasanFiles as $index => $file)
-                                <a href="{{ Storage::url($file) }}" target="_blank" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; text-decoration: none; width: fit-content;">
+                                <button type="button" onclick="openUniversalPreview('{{ Storage::url($file) }}', '{{ pathinfo($file, PATHINFO_EXTENSION) }}', '{{ basename($file) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage); color: var(--sage); background: var(--sage-soft); padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer; width: fit-content;">
                                     {{ __('messages.lihat_surat_balasan') }} {{ count($balasanFiles) > 1 ? '#' . ($index + 1) : '' }}
-                                </a>
+                                </button>
                             @endforeach
                         </div>
                     </div>

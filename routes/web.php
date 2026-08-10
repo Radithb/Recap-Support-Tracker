@@ -336,6 +336,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', IsPelapor::class])->prefix('pelapor')->name('pelapor.')->group(function () {
     Route::get('/dashboard', [TicketController::class, 'pelaporDashboard'])->name('dashboard');
     Route::get('/riwayat', [TicketController::class, 'pelaporRiwayat'])->name('riwayat');
+    Route::get('/tickets/{ticket}/dokumen', [TicketController::class, 'dokumen'])->name('tickets.dokumen');
     Route::post('/tickets', [TicketController::class, 'store'])->name('tickets.store');
     Route::put('/tickets/{ticket}/edit', [TicketController::class, 'updatePelapor'])->name('tickets.update_pelapor');
     Route::post('/tickets/{ticket}/upload-balasan', [TicketController::class, 'uploadBalasan'])->name('tickets.upload_balasan');
@@ -352,6 +353,7 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
     Route::get('/tickets/{ticket}', function () {
         return redirect()->route('support.dashboard');
     });
+    Route::get('/tickets/{ticket}/dokumen', [TicketController::class, 'dokumen'])->name('tickets.dokumen');
     Route::match(['PUT', 'POST'], '/tickets/{ticket}', [TicketController::class, 'updateSupport'])->name('tickets.update');
     
     // Reporting
