@@ -19,6 +19,10 @@ class NotificationController extends Controller
         }
         
         // Coba redirect ke halaman terkait jika ada (opsional)
+        if (isset($notification->data['url'])) {
+            return redirect($notification->data['url']);
+        }
+        
         if (isset($notification->data['implementasi_id'])) {
             return redirect()->route('implementasi.show', $notification->data['implementasi_id']);
         }

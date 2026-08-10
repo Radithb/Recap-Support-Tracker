@@ -189,6 +189,20 @@ class TicketController extends Controller
             $ticket->update([
                 'surat_balasan' => json_encode($paths)
             ]);
+
+            // Notify Support
+            $supportUsers = \App\Models\User::where('role', \App\Enums\UserRole::SUPPORT->value)->get();
+            if ($ticket->pic_support_id) {
+                $supportUsers = \App\Models\User::where('user_id', $ticket->pic_support_id)->get();
+            }
+            foreach ($supportUsers as $support) {
+                $support->notify(new \App\Notifications\TicketDocumentNotification(
+                    'Surat Balasan Baru',
+                    "Pelapor telah mengunggah surat balasan untuk tiket #{$ticket->ticket_id}.",
+                    $ticket->ticket_id,
+                    route('support.tickets.dokumen', $ticket->ticket_id)
+                ));
+            }
         }
 
         return back()->with('success', __('messages.surat_balasan_berhasil_diunggah'));
@@ -327,6 +341,7 @@ class TicketController extends Controller
             'penyelesaian' => $ticket->penyelesaian,
             'pencegahan' => $ticket->pencegahan,
             'link_ticket' => $ticket->link_ticket,
+            'template_laporan' => $ticket->template_laporan,
         ];
 
         $ticket->update($data);
@@ -364,6 +379,24 @@ class TicketController extends Controller
                     'is_active'   => true,
                 ]
             );
+        }
+
+        // Notify Pelapor jika ada dokumen/lampiran baru dari support
+        $hasNewDocument = false;
+        if ($request->hasFile('lampiran_support')) {
+            $hasNewDocument = true;
+        }
+        if (isset($data['template_laporan']) && $data['template_laporan'] !== $oldData['template_laporan']) {
+            $hasNewDocument = true;
+        }
+
+        if ($hasNewDocument && $ticket->pelapor) {
+            $ticket->pelapor->notify(new \App\Notifications\TicketDocumentNotification(
+                'Dokumen Baru dari Support',
+                "Tim Support telah melampirkan dokumen baru pada tiket #{$ticket->ticket_id}.",
+                $ticket->ticket_id,
+                route('pelapor.tickets.dokumen', $ticket->ticket_id)
+            ));
         }
 
         return back()->with('success', __('messages.ticket_updated'));
