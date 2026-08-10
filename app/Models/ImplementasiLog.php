@@ -11,6 +11,8 @@ class ImplementasiLog extends Model
 
     protected $table = 'implementasi_logs';
 
+    protected $touches = ['implementasi'];
+
     protected $fillable = [
         'implementasi_id',
         'user_id',

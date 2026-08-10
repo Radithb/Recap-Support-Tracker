@@ -11,6 +11,8 @@ class ImplementasiFollowUp extends Model
 
     protected $table = 'implementasi_followups';
 
+    protected $touches = ['implementasi'];
+
     protected $fillable = [
         'implementasi_id',
         'tanggal_followup',

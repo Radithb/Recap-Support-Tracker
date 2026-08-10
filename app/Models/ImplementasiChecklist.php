@@ -11,6 +11,8 @@ class ImplementasiChecklist extends Model
 
     protected $table = 'implementasi_checklists';
 
+    protected $touches = ['implementasi'];
+
     protected $fillable = [
         'implementasi_id',
         'nama_item',

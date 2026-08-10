@@ -21,7 +21,7 @@ class ImplementasiController extends Controller
     public function index(Request $request)
     {
         $query = ImplementasiKoperasi::with(['instansi', 'aplikasi', 'aplikasis', 'picSakti'])
-            ->orderBy('created_at', 'desc');
+            ->orderBy('updated_at', 'desc');
 
         if (Auth::user()->role === UserRole::PELAPOR) {
             $query->where('instansi_id', Auth::user()->instansi_id);
