@@ -503,19 +503,32 @@
         const downloadBtn = document.getElementById('universalPreviewDownloadBtn');
         const loading = document.getElementById('universalPreviewLoading');
         
-        downloadBtn.href = url;
-        downloadBtn.download = originalName;
+        if (downloadBtn) {
+            downloadBtn.href = url;
+            downloadBtn.download = originalName;
+        }
         
+        // Reset modal body
         Array.from(body.children).forEach(child => {
             if (child.id !== 'universalPreviewLoading') {
                 body.removeChild(child);
             }
         });
         
-        loading.style.display = 'block';
-        modal.style.display = 'flex';
+        if (loading) loading.style.display = 'block';
+        if (modal) modal.style.display = 'flex';
         
-        const ext = extension.toLowerCase();
+        // Safety timeout to prevent infinite spinner/buffering
+        const loadingTimeout = setTimeout(() => {
+            if (loading) loading.style.display = 'none';
+        }, 1200);
+
+        const hideLoading = () => {
+            clearTimeout(loadingTimeout);
+            if (loading) loading.style.display = 'none';
+        };
+
+        const ext = (extension || '').toLowerCase();
         
         if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
             const img = document.createElement('img');
@@ -523,10 +536,10 @@
             img.style.maxWidth = '100%';
             img.style.maxHeight = '100%';
             img.style.objectFit = 'contain';
-            img.onload = () => loading.style.display = 'none';
+            img.onload = hideLoading;
             img.onerror = () => {
-                loading.style.display = 'none';
-                body.innerHTML += '<div style="color: #ef4444; padding: 20px;">{{ __("messages.gagal_memuat_gambar") ?? "Gagal memuat gambar." }}</div>';
+                hideLoading();
+                body.innerHTML += '<div style="color: #ef4444; padding: 20px; text-align: center;">Gagal memuat gambar. File mungkin tidak ditemukan atau tautan telah kedaluwarsa.</div>';
             };
             body.appendChild(img);
         } else if (ext === 'pdf') {
@@ -535,33 +548,44 @@
             iframe.style.width = '100%';
             iframe.style.height = '100%';
             iframe.style.border = 'none';
-            iframe.onload = () => loading.style.display = 'none';
+            iframe.onload = hideLoading;
             body.appendChild(iframe);
-        } else if (ext === 'mp4' || ext === 'webm') {
+        } else if (['mp4', 'webm', 'mov', 'avi'].includes(ext)) {
             const video = document.createElement('video');
             video.src = url;
             video.controls = true;
+            video.autoplay = true;
             video.style.maxWidth = '100%';
             video.style.maxHeight = '100%';
-            video.onloadeddata = () => loading.style.display = 'none';
+            video.onloadeddata = hideLoading;
+            video.oncanplay = hideLoading;
+            video.onerror = () => {
+                hideLoading();
+                body.innerHTML += '<div style="color: #ef4444; padding: 20px; text-align: center;">Format video tidak dapat diputar langsung di browser ini. Silakan klik tombol Unduh File di bawah.</div>';
+            };
             body.appendChild(video);
         } else if (['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'csv'].includes(ext)) {
-            const fullUrl = new URL(url, window.location.origin).href;
-            if (fullUrl.includes('localhost') || fullUrl.includes('127.0.0.1')) {
-                loading.style.display = 'none';
-                body.innerHTML += '<div style="padding: 20px; text-align: center; color: var(--text-muted);"><p>{{ __("messages.preview_office_offline_error") ?? "File Office tidak dapat dipreview secara offline/localhost." }}</p></div>';
-            } else {
-                const iframe = document.createElement('iframe');
-                iframe.src = 'https://docs.google.com/gview?url=' + encodeURIComponent(fullUrl) + '&embedded=true';
-                iframe.style.width = '100%';
-                iframe.style.height = '100%';
-                iframe.style.border = 'none';
-                iframe.onload = () => loading.style.display = 'none';
-                body.appendChild(iframe);
-            }
+            hideLoading();
+            const docContainer = document.createElement('div');
+            docContainer.style.cssText = 'display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 24px; box-sizing: border-box; text-align: center;';
+            
+            docContainer.innerHTML = `
+                <div style="background: #ffffff; border: 1.5px dashed #3b82f6; border-radius: 16px; padding: 32px 24px; max-width: 480px; width: 100%; box-shadow: 0 10px 25px -5px rgba(59, 130, 246, 0.1);">
+                    <div style="width: 64px; height: 64px; background: #dbeafe; color: #2563eb; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+                    </div>
+                    <h4 style="margin: 0 0 8px 0; font-size: 1.1rem; color: #1e293b; font-weight: 700;">Dokumen ${ext.toUpperCase()}</h4>
+                    <p style="margin: 0 0 20px 0; font-size: 0.85rem; color: #64748b; line-height: 1.5; word-break: break-all;">${originalName}</p>
+                    <a href="${url}" target="_blank" download="${originalName}" class="btn btn-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; width: 100%; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                        Unduh / Buka Dokumen
+                    </a>
+                </div>
+            `;
+            body.appendChild(docContainer);
         } else {
-            loading.style.display = 'none';
-            body.innerHTML += '<div style="padding: 20px; text-align: center; color: var(--text-muted);"><p>{{ __("messages.preview_format_not_supported") ?? "Format file ini tidak mendukung preview." }}</p></div>';
+            hideLoading();
+            body.innerHTML += '<div style="padding: 20px; text-align: center; color: var(--text-muted);"><p>Format file ini tidak mendukung pratinjau langsung. Silakan unduh file melalui tombol di bawah.</p></div>';
         }
     }
 
@@ -577,8 +601,8 @@
 </script>
 
 <!-- Universal Preview Modal -->
-<div class="modal" id="universalPreviewModal" style="display: none; align-items: center; justify-content: center; z-index: 10000;">
-    <div class="modal-content" style="max-width: 900px; width: 90%; height: 85vh; display: flex; flex-direction: column; padding: 0;">
+<div class="overlay" id="universalPreviewModal" style="display: none; align-items: center; justify-content: center; z-index: 999999; background: rgba(0,0,0,0.85);">
+    <div class="modal w-lg" style="max-width: 900px; width: 90%; height: 85vh; display: flex; flex-direction: column; padding: 0;">
         <div class="modal-head" style="padding: 16px 24px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center;">
             <h3 style="margin: 0; font-size: 1.1rem;">{{ __('messages.preview_dokumen') ?? 'Preview Dokumen' }}</h3>
             <button class="close-btn" onclick="closeUniversalPreview()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-muted);">&times;</button>
