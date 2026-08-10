@@ -367,8 +367,9 @@
                         </td>
                         <td><span class="badge {{ $badgeClass }}">{{ $impl->status }}</span></td>
                         <td style="max-width: 200px; word-break: break-word; white-space: normal;">
-                            @if($impl->tindakan_berikutnya)
-                                <div style="font-size: 13px; font-weight: 500;">{{ $impl->tindakan_berikutnya }}</div>
+                            @if($impl->tindakan_berikutnya || $impl->status_tindakan)
+                                <div style="font-size: 13px; font-weight: 500;">{{ $impl->tindakan_berikutnya ?? '-' }}</div>
+                                <div style="font-size: 12px; margin-top: 4px; color: var(--primary);">Status: {{ $impl->status_tindakan ?? '-' }}</div>
                             @else
                                 -
                             @endif

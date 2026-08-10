@@ -648,7 +648,7 @@
             <div class="summary-item">
                 <div class="summary-label">{{ __('messages.ringkasan_tindakan_berikutnya') }}</div>
                 <div class="summary-value">{{ $implementasi->tindakan_berikutnya ?? 'Belum ada' }}</div>
-                <div style="font-size: 12px; margin-top: 5px;">PIC: {{ $implementasi->pic_tindakan ?? '-' }}</div>
+                <div style="font-size: 12px; margin-top: 5px; font-weight: 500; color: var(--primary);">Status: {{ $implementasi->status_tindakan ?? '-' }}</div>
             </div>
         </div>
     </div>

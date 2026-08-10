@@ -768,4 +768,20 @@ return [
     'posisi_koperasi' => 'Position in Cooperative',
     'pilih_posisi_anda' => 'Select Your Position',
     'pilih_posisi' => 'Select Position',
+    
+    // Master Aplikasi & Ebook
+    'edit_master_aplikasi' => 'Edit Application Master',
+    'edit_master_aplikasi_desc' => 'Change application name or description',
+    'uploaded_ebook' => 'Uploaded Ebook',
+    'no_file_uploaded' => 'No files uploaded yet.',
+    'add_new_ebook_optional' => 'Add New Ebook (Optional, multiple files allowed)',
+    'ebook_upload_format_notice' => 'Uploaded files will be added to the list above. Formats: PDF, Word, ZIP. Max: 10MB per file.',
+    'btn_open' => 'Open',
+    'confirm_delete_ebook' => 'Delete this ebook file?',
+    'no_file' => 'No file',
+    
+    // Riwayat Dokumen
+    'history_letter_document' => 'History of Letters & Documents',
+    'open_history_letter_document' => 'Open History of Letters & Documents Page',
+    'kembali' => 'Back',
 ];

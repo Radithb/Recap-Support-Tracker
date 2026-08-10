@@ -5,12 +5,12 @@
 <div class="header">
     <div style="display: flex; align-items: center; justify-content: space-between;">
         <div>
-            <h1>Riwayat Surat & Dokumen</h1>
+            <h1>{{ __('messages.history_letter_document') }}</h1>
             <p class="subtitle">Tiket #{{ $ticket->ticket_id }} &mdash; {{ $ticket->aplikasi->nama_aplikasi ?? '-' }}</p>
         </div>
         <a href="{{ url()->previous() }}" class="btn btn-ghost" style="display: inline-flex; align-items: center; gap: 8px;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-            Kembali
+            {{ __('messages.kembali') }}
         </a>
     </div>
 </div>
