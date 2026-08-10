@@ -373,6 +373,7 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
     Route::get('/master-data/export', [MasterDataController::class, 'export'])->name('master-data.export');
     Route::post('/master-data/aplikasi', [MasterDataController::class, 'storeAplikasi'])->name('master-data.aplikasi.store');
     Route::match(['PUT', 'POST'], '/master-data/aplikasi/{id}', [MasterDataController::class, 'updateAplikasi'])->name('master-data.aplikasi.update');
+    Route::delete('/master-data/aplikasi/{id}/ebook/{index}', [MasterDataController::class, 'deleteEbook'])->name('master-data.aplikasi.ebook.destroy');
     Route::delete('/master-data/aplikasi/{id}', [MasterDataController::class, 'destroyAplikasi'])->name('master-data.aplikasi.destroy');
     Route::post('/master-data/kategori', [MasterDataController::class, 'storeKategori'])->name('master-data.kategori.store');
     Route::match(['PUT', 'POST'], '/master-data/kategori/{id}', [MasterDataController::class, 'updateKategori'])->name('master-data.kategori.update');

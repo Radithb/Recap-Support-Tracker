@@ -36,14 +36,25 @@ class MasterDataController extends Controller
         $request->validate([
             'nama_aplikasi' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
+            'ebooks.*' => 'nullable|file|mimes:pdf,doc,docx,zip,rar|max:10240',
             'link' => 'nullable|url',
             'username' => 'nullable|string|max:255',
             'password' => 'nullable|string|max:255',
         ]);
 
+        $ebookPaths = [];
+        if ($request->hasFile('ebooks')) {
+            foreach ($request->file('ebooks') as $file) {
+                $originalName = $file->getClientOriginalName();
+                $filename = time() . '_' . preg_replace('/[^A-Za-z0-9\-\.]/', '_', $originalName);
+                $ebookPaths[] = $file->storeAs('ebooks', $filename, 'public');
+            }
+        }
+
         MasterAplikasi::create([
             'nama_aplikasi' => $request->nama_aplikasi,
             'deskripsi' => $request->deskripsi,
+            'ebook' => $ebookPaths,
             'link' => $request->link,
             'username' => $request->username,
             'password' => $request->password,
@@ -58,6 +69,7 @@ class MasterDataController extends Controller
         $request->validate([
             'nama_aplikasi' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
+            'ebooks.*' => 'nullable|file|mimes:pdf,doc,docx,zip,rar|max:10240',
             'link' => 'nullable|url',
             'username' => 'nullable|string|max:255',
             'password' => 'nullable|string|max:255',
@@ -65,9 +77,20 @@ class MasterDataController extends Controller
         ]);
 
         $aplikasi = MasterAplikasi::findOrFail($id);
+
+        $ebookPaths = is_array($aplikasi->ebook) ? $aplikasi->ebook : [];
+        if ($request->hasFile('ebooks')) {
+            foreach ($request->file('ebooks') as $file) {
+                $originalName = $file->getClientOriginalName();
+                $filename = time() . '_' . preg_replace('/[^A-Za-z0-9\-\.]/', '_', $originalName);
+                $ebookPaths[] = $file->storeAs('ebooks', $filename, 'public');
+            }
+        }
+
         $aplikasi->update([
             'nama_aplikasi' => $request->nama_aplikasi,
             'deskripsi' => $request->deskripsi,
+            'ebook' => $ebookPaths,
             'link' => $request->link,
             'username' => $request->username,
             'password' => $request->password,
@@ -85,9 +108,35 @@ class MasterDataController extends Controller
             return back()->with('error', __('messages.app_cannot_delete_has_tickets'));
         }
 
+        if (is_array($aplikasi->ebook)) {
+            foreach ($aplikasi->ebook as $path) {
+                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($path)) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($path);
+                }
+            }
+        }
+
         $aplikasi->delete();
 
         return back()->with('success', __('messages.app_deleted'));
+    }
+
+    public function deleteEbook($id, $index)
+    {
+        $aplikasi = MasterAplikasi::findOrFail($id);
+        $ebooks = is_array($aplikasi->ebook) ? $aplikasi->ebook : [];
+
+        if (isset($ebooks[$index])) {
+            $path = $ebooks[$index];
+            if (\Illuminate\Support\Facades\Storage::disk('public')->exists($path)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($path);
+            }
+            unset($ebooks[$index]);
+            $aplikasi->update(['ebook' => array_values($ebooks)]);
+            return back()->with('success', 'File Ebook berhasil dihapus.');
+        }
+
+        return back()->with('error', 'File Ebook tidak ditemukan.');
     }
 
     public function storeKategori(Request $request)

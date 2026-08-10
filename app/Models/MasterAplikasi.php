@@ -12,6 +12,7 @@ class MasterAplikasi extends Model
     protected $fillable = [
         'nama_aplikasi',
         'deskripsi',
+        'ebook',
         'link',
         'username',
         'password',
@@ -20,6 +21,7 @@ class MasterAplikasi extends Model
 
     protected $casts = [
         'is_active' => 'boolean',
+        'ebook' => 'array',
     ];
 
     public function tickets()

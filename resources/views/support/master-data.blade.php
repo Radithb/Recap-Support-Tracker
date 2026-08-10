@@ -270,6 +270,7 @@
                                     <tr>
                                         <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.nama_aplikasi') }}</th>
                                         <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.deskripsi') }}</th>
+                                        <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">EBOOK</th>
                                         <th style="padding: 1rem 1.5rem; text-align: left; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.link_aplikasi') }}</th>
                                         <th style="padding: 1rem 1.5rem; text-align: right; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.status') }}</th>
                                         <th style="padding: 1rem 1.5rem; text-align: center; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; letter-spacing: 1px; text-transform: uppercase;">{{ __('messages.aksi') }}</th>
@@ -291,6 +292,20 @@
                                             </span>
                                         @else
                                             {{ $app->deskripsi }}
+                                        @endif
+                                    </td>
+                                    <td style="padding: 1.25rem 1.5rem; font-size: 0.95rem;">
+                                        @if(is_array($app->ebook) && count($app->ebook) > 0)
+                                            <div style="display: flex; flex-direction: column; gap: 6px;">
+                                                @foreach($app->ebook as $index => $path)
+                                                    <a href="{{ asset('storage/' . $path) }}" target="_blank" style="color: var(--primary); text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; font-size: 0.85rem;" title="Download {{ preg_replace('/^\d+_/', '', basename($path)) }}">
+                                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                                                        {{ Str::limit(preg_replace('/^\d+_/', '', basename($path)), 25) }}
+                                                    </a>
+                                                @endforeach
+                                            </div>
+                                        @else
+                                            <span style="color: var(--text-muted); font-style: italic; font-size: 0.85rem;">Tidak ada file</span>
                                         @endif
                                     </td>
                                     <td style="padding: 1.25rem 1.5rem; font-size: 0.95rem;">
@@ -698,7 +713,7 @@
                 </div>
                 <button type="button" class="modal-x" onclick="closeModal('modal-add-aplikasi')">✕</button>
             </div>
-            <form action="{{ url('/support/master-data/aplikasi') }}" method="POST">
+            <form action="{{ url('/support/master-data/aplikasi') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-body">
                     <div class="field">
@@ -708,6 +723,11 @@
                     <div class="field">
                         <label>{{ __('messages.deskripsi_singkat') }}</label>
                         <textarea name="deskripsi" placeholder="{{ __('messages.penjelasan_singkat') }}" rows="3"></textarea>
+                    </div>
+                    <div class="field">
+                        <label>Ebook (Bisa pilih banyak file)</label>
+                        <input type="file" name="ebooks[]" multiple accept=".pdf,.doc,.docx,.zip,.rar" style="padding: 8px; border: 1px solid var(--line); border-radius: 6px; width: 100%;">
+                        <small style="color: var(--text-muted); font-size: 0.8rem; display: block; margin-top: 4px;">Format: PDF, Word, ZIP. Maks: 10MB per file.</small>
                     </div>
                     <div class="field">
                         <label>{{ __('messages.link_aplikasi') }}</label>
@@ -767,7 +787,7 @@
                 </div>
                 <button type="button" class="modal-x" onclick="closeModal('modal-edit-aplikasi-{{ $app->aplikasi_id }}')">✕</button>
             </div>
-            <form action="{{ url('/support/master-data/aplikasi/' . $app->aplikasi_id) }}" method="POST">
+            <form action="{{ url('/support/master-data/aplikasi/' . $app->aplikasi_id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="modal-body">
@@ -778,6 +798,30 @@
                     <div class="field">
                         <label>{{ __('messages.deskripsi_singkat') }}</label>
                         <textarea name="deskripsi" placeholder="{{ __('messages.penjelasan_singkat') }}" rows="3">{{ $app->deskripsi }}</textarea>
+                    </div>
+                    <div class="field">
+                        <label>Ebook Terunggah</label>
+                        @if(is_array($app->ebook) && count($app->ebook) > 0)
+                            <div style="margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px;">
+                                @foreach($app->ebook as $index => $path)
+                                    <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px; background: var(--paper-sunken); border: 1px solid var(--line); border-radius: 6px;">
+                                        <a href="{{ asset('storage/' . $path) }}" target="_blank" style="color: var(--primary); font-size: 0.85rem; text-decoration: none; display: flex; align-items: center; gap: 6px;" title="Buka {{ preg_replace('/^\d+_/', '', basename($path)) }}">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                            {{ Str::limit(preg_replace('/^\d+_/', '', basename($path)), 35) }}
+                                        </a>
+                                        <button type="button" onclick="if(confirm('Hapus file ebook ini?')) { document.getElementById('delete-ebook-form-{{ $app->aplikasi_id }}-{{ $index }}').submit(); }" style="background: none; border: none; color: var(--danger); cursor: pointer; padding: 4px; border-radius: 4px;" title="Hapus">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                        </button>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @else
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px; font-style: italic;">Belum ada file terunggah.</div>
+                        @endif
+                        
+                        <label>Tambah Ebook Baru (Opsional, bisa banyak file)</label>
+                        <input type="file" name="ebooks[]" multiple accept=".pdf,.doc,.docx,.zip,.rar" style="padding: 8px; border: 1px solid var(--line); border-radius: 6px; width: 100%;">
+                        <small style="color: var(--text-muted); font-size: 0.8rem; display: block; margin-top: 4px;">File yang diunggah akan ditambahkan ke daftar di atas. Format: PDF, Word, ZIP. Maks: 10MB per file.</small>
                     </div>
                     <div class="field">
                         <label>{{ __('messages.link_aplikasi') }}</label>
@@ -1082,4 +1126,16 @@
         }
     });
 </script>
+
+    <!-- Hidden forms for deleting specific ebook files -->
+    @foreach($aplikasis as $app)
+        @if(is_array($app->ebook) && count($app->ebook) > 0)
+            @foreach($app->ebook as $index => $path)
+                <form id="delete-ebook-form-{{ $app->aplikasi_id }}-{{ $index }}" action="{{ route('support.master-data.aplikasi.ebook.destroy', ['id' => $app->aplikasi_id, 'index' => $index]) }}" method="POST" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            @endforeach
+        @endif
+    @endforeach
 @endsection
