@@ -168,7 +168,23 @@
             <div class="grid-2">
                 <div class="form-group">
                     <label class="form-label">No. Telepon / WhatsApp PIC</label>
-                    <input type="text" name="kontak_pic" class="form-control" placeholder="Contoh: 081234567890" value="{{ old('kontak_pic', $implementasi->kontak_pic) }}" required>
+                    <div id="edit-kontak-container">
+                        @php
+                            $savedKontak = $implementasi->kontak_pic ? array_map('trim', explode(',', $implementasi->kontak_pic)) : [];
+                            $oldKontak = old('kontak_pic', $savedKontak);
+                            if(empty($oldKontak)) $oldKontak = [''];
+                        @endphp
+                        @foreach($oldKontak as $index => $kontak)
+                        <div class="kontak-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <input type="text" name="kontak_pic[]" class="form-control" placeholder="Contoh: 081234567890" value="{{ $kontak }}" required>
+                            @if($index === 0)
+                                <button type="button" class="btn-action" style="background-color: #10b981; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="addEditKontakInput()">+</button>
+                            @else
+                                <button type="button" class="btn-action" style="background-color: #ef4444; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; flex-shrink: 0;" onclick="removeEditInput(this)">-</button>
+                            @endif
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">Email PIC (Opsional)</label>

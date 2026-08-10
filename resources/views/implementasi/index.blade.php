@@ -253,12 +253,21 @@
 
 <div class="dashboard-wrapper" style="width: 100%; max-width: 100%; margin: 0 auto; padding: 20px 30px; box-sizing: border-box; overflow: hidden;">
     <div class="dashboard-card" style="width: 100%; max-width: 100%; box-sizing: border-box; overflow: hidden;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
             <h2 style="font-size: 18px; font-weight: 600; margin: 0;">{{ __('messages.monitoring_running_koperasi', ['count' => $implementasis->count()]) }}</h2>
-        @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
-            <button class="btn-action" style="background-color: #10b981;" onclick="openModal('modalDataBaru')">{{ __('messages.data_baru') }}</button>
-        @endif
-    </div>
+            
+            <div style="display: flex; gap: 10px; align-items: center;">
+                <form action="{{ route('implementasi.index') }}" method="GET" style="margin: 0; display: flex; align-items: center;">
+                    <div class="search" style="margin-bottom: 0;">
+                        <img src="{{ asset('magnifying-glass.png') }}" alt="Search" style="width: 14px; height: 14px; margin-right: 8px; vertical-align: middle; opacity: 0.4; filter: grayscale(100%);">
+                        <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari No. Impl atau Koperasi..." style="border:none; background:transparent; width:100%; outline:none;">
+                    </div>
+                </form>
+                @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
+                    <button class="btn-action" style="background-color: #10b981;" onclick="openModal('modalDataBaru')">{{ __('messages.data_baru') }}</button>
+                @endif
+            </div>
+        </div>
 
     @if(session('success'))
         <div id="success-alert" class="alert-dismiss fade-up" style="animation-delay: 0.1s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: var(--sage-soft); color: var(--sage); border-radius: 8px; margin-bottom: 24px; font-size: calc(13.5px * var(--text-scale, 1)); font-weight: 600; border: 1px solid rgba(46, 125, 82, 0.2); transition: opacity 0.6s ease, transform 0.6s ease;">
@@ -595,7 +604,12 @@
                     </div>
                     <div class="form-group">
                         <label class="form-label">{{ __('messages.whatsapp_pic') }}</label>
-                        <input type="text" name="kontak_pic" class="form-control" required>
+                        <div id="kontak-container">
+                            <div class="kontak-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                <input type="text" name="kontak_pic[]" class="form-control" required>
+                                <button type="button" class="btn-action" style="background-color: #10b981; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="addKontakInput()">+</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -718,6 +732,23 @@
     }
 
     function removeTrainerInput(btn) {
+        btn.parentElement.remove();
+    }
+
+    function addKontakInput() {
+        const container = document.getElementById('kontak-container');
+        const inputGroup = document.createElement('div');
+        inputGroup.className = 'kontak-input-group';
+        inputGroup.style = 'display: flex; gap: 10px; margin-bottom: 10px;';
+        
+        inputGroup.innerHTML = `
+            <input type="text" name="kontak_pic[]" class="form-control" required>
+            <button type="button" class="btn-action" style="background-color: #ef4444; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="removeKontakInput(this)">-</button>
+        `;
+        container.appendChild(inputGroup);
+    }
+
+    function removeKontakInput(btn) {
         btn.parentElement.remove();
     }
 
@@ -932,6 +963,20 @@
     function addEditTrainerInput() {
         const container = document.getElementById('edit-trainer-container');
         const originalGroup = container.querySelector('.trainer-input-group');
+        const newGroup = originalGroup.cloneNode(true);
+        newGroup.querySelector('input').value = '';
+        
+        const btn = newGroup.querySelector('button');
+        btn.textContent = '-';
+        btn.style.backgroundColor = '#ef4444';
+        btn.onclick = function() { removeEditInput(this); };
+        
+        container.appendChild(newGroup);
+    }
+
+    function addEditKontakInput() {
+        const container = document.getElementById('edit-kontak-container');
+        const originalGroup = container.querySelector('.kontak-input-group');
         const newGroup = originalGroup.cloneNode(true);
         newGroup.querySelector('input').value = '';
         

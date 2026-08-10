@@ -18,13 +18,23 @@ class ImplementasiController extends Controller
     /**
      * Menampilkan data dashboard implementasi
      */
-    public function index()
+    public function index(Request $request)
     {
         $query = ImplementasiKoperasi::with(['instansi', 'aplikasi', 'aplikasis', 'picSakti'])
             ->orderBy('created_at', 'desc');
 
         if (Auth::user()->role === UserRole::PELAPOR) {
             $query->where('instansi_id', Auth::user()->instansi_id);
+        }
+
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nomor_implementasi', 'like', "%{$search}%")
+                  ->orWhereHas('instansi', function($q) use ($search) {
+                      $q->where('nama_instansi', 'like', "%{$search}%");
+                  });
+            });
         }
 
         $implementasis = $query->get();
@@ -119,7 +129,8 @@ class ImplementasiController extends Controller
             'nama_trainer.*' => 'nullable|string',
             'anggota_hadir' => 'required|array',
             'anggota_hadir.*' => 'required|string',
-            'kontak_pic' => 'required|string',
+            'kontak_pic' => 'required|array',
+            'kontak_pic.*' => 'required|string',
             'email_pic' => 'nullable|email',
             'catatan_pelatihan' => 'nullable|string',
             'target_go_live' => 'nullable|date',
@@ -156,7 +167,7 @@ class ImplementasiController extends Controller
             'berita_acara' => $request->hasFile('berita_acara') ? $request->file('berita_acara')->store('berita_acara', 'public') : null,
             'nama_trainer' => is_array($request->nama_trainer) ? implode(', ', array_filter($request->nama_trainer)) : null,
             'anggota_hadir' => $anggotaHadirStr,
-            'kontak_pic' => $request->kontak_pic,
+            'kontak_pic' => is_array($request->kontak_pic) ? implode(', ', array_filter($request->kontak_pic)) : $request->kontak_pic,
             'email_pic' => $request->email_pic,
             'catatan_pelatihan' => $request->catatan_pelatihan,
             'target_go_live' => $request->target_go_live,
@@ -380,7 +391,8 @@ class ImplementasiController extends Controller
             'nama_trainer.*' => 'nullable|string',
             'anggota_hadir' => 'required|array',
             'anggota_hadir.*' => 'required|string',
-            'kontak_pic' => 'required|string',
+            'kontak_pic' => 'required|array',
+            'kontak_pic.*' => 'required|string',
             'email_pic' => 'nullable|email',
             'catatan_pelatihan' => 'nullable|string',
             'target_go_live' => 'nullable|date',
@@ -418,7 +430,7 @@ class ImplementasiController extends Controller
             'berita_acara' => $berita_acara_path,
             'nama_trainer' => is_array($request->nama_trainer) ? implode(', ', array_filter($request->nama_trainer)) : null,
             'anggota_hadir' => $anggotaHadirStr,
-            'kontak_pic' => $request->kontak_pic,
+            'kontak_pic' => is_array($request->kontak_pic) ? implode(', ', array_filter($request->kontak_pic)) : $request->kontak_pic,
             'email_pic' => $request->email_pic,
             'catatan_pelatihan' => $request->catatan_pelatihan,
             'target_go_live' => $request->target_go_live,
