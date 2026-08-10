@@ -718,7 +718,7 @@
                 <div class="modal-body">
                     <div class="field">
                         <label>{{ __('messages.nama_aplikasi') }} <span style="color:var(--danger)">*</span></label>
-                        <input type="text" name="nama_aplikasi" required placeholder="{{ __('messages.contoh_sakti') }}">
+                        <input type="text" name="nama_aplikasi" id="add_nama_aplikasi" required placeholder="{{ __('messages.contoh_sakti') }}">
                     </div>
                     <div class="field">
                         <label>{{ __('messages.deskripsi_singkat') }}</label>
@@ -731,15 +731,15 @@
                     </div>
                     <div class="field">
                         <label>{{ __('messages.link_aplikasi') }}</label>
-                        <input type="url" name="link" placeholder="{{ __('messages.masukkan_link_aplikasi') }}">
+                        <input type="url" name="link" id="add_link" placeholder="{{ __('messages.masukkan_link_aplikasi') }}">
                     </div>
                     <div class="field">
                         <label>Username</label>
-                        <input type="text" name="username" placeholder="Masukkan username">
+                        <input type="text" name="username" id="add_username" placeholder="Masukkan username">
                     </div>
                     <div class="field">
                         <label>Password</label>
-                        <input type="text" name="password" placeholder="Masukkan password">
+                        <input type="text" name="password" id="add_password" placeholder="Masukkan password">
                     </div>
                 </div>
                 <div class="modal-foot">
@@ -1122,6 +1122,21 @@
                         row.style.display = 'none';
                     }
                 });
+            });
+        }
+        // Auto-fill logic untuk Laci
+        const inputNamaAplikasi = document.getElementById('add_nama_aplikasi');
+        if (inputNamaAplikasi) {
+            inputNamaAplikasi.addEventListener('input', function() {
+                if (this.value.toLowerCase().includes('laci')) {
+                    const linkInput = document.getElementById('add_link');
+                    const userInput = document.getElementById('add_username');
+                    const passInput = document.getElementById('add_password');
+                    
+                    if (linkInput && !linkInput.value) linkInput.value = 'https://apps.laci.online/';
+                    if (userInput && !userInput.value) userInput.value = 'demosakti';
+                    if (passInput && !passInput.value) passInput.value = 'demosakti';
+                }
             });
         }
     });
