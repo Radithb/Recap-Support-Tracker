@@ -1159,15 +1159,20 @@
                             <div>
                                 <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.status_tindakan') }}</label>
                                 <select name="status_tindakan" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 7px; border-radius: 4px; background: white;">
-                                    <option value="Menunggu Konfirmasi Koperasi" {{ $implementasi->status_tindakan == 'Menunggu Konfirmasi Koperasi' ? 'selected' : '' }}>Menunggu Konfirmasi Koperasi</option>
-                                    <option value="Koperasi Belum Siap" {{ $implementasi->status_tindakan == 'Koperasi Belum Siap' ? 'selected' : '' }}>Koperasi Belum Siap</option>
                                     <option value="Persiapan Data" {{ $implementasi->status_tindakan == 'Persiapan Data' ? 'selected' : '' }}>Persiapan Data</option>
-                                    <option value="Siap Proses Migrasi" {{ $implementasi->status_tindakan == 'Siap Proses Migrasi' ? 'selected' : '' }}>Siap Proses Migrasi</option>
-                                    <option value="Perubahan Aplikasi" {{ $implementasi->status_tindakan == 'Perubahan Aplikasi' ? 'selected' : '' }}>Perubahan Aplikasi</option>
-                                    <option value="Setting Buku" {{ $implementasi->status_tindakan == 'Setting Buku' ? 'selected' : '' }}>Setting Buku</option>
-                                    <option value="Pendampingan" {{ $implementasi->status_tindakan == 'Pendampingan' ? 'selected' : '' }}>Pendampingan</option>
-                                    <option value="Pelatihan Ulang" {{ $implementasi->status_tindakan == 'Pelatihan Ulang' ? 'selected' : '' }}>Pelatihan Ulang</option>
+                                    <option value="Migrasi Data" {{ $implementasi->status_tindakan == 'Migrasi Data' ? 'selected' : '' }}>Migrasi Data</option>
                                     <option value="Olah Data" {{ $implementasi->status_tindakan == 'Olah Data' ? 'selected' : '' }}>Olah Data</option>
+                                    <option value="Setting Buku" {{ $implementasi->status_tindakan == 'Setting Buku' ? 'selected' : '' }}>Setting Buku</option>
+                                    <option value="Input Transaksi" {{ $implementasi->status_tindakan == 'Input Transaksi' ? 'selected' : '' }}>Input Transaksi</option>
+                                    <option value="Follow Up" {{ $implementasi->status_tindakan == 'Follow Up' ? 'selected' : '' }}>Follow Up</option>
+                                    <option value="Pendampingan Online" {{ $implementasi->status_tindakan == 'Pendampingan Online' ? 'selected' : '' }}>Pendampingan Online</option>
+                                    <option value="Pendampingan Offline" {{ $implementasi->status_tindakan == 'Pendampingan Offline' ? 'selected' : '' }}>Pendampingan Offline</option>
+                                    <option value="Monitoring" {{ $implementasi->status_tindakan == 'Monitoring' ? 'selected' : '' }}>Monitoring</option>
+                                    <option value="Support Data" {{ $implementasi->status_tindakan == 'Support Data' ? 'selected' : '' }}>Support Data</option>
+                                    <option value="Proses Running" {{ $implementasi->status_tindakan == 'Proses Running' ? 'selected' : '' }}>Proses Running</option>
+                                    <option value="Proses Simulasi" {{ $implementasi->status_tindakan == 'Proses Simulasi' ? 'selected' : '' }}>Proses Simulasi</option>
+                                    <option value="Perbaikan / Update Aplikasi" {{ $implementasi->status_tindakan == 'Perbaikan / Update Aplikasi' ? 'selected' : '' }}>Perbaikan / Update Aplikasi</option>
+                                    <option value="Pelatihan Ulang" {{ $implementasi->status_tindakan == 'Pelatihan Ulang' ? 'selected' : '' }}>Pelatihan Ulang</option>
                                 </select>
                             </div>
                         </div>
