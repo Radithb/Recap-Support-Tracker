@@ -980,4 +980,12 @@ return [
     'history_letter_document' => 'Riwayat Surat & Dokumen',
     'open_history_letter_document' => 'Buka Halaman Riwayat Surat & Dokumen',
     'kembali' => 'Kembali',
+    
+    // Preview Modal
+    'preview_dokumen' => 'Preview Dokumen',
+    'btn_unduh_file' => 'Unduh File',
+    'gagal_memuat_gambar' => 'Gagal memuat gambar.',
+    'preview_office_offline_error' => 'File Office tidak dapat dipreview secara offline/localhost.',
+    'preview_format_not_supported' => 'Format file ini tidak mendukung preview.',
+    'tutup' => 'Tutup',
 ];

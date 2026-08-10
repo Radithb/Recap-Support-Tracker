@@ -784,4 +784,12 @@ return [
     'history_letter_document' => 'History of Letters & Documents',
     'open_history_letter_document' => 'Open History of Letters & Documents Page',
     'kembali' => 'Back',
+    
+    // Preview Modal
+    'preview_dokumen' => 'Document Preview',
+    'btn_unduh_file' => 'Download File',
+    'gagal_memuat_gambar' => 'Failed to load image.',
+    'preview_office_offline_error' => 'Office files cannot be previewed offline/localhost.',
+    'preview_format_not_supported' => 'This file format does not support preview.',
+    'tutup' => 'Close',
 ];
