@@ -20,6 +20,7 @@
                         @php
                             $statuses = [
                                 'Pelatihan Dijadwalkan',
+                                'Pelatihan Berlangsung',
                                 'Pelatihan Selesai',
                                 'Persiapan Data',
                                 'Menunggu Data Koperasi',
