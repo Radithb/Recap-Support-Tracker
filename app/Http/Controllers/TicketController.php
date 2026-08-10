@@ -155,7 +155,7 @@ class TicketController extends Controller
 
         $request->validate([
             'surat_balasan' => 'required',
-            'surat_balasan.*' => 'file|mimes:pdf,doc,docx,xlsx,csv,pptx,ppsx,xlsm,docm,xlsb|max:5120',
+            'surat_balasan.*' => 'file|mimes:pdf,doc,docx,xlsx,csv,pptx,ppsx,xlsm,docm,xlsb,zip,rar|max:5120',
         ]);
 
         $paths = [];
@@ -264,8 +264,8 @@ class TicketController extends Controller
             'link_ticket' => 'nullable|string',
             'template_laporan' => 'nullable|string',
             'is_faq' => 'nullable|boolean',
-            'lampiran_support' => 'nullable|array|max:5',
-            'lampiran_support.*' => 'file|mimes:jpg,jpeg,png,mp4,pdf,doc,docx,xls,xlsx,csv,ppt,pptx,ppsx,xlsm,docm,xlsb|max:5120',
+            'lampiran_support' => 'nullable|array',
+            'lampiran_support.*' => 'file|mimes:jpg,jpeg,png,mp4,pdf,doc,docx,xls,xlsx,csv,ppt,pptx,ppsx,xlsm,docm,xlsb,zip,rar|max:5120',
         ]);
 
         $data = $request->only(['status', 'kategori_id', 'penyelesaian', 'pencegahan', 'link_ticket', 'template_laporan']);

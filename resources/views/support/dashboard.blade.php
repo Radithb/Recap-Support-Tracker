@@ -527,7 +527,7 @@
                     <div class="field" style="margin-top: 14px;">
                         <label>{{ __('messages.lampiran_respons_opsional') }}</label>
                         <div style="display: flex; gap: 8px; align-items: center;">
-                            <input type="file" id="lampiran_input_supp_{{ $t->ticket_id }}" name="lampiran_support[]" multiple accept=".jpg,.jpeg,.png,.mp4,.pdf,.doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.ppsx,.xlsm,.docm,.xlsb" style="flex: 1; width:100%; font-size: calc(13px * var(--text-scale, 1)); font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;" onchange="
+                            <input type="file" id="lampiran_input_supp_{{ $t->ticket_id }}" name="lampiran_support[]" multiple accept=".jpg,.jpeg,.png,.mp4,.pdf,.doc,.docx,.xls,.xlsx,.csv,.ppt,.pptx,.ppsx,.xlsm,.docm,.xlsb,.zip,.rar" style="flex: 1; width:100%; font-size: calc(13px * var(--text-scale, 1)); font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;" onchange="
                                 if (!window.dtSupportMap) window.dtSupportMap = {};
                                 if (!window.dtSupportMap['{{ $t->ticket_id }}']) window.dtSupportMap['{{ $t->ticket_id }}'] = new DataTransfer();
                                 for(let i=0; i<this.files.length; i++) {
@@ -551,7 +551,7 @@
                             <button type="button" id="clear_lampiran_btn_supp_{{ $t->ticket_id }}" style="display: none; padding: 8px 12px; background: #fee2e2; color: #ef4444; border: 1px solid #f87171; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500;" onclick="if(window.dtSupportMap) window.dtSupportMap['{{ $t->ticket_id }}'] = new DataTransfer(); document.getElementById('lampiran_input_supp_{{ $t->ticket_id }}').value = ''; this.style.display = 'none'; document.getElementById('lampiran_info_supp_{{ $t->ticket_id }}').style.display='none';">{{ __('messages.hapus_lampiran') }}</button>
                         </div>
                         <div id="lampiran_info_supp_{{ $t->ticket_id }}" style="display: none; font-size: 12.5px; color: #059669; font-weight: 600; margin-top: 6px;"></div>
-                        <div class="helper" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">Format: JPG, PNG, MP4, PDF, DOC, DOCX, XLSX, CSV, PPTX, PPSX, XLSM, DOCM, XLSB. Max: 5MB</div>
+                        <div class="helper" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">{{ __('messages.format_lampiran') }}</div>
                         @error('lampiran_support') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
                         
                         @if($t->lampiran_support)
@@ -860,11 +860,7 @@
             }
             const totalSizeMb = totalSize / 1024 / 1024;
             
-            if (fileInput.files.length > 5) {
-                alert('Anda hanya dapat mengunggah maksimal 5 file sekaligus.');
-                return false;
-            }
-            
+
             if (totalSizeMb > maxMb) {
                 alert('Total ukuran file terlalu besar! Maksimal ' + maxMb + ' MB (Batas server). File Anda berukuran ' + totalSizeMb.toFixed(2) + ' MB.');
                 return false;
