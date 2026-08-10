@@ -13,6 +13,19 @@
 @section('content')
 <style>
     /* Styling Dasar & Header */
+    .checklist-input::-webkit-scrollbar {
+        width: 5px;
+    }
+    .checklist-input::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .checklist-input::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+    }
+    .checklist-input::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+    }
     .detail-card {
         background: #fff;
         border-radius: 8px;
@@ -688,7 +701,7 @@
                                 @if(Auth::user()->role === \App\Enums\UserRole::PELAPOR)
                                     <span style="color: #64748b; font-style: italic;">{{ $chk->catatan ?? '-' }}</span>
                                 @else
-                                    <input type="text" id="catatan-{{ $chk->id }}" class="checklist-input" value="{{ $chk->catatan }}" placeholder="Tambahkan catatan...">
+                                    <textarea id="catatan-{{ $chk->id }}" class="checklist-input" placeholder="Tambahkan catatan..." rows="3" style="width: 100%; resize: vertical; padding: 6px; font-family: inherit;">{{ $chk->catatan }}</textarea>
                                 @endif
                             </td>
                             <td style="text-align: center;">
@@ -770,7 +783,7 @@
                                 @if(Auth::user()->role === \App\Enums\UserRole::PELAPOR)
                                     <span style="color: #64748b; font-style: italic;">{{ $chk->catatan ?? '-' }}</span>
                                 @else
-                                    <input type="text" id="catatan-{{ $chk->id }}" class="checklist-input" value="{{ $chk->catatan }}" placeholder="{{ __('messages.placeholder_catatan') }}">
+                                    <textarea id="catatan-{{ $chk->id }}" class="checklist-input" placeholder="{{ __('messages.placeholder_catatan') }}" rows="3" style="width: 100%; resize: vertical; padding: 6px; font-family: inherit;">{{ $chk->catatan }}</textarea>
                                 @endif
                             </td>
                             <td style="text-align: center;">
