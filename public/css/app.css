@@ -652,6 +652,13 @@ table.tickets tbody tr:hover{background:#F0F5FC;}
 .modal{
   background:var(--paper-raised); border-radius:14px; width:100%; box-shadow:0 30px 60px -20px rgba(0,0,0,0.4);
   animation:rise .18s ease;
+  margin: auto;
+  max-width: 100%;
+}
+@media(max-width: 768px) {
+  .modal { width: calc(100% - 20px); }
+  .modal-body { padding: 20px; }
+  .modal-head, .modal-foot { padding: 16px 20px; }
 }
 @keyframes rise{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
 .modal.w-sm{max-width:520px;}
