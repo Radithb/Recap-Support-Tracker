@@ -189,14 +189,12 @@
                 <span class="status {{ $statusClass }}">{{ $t->status->value ?? $t->status }}</span>
             </td>
             <td class="mono" style="color: var(--text-muted); font-size: 0.85rem; white-space: nowrap;">
-                {{ $t->tanggal_input->format('d M Y') }}
+                {{ $t->updated_at->format('d M Y') }}
             </td>
             <td>
-                @if($t->status === \App\Enums\TicketStatus::DONE)
-                    <button class="btn btn-ghost btn-sm" disabled style="cursor: not-allowed; opacity: 0.5;" title="{{ __('messages.tiket_selesai_desc') }}">{{ __('messages.selesai') }}</button>
-                @else
-                    <button class="btn btn-ghost btn-sm" onclick="openModal('modal-edit-{{ $t->ticket_id }}')">{{ __('messages.respons') }}</button>
-                @endif
+                <button class="btn btn-ghost btn-sm" onclick="openModal('modal-edit-{{ $t->ticket_id }}')">
+                    {{ $t->status === \App\Enums\TicketStatus::DONE ? __('messages.selesai') : __('messages.respons') }}
+                </button>
             </td>
         </tr>
         @endforeach
@@ -380,11 +378,9 @@
         </div>
         <div class="modal-foot" style="display: flex; gap: 12px; justify-content: flex-end; padding-top: 16px; border-top: 1px solid var(--line);">
             <button type="button" class="btn btn-ghost" onclick="closeModal('modal-preview-{{ $t->ticket_id }}')">{{ __('messages.tutup') }}</button>
-            @if($t->status === \App\Enums\TicketStatus::DONE)
-                <button type="button" class="btn btn-primary" disabled style="cursor: not-allowed; opacity: 0.5;" title="{{ __('messages.tiket_selesai_desc') }}">{{ __('messages.selesai') }}</button>
-            @else
-                <button type="button" class="btn btn-primary" onclick="closeModal('modal-preview-{{ $t->ticket_id }}'); openModal('modal-edit-{{ $t->ticket_id }}')">{{ __('messages.respons_tiket') }}</button>
-            @endif
+            <button type="button" class="btn btn-primary" onclick="closeModal('modal-preview-{{ $t->ticket_id }}'); openModal('modal-edit-{{ $t->ticket_id }}')">
+                {{ $t->status === \App\Enums\TicketStatus::DONE ? 'Edit Respons' : __('messages.respons_tiket') }}
+            </button>
         </div>
     </div>
 </div>

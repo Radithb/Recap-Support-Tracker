@@ -241,7 +241,7 @@ class TicketController extends Controller
             });
         }
 
-        $tickets = $query->latest('tanggal_input')->paginate(10);
+        $tickets = $query->latest('updated_at')->paginate(10);
         $kategoris = MasterKategori::all();
 
         // Ambil daftar user pelapor yang belum diverifikasi
