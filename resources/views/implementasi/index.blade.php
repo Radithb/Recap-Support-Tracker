@@ -513,24 +513,24 @@
                     <div class="form-group">
                         <label class="form-label">Status</label>
                         <select name="status" class="form-control" required>
-                            <option value="Pelatihan Dijadwalkan">Pelatihan Dijadwalkan</option>
-                            <option value="Pelatihan Berlangsung">Pelatihan Berlangsung</option>
-                            <option value="Pelatihan Selesai" selected>Pelatihan Selesai</option>
-                            <option value="Persiapan Data">Persiapan Data</option>
-                            <option value="Olah data">Olah data</option>
-                            <option value="Migrasi data">Migrasi data</option>
-                            <option value="Menunggu Validasi Data">Menunggu Validasi Data</option>
-                            <option value="Pengecekan">Pengecekan</option>
-                            <option value="Update/Perbaikan Aplikasi">Update/Perbaikan Aplikasi</option>
-                            <option value="Monitoring">Monitoring</option>
-                            <option value="Pendampingan">Pendampingan</option>
-                            <option value="Running">Running</option>
-                            <option value="Go-Live">Go-Live</option>
-                            <option value="Pending">Pending</option>
-                            <option value="Follow-up">Follow-up</option>
-                            <option value="Pelatihan Ulang">Pelatihan Ulang</option>
-                            <option value="Implementasi Selesai">Implementasi Selesai</option>
-                            <option value="Dibatalkan">Dibatalkan</option>
+                            <option value="Pelatihan Dijadwalkan">{{ __('messages.status_impl_pelatihan_dijadwalkan') }}</option>
+                            <option value="Pelatihan Berlangsung">{{ __('messages.status_impl_pelatihan_berlangsung') }}</option>
+                            <option value="Pelatihan Selesai" selected>{{ __('messages.status_impl_pelatihan_selesai') }}</option>
+                            <option value="Persiapan Data">{{ __('messages.status_impl_persiapan_data') }}</option>
+                            <option value="Olah data">{{ __('messages.status_impl_olah_data') }}</option>
+                            <option value="Migrasi data">{{ __('messages.status_impl_migrasi_data') }}</option>
+                            <option value="Menunggu Validasi Data">{{ __('messages.status_impl_menunggu_validasi_data') }}</option>
+                            <option value="Pengecekan">{{ __('messages.status_impl_pengecekan') }}</option>
+                            <option value="Update/Perbaikan Aplikasi">{{ __('messages.status_impl_update_perbaikan_aplikasi') }}</option>
+                            <option value="Monitoring">{{ __('messages.status_impl_monitoring') }}</option>
+                            <option value="Pendampingan">{{ __('messages.status_impl_pendampingan') }}</option>
+                            <option value="Running">{{ __('messages.status_impl_running') }}</option>
+                            <option value="Go-Live">{{ __('messages.status_impl_go_live') }}</option>
+                            <option value="Pending">{{ __('messages.status_impl_pending') }}</option>
+                            <option value="Follow-up">{{ __('messages.status_impl_follow_up') }}</option>
+                            <option value="Pelatihan Ulang">{{ __('messages.status_impl_pelatihan_ulang') }}</option>
+                            <option value="Implementasi Selesai">{{ __('messages.status_impl_implementasi_selesai') }}</option>
+                            <option value="Dibatalkan">{{ __('messages.status_impl_dibatalkan') }}</option>
                         </select>
                     </div>
                 </div>

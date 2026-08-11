@@ -19,29 +19,29 @@
                     <select name="status" class="form-control" required>
                         @php
                             $statuses = [
-                                'Pelatihan Dijadwalkan',
-                                'Pelatihan Berlangsung',
-                                'Pelatihan Selesai',
-                                'Persiapan Data',
-                                'Olah data',
-                                'Migrasi data',
-                                'Menunggu Validasi Data',
-                                'Pengecekan',
-                                'Update/Perbaikan Aplikasi',
-                                'Monitoring',
-                                'Pendampingan',
-                                'Running',
-                                'Go-Live',
-                                'Pending',
-                                'Follow-up',
-                                'Pelatihan Ulang',
-                                'Implementasi Selesai',
-                                'Dibatalkan',
+                                'Pelatihan Dijadwalkan' => 'status_impl_pelatihan_dijadwalkan',
+                                'Pelatihan Berlangsung' => 'status_impl_pelatihan_berlangsung',
+                                'Pelatihan Selesai' => 'status_impl_pelatihan_selesai',
+                                'Persiapan Data' => 'status_impl_persiapan_data',
+                                'Olah data' => 'status_impl_olah_data',
+                                'Migrasi data' => 'status_impl_migrasi_data',
+                                'Menunggu Validasi Data' => 'status_impl_menunggu_validasi_data',
+                                'Pengecekan' => 'status_impl_pengecekan',
+                                'Update/Perbaikan Aplikasi' => 'status_impl_update_perbaikan_aplikasi',
+                                'Monitoring' => 'status_impl_monitoring',
+                                'Pendampingan' => 'status_impl_pendampingan',
+                                'Running' => 'status_impl_running',
+                                'Go-Live' => 'status_impl_go_live',
+                                'Pending' => 'status_impl_pending',
+                                'Follow-up' => 'status_impl_follow_up',
+                                'Pelatihan Ulang' => 'status_impl_pelatihan_ulang',
+                                'Implementasi Selesai' => 'status_impl_implementasi_selesai',
+                                'Dibatalkan' => 'status_impl_dibatalkan',
                             ];
                             $currentStatus = old('status', $implementasi->status);
                         @endphp
-                        @foreach($statuses as $st)
-                            <option value="{{ $st }}" {{ $currentStatus == $st ? 'selected' : '' }}>{{ $st }}</option>
+                        @foreach($statuses as $stValue => $stKey)
+                            <option value="{{ $stValue }}" {{ $currentStatus == $stValue ? 'selected' : '' }}>{{ __('messages.' . $stKey) }}</option>
                         @endforeach
                     </select>
                 </div>
