@@ -321,15 +321,15 @@
                         $statusText = strtolower($impl->status);
                         $badgeClass = 'badge-abu';
                         
-                        if (str_contains($statusText, 'dijadwalkan')) {
+                        if (str_contains($statusText, 'dijadwalkan') || str_contains($statusText, 'monitoring')) {
                             $badgeClass = 'badge-biru';
-                        } elseif (str_contains($statusText, 'menunggu')) {
+                        } elseif (str_contains($statusText, 'menunggu') || str_contains($statusText, 'pengecekan') || str_contains($statusText, 'update') || str_contains($statusText, 'perbaikan') || str_contains($statusText, 'pending') || str_contains($statusText, 'follow-up')) {
                             $badgeClass = 'badge-oranye';
-                        } elseif (str_contains($statusText, 'proses') || str_contains($statusText, 'persiapan') || str_contains($statusText, 'pendampingan')) {
+                        } elseif (str_contains($statusText, 'proses') || str_contains($statusText, 'persiapan') || str_contains($statusText, 'pendampingan') || str_contains($statusText, 'olah') || str_contains($statusText, 'migrasi') || str_contains($statusText, 'berlangsung')) {
                             $badgeClass = 'badge-kuning';
-                        } elseif (str_contains($statusText, 'revisi') || str_contains($statusText, 'hold') || str_contains($statusText, 'dibatalkan') || str_contains($statusText, 'masalah')) {
+                        } elseif (str_contains($statusText, 'revisi') || str_contains($statusText, 'hold') || str_contains($statusText, 'dibatalkan') || str_contains($statusText, 'masalah') || str_contains($statusText, 'ulang')) {
                             $badgeClass = 'badge-merah';
-                        } elseif (str_contains($statusText, 'selesai') || str_contains($statusText, 'stabil') || str_contains($statusText, 'siap go-live') || str_contains($statusText, 'go-live')) {
+                        } elseif (str_contains($statusText, 'selesai') || str_contains($statusText, 'stabil') || str_contains($statusText, 'siap go-live') || str_contains($statusText, 'go-live') || str_contains($statusText, 'running')) {
                             $badgeClass = 'badge-hijau';
                         }
                     @endphp
@@ -517,10 +517,20 @@
                             <option value="Pelatihan Berlangsung">Pelatihan Berlangsung</option>
                             <option value="Pelatihan Selesai" selected>Pelatihan Selesai</option>
                             <option value="Persiapan Data">Persiapan Data</option>
-                            <option value="Menunggu Data Koperasi">Menunggu Data Koperasi</option>
-                            <option value="Penentuan Cut-Off">Penentuan Cut-Off</option>
-                            <option value="Proses Migrasi">Proses Migrasi</option>
-                            <option value="Siap Go-Live">Siap Go-Live</option>
+                            <option value="Olah data">Olah data</option>
+                            <option value="Migrasi data">Migrasi data</option>
+                            <option value="Menunggu Validasi Data">Menunggu Validasi Data</option>
+                            <option value="Pengecekan">Pengecekan</option>
+                            <option value="Update/Perbaikan Aplikasi">Update/Perbaikan Aplikasi</option>
+                            <option value="Monitoring">Monitoring</option>
+                            <option value="Pendampingan">Pendampingan</option>
+                            <option value="Running">Running</option>
+                            <option value="Go-Live">Go-Live</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Follow-up">Follow-up</option>
+                            <option value="Pelatihan Ulang">Pelatihan Ulang</option>
+                            <option value="Implementasi Selesai">Implementasi Selesai</option>
+                            <option value="Dibatalkan">Dibatalkan</option>
                         </select>
                     </div>
                 </div>
