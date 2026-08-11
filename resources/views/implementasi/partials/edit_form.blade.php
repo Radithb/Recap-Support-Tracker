@@ -214,12 +214,20 @@
             <div class="grid-2">
                 <div class="form-group">
                     <label class="form-label">{{ __('messages.tempat_go_live') }}</label>
-                    <select name="tempat_go_live" class="form-control">
+                    @php
+                        $currentTempatPartial = old('tempat_go_live', $implementasi->tempat_go_live);
+                        $isPresetPartial = in_array($currentTempatPartial, ['Zoom', 'Gmeet', '']);
+                        $isCustomPartial = !$isPresetPartial || $currentTempatPartial === 'Lokasi';
+                    @endphp
+                    <select name="tempat_go_live" onchange="toggleDetailLokasi(this, 'detail_lokasi_partial')" class="form-control">
                         <option value="">{{ __('messages.pilih_tempat') }}</option>
-                        <option value="Zoom" {{ old('tempat_go_live', $implementasi->tempat_go_live) == 'Zoom' ? 'selected' : '' }}>Zoom</option>
-                        <option value="Gmeet" {{ old('tempat_go_live', $implementasi->tempat_go_live) == 'Gmeet' ? 'selected' : '' }}>Gmeet</option>
-                        <option value="Lokasi" {{ old('tempat_go_live', $implementasi->tempat_go_live) == 'Lokasi' ? 'selected' : '' }}>Lokasi</option>
+                        <option value="Zoom" {{ $currentTempatPartial == 'Zoom' ? 'selected' : '' }}>Zoom</option>
+                        <option value="Gmeet" {{ $currentTempatPartial == 'Gmeet' ? 'selected' : '' }}>Gmeet</option>
+                        <option value="Lokasi" {{ $isCustomPartial ? 'selected' : '' }}>Lokasi (Kunjungan Offline)</option>
                     </select>
+                    <div id="detail_lokasi_partial" style="margin-top: 8px; display: {{ $isCustomPartial ? 'block' : 'none' }};">
+                        <input type="text" name="detail_lokasi" class="form-control" placeholder="Tuliskan alamat / lokasi kunjungan..." value="{{ !$isPresetPartial ? $currentTempatPartial : '' }}">
+                    </div>
                 </div>
                 <div class="form-group">
                     <label class="form-label">{{ __('messages.status_go_live') }}</label>

@@ -157,6 +157,11 @@ class ImplementasiController extends Controller
         }
         $anggotaHadirStr = implode(', ', $anggotaList);
 
+        $tempatGoLive = $request->tempat_go_live;
+        if ($tempatGoLive === 'Lokasi' && $request->filled('detail_lokasi')) {
+            $tempatGoLive = trim($request->detail_lokasi);
+        }
+
         $implementasi = ImplementasiKoperasi::create([
             'nomor_implementasi' => $nomor_implementasi,
             'instansi_id' => $request->instansi_id,
@@ -172,7 +177,7 @@ class ImplementasiController extends Controller
             'catatan_pelatihan' => $request->catatan_pelatihan,
             'target_go_live' => $request->target_go_live,
             'waktu_go_live' => $request->waktu_go_live,
-            'tempat_go_live' => $request->tempat_go_live,
+            'tempat_go_live' => $tempatGoLive,
             'status_go_live' => $request->status_go_live ?? 'Belum Siap Go Live',
             'status' => $request->status ?? 'Pelatihan Dijadwalkan',
             'tindakan_berikutnya' => 'Follow-Up Kesiapan Koperasi',
@@ -452,6 +457,11 @@ class ImplementasiController extends Controller
             }
         }
 
+        $tempatGoLive = $request->tempat_go_live;
+        if ($tempatGoLive === 'Lokasi' && $request->filled('detail_lokasi')) {
+            $tempatGoLive = trim($request->detail_lokasi);
+        }
+
         $implementasi->update([
             'instansi_id' => $request->instansi_id,
             'aplikasi_id' => is_array($request->aplikasi_id) ? $request->aplikasi_id[0] : $request->aplikasi_id, // Backward compatibility
@@ -466,7 +476,7 @@ class ImplementasiController extends Controller
             'catatan_pelatihan' => $request->catatan_pelatihan,
             'target_go_live' => $request->target_go_live,
             'waktu_go_live' => $request->waktu_go_live,
-            'tempat_go_live' => $request->tempat_go_live,
+            'tempat_go_live' => $tempatGoLive,
             'status_go_live' => $request->status_go_live ?? 'Belum Siap Go Live',
             'status' => $request->status ?? $implementasi->status,
             'pic_tindakan' => $anggotaHadirStr ?: 'Tim Support',
@@ -513,10 +523,15 @@ class ImplementasiController extends Controller
             'rencana_mitigasi' => 'nullable|string',
         ]);
 
+        $tempatGoLive = $request->tempat_go_live;
+        if ($tempatGoLive === 'Lokasi' && $request->filled('detail_lokasi')) {
+            $tempatGoLive = trim($request->detail_lokasi);
+        }
+
         $implementasi->update([
             'target_go_live' => $request->target_go_live,
             'waktu_go_live' => $request->waktu_go_live,
-            'tempat_go_live' => $request->tempat_go_live,
+            'tempat_go_live' => $tempatGoLive,
             'status_go_live' => $request->status_go_live ?? 'Belum Siap Go Live',
             'metode_pendampingan' => $request->metode_pendampingan,
             'link_meeting' => $request->link_meeting,

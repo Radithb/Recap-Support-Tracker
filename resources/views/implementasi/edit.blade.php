@@ -234,12 +234,20 @@
         <div class="grid-2">
             <div class="form-group">
                 <label class="form-label">{{ __('messages.tempat_go_live') }}</label>
-                <select name="tempat_go_live" class="form-control">
+                @php
+                    $currentTempatEdit = old('tempat_go_live', $implementasi->tempat_go_live);
+                    $isPresetEdit = in_array($currentTempatEdit, ['Zoom', 'Gmeet', '']);
+                    $isCustomEdit = !$isPresetEdit || $currentTempatEdit === 'Lokasi';
+                @endphp
+                <select name="tempat_go_live" onchange="toggleDetailLokasi(this, 'detail_lokasi_edit')" class="form-control">
                     <option value="">{{ __('messages.pilih_tempat') }}</option>
-                    <option value="Zoom" {{ old('tempat_go_live', $implementasi->tempat_go_live) == 'Zoom' ? 'selected' : '' }}>Zoom</option>
-                    <option value="Gmeet" {{ old('tempat_go_live', $implementasi->tempat_go_live) == 'Gmeet' ? 'selected' : '' }}>Gmeet</option>
-                    <option value="Lokasi" {{ old('tempat_go_live', $implementasi->tempat_go_live) == 'Lokasi' ? 'selected' : '' }}>Lokasi</option>
+                    <option value="Zoom" {{ $currentTempatEdit == 'Zoom' ? 'selected' : '' }}>Zoom</option>
+                    <option value="Gmeet" {{ $currentTempatEdit == 'Gmeet' ? 'selected' : '' }}>Gmeet</option>
+                    <option value="Lokasi" {{ $isCustomEdit ? 'selected' : '' }}>Lokasi (Kunjungan Offline)</option>
                 </select>
+                <div id="detail_lokasi_edit" style="margin-top: 8px; display: {{ $isCustomEdit ? 'block' : 'none' }};">
+                    <input type="text" name="detail_lokasi" class="form-control" placeholder="Tuliskan alamat / lokasi kunjungan..." value="{{ !$isPresetEdit ? $currentTempatEdit : '' }}">
+                </div>
             </div>
             <div class="form-group">
                 <label class="form-label">{{ __('messages.status_go_live') }}</label>
@@ -360,9 +368,17 @@
     }
 
     function removeInput(btn) {
-        btn.parentElement.remove();
-        if (typeof updateAplikasiOptions === 'function') {
-            updateAplikasiOptions();
+        const group = btn.closest('.trainer-input-group, .anggota-input-group, .kontak-input-group');
+        if (group) group.remove();
+    }
+
+    function toggleDetailLokasi(selectEl, targetId) {
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        if (selectEl.value === 'Lokasi') {
+            target.style.display = 'block';
+        } else {
+            target.style.display = 'none';
         }
     }
 </script>

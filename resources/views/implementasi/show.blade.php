@@ -965,12 +965,20 @@
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 15px;">
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.tempat') }}</label>
-                        <select name="tempat_go_live" class="form-control" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
+                        @php
+                            $currentTempat = $implementasi->tempat_go_live;
+                            $isPreset = in_array($currentTempat, ['Zoom', 'Gmeet', '']);
+                            $isCustom = !$isPreset || $currentTempat === 'Lokasi';
+                        @endphp
+                        <select name="tempat_go_live" onchange="toggleDetailLokasi(this, 'detail_lokasi_show')" class="form-control" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px; background: white;">
                             <option value="">{{ __('messages.pilih_tempat') }}</option>
-                            <option value="Zoom" {{ $implementasi->tempat_go_live == 'Zoom' ? 'selected' : '' }}>Zoom</option>
-                            <option value="Gmeet" {{ $implementasi->tempat_go_live == 'Gmeet' ? 'selected' : '' }}>Gmeet</option>
-                            <option value="Lokasi" {{ $implementasi->tempat_go_live == 'Lokasi' ? 'selected' : '' }}>Lokasi</option>
+                            <option value="Zoom" {{ $currentTempat == 'Zoom' ? 'selected' : '' }}>Zoom</option>
+                            <option value="Gmeet" {{ $currentTempat == 'Gmeet' ? 'selected' : '' }}>Gmeet</option>
+                            <option value="Lokasi" {{ $isCustom ? 'selected' : '' }}>Lokasi (Kunjungan Offline)</option>
                         </select>
+                        <div id="detail_lokasi_show" style="margin-top: 8px; display: {{ $isCustom ? 'block' : 'none' }};">
+                            <input type="text" name="detail_lokasi" class="form-control" placeholder="Tuliskan alamat / lokasi kunjungan..." value="{{ !$isPreset ? $currentTempat : '' }}" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
+                        </div>
                     </div>
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.status') }}</label>
@@ -1710,4 +1718,16 @@
         </div>
     </div>
 </div>
+
+<script>
+function toggleDetailLokasi(selectEl, targetId) {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    if (selectEl.value === 'Lokasi') {
+        target.style.display = 'block';
+    } else {
+        target.style.display = 'none';
+    }
+}
+</script>
 @endsection
