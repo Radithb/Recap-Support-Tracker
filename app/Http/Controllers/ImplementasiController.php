@@ -573,7 +573,10 @@ class ImplementasiController extends Controller
             'tanggal_followup_berikutnya' => 'nullable|date',
         ]);
         $newStatusTindakan = $request->status_tindakan ?? 'Persiapan Data';
-        
+        if ($newStatusTindakan === 'Implementasi Selesai' && $implementasi->progres < 100) {
+            return redirect()->back()->withInput()->with('error', 'Tidak dapat mengubah status tindakan menjadi Implementasi Selesai karena progres kesiapan/checklist dan prasyarat Go-Live belum lengkap 100%.');
+        }
+
         if ($implementasi->status === 'Implementasi Selesai' && $newStatusTindakan !== 'Implementasi Selesai') {
             return redirect()->back()->withInput()->with('error', 'Tidak dapat mengubah status tindakan karena status utama sudah "Implementasi Selesai". Harap ubah status utama terlebih dahulu.');
         }
