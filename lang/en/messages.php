@@ -37,6 +37,7 @@ return [
     'tanggal_pelatihan' => 'Training Date',
     'mulai' => 'Start',
     'selesai' => 'End',
+    'selesai_label' => 'End',
     'metode_pelatihan' => 'Training Execution',
     'berita_acara_pdf' => 'Official Report (PDF, Max 5MB)',
     'nama_anggota' => 'Member Name',
