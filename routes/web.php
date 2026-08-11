@@ -135,6 +135,24 @@ Route::get('/run-migrations', function () {
         $message .= "❌ Gagal membuat tabel implementasi_followups: " . $e->getMessage() . "<br>";
     }
 
+    // 2b. Pembuatan Kolom ebook & kantor_cabang Secara Langsung
+    try {
+        if (\Illuminate\Support\Facades\Schema::hasTable('master_aplikasis') && !\Illuminate\Support\Facades\Schema::hasColumn('master_aplikasis', 'ebook')) {
+            \Illuminate\Support\Facades\Schema::table('master_aplikasis', function (\Illuminate\Database\Schema\Blueprint $table) {
+                $table->text('ebook')->nullable();
+            });
+            $message .= "✅ Kolom 'ebook' BERHASIL DITAMBAHKAN ke master_aplikasis!<br>";
+        }
+        if (\Illuminate\Support\Facades\Schema::hasTable('implementasi_koperasi') && !\Illuminate\Support\Facades\Schema::hasColumn('implementasi_koperasi', 'kantor_cabang')) {
+            \Illuminate\Support\Facades\Schema::table('implementasi_koperasi', function (\Illuminate\Database\Schema\Blueprint $table) {
+                $table->string('kantor_cabang')->nullable();
+            });
+            $message .= "✅ Kolom 'kantor_cabang' BERHASIL DITAMBAHKAN ke implementasi_koperasi!<br>";
+        }
+    } catch (\Exception $e) {
+        $message .= "⚠️ Gagal menambah kolom: " . $e->getMessage() . "<br>";
+    }
+
     // 3. Jalankan Migrasi Sisa
     try {
         \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
