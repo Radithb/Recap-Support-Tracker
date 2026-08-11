@@ -89,19 +89,62 @@
                     <img src="{{ asset('logo.png') }}" alt="Logo">
                     <div class="brand-text">
                         <h2>PT SAKTI Kinerja Kolaborasindo</h2>
-                        <p>PORTAL PELAPORAN &amp; PEMANTAUAN TIKET MITRA</p>
+                        <p>Portal Layanan &amp; Dukungan Koperasi</p>
                     </div>
                 </div>
                 
                 <div class="login-text-content" style="position: relative; z-index: 10;">
-                    <h1 style="margin-top: 0;">Transparansi penuh atas setiap laporan mitra Anda</h1>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 8px; font-size: calc(12px * var(--text-scale, 1)); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">PORTAL LAYANAN PENGGUNA</p>
+                    <h1 style="margin-top: 0;">Portal Layanan Pengguna Aplikasi SAKTI</h1>
                     <p class="desc" style="margin-bottom: 0;">
-                        Setiap kendala yang Anda laporkan langsung masuk ke sistem tiket kami dan ditindaklanjuti oleh tim support yang responsif. Tidak perlu menebak-nebak progresnya status penanganan, riwayat komunikasi, hingga estimasi penyelesaian bisa Anda pantau kapan saja, langsung dari dashboard. Semua terhubung erat dengan seluruh layanan dalam ekosistem SAKTI, SICUNDO, dan mitra pendukung lainnya, sehingga laporan Anda tertangani cepat, akurat, dan tanpa perlu berpindah-pindah platform
+                        Dapatkan dukungan dan informasi yang Anda butuhkan dalam menggunakan Aplikasi SAKTI. Melalui portal ini, pengguna dapat menyampaikan kendala, memperoleh bantuan layanan, serta mengakses informasi dan pembaruan secara lebih mudah dan terpusat.
                     </p>
                     {{-- Teks singkat khusus mobile --}}
                     <p class="desc-mobile" style="display: none;">Pantau status, riwayat, dan estimasi penyelesaian tiket anda langsung dari dashboard.</p>
 
-
+                    <div style="display: flex; gap: 24px; margin-top: 36px; flex-wrap: wrap;">
+                        <!-- Layanan Bantuan -->
+                        <div style="display: flex; gap: 14px; align-items: flex-start; flex: 1; min-width: 200px;">
+                            <div style="background: rgba(255, 255, 255, 0.1); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.2);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: white;">
+                                    <path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/>
+                                    <path d="M21 16v2a4 4 0 0 1-4 4h-5"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 style="margin: 0 0 6px 0; font-size: calc(14px * var(--text-scale, 1)); font-weight: 700; color: white;">Layanan Bantuan</h3>
+                                <p style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: rgba(255, 255, 255, 0.7); line-height: 1.5;">Sampaikan kebutuhan atau kendala terkait penggunaan aplikasi.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Informasi & Pembaruan -->
+                        <div style="display: flex; gap: 14px; align-items: flex-start; flex: 1; min-width: 200px;">
+                            <div style="background: rgba(255, 255, 255, 0.1); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.2);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: white;">
+                                    <path d="m3 11 18-5v12L3 14v-3z"></path>
+                                    <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 style="margin: 0 0 6px 0; font-size: calc(14px * var(--text-scale, 1)); font-weight: 700; color: white;">Informasi & Pembaruan</h3>
+                                <p style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: rgba(255, 255, 255, 0.7); line-height: 1.5;">Dapatkan informasi terbaru mengenai layanan dan Aplikasi SAKTI.</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Panduan Pengguna -->
+                        <div style="display: flex; gap: 14px; align-items: flex-start; flex: 1; min-width: 200px;">
+                            <div style="background: rgba(255, 255, 255, 0.1); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.2);">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: white;">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 style="margin: 0 0 6px 0; font-size: calc(14px * var(--text-scale, 1)); font-weight: 700; color: white;">Panduan Pengguna</h3>
+                                <p style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: rgba(255, 255, 255, 0.7); line-height: 1.5;">Akses informasi dan panduan yang membantu penggunaan aplikasi.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 {{-- Footer Info --}}
@@ -154,7 +197,19 @@
                                         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
                                         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                                     </svg>
-                                    <input type="password" name="password" placeholder="••••••••" style="padding-left: 42px; font-size: calc(13px * var(--text-scale, 1));" required>
+                                    <input type="password" name="password" id="password-input" placeholder="••••••••" style="padding-left: 42px; padding-right: 42px; font-size: calc(13px * var(--text-scale, 1)); width: 100%; box-sizing: border-box;" required>
+                                    <button type="button" id="toggle-password" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; padding: 0; cursor: pointer; color: #64748b; display: flex; align-items: center; justify-content: center; opacity: 0.7; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">
+                                        <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                                            <circle cx="12" cy="12" r="3"/>
+                                        </svg>
+                                        <svg id="eye-off-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+                                            <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
+                                            <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
+                                            <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
+                                            <line x1="2" x2="22" y1="2" y2="22"/>
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
                             
@@ -301,6 +356,27 @@
             supportModal.addEventListener('click', (e) => {
                 if (e.target === supportModal) {
                     closeModal();
+                }
+            });
+        }
+
+        // Toggle password visibility
+        const togglePassword = document.getElementById('toggle-password');
+        const passwordInput = document.getElementById('password-input');
+        const eyeIcon = document.getElementById('eye-icon');
+        const eyeOffIcon = document.getElementById('eye-off-icon');
+
+        if (togglePassword && passwordInput) {
+            togglePassword.addEventListener('click', function () {
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                
+                if (type === 'text') {
+                    eyeIcon.style.display = 'none';
+                    eyeOffIcon.style.display = 'block';
+                } else {
+                    eyeIcon.style.display = 'block';
+                    eyeOffIcon.style.display = 'none';
                 }
             });
         }
