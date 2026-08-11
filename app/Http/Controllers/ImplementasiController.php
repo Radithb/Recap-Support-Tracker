@@ -214,6 +214,16 @@ class ImplementasiController extends Controller
             ['kategori' => 'Migrasi', 'nama_item' => 'Migrasi Kelengkapan Data Anggota'],
             
             // Running Monitoring Checklists
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Aplikasi dapat diakses/login dengan normal'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Aplikasi dapat digunakan tanpa error'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Perpindahan/menu aplikasi berjalan normal'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Proses input data berjalan normal'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Proses penyimpanan transaksi berjalan normal'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Transaksi berhasil diproses dan tercatat'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Data/transaksi yang sudah disimpan dapat ditampilkan kembali'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Laporan dapat ditampilkan dengan normal'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Cetak/export laporan berjalan normal'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Tidak terdapat kendala yang menghambat operasional koperasi'],
             ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'SAS sudah digunakan sebagai aplikasi operasional utama'],
             ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Operator aktif menggunakan SAS'],
             ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Proses manual/Excel untuk transaksi utama sudah ditinggalkan'],

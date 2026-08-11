@@ -30,6 +30,16 @@ Route::get('/reset-admin-password', function () {
 Route::get('/generate-running-checklists', function () {
     $implementasis = \App\Models\ImplementasiKoperasi::all();
     $runningItems = [
+        ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Aplikasi dapat diakses/login dengan normal'],
+        ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Aplikasi dapat digunakan tanpa error'],
+        ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Perpindahan/menu aplikasi berjalan normal'],
+        ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Proses input data berjalan normal'],
+        ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Proses penyimpanan transaksi berjalan normal'],
+        ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Transaksi berhasil diproses dan tercatat'],
+        ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Data/transaksi yang sudah disimpan dapat ditampilkan kembali'],
+        ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Laporan dapat ditampilkan dengan normal'],
+        ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Cetak/export laporan berjalan normal'],
+        ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Tidak terdapat kendala yang menghambat operasional koperasi'],
         ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'SAS sudah digunakan sebagai aplikasi operasional utama'],
         ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Operator aktif menggunakan SAS'],
         ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Proses manual/Excel untuk transaksi utama sudah ditinggalkan'],
@@ -45,21 +55,25 @@ Route::get('/generate-running-checklists', function () {
         ['kategori' => 'Running - Kemandirian', 'nama_item' => 'Operator sudah memahami proses operasional SAS']
     ];
     
-    $count = 0;
+    $totalAdded = 0;
     foreach($implementasis as $impl) {
-        $hasRunning = $impl->checklists()->where('kategori', 'like', 'Running%')->exists();
-        if (!$hasRunning) {
-            foreach($runningItems as $item) {
+        foreach($runningItems as $item) {
+            $exists = $impl->checklists()
+                ->where('kategori', $item['kategori'])
+                ->where('nama_item', $item['nama_item'])
+                ->exists();
+
+            if (!$exists) {
                 $impl->checklists()->create([
                     'kategori' => $item['kategori'],
                     'nama_item' => $item['nama_item'],
                     'status' => 'Belum Dikirim',
                 ]);
+                $totalAdded++;
             }
-            $count++;
         }
     }
-    return "Selesai! Checklist Running Monitoring berhasil ditambahkan untuk {$count} data implementasi lama.<br><a href='/'>Kembali ke Aplikasi</a>";
+    return "Selesai! Berhasil menambahkan {$totalAdded} item checklist Running Monitoring.<br><a href='/'>Kembali ke Aplikasi</a>";
 });
 
 // ROUTE SEMENTARA UNTUK MIGRASI & FORCE CLEAR CACHE (InfinityFree)

@@ -30,6 +30,16 @@ class GenerateRunningChecklists extends Command
 
         $implementasis = ImplementasiKoperasi::all();
         $runningItems = [
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Aplikasi dapat diakses/login dengan normal'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Aplikasi dapat digunakan tanpa error'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Perpindahan/menu aplikasi berjalan normal'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Proses input data berjalan normal'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Proses penyimpanan transaksi berjalan normal'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Transaksi berhasil diproses dan tercatat'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Data/transaksi yang sudah disimpan dapat ditampilkan kembali'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Laporan dapat ditampilkan dengan normal'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Cetak/export laporan berjalan normal'],
+            ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Tidak terdapat kendala yang menghambat operasional koperasi'],
             ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'SAS sudah digunakan sebagai aplikasi operasional utama'],
             ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Operator aktif menggunakan SAS'],
             ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Proses manual/Excel untuk transaksi utama sudah ditinggalkan'],
@@ -45,22 +55,25 @@ class GenerateRunningChecklists extends Command
             ['kategori' => 'Running - Kemandirian', 'nama_item' => 'Operator sudah memahami proses operasional SAS']
         ];
         
-        $count = 0;
+        $totalAdded = 0;
         foreach($implementasis as $impl) {
-            // Check if it already has running items
-            $hasRunning = $impl->checklists()->where('kategori', 'like', 'Running%')->exists();
-            if (!$hasRunning) {
-                foreach($runningItems as $item) {
+            foreach($runningItems as $item) {
+                $exists = $impl->checklists()
+                    ->where('kategori', $item['kategori'])
+                    ->where('nama_item', $item['nama_item'])
+                    ->exists();
+
+                if (!$exists) {
                     $impl->checklists()->create([
                         'kategori' => $item['kategori'],
                         'nama_item' => $item['nama_item'],
                         'status' => 'Belum Dikirim',
                     ]);
+                    $totalAdded++;
                 }
-                $count++;
             }
         }
 
-        $this->info("Selesai! Checklist berhasil ditambahkan untuk {$count} data implementasi.");
+        $this->info("Selesai! Berhasil menambahkan {$totalAdded} item checklist Running Monitoring.");
     }
 }
