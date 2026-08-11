@@ -40,8 +40,8 @@ class GenerateRunningChecklists extends Command
             ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Laporan dapat ditampilkan dengan normal'],
             ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Cetak/export laporan berjalan normal'],
             ['kategori' => 'Running - Aplikasi', 'nama_item' => 'Tidak terdapat kendala yang menghambat operasional koperasi'],
-            ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'SAS sudah digunakan sebagai aplikasi operasional utama'],
-            ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Operator aktif menggunakan SAS'],
+            ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Sakti sudah digunakan sebagai aplikasi operasional utama'],
+            ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Operator aktif menggunakan Sakti'],
             ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Proses manual/Excel untuk transaksi utama sudah ditinggalkan'],
             ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi anggota sudah berjalan'],
             ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi simpanan sudah berjalan'],
@@ -49,12 +49,19 @@ class GenerateRunningChecklists extends Command
             ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi angsuran sudah berjalan'],
             ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi kas sudah berjalan'],
             ['kategori' => 'Running - Laporan', 'nama_item' => 'Laporan sudah digunakan oleh koperasi'],
-            ['kategori' => 'Running - Laporan', 'nama_item' => 'Laporan SAS menjadi acuan operasional'],
+            ['kategori' => 'Running - Laporan', 'nama_item' => 'Laporan Sakti menjadi acuan operasional'],
             ['kategori' => 'Running - Kemandirian', 'nama_item' => 'Operator dapat melakukan transaksi tanpa bantuan Support'],
             ['kategori' => 'Running - Kemandirian', 'nama_item' => 'Operator dapat melakukan pengecekan/koreksi sederhana sendiri'],
-            ['kategori' => 'Running - Kemandirian', 'nama_item' => 'Operator sudah memahami proses operasional SAS']
+            ['kategori' => 'Running - Kemandirian', 'nama_item' => 'Operator sudah memahami proses operasional Sakti']
         ];
         
+        // Auto rename SAS to Sakti
+        ImplementasiChecklist::where('nama_item', 'like', '%SAS%')->get()->each(function($chk) {
+            $chk->update([
+                'nama_item' => str_replace('SAS', 'Sakti', $chk->nama_item)
+            ]);
+        });
+
         $totalAdded = 0;
         foreach($implementasis as $impl) {
             foreach($runningItems as $item) {
