@@ -145,10 +145,13 @@ class ImplementasiKoperasi extends Model
 
         $updateData = ['progres' => $persentase];
 
-        // Otomatis ubah Action Status (status_tindakan) menjadi 'Selesai' jika progres sudah 100%
+        // Otomatis ubah Action Status (status_tindakan) dan Status Utama (status) menjadi 'Selesai' / 'Implementasi Selesai' jika progres sudah 100%
         if ($persentase >= 100) {
             if ($this->status_tindakan !== 'Selesai' && $this->status_tindakan !== 'Implementasi Selesai') {
                 $updateData['status_tindakan'] = 'Selesai';
+            }
+            if ($this->status !== 'Implementasi Selesai') {
+                $updateData['status'] = 'Implementasi Selesai';
             }
         }
 
