@@ -360,12 +360,13 @@ class ImplementasiController extends Controller
 
         $instansis = Instansi::orderBy('nama_instansi')->get();
         $aplikasis = MasterAplikasi::where('is_active', true)->orderBy('nama_aplikasi')->get();
+        $usersSupport = User::whereIn('role', [UserRole::SUPPORT, UserRole::SUPERADMIN])->orderBy('nama')->get();
 
         if (request()->ajax()) {
-            return view('implementasi.partials.edit_form', compact('implementasi', 'instansis', 'aplikasis'));
+            return view('implementasi.partials.edit_form', compact('implementasi', 'instansis', 'aplikasis', 'usersSupport'));
         }
 
-        return view('implementasi.edit', compact('implementasi', 'instansis', 'aplikasis'));
+        return view('implementasi.edit', compact('implementasi', 'instansis', 'aplikasis', 'usersSupport'));
     }
 
     /**

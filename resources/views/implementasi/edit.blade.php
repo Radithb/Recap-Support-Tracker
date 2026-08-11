@@ -192,7 +192,12 @@
                     @endphp
                     @foreach($oldTrainer as $index => $trainer)
                     <div class="trainer-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
-                        <input type="text" name="nama_trainer[]" class="form-control" placeholder="Nama Trainer" value="{{ $trainer }}">
+                        <select name="nama_trainer[]" class="form-control searchable-select">
+                            <option value="" disabled {{ empty($trainer) ? 'selected' : '' }} hidden>Pilih Trainer</option>
+                            @foreach($usersSupport as $user)
+                                <option value="{{ $user->nama }}" {{ $trainer === $user->nama ? 'selected' : '' }}>{{ $user->nama }}</option>
+                            @endforeach
+                        </select>
                         @if($index === 0)
                             <button type="button" class="btn-action" style="background-color: #10b981; padding: 0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: bold; flex-shrink: 0; color: white; border: none; border-radius: 4px; cursor: pointer;" onclick="addTrainerInput()">+</button>
                         @else
@@ -343,7 +348,8 @@
         const container = document.getElementById('trainer-container');
         const originalGroup = container.querySelector('.trainer-input-group');
         const newGroup = originalGroup.cloneNode(true);
-        newGroup.querySelector('input').value = '';
+        const selectEl = newGroup.querySelector('select');
+        if (selectEl) selectEl.value = '';
         
         const btn = newGroup.querySelector('button');
         btn.textContent = '-';

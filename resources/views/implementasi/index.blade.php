@@ -592,7 +592,12 @@
                         <label class="form-label">{{ __('messages.nama_trainer') }}</label>
                         <div id="trainer-container">
                             <div class="trainer-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
-                                <input type="text" name="nama_trainer[]" class="form-control">
+                                <select name="nama_trainer[]" class="form-control searchable-select">
+                                    <option value="" disabled selected hidden>Pilih Trainer</option>
+                                    @foreach($usersSupport as $user)
+                                        <option value="{{ $user->nama }}">{{ $user->nama }}</option>
+                                    @endforeach
+                                </select>
                                 <button type="button" class="btn-action" style="background-color: #10b981; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="addTrainerInput()">+</button>
                             </div>
                         </div>
@@ -726,11 +731,19 @@
         inputGroup.className = 'trainer-input-group';
         inputGroup.style = 'display: flex; gap: 10px; margin-bottom: 10px;';
         
+        let optionsHtml = '<option value="" disabled selected hidden>Pilih Trainer</option>';
+        @foreach($usersSupport as $user)
+            optionsHtml += '<option value="{{ addslashes($user->nama) }}">{{ addslashes($user->nama) }}</option>';
+        @endforeach
+        
         inputGroup.innerHTML = `
-            <input type="text" name="nama_trainer[]" class="form-control">
+            <select name="nama_trainer[]" class="form-control searchable-select">
+                ${optionsHtml}
+            </select>
             <button type="button" class="btn-action" style="background-color: #ef4444; padding: 0; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; flex-shrink: 0;" onclick="removeTrainerInput(this)">-</button>
         `;
         container.appendChild(inputGroup);
+        // If searchable select logic requires re-init, it should be done here if needed.
     }
 
     function removeTrainerInput(btn) {
@@ -966,7 +979,8 @@
         const container = document.getElementById('edit-trainer-container');
         const originalGroup = container.querySelector('.trainer-input-group');
         const newGroup = originalGroup.cloneNode(true);
-        newGroup.querySelector('input').value = '';
+        const selectEl = newGroup.querySelector('select');
+        if(selectEl) selectEl.value = '';
         
         const btn = newGroup.querySelector('button');
         btn.textContent = '-';
