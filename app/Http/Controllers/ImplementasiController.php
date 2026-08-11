@@ -192,6 +192,7 @@ class ImplementasiController extends Controller
 
         // Auto-generate checklists
         $defaultChecklists = [
+            // Readiness Checklists
             ['kategori' => 'Data Utama', 'nama_item' => 'Data anggota tersedia'],
             ['kategori' => 'Data Utama', 'nama_item' => 'Data user atau pengguna tersedia'],
             ['kategori' => 'Keuangan', 'nama_item' => 'Data simpanan tersedia'],
@@ -200,6 +201,8 @@ class ImplementasiController extends Controller
             ['kategori' => 'Keuangan', 'nama_item' => 'Data COA tersedia'],
             ['kategori' => 'Master', 'nama_item' => 'Data produk simpanan tersedia'],
             ['kategori' => 'Master', 'nama_item' => 'Data produk pinjaman tersedia'],
+            
+            // Migrasi Checklists
             ['kategori' => 'Migrasi', 'nama_item' => 'Migrasi Data Anggota'],
             ['kategori' => 'Migrasi', 'nama_item' => 'Migrasi Data Simpanan Modal'],
             ['kategori' => 'Migrasi', 'nama_item' => 'Migrasi Data Simpanan Harian'],
@@ -209,6 +212,21 @@ class ImplementasiController extends Controller
             ['kategori' => 'Migrasi', 'nama_item' => 'Migrasi Data Kode Pos'],
             ['kategori' => 'Migrasi', 'nama_item' => 'Migrasi Data Perkiraan'],
             ['kategori' => 'Migrasi', 'nama_item' => 'Migrasi Kelengkapan Data Anggota'],
+            
+            // Running Monitoring Checklists
+            ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'SAS sudah digunakan sebagai aplikasi operasional utama'],
+            ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Operator aktif menggunakan SAS'],
+            ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Proses manual/Excel untuk transaksi utama sudah ditinggalkan'],
+            ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi anggota sudah berjalan'],
+            ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi simpanan sudah berjalan'],
+            ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi pinjaman sudah berjalan'],
+            ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi angsuran sudah berjalan'],
+            ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi kas sudah berjalan'],
+            ['kategori' => 'Running - Laporan', 'nama_item' => 'Laporan sudah digunakan oleh koperasi'],
+            ['kategori' => 'Running - Laporan', 'nama_item' => 'Laporan SAS menjadi acuan operasional'],
+            ['kategori' => 'Running - Kemandirian', 'nama_item' => 'Operator dapat melakukan transaksi tanpa bantuan Support'],
+            ['kategori' => 'Running - Kemandirian', 'nama_item' => 'Operator dapat melakukan pengecekan/koreksi sederhana sendiri'],
+            ['kategori' => 'Running - Kemandirian', 'nama_item' => 'Operator sudah memahami proses operasional SAS'],
         ];
 
         foreach ($defaultChecklists as $chk) {

@@ -557,6 +557,10 @@
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
             {{ __('messages.tab_go_live') }}
         </button>
+        <button class="md-tab-btn" onclick="openTab('tab-running', this)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M6 20V10M18 20V4"></path></svg>
+            Running Status
+        </button>
         <button class="md-tab-btn" onclick="openTab('tab-aktivitas', this)">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
             {{ __('messages.tab_aktivitas_log') }}
@@ -694,7 +698,9 @@
             @endif
         </div>
         @php
-            $nonMigrasiChecklists = $implementasi->checklists->where('kategori', '!=', 'Migrasi');
+            $nonMigrasiChecklists = $implementasi->checklists->where('kategori', '!=', 'Migrasi')->filter(function($item) {
+                return !str_starts_with($item->kategori ?? '', 'Running');
+            });
         @endphp
         @if($nonMigrasiChecklists->count() > 0)
             <div style="overflow-x: auto;">
@@ -1284,6 +1290,86 @@
                 </div>
             </div>
         </form>
+    </div>
+
+    <!-- TAB RUNNING MONITORING -->
+    <div id="tab-running" class="tab-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Running Monitoring (Status Kemandirian)</h4>
+        </div>
+        @php
+            $runningChecklists = $implementasi->checklists->filter(function($item) {
+                return str_starts_with($item->kategori ?? '', 'Running');
+            });
+            $groupedRunning = $runningChecklists->groupBy('kategori');
+        @endphp
+        
+        @if($runningChecklists->count() > 0)
+            <div style="overflow-x: auto;">
+                <table class="checklist-table">
+                    <thead>
+                        <tr>
+                            <th>Kategori</th>
+                            <th>Item Pemeriksaan</th>
+                            <th style="width: 200px;">Status</th>
+                            <th>Catatan</th>
+                            <th style="width: 120px; text-align: center;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($groupedRunning as $kategori => $items)
+                            @foreach($items as $index => $chk)
+                            <tr id="chk-row-{{ $chk->id }}">
+                                @if($index === 0)
+                                <td rowspan="{{ count($items) }}" style="font-weight: 600; vertical-align: top; background: #f8fafc; border-right: 1px solid #e2e8f0; width: 200px;">
+                                    {{ str_replace('Running - ', '', $chk->kategori) }}
+                                </td>
+                                @endif
+                                <td style="font-weight: 500;">{{ $chk->nama_item }}</td>
+                                <td>
+                                    @if(Auth::user()->role === \App\Enums\UserRole::PELAPOR)
+                                        <span style="font-weight:600; color: #475569;">{{ $chk->status == 'Sudah Valid' || $chk->status == 'Done' ? 'Done' : 'Tidak Done' }}</span>
+                                    @else
+                                        <select id="status-{{ $chk->id }}" class="checklist-select">
+                                            <option value="Belum Dikirim" {{ $chk->status != 'Sudah Valid' && $chk->status != 'Done' ? 'selected' : '' }}>Tidak Done</option>
+                                            <option value="Sudah Valid" {{ ($chk->status == 'Sudah Valid' || $chk->status == 'Done') ? 'selected' : '' }}>Sudah Valid (Done)</option>
+                                        </select>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if(Auth::user()->role === \App\Enums\UserRole::PELAPOR)
+                                        <span style="color: #64748b; font-style: italic;">{{ $chk->catatan ?? '-' }}</span>
+                                    @else
+                                        <textarea id="catatan-{{ $chk->id }}" class="checklist-input" placeholder="Tambahkan catatan..." rows="2" style="width: 100%; resize: vertical; padding: 6px; font-family: inherit;">{{ $chk->catatan }}</textarea>
+                                    @endif
+                                </td>
+                                <td style="text-align: center;">
+                                    @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
+                                        @php
+                                            $isDone = ($chk->status == 'Sudah Valid' || $chk->status == 'Done');
+                                            $simpanStyle = "background: #2563eb; color: #fff; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 500; cursor: pointer;";
+                                            $doneStyle = "background: #10b981; color: #fff; border: none; padding: 6px 9px; border-radius: 4px; display: inline-flex; align-items: center; justify-content: center;";
+                                            $doneStyle .= $isDone ? " opacity: 0.5; cursor: not-allowed;" : " cursor: pointer;";
+                                        @endphp
+                                        <div style="display: flex; gap: 6px; align-items: center; justify-content: center;">
+                                            <button type="button" id="btn-simpan-{{ $chk->id }}" onclick="updateChecklist({{ $chk->id }})" style="{{ $simpanStyle }}">{{ __('messages.btn_simpan') }}</button>
+                                            <button type="button" id="btn-done-{{ $chk->id }}" onclick="markAsDone({{ $chk->id }})" style="{{ $doneStyle }}" title="Tandai Selesai" {{ $isDone ? 'disabled' : '' }}>
+                                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            </button>
+                                        </div>
+                                    @endif
+                                </td>
+                            </tr>
+                            @endforeach
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <div style="text-align: center; padding: 30px; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 6px; color: #64748b;">
+                Belum ada data Running Monitoring untuk implementasi ini.
+            </div>
+        @endif
     </div>
 
     <!-- TAB 7: AKTIVITAS & LOG -->
