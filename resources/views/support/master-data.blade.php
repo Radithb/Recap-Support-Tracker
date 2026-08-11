@@ -802,13 +802,22 @@
                     <div class="field">
                         <label>{{ __('messages.uploaded_ebook') }}</label>
                         @if(is_array($app->ebook) && count($app->ebook) > 0)
-                            <div style="margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px;">
+                            <div style="margin-bottom: 12px; display: flex; flex-direction: column; gap: 8px;" id="ebook-list-{{ $app->aplikasi_id }}">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                                    <label style="margin: 0; font-size: 12px; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                                        <input type="checkbox" onchange="toggleAllEbooks(this, {{ $app->aplikasi_id }})" style="margin: 0;"> Pilih Semua
+                                    </label>
+                                    <button type="button" id="btn-bulk-delete-{{ $app->aplikasi_id }}" onclick="submitBulkDelete({{ $app->aplikasi_id }})" style="display: none; background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); padding: 4px 10px; border-radius: 6px; font-size: 12px; cursor: pointer; font-weight: 600; transition: all 0.2s;">Hapus yang Dipilih</button>
+                                </div>
                                 @foreach($app->ebook as $index => $path)
                                     <div style="display: flex; align-items: center; justify-content: space-between; padding: 8px; background: var(--paper-sunken); border: 1px solid var(--line); border-radius: 6px;">
-                                        <a href="{{ asset('storage/' . $path) }}" target="_blank" style="color: var(--primary); font-size: 0.85rem; text-decoration: none; display: flex; align-items: center; gap: 6px;" title="{{ __('messages.btn_open') }} {{ preg_replace('/^\d+_/', '', basename($path)) }}">
-                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                                            {{ Str::limit(preg_replace('/^\d+_/', '', basename($path)), 35) }}
-                                        </a>
+                                        <div style="display: flex; align-items: center; gap: 10px; overflow: hidden;">
+                                            <input type="checkbox" name="ebook_selections_{{ $app->aplikasi_id }}[]" value="{{ $index }}" onchange="checkBulkDelete({{ $app->aplikasi_id }})" style="margin: 0; cursor: pointer;">
+                                            <a href="{{ asset('storage/' . $path) }}" target="_blank" style="color: var(--primary); font-size: 0.85rem; text-decoration: none; display: flex; align-items: center; gap: 6px;" title="{{ __('messages.btn_open') }} {{ preg_replace('/^\d+_/', '', basename($path)) }}">
+                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                                <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 250px;">{{ Str::limit(preg_replace('/^\d+_/', '', basename($path)), 35) }}</span>
+                                            </a>
+                                        </div>
                                         <button type="button" onclick="if(confirm('{{ __('messages.confirm_delete_ebook') }}')) { document.getElementById('delete-ebook-form-{{ $app->aplikasi_id }}-{{ $index }}').submit(); }" style="background: none; border: none; color: var(--danger); cursor: pointer; padding: 4px; border-radius: 4px;" title="{{ __('messages.hapus') }}">
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                                         </button>
@@ -1140,11 +1149,48 @@
             });
         }
     });
+    // Fungsi Bulk Delete Ebook
+    function toggleAllEbooks(checkbox, appId) {
+        let checkboxes = document.querySelectorAll(`input[name="ebook_selections_${appId}[]"]`);
+        checkboxes.forEach(cb => cb.checked = checkbox.checked);
+        checkBulkDelete(appId);
+    }
+
+    function checkBulkDelete(appId) {
+        let checkboxes = document.querySelectorAll(`input[name="ebook_selections_${appId}[]"]:checked`);
+        let btn = document.getElementById(`btn-bulk-delete-${appId}`);
+        if (checkboxes.length > 0) {
+            btn.style.display = 'inline-block';
+        } else {
+            btn.style.display = 'none';
+        }
+    }
+
+    function submitBulkDelete(appId) {
+        if (confirm('Apakah Anda yakin ingin menghapus ' + document.querySelectorAll(`input[name="ebook_selections_${appId}[]"]:checked`).length + ' ebook yang dipilih?')) {
+            let form = document.getElementById(`bulk-delete-ebook-form-${appId}`);
+            let checkboxes = document.querySelectorAll(`input[name="ebook_selections_${appId}[]"]:checked`);
+            checkboxes.forEach(cb => {
+                let input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'delete_ebook_indices[]';
+                input.value = cb.value;
+                form.appendChild(input);
+            });
+            form.submit();
+        }
+    }
 </script>
 
     <!-- Hidden forms for deleting specific ebook files -->
     @foreach($aplikasis as $app)
         @if(is_array($app->ebook) && count($app->ebook) > 0)
+            <!-- Form untuk bulk delete -->
+            <form id="bulk-delete-ebook-form-{{ $app->aplikasi_id }}" action="{{ route('support.master-data.aplikasi.ebook.bulk-destroy', $app->aplikasi_id) }}" method="POST" style="display: none;">
+                @csrf
+                @method('DELETE')
+            </form>
+            
             @foreach($app->ebook as $index => $path)
                 <form id="delete-ebook-form-{{ $app->aplikasi_id }}-{{ $index }}" action="{{ route('support.master-data.aplikasi.ebook.destroy', ['id' => $app->aplikasi_id, 'index' => $index]) }}" method="POST" style="display: none;">
                     @csrf

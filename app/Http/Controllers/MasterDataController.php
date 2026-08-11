@@ -121,6 +121,34 @@ class MasterDataController extends Controller
         return back()->with('success', __('messages.app_deleted'));
     }
 
+    public function bulkDeleteEbook(Request $request, $id)
+    {
+        $request->validate([
+            'delete_ebook_indices' => 'required|array',
+            'delete_ebook_indices.*' => 'integer'
+        ]);
+
+        $aplikasi = MasterAplikasi::findOrFail($id);
+        $ebooks = is_array($aplikasi->ebook) ? $aplikasi->ebook : [];
+        
+        $indices = $request->delete_ebook_indices;
+        rsort($indices);
+
+        foreach ($indices as $index) {
+            if (isset($ebooks[$index])) {
+                $path = $ebooks[$index];
+                if (\Illuminate\Support\Facades\Storage::disk('public')->exists($path)) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($path);
+                }
+                unset($ebooks[$index]);
+            }
+        }
+
+        $aplikasi->update(['ebook' => array_values($ebooks)]);
+        
+        return back()->with('success', 'File Ebook yang dipilih berhasil dihapus.');
+    }
+
     public function deleteEbook($id, $index)
     {
         $aplikasi = MasterAplikasi::findOrFail($id);
