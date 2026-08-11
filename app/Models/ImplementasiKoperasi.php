@@ -112,40 +112,37 @@ class ImplementasiKoperasi extends Model
     public function updateProgres()
     {
         $query = $this->checklists();
-        $totalChecklist = $query->count();
         
         $allDone = ['Sudah Valid', 'Selesai', 'Done', 'Migrasi Selesai'];
-        $validChecklist = (clone $query)->whereIn('status', $allDone)->count();
+        
+        // --- 1. Bobot Kesiapan (Kategori selain 'Migrasi') : 40% ---
+        $queryKesiapan = (clone $query)->where('kategori', '!=', 'Migrasi');
+        $totalKesiapan = $queryKesiapan->count();
+        $doneKesiapan = (clone $queryKesiapan)->whereIn('status', $allDone)->count();
+        
+        $bobotKesiapan = 40;
+        $nilaiKesiapan = ($totalKesiapan > 0) ? ($doneKesiapan / $totalKesiapan) * $bobotKesiapan : 0;
 
-        // Hitung 5 syarat Go-Live
-        $syaratGoLive = 0;
-        
-        // 1. Pelatihan Selesai
-        if (!empty($this->tanggal_selesai) || !empty($this->tanggal_pelatihan) || !empty($this->berita_acara)) $syaratGoLive++;
-        
-        // 2. Data Utama & User Aplikasi Tersedia
-        $dataUtamaNotDone = (clone $query)->where('kategori', 'Data Utama')->whereNotIn('status', $allDone)->count();
-        if ($dataUtamaNotDone === 0) $syaratGoLive++;
-        
-        // 3. Data Cut-Off Disepakati
-        if (!empty($this->tanggal_cut_off)) $syaratGoLive++;
-        
-        // 4. Migrasi Selesai
-        $migrasiNotDone = (clone $query)->where('kategori', 'Migrasi')->whereNotIn('status', $allDone)->count();
-        if ($migrasiNotDone === 0) $syaratGoLive++;
-        
-        // 5. PIC Koperasi Ditentukan
-        if (!empty($this->anggota_hadir) || !empty($this->pic_koperasi)) $syaratGoLive++;
+        // --- 2. Bobot Migrasi (Kategori 'Migrasi') : 30% ---
+        $queryMigrasi = (clone $query)->where('kategori', 'Migrasi');
+        $totalMigrasi = $queryMigrasi->count();
+        $doneMigrasi = (clone $queryMigrasi)->whereIn('status', $allDone)->count();
 
-        $totalKriteria = $totalChecklist + 5; // Checklist + 5 Syarat Go-Live
-        $kriteriaTerpenuhi = $validChecklist + $syaratGoLive;
+        $bobotMigrasi = 30;
+        $nilaiMigrasi = ($totalMigrasi > 0) ? ($doneMigrasi / $totalMigrasi) * $bobotMigrasi : 0;
 
-        if ($totalKriteria == 0) {
-            $this->update(['progres' => 0]);
-            return 0;
-        }
+        // --- 3. Bobot Cut-Off Date : 15% ---
+        $bobotCutoff = 15;
+        $nilaiCutoff = ($this->status_cutoff == 'Cut-Off Valid') ? $bobotCutoff : 0;
 
-        $persentase = ($kriteriaTerpenuhi / $totalKriteria) * 100;
+        // --- 4. Bobot Go-Live : 15% ---
+        $bobotGoLive = 15;
+        $nilaiGoLive = ($this->status_go_live == 'Siap Go Live' || $this->status_go_live == 'Go-Live Selesai' || $this->status_go_live == 'Selesai') ? $bobotGoLive : 0;
+
+        // --- Kalkulasi Total Progres ---
+        // Jika belum ada input apa-apa (0 total kriteria yang terdaftar/terisi), tetap mulai dari 0
+        $persentase = $nilaiKesiapan + $nilaiMigrasi + $nilaiCutoff + $nilaiGoLive;
+
         $this->update(['progres' => round($persentase, 2)]);
 
         return round($persentase, 2);

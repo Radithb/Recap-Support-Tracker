@@ -265,11 +265,28 @@ class ImplementasiController extends Controller
         // Cek syarat go-live otomatis
         $implementasi->checkAndSetGoLiveDate();
 
+        // Siapkan data kondisi Go-Live untuk diupdate via JS
+        $allDone = ['Sudah Valid', 'Done', 'Selesai', 'Migrasi Selesai'];
+        $dataUtamaNotDone = $implementasi->checklists()->where('kategori', 'Data Utama')->whereNotIn('status', $allDone)->count();
+        $migrasiNotDone = $implementasi->checklists()->where('kategori', 'Migrasi')->whereNotIn('status', $allDone)->count();
+        
+        $syarat = [
+            'Pelatihan Selesai' => !empty($implementasi->tanggal_selesai) || !empty($implementasi->tanggal_pelatihan) || !empty($implementasi->berita_acara),
+            'Data Utama & User Aplikasi Tersedia' => $dataUtamaNotDone === 0,
+            'Data Cut-Off Disepakati' => !empty($implementasi->tanggal_cut_off),
+            'Migrasi Selesai' => $migrasiNotDone === 0,
+            'PIC Koperasi Ditentukan' => !empty($implementasi->anggota_hadir) || !empty($implementasi->pic_koperasi),
+        ];
+        
+        $canGoLive = !in_array(false, $syarat, true);
+
         return response()->json([
             'success' => true,
-            'message' => 'Checklist berhasil diperbarui',
+            'message' => 'Item checklist berhasil diupdate',
             'new_progres' => $newProgres,
-            'checklist' => $checklist
+            'catatan' => $checklist->catatan,
+            'syarat' => $syarat,
+            'can_go_live' => $canGoLive
         ]);
     }
 

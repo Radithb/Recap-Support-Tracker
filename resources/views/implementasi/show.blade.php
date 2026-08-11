@@ -859,15 +859,43 @@
         @endphp
 
         @if(!$canGoLive)
-            <div style="background-color: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 12px 16px; margin-bottom: 16px;">
+            <div id="go-live-alert" style="background-color: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 12px 16px; margin-bottom: 16px;">
                 <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                     <span style="color: #b45309; font-size: 13.5px; font-weight: 700;">Syarat Penentuan Go-Live Belum Terpenuhi</span>
                 </div>
                 <p style="margin: 0 0 10px 0; font-size: 12.5px; color: #b45309;">Formulir Go-Live dikunci. Silakan penuhi prasyarat berikut terlebih dahulu:</p>
-                <ul style="margin: 0; padding-left: 20px; font-size: 12.5px; color: #92400e;">
+                <ul id="go-live-requirements-list" style="margin: 0; padding-left: 20px; font-size: 12.5px; color: #92400e;">
                     @foreach($syarat as $label => $terpenuhi)
-                        <li style="margin-bottom: 4px; list-style-type: none; display: flex; align-items: center; gap: 6px;">
+                        @php
+                            $safeId = preg_replace('/[^a-z0-9]/', '-', strtolower($label));
+                        @endphp
+                        <li id="req-{{ $safeId }}" style="margin-bottom: 4px; list-style-type: none; display: flex; align-items: center; gap: 6px;">
+                            @if($terpenuhi)
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                <span style="color: #10b981; text-decoration: line-through;">{{ $label }}</span>
+                            @else
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                <span style="font-weight: 600;">{{ $label }}</span>
+                            @endif
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @else
+            <!-- Placeholder if it later becomes unmet -->
+            <div id="go-live-alert" style="display: none; background-color: #fffbeb; border: 1px solid #fde68a; border-radius: 6px; padding: 12px 16px; margin-bottom: 16px;">
+                <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    <span style="color: #b45309; font-size: 13.5px; font-weight: 700;">Syarat Penentuan Go-Live Belum Terpenuhi</span>
+                </div>
+                <p style="margin: 0 0 10px 0; font-size: 12.5px; color: #b45309;">Formulir Go-Live dikunci. Silakan penuhi prasyarat berikut terlebih dahulu:</p>
+                <ul id="go-live-requirements-list" style="margin: 0; padding-left: 20px; font-size: 12.5px; color: #92400e;">
+                    @foreach($syarat as $label => $terpenuhi)
+                        @php
+                            $safeId = preg_replace('/[^a-z0-9]/', '-', strtolower($label));
+                        @endphp
+                        <li id="req-{{ $safeId }}" style="margin-bottom: 4px; list-style-type: none; display: flex; align-items: center; gap: 6px;">
                             @if($terpenuhi)
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
                                 <span style="color: #10b981; text-decoration: line-through;">{{ $label }}</span>
@@ -887,7 +915,7 @@
             
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                 <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">{{ __('messages.detail_go_live') }}</h4>
-                <button type="submit" {{ !$canGoLive ? 'disabled' : '' }} style="background-color: {{ $canGoLive ? '#3b82f6' : '#94a3b8' }}; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; {{ $canGoLive ? 'cursor: pointer;' : 'cursor: not-allowed;' }}">{{ __('messages.simpan_perubahan') }}</button>
+                <button type="submit" id="btn-submit-golive" {{ !$canGoLive ? 'disabled' : '' }} style="background-color: {{ $canGoLive ? '#3b82f6' : '#94a3b8' }}; color: white; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: 600; {{ $canGoLive ? 'cursor: pointer;' : 'cursor: not-allowed;' }}">{{ __('messages.simpan_perubahan') }}</button>
             </div>
             
             <div class="tab-pane-inner">
@@ -1574,8 +1602,41 @@
                     }
                 }
                 
-                // Show Toast Notification
-                showToast("{{ __('messages.toast_checklist_updated') }}");
+                if (data.syarat) {
+                    // Update syarat golive
+                    Object.keys(data.syarat).forEach(key => {
+                        const safeKey = key.toLowerCase().replace(/[^a-z0-9]/g, '-');
+                        const li = document.getElementById('req-' + safeKey);
+                        if (li) {
+                            if (data.syarat[key]) {
+                                li.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg><span style="color: #10b981; text-decoration: line-through;">${key}</span>`;
+                            } else {
+                                li.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg><span style="font-weight: 600;">${key}</span>`;
+                            }
+                        }
+                    });
+                    
+                    const alertBox = document.getElementById('go-live-alert');
+                    if (alertBox) {
+                        alertBox.style.display = data.can_go_live ? 'none' : 'block';
+                    }
+                    
+                    const btnSubmit = document.getElementById('btn-submit-golive');
+                    if (btnSubmit) {
+                        btnSubmit.disabled = !data.can_go_live;
+                        btnSubmit.style.backgroundColor = data.can_go_live ? '#3b82f6' : '#94a3b8';
+                        btnSubmit.style.cursor = data.can_go_live ? 'pointer' : 'not-allowed';
+                    }
+                }
+
+                if (data.reload) {
+                    // Show Toast Notification
+                    showToast("Item berhasil diupdate. Memperbarui status Go-Live...");
+                    setTimeout(() => location.reload(), 1500);
+                } else {
+                    // Show Toast Notification
+                    showToast("{{ __('messages.toast_checklist_updated') }}");
+                }
             }
         })
         .catch(error => {
