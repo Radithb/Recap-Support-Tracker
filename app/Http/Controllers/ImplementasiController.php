@@ -426,8 +426,8 @@ class ImplementasiController extends Controller
             if ($implementasi->progres < 100) {
                 return redirect()->back()->withInput()->with('error', 'Tidak dapat mengubah status menjadi Implementasi Selesai karena progres kesiapan/checklist belum 100%.');
             }
-            if ($implementasi->status_tindakan !== 'Selesai') {
-                return redirect()->back()->withInput()->with('error', 'Tidak dapat mengubah status menjadi Implementasi Selesai karena status tindakan (follow-up) belum Selesai/Tuntas.');
+            if ($implementasi->status_tindakan !== 'Implementasi Selesai') {
+                return redirect()->back()->withInput()->with('error', 'Tidak dapat mengubah status menjadi Implementasi Selesai karena status tindakan (follow-up) belum Implementasi Selesai.');
             }
         }
 
@@ -571,7 +571,7 @@ class ImplementasiController extends Controller
         ]);
         $newStatusTindakan = $request->status_tindakan ?? 'Persiapan Data';
         
-        if ($implementasi->status === 'Implementasi Selesai' && $newStatusTindakan !== 'Selesai') {
+        if ($implementasi->status === 'Implementasi Selesai' && $newStatusTindakan !== 'Implementasi Selesai') {
             return redirect()->back()->withInput()->with('error', 'Tidak dapat mengubah status tindakan karena status utama sudah "Implementasi Selesai". Harap ubah status utama terlebih dahulu.');
         }
 

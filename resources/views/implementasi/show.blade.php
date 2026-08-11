@@ -1194,7 +1194,7 @@
                             </div>
                             <div>
                                 <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.status_tindakan') }}</label>
-                                <select name="status_tindakan" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 7px; border-radius: 4px; background: white;">
+                                <select name="status_tindakan" id="status_tindakan_select" data-original="{{ $implementasi->status_tindakan }}" class="form-control" style="width: 100%; border: 1px solid #cbd5e1; padding: 7px; border-radius: 4px; background: white;">
                                     <option value="Persiapan Data" {{ $implementasi->status_tindakan == 'Persiapan Data' ? 'selected' : '' }}>Persiapan Data</option>
                                     <option value="Migrasi Data" {{ $implementasi->status_tindakan == 'Migrasi Data' ? 'selected' : '' }}>Migrasi Data</option>
                                     <option value="Olah Data" {{ $implementasi->status_tindakan == 'Olah Data' ? 'selected' : '' }}>Olah Data</option>
@@ -1315,6 +1315,23 @@
             modal.classList.remove('active');
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusTindakanSelect = document.getElementById('status_tindakan_select');
+        if (statusTindakanSelect) {
+            statusTindakanSelect.addEventListener('change', function(e) {
+                if (this.value === 'Implementasi Selesai') {
+                    if (!confirm('Pastikan semua catatan tindak lanjut dan kendala telah diselesaikan.\nApakah Anda yakin ingin menyelesaikan tindakan ini?')) {
+                        this.value = this.getAttribute('data-original') || 'Persiapan Data';
+                    } else {
+                        this.setAttribute('data-original', this.value);
+                    }
+                } else {
+                    this.setAttribute('data-original', this.value);
+                }
+            });
+        }
+    });
 
     // Tab Navigation Logic
     function openTab(tabId, btn) {
