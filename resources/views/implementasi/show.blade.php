@@ -1291,6 +1291,7 @@
             </div>
         </form>
     </div>
+    </div> <!-- END OF TAB FOLLOW-UP -->
 
     <!-- TAB RUNNING MONITORING -->
     <div id="tab-running" class="tab-content">
