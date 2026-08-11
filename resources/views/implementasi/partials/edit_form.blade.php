@@ -42,7 +42,13 @@
                             $currentStatus = old('status', $implementasi->status);
                         @endphp
                         @foreach($statuses as $stValue => $stKey)
-                            <option value="{{ $stValue }}" {{ $currentStatus == $stValue ? 'selected' : '' }}>{{ __('messages.' . $stKey) }}</option>
+                            @php
+                                $translated = __('messages.' . $stKey);
+                                if ($translated === 'messages.' . $stKey) {
+                                    $translated = $stValue;
+                                }
+                            @endphp
+                            <option value="{{ $stValue }}" {{ $currentStatus == $stValue ? 'selected' : '' }}>{{ $translated }}</option>
                         @endforeach
                     </select>
                 </div>

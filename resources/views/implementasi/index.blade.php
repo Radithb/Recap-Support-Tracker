@@ -524,24 +524,37 @@
                     <div class="form-group">
                         <label class="form-label">Status</label>
                         <select name="status" class="form-control" required>
-                            <option value="Pelatihan Dijadwalkan">{{ __('messages.status_impl_pelatihan_dijadwalkan') }}</option>
-                            <option value="Pelatihan Berlangsung">{{ __('messages.status_impl_pelatihan_berlangsung') }}</option>
-                            <option value="Pelatihan Selesai" selected>{{ __('messages.status_impl_pelatihan_selesai') }}</option>
-                            <option value="Persiapan Data">{{ __('messages.status_impl_persiapan_data') }}</option>
-                            <option value="Olah data">{{ __('messages.status_impl_olah_data') }}</option>
-                            <option value="Migrasi data">{{ __('messages.status_impl_migrasi_data') }}</option>
-                            <option value="Menunggu Validasi Data">{{ __('messages.status_impl_menunggu_validasi_data') }}</option>
-                            <option value="Pengecekan">{{ __('messages.status_impl_pengecekan') }}</option>
-                            <option value="Update/Perbaikan Aplikasi">{{ __('messages.status_impl_update_perbaikan_aplikasi') }}</option>
-                            <option value="Monitoring">{{ __('messages.status_impl_monitoring') }}</option>
-                            <option value="Pendampingan">{{ __('messages.status_impl_pendampingan') }}</option>
-                            <option value="Running">{{ __('messages.status_impl_running') }}</option>
-                            <option value="Go-Live">{{ __('messages.status_impl_go_live') }}</option>
-                            <option value="Pending">{{ __('messages.status_impl_pending') }}</option>
-                            <option value="Follow-up">{{ __('messages.status_impl_follow_up') }}</option>
-                            <option value="Pelatihan Ulang">{{ __('messages.status_impl_pelatihan_ulang') }}</option>
-                            <option value="Implementasi Selesai">{{ __('messages.status_impl_implementasi_selesai') }}</option>
-                            <option value="Dibatalkan">{{ __('messages.status_impl_dibatalkan') }}</option>
+                            @php
+                                $createStatuses = [
+                                    'Pelatihan Dijadwalkan' => 'status_impl_pelatihan_dijadwalkan',
+                                    'Pelatihan Berlangsung' => 'status_impl_pelatihan_berlangsung',
+                                    'Pelatihan Selesai' => 'status_impl_pelatihan_selesai',
+                                    'Persiapan Data' => 'status_impl_persiapan_data',
+                                    'Olah data' => 'status_impl_olah_data',
+                                    'Migrasi data' => 'status_impl_migrasi_data',
+                                    'Menunggu Validasi Data' => 'status_impl_menunggu_validasi_data',
+                                    'Pengecekan' => 'status_impl_pengecekan',
+                                    'Update/Perbaikan Aplikasi' => 'status_impl_update_perbaikan_aplikasi',
+                                    'Monitoring' => 'status_impl_monitoring',
+                                    'Pendampingan' => 'status_impl_pendampingan',
+                                    'Running' => 'status_impl_running',
+                                    'Go-Live' => 'status_impl_go_live',
+                                    'Pending' => 'status_impl_pending',
+                                    'Follow-up' => 'status_impl_follow_up',
+                                    'Pelatihan Ulang' => 'status_impl_pelatihan_ulang',
+                                    'Implementasi Selesai' => 'status_impl_implementasi_selesai',
+                                    'Dibatalkan' => 'status_impl_dibatalkan',
+                                ];
+                            @endphp
+                            @foreach($createStatuses as $val => $key)
+                                @php
+                                    $lbl = __('messages.' . $key);
+                                    if ($lbl === 'messages.' . $key) {
+                                        $lbl = $val;
+                                    }
+                                @endphp
+                                <option value="{{ $val }}" {{ $val == 'Pelatihan Selesai' ? 'selected' : '' }}>{{ $lbl }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
