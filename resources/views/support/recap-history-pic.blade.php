@@ -101,8 +101,8 @@
                     <tr style="border-bottom: 1px solid var(--line);">
                         <td style="padding: 1rem 1.25rem; vertical-align: middle;">
                             <div style="font-weight: 700; color: #2563eb; font-size: 0.9rem; font-family: 'JetBrains Mono', monospace;">{{ $tkt->ticket_id }}</div>
-                            <div style="font-size: 0.85rem; color: var(--ink); font-weight: 600; margin-top: 2px;">{{ $tkt->pelapor->instansi->nama_instansi ?? 'Koperasi' }}</div>
-                            <div style="font-size: 0.78rem; color: var(--text-muted);">Pelapor: {{ $tkt->pelapor->nama ?? '-' }}</div>
+                            <div style="font-size: 0.85rem; color: var(--ink); font-weight: 600; margin-top: 2px;">{{ $tkt->pelapor->instansi->nama_instansi ?? __('messages.koperasi') ?? 'Koperasi' }}</div>
+                            <div style="font-size: 0.78rem; color: var(--text-muted);">{{ __('messages.reporter') ?? 'Pelapor' }}: {{ $tkt->pelapor->nama ?? '-' }}</div>
                         </td>
                         <td style="padding: 1rem 1.25rem; vertical-align: middle;">
                             @if($tkt->picSupport)
@@ -163,7 +163,7 @@
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--line); background: var(--paper-raised); flex-wrap: wrap; gap: 15px;">
             <div>
                 <h4 style="margin: 0; font-size: 1.15rem; font-weight: 700; color: var(--ink); font-family: 'Poppins', sans-serif;" id="modalLogTitle">{{ __('messages.modal_log_title') }}</h4>
-                <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;" id="modalLogSubtitle">Koperasi</div>
+                <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 2px;" id="modalLogSubtitle">{{ __('messages.koperasi') ?? 'Koperasi' }}</div>
             </div>
             <button type="button" onclick="closeLogModal()" style="background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text-muted); line-height: 1;">&times;</button>
         </div>
@@ -262,14 +262,14 @@
         // Render TERAKHIR DI EDIT items
         let editListHtml = `
             <div style="font-size: 0.88rem; color: var(--ink); line-height: 1.5;">
-                <strong style="color: var(--ink);">Solusi / Penyelesaian:</strong> ${solusi || 'Belum ada solusi diinput oleh PIC Support.'}
+                <strong style="color: var(--ink);">{{ __('messages.solusi_penyelesaian') ?? 'Solusi / Penyelesaian:' }}</strong> ${solusi || '{{ __('messages.belum_ada_solusi') ?? 'Belum ada solusi diinput oleh PIC Support.' }}'}
             </div>
         `;
 
         if (pencegahan && pencegahan.trim() !== '') {
             editListHtml += `
                 <div style="font-size: 0.88rem; color: var(--ink); line-height: 1.5; margin-top: 4px;">
-                    <strong style="color: var(--ink);">Tindakan Pencegahan:</strong> ${pencegahan}
+                    <strong style="color: var(--ink);">{{ __('messages.tindakan_pencegahan') ?? 'Tindakan Pencegahan:' }}</strong> ${pencegahan}
                 </div>
             `;
         }

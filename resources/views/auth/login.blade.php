@@ -89,18 +89,18 @@
                     <img src="{{ asset('logo.png') }}" alt="Logo">
                     <div class="brand-text">
                         <h2>PT SAKTI Kinerja Kolaborasindo</h2>
-                        <p>Portal Layanan &amp; Dukungan Koperasi</p>
+                        <p>{{ __('messages.portal_layanan_dukungan_koperasi') ?? 'Portal Layanan &amp; Dukungan Koperasi' }}</p>
                     </div>
                 </div>
                 
                 <div class="login-text-content" style="position: relative; z-index: 10;">
-                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 8px; font-size: calc(12px * var(--text-scale, 1)); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">PORTAL LAYANAN PENGGUNA</p>
-                    <h1 style="margin-top: 0;">Portal Layanan Pengguna Aplikasi SAKTI</h1>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 8px; font-size: calc(12px * var(--text-scale, 1)); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">{{ __('messages.portal_layanan_pengguna_caps') ?? 'PORTAL LAYANAN PENGGUNA' }}</p>
+                    <h1 style="margin-top: 0;">{{ __('messages.portal_layanan_pengguna_aplikasi_sakti') ?? 'Portal Layanan Pengguna Aplikasi SAKTI' }}</h1>
                     <p class="desc" style="margin-bottom: 0;">
-                        Dapatkan dukungan dan informasi yang Anda butuhkan dalam menggunakan Aplikasi SAKTI. Melalui portal ini, pengguna dapat menyampaikan kendala, memperoleh bantuan layanan, serta mengakses informasi dan pembaruan secara lebih mudah dan terpusat.
+                        {{ __('messages.desc_portal_layanan') ?? 'Dapatkan dukungan dan informasi yang Anda butuhkan dalam menggunakan Aplikasi SAKTI. Melalui portal ini, pengguna dapat menyampaikan kendala, memperoleh bantuan layanan, serta mengakses informasi dan pembaruan secara lebih mudah dan terpusat.' }}
                     </p>
                     {{-- Teks singkat khusus mobile --}}
-                    <p class="desc-mobile" style="display: none;">Pantau status, riwayat, dan estimasi penyelesaian tiket anda langsung dari dashboard.</p>
+                    <p class="desc-mobile" style="display: none;">{{ __('messages.desc_mobile_pantau_status') ?? 'Pantau status, riwayat, dan estimasi penyelesaian tiket anda langsung dari dashboard.' }}</p>
 
                     <div style="display: flex; gap: 24px; margin-top: 36px; flex-wrap: wrap;">
                         <!-- Layanan Bantuan -->
@@ -112,8 +112,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 style="margin: 0 0 6px 0; font-size: calc(14px * var(--text-scale, 1)); font-weight: 700; color: white;">Layanan Bantuan</h3>
-                                <p style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: rgba(255, 255, 255, 0.7); line-height: 1.5;">Sampaikan kebutuhan atau kendala terkait penggunaan aplikasi.</p>
+                                <h3 style="margin: 0 0 6px 0; font-size: calc(14px * var(--text-scale, 1)); font-weight: 700; color: white;">{{ __('messages.layanan_bantuan') ?? 'Layanan Bantuan' }}</h3>
+                                <p style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: rgba(255, 255, 255, 0.7); line-height: 1.5;">{{ __('messages.layanan_bantuan_desc') ?? 'Sampaikan kebutuhan atau kendala terkait penggunaan aplikasi.' }}</p>
                             </div>
                         </div>
                         
@@ -126,8 +126,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 style="margin: 0 0 6px 0; font-size: calc(14px * var(--text-scale, 1)); font-weight: 700; color: white;">Informasi & Pembaruan</h3>
-                                <p style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: rgba(255, 255, 255, 0.7); line-height: 1.5;">Dapatkan informasi terbaru mengenai layanan dan Aplikasi SAKTI.</p>
+                                <h3 style="margin: 0 0 6px 0; font-size: calc(14px * var(--text-scale, 1)); font-weight: 700; color: white;">{{ __('messages.informasi_pembaruan') ?? 'Informasi & Pembaruan' }}</h3>
+                                <p style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: rgba(255, 255, 255, 0.7); line-height: 1.5;">{{ __('messages.informasi_pembaruan_desc') ?? 'Dapatkan informasi terbaru mengenai layanan dan Aplikasi SAKTI.' }}</p>
                             </div>
                         </div>
                         
@@ -140,8 +140,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 style="margin: 0 0 6px 0; font-size: calc(14px * var(--text-scale, 1)); font-weight: 700; color: white;">Panduan Pengguna</h3>
-                                <p style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: rgba(255, 255, 255, 0.7); line-height: 1.5;">Akses informasi dan panduan yang membantu penggunaan aplikasi.</p>
+                                <h3 style="margin: 0 0 6px 0; font-size: calc(14px * var(--text-scale, 1)); font-weight: 700; color: white;">{{ __('messages.panduan_pengguna') ?? 'Panduan Pengguna' }}</h3>
+                                <p style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: rgba(255, 255, 255, 0.7); line-height: 1.5;">{{ __('messages.panduan_pengguna_desc') ?? 'Akses informasi dan panduan yang membantu penggunaan aplikasi.' }}</p>
                             </div>
                         </div>
                     </div>
@@ -151,7 +151,7 @@
                 <div style="margin-top: auto; position: relative; z-index: 10; font-size: 11px; color: rgba(255, 255, 255, 0.5); font-family: var(--font-mono); display: flex; align-items: center; gap: 10px; padding-top: 24px;">
                     <span>&copy; PT SAKTI Kinerja Kolaborasindo</span>
                     <span>&bull;</span>
-                    <span>Portal Pelaporan Mitra</span>
+                    <span>{{ __('messages.portal_pelaporan_mitra') ?? 'Portal Pelaporan Mitra' }}</span>
                 </div>
 
 
@@ -162,9 +162,9 @@
             <div class="login-split-right">
                 <div class="login-box fade-up" style="animation-delay: 0.15s; margin: 0 auto; max-width: 380px; width: 100%;">
                     <div class="login-panel-card fade-up" style="animation-delay: 0.2s;">
-                        <p class="eyebrow" style="color: var(--amber); margin-bottom: 6px; font-size: calc(11px * var(--text-scale, 1));">{{ __('messages.masuk_ke_akun') }}</p>
+                        <p class="eyebrow" style="color: var(--amber); margin-bottom: 6px; font-size: calc(11px * var(--text-scale, 1));">{{ __('messages.masuk_ke_akun') ?? 'Masuk ke Akun' }}</p>
                         <h1 style="margin-bottom: 4px; font-size: calc(22px * var(--text-scale, 1));">Login</h1>
-                        <p class="lede" style="margin-bottom: 18px; font-size: calc(12px * var(--text-scale, 1));">Masukkan email dan kata sandi Anda untuk melanjutkan</p>
+                        <p class="lede" style="margin-bottom: 18px; font-size: calc(12px * var(--text-scale, 1));">{{ __('messages.masukkan_email_sandi') ?? 'Masukkan email dan kata sandi Anda untuk melanjutkan' }}</p>
 
                         {{-- Tampilkan error login --}}
                         @if($errors->any())
@@ -217,24 +217,24 @@
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; font-size: calc(11px * var(--text-scale, 1));">
                                 <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; color: var(--ink-soft); font-weight: 500;">
                                     <input type="checkbox" name="remember" style="width: 14px; height: 14px; accent-color: var(--brand-primary); margin:0; padding:0; border: 1.5px solid var(--line); border-radius: 4px; cursor: pointer;">
-                                    Ingat saya
+                                    {{ __('messages.ingat_saya') ?? 'Ingat saya' }}
                                 </label>
-                                <a href="{{ route('password.request') }}" style="color: var(--brand-primary); font-weight: 600; text-decoration: underline;">Lupa kata sandi?</a>
+                                <a href="{{ route('password.request') }}" style="color: var(--brand-primary); font-weight: 600; text-decoration: underline;">{{ __('messages.lupa_kata_sandi') ?? 'Lupa kata sandi?' }}</a>
                             </div>
 
-                            <button type="submit" class="btn" style="width: 100%; justify-content: center; background: #17447e; border: none; color: white; padding: 11px 14px; border-radius: 10px; font-size: 13px; font-weight: 600; box-shadow: 0 4px 14px rgba(23, 68, 126, 0.35); transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.background='#123566'; this.style.boxShadow='0 6px 20px rgba(23, 68, 126, 0.45)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='#17447e'; this.style.boxShadow='0 4px 14px rgba(23, 68, 126, 0.35)';">Masuk ke Dashboard &rarr;</button>
+                            <button type="submit" class="btn" style="width: 100%; justify-content: center; background: #17447e; border: none; color: white; padding: 11px 14px; border-radius: 10px; font-size: 13px; font-weight: 600; box-shadow: 0 4px 14px rgba(23, 68, 126, 0.35); transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.background='#123566'; this.style.boxShadow='0 6px 20px rgba(23, 68, 126, 0.45)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='#17447e'; this.style.boxShadow='0 4px 14px rgba(23, 68, 126, 0.35)';">{{ __('messages.masuk_ke_dashboard') ?? 'Masuk ke Dashboard' }} &rarr;</button>
                         </form>
 
                         <div class="register-prompt" style="position: relative; margin-top: 20px; border-top: none; padding-top: 18px; font-size: calc(11px * var(--text-scale, 1));">
-                            <div style="position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); background: var(--paper-raised); padding: 0 10px; font-size: calc(9px * var(--text-scale, 1)); color: var(--ink-soft); font-family: var(--font-mono); z-index: 2;">atau</div>
+                            <div style="position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); background: var(--paper-raised); padding: 0 10px; font-size: calc(9px * var(--text-scale, 1)); color: var(--ink-soft); font-family: var(--font-mono); z-index: 2;">{{ __('messages.atau') ?? 'atau' }}</div>
                             <div style="position: absolute; top: 0; left: 0; right: 0; border-top: 1px solid var(--line); z-index: 1;"></div>
-                            Belum mempunyai akun? <a href="#" id="register-modal-trigger" style="color: var(--brand-primary); font-weight: 700; text-decoration: underline;">Daftar</a>
+                            {{ __('messages.belum_mempunyai_akun') ?? 'Belum mempunyai akun?' }} <a href="#" id="register-modal-trigger" style="color: var(--brand-primary); font-weight: 700; text-decoration: underline;">{{ __('messages.daftar') ?? 'Daftar' }}</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="bottom-text fade-up" style="animation-delay: 0.25s;">
-                    Butuh bantuan masuk? <a href="#" id="support-modal-trigger">Hubungi kami</a>
+                    {{ __('messages.butuh_bantuan_masuk') ?? 'Butuh bantuan masuk?' }} <a href="#" id="support-modal-trigger">{{ __('messages.hubungi_kami') ?? 'Hubungi kami' }}</a>
                 </div>
             </div>
             </div>
@@ -249,9 +249,9 @@
         <button id="close-support-modal" style="position: absolute; top: 20px; right: 20px; background: none; border: none; font-size: 24px; color: var(--ink-soft); cursor: pointer; line-height: 1; padding: 0;">&times;</button>
         
         <div style="text-align: center; margin-bottom: 24px;">
-            <h2 id="support-modal-title" style="margin: 0 0 8px 0; font-family: var(--font-display); font-size: calc(20px * var(--text-scale, 1)); font-weight: 700; color: var(--ink);">Hubungi Tim Support</h2>
+            <h2 id="support-modal-title" style="margin: 0 0 8px 0; font-family: var(--font-display); font-size: calc(20px * var(--text-scale, 1)); font-weight: 700; color: var(--ink);">{{ __('messages.hubungi_tim_support') ?? 'Hubungi Tim Support' }}</h2>
             <p id="support-modal-text" style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: var(--ink-soft); line-height: 1.5;">
-                Jika Anda mengalami kendala saat login, silakan hubungi tim support kami melalui kontak di bawah ini:
+                {{ __('messages.jika_mengalami_kendala_saat_login') ?? 'Jika Anda mengalami kendala saat login, silakan hubungi tim support kami melalui kontak di bawah ini:' }}
             </p>
         </div>
 
@@ -263,7 +263,7 @@
                     <img src="{{ asset('telephone.png') }}" alt="Telepon" style="width: 20px; height: 20px; object-fit: contain;">
                 </div>
                 <div style="flex-grow: 1;">
-                    <div style="font-weight: 700; font-size: calc(12px * var(--text-scale, 1)); color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em;">Nomor Telepon</div>
+                    <div style="font-weight: 700; font-size: calc(12px * var(--text-scale, 1)); color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em;">{{ __('messages.nomor_telepon') ?? 'Nomor Telepon' }}</div>
                     <div style="font-family: var(--font-mono); font-size: calc(14px * var(--text-scale, 1)); color: var(--ink); font-weight: 600; margin-top: 2px;">+62 853-1780-5165</div>
                 </div>
             </div>
@@ -274,7 +274,7 @@
                     <img src="{{ asset('mail.png') }}" alt="Email" style="width: 20px; height: 20px; object-fit: contain;">
                 </div>
                 <div style="flex-grow: 1;">
-                    <div style="font-weight: 700; font-size: calc(12px * var(--text-scale, 1)); color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em;">Email Support</div>
+                    <div style="font-weight: 700; font-size: calc(12px * var(--text-scale, 1)); color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em;">{{ __('messages.email_support') ?? 'Email Support' }}</div>
                     <div style="font-family: var(--font-mono); font-size: calc(14px * var(--text-scale, 1)); color: var(--ink); font-weight: 600; margin-top: 2px;">info@ptskk.id</div>
                 </div>
             </div>
@@ -285,15 +285,15 @@
                     <img src="{{ asset('whatsapp.png') }}" alt="WhatsApp" style="width: 20px; height: 20px; object-fit: contain;">
                 </div>
                 <div style="flex-grow: 1;">
-                    <div style="font-weight: 700; font-size: calc(12px * var(--text-scale, 1)); color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em;">WhatsApp Chat</div>
-                    <div style="font-size: calc(13px * var(--text-scale, 1)); color: var(--brand-primary); font-weight: 600; margin-top: 2px; text-decoration: underline;">Hubungi via WhatsApp &rarr;</div>
+                    <div style="font-weight: 700; font-size: calc(12px * var(--text-scale, 1)); color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.05em;">{{ __('messages.whatsapp_chat') ?? 'WhatsApp Chat' }}</div>
+                    <div style="font-size: calc(13px * var(--text-scale, 1)); color: var(--brand-primary); font-weight: 600; margin-top: 2px; text-decoration: underline;">{{ __('messages.hubungi_via_whatsapp') ?? 'Hubungi via WhatsApp' }} &rarr;</div>
                 </div>
             </a>
         </div>
 
         <!-- Operating Hours Note -->
         <div style="text-align: center; font-size: calc(11px * var(--text-scale, 1)); color: var(--ink-soft); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em;">
-            Jam Operasional: Senin - Jumat (09:00 - 17:00 WIB)
+            {{ __('messages.jam_operasional') ?? 'Jam Operasional: Senin - Jumat (09:00 - 17:00 WIB)' }}
         </div>
     </div>
 </div>

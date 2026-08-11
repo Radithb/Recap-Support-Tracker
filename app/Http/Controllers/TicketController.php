@@ -108,7 +108,7 @@ class TicketController extends Controller
         }
 
         if ($ticket->status !== TicketStatus::OPEN) {
-            return back()->with('error', 'Laporan tidak dapat diubah karena sudah ditangani oleh Tim Support.');
+            return back()->with('error', __('messages.error_laporan_ditangani'));
         }
 
         $data = $request->validated();
@@ -150,7 +150,7 @@ class TicketController extends Controller
         }
 
         if ($ticket->status === TicketStatus::DONE) {
-            return back()->with('error', 'Tidak dapat mengunggah surat balasan karena status tiket sudah selesai.');
+            return back()->with('error', __('messages.error_upload_surat_selesai'));
         }
 
         $request->validate([
@@ -215,7 +215,7 @@ class TicketController extends Controller
         }
 
         if ($ticket->status === TicketStatus::DONE) {
-            return back()->with('error', 'Tidak dapat menghapus surat balasan karena status tiket sudah selesai.');
+            return back()->with('error', __('messages.error_hapus_surat_selesai'));
         }
 
         if ($ticket->surat_balasan) {
@@ -235,7 +235,7 @@ class TicketController extends Controller
             }
         }
 
-        return back()->with('success', 'File balasan berhasil dihapus.');
+        return back()->with('success', __('messages.success_hapus_surat'));
     }
 
     public function dokumen($ticket_id)

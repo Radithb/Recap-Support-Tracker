@@ -1453,7 +1453,7 @@
         })
         .catch(err => {
             console.error(err);
-            alert('Gagal menghapus item checklist.');
+            alert('{{ __('messages.error_delete_checklist') }}');
         });
     }
 
@@ -1464,7 +1464,7 @@
         const kategori = kategoriInput.value.trim() || 'Lainnya';
 
         if (!nama) {
-            alert('Nama item checklist tidak boleh kosong.');
+            alert('{{ __('messages.error_empty_checklist_name') }}');
             return;
         }
 
@@ -1491,7 +1491,7 @@
         })
         .catch(err => {
             console.error(err);
-            alert('Gagal menambahkan item checklist.');
+            alert('{{ __('messages.error_add_checklist') }}');
         });
     }
 
@@ -1500,7 +1500,7 @@
         const nama = namaInput.value.trim();
 
         if (!nama) {
-            alert('Nama item migrasi tidak boleh kosong.');
+            alert('{{ __('messages.error_empty_migration_name') }}');
             return;
         }
 
@@ -1522,7 +1522,7 @@
         })
         .catch(err => {
             console.error(err);
-            alert('Gagal menambahkan item migrasi.');
+            alert('{{ __('messages.error_add_migration') }}');
         });
     }
 
@@ -1580,7 +1580,7 @@
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Terjadi kesalahan saat menyimpan data.');
+            alert('{{ __('messages.error_save_data') }}');
         });
     }
 

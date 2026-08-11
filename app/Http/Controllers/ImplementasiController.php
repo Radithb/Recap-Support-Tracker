@@ -424,10 +424,10 @@ class ImplementasiController extends Controller
 
         if ($request->status === 'Implementasi Selesai') {
             if ($implementasi->progres < 100) {
-                return redirect()->back()->withInput()->with('error', 'Tidak dapat mengubah status menjadi Implementasi Selesai karena progres kesiapan/checklist belum 100%.');
+                return redirect()->back()->withInput()->with('error', __('messages.error_impl_selesai_progres'));
             }
             if ($implementasi->status_tindakan !== 'Implementasi Selesai') {
-                return redirect()->back()->withInput()->with('error', 'Tidak dapat mengubah status menjadi Implementasi Selesai karena status tindakan (follow-up) belum Implementasi Selesai.');
+                return redirect()->back()->withInput()->with('error', __('messages.error_impl_selesai_tindakan'));
             }
         }
 
@@ -574,11 +574,11 @@ class ImplementasiController extends Controller
         ]);
         $newStatusTindakan = $request->status_tindakan ?? 'Persiapan Data';
         if ($newStatusTindakan === 'Implementasi Selesai' && $implementasi->progres < 100) {
-            return redirect()->back()->withInput()->with('error', 'Tidak dapat mengubah status tindakan menjadi Implementasi Selesai karena progres kesiapan/checklist dan prasyarat Go-Live belum lengkap 100%.');
+            return redirect()->back()->withInput()->with('error', __('messages.error_impl_tindakan_selesai_syarat'));
         }
 
         if ($implementasi->status === 'Implementasi Selesai' && $newStatusTindakan !== 'Implementasi Selesai') {
-            return redirect()->back()->withInput()->with('error', 'Tidak dapat mengubah status tindakan karena status utama sudah "Implementasi Selesai". Harap ubah status utama terlebih dahulu.');
+            return redirect()->back()->withInput()->with('error', __('messages.error_impl_tindakan_utama_selesai'));
         }
 
         $implementasi->update([

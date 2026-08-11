@@ -48,7 +48,7 @@
             <div class="tx">
                 @if(Auth::check() && Auth::user()->role === \App\Enums\UserRole::SUPPORT)
                     <strong>SAKTI Desk</strong>
-                    <span style="text-transform: uppercase;">TIM SUPPORT</span>
+                    <span style="text-transform: uppercase;">{{ __('messages.tim_support') ?? 'TIM SUPPORT' }}</span>
                 @else
                     <strong>SAKTI Desk</strong>
                     <span>Tracker System</span>
@@ -249,27 +249,27 @@
         <button onclick="window.location.href='{{ Auth::check() && Auth::user()->role !== \App\Enums\UserRole::PELAPOR ? route('support.profil.saya') : route('profil.instansi') }}'">
             @if(Auth::check() && Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                Profil Saya
+                {{ __('messages.profil_saya') }}
             @else
                 <img src="{{ asset('company.png') }}" alt="Company" style="width: 18px; height: 18px; object-fit: contain; vertical-align: middle; filter: brightness(0) invert(1); opacity: 0.9;">
-                Profil Koperasi
+                {{ __('messages.profil_koperasi') }}
             @endif
         </button>
         <button onclick="window.location.href='{{ route('pengaturan') }}'">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-            Pengaturan
+            {{ __('messages.pengaturan') }}
         </button>
         @if(Auth::check() && Auth::user()->role === \App\Enums\UserRole::PELAPOR)
         <button onclick="window.location.href='{{ route('pelapor.bantuan') }}'">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
-            Pusat Bantuan
+            {{ __('messages.title_pusat_bantuan') ?? 'Pusat Bantuan' }}
         </button>
         @endif
         <form action="{{ route('logout') }}" method="POST" style="margin:0; border-top:1px solid var(--line); padding-top:5px; margin-top:5px;">
             @csrf
             <button type="submit" class="danger">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                Keluar
+                {{ __('messages.keluar_singkat') }}
             </button>
         </form>
     </div>
@@ -279,43 +279,43 @@
     @if(Auth::check() && in_array(Auth::user()->role, [\App\Enums\UserRole::SUPPORT, \App\Enums\UserRole::SUPERADMIN]))
         <a href="{{ route('support.dashboard') }}" class="{{ request()->routeIs('support.dashboard') ? 'active' : '' }}">
             <img src="{{ asset('analysis.png') }}" alt="Dashboard">
-            <span>Dashboard</span>
+            <span>{{ __('messages.dashboard') }}</span>
         </a>
         <a href="{{ route('support.master-data.index') }}" class="{{ request()->routeIs('support.master-data.*') ? 'active' : '' }}">
             <img src="{{ asset('folder.png') }}" alt="Master data">
-            <span>Master data</span>
+            <span>{{ __('messages.master_data') }}</span>
         </a>
         <a href="#" onclick="toggleMobileRecapMenu(event)" class="{{ request()->routeIs('support.recap*') ? 'active' : '' }}" id="mobile-recap-btn">
             <img src="{{ asset('file.png') }}" alt="Rekap">
-            <span>Rekap</span>
+            <span>{{ __('messages.recap_laporan') ?? 'Rekap' }}</span>
         </a>
         <a href="{{ route('implementasi.index') }}" class="{{ request()->routeIs('implementasi.*') ? 'active' : '' }}">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 24px; height: 24px; margin-bottom: 2px; opacity: 0.8;"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-            <span>Monitoring</span>
+            <span>{{ __('messages.monitoring_koperasi') ?? 'Monitoring' }}</span>
         </a>
         @if(Auth::user()->role === \App\Enums\UserRole::SUPERADMIN)
         <a href="{{ route('superadmin.pengguna') }}" class="{{ request()->routeIs('superadmin.pengguna') ? 'active' : '' }}">
             <img src="{{ asset('group.png') }}" alt="Pengguna">
-            <span>Pengguna</span>
+            <span>{{ __('messages.manajemen_pengguna') ?? 'Pengguna' }}</span>
         </a>
         @endif
         <a href="{{ route('pengaturan') }}" class="{{ request()->routeIs('pengaturan') ? 'active' : '' }}">
             <img src="{{ asset('setting.png') }}" alt="Atur">
-            <span>Atur</span>
+            <span>{{ __('messages.pengaturan') }}</span>
         </a>
     @else
         <!-- Menu Pelapor -->
         <a href="{{ route('pelapor.dashboard') }}" class="{{ request()->routeIs('pelapor.dashboard') ? 'active' : '' }}">
             <img src="{{ asset('analysis.png') }}" alt="Dashboard">
-            <span>Dashboard</span>
+            <span>{{ __('messages.dashboard') }}</span>
         </a>
         <a href="{{ route('pelapor.riwayat') }}" class="{{ request()->routeIs('pelapor.riwayat') ? 'active' : '' }}">
             <img src="{{ asset('file.png') }}" alt="Riwayat">
-            <span>Riwayat</span>
+            <span>{{ __('messages.riwayat_lengkap') ?? 'Riwayat' }}</span>
         </a>
         <a href="{{ route('pengaturan') }}" class="{{ request()->routeIs('pengaturan') ? 'active' : '' }}">
             <img src="{{ asset('setting.png') }}" alt="Atur">
-            <span>Atur</span>
+            <span>{{ __('messages.pengaturan') }}</span>
         </a>
     @endif
 </div>
@@ -539,7 +539,7 @@
             img.onload = hideLoading;
             img.onerror = () => {
                 hideLoading();
-                body.innerHTML += '<div style="color: #ef4444; padding: 20px; text-align: center;">Gagal memuat gambar. File mungkin tidak ditemukan atau tautan telah kedaluwarsa.</div>';
+                body.innerHTML += '<div style="color: #ef4444; padding: 20px; text-align: center;">{{ __("messages.gagal_memuat_gambar") ?? "Gagal memuat gambar. File mungkin tidak ditemukan atau tautan telah kedaluwarsa." }}</div>';
             };
             body.appendChild(img);
         } else if (ext === 'pdf') {
@@ -561,7 +561,7 @@
             video.oncanplay = hideLoading;
             video.onerror = () => {
                 hideLoading();
-                body.innerHTML += '<div style="color: #ef4444; padding: 20px; text-align: center;">Format video tidak dapat diputar langsung di browser ini. Silakan klik tombol Unduh File di bawah.</div>';
+                body.innerHTML += '<div style="color: #ef4444; padding: 20px; text-align: center;">{{ __("messages.format_video_tidak_didukung") ?? "Format video tidak dapat diputar langsung di browser ini. Silakan klik tombol Unduh File di bawah." }}</div>';
             };
             body.appendChild(video);
         } else if (['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'csv'].includes(ext)) {
@@ -574,18 +574,18 @@
                     <div style="width: 64px; height: 64px; background: #dbeafe; color: #2563eb; border-radius: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto;">
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
                     </div>
-                    <h4 style="margin: 0 0 8px 0; font-size: 1.1rem; color: #1e293b; font-weight: 700;">Dokumen ${ext.toUpperCase()}</h4>
+                    <h4 style="margin: 0 0 8px 0; font-size: 1.1rem; color: #1e293b; font-weight: 700;">{{ __("messages.dokumen") ?? "Dokumen" }} ${ext.toUpperCase()}</h4>
                     <p style="margin: 0 0 20px 0; font-size: 0.85rem; color: #64748b; line-height: 1.5; word-break: break-all;">${originalName}</p>
                     <a href="${url}" target="_blank" download="${originalName}" class="btn btn-primary" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 10px 20px; border-radius: 8px; font-weight: 600; text-decoration: none; width: 100%; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                        Unduh / Buka Dokumen
+                        {{ __("messages.unduh_buka_dokumen") ?? "Unduh / Buka Dokumen" }}
                     </a>
                 </div>
             `;
             body.appendChild(docContainer);
         } else {
             hideLoading();
-            body.innerHTML += '<div style="padding: 20px; text-align: center; color: var(--text-muted);"><p>Format file ini tidak mendukung pratinjau langsung. Silakan unduh file melalui tombol di bawah.</p></div>';
+            body.innerHTML += '<div style="padding: 20px; text-align: center; color: var(--text-muted);"><p>{{ __("messages.preview_format_not_supported") ?? "Format file ini tidak mendukung pratinjau langsung. Silakan unduh file melalui tombol di bawah." }}</p></div>';
         }
     }
 

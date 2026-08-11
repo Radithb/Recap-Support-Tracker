@@ -146,7 +146,7 @@ class MasterDataController extends Controller
 
         $aplikasi->update(['ebook' => array_values($ebooks)]);
         
-        return back()->with('success', 'File Ebook yang dipilih berhasil dihapus.');
+        return back()->with('success', __('messages.success_hapus_ebook_pilihan'));
     }
 
     public function deleteEbook($id, $index)
@@ -161,10 +161,10 @@ class MasterDataController extends Controller
             }
             unset($ebooks[$index]);
             $aplikasi->update(['ebook' => array_values($ebooks)]);
-            return back()->with('success', 'File Ebook berhasil dihapus.');
+            return back()->with('success', __('messages.success_hapus_ebook'));
         }
 
-        return back()->with('error', 'File Ebook tidak ditemukan.');
+        return back()->with('error', __('messages.error_ebook_tidak_ditemukan'));
     }
 
     public function storeKategori(Request $request)
@@ -222,7 +222,7 @@ class MasterDataController extends Controller
             'no_telp' => $request->no_telp,
         ]);
 
-        return back()->with('success', 'Data koperasi berhasil diperbarui.');
+        return back()->with('success', __('messages.success_update_koperasi'));
     }
 
     public function destroyKoperasi($id)
@@ -230,12 +230,12 @@ class MasterDataController extends Controller
         $instansi = Instansi::findOrFail($id);
 
         if ($instansi->users()->count() > 0) {
-            return back()->with('error', 'Koperasi tidak dapat dihapus karena memiliki akun terdaftar.');
+            return back()->with('error', __('messages.error_hapus_koperasi_akun'));
         }
 
         $instansi->delete();
 
-        return back()->with('success', 'Data koperasi berhasil dihapus.');
+        return back()->with('success', __('messages.success_hapus_koperasi'));
     }
 
     public function export()

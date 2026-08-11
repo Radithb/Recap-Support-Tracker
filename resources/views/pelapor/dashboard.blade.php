@@ -157,7 +157,7 @@
                             <button type="button" onclick="openModal('modal-faq-{{ $faq->faq_id }}')" style="width: 100%; text-align: left; background: none; border: none; padding: 14px 18px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 14px; color: var(--ink);">
                                 <div style="display: flex; align-items: center; gap: 10px; flex: 1;">
                                     <span style="background: var(--brand-primary-soft); color: var(--brand-primary); padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; white-space: nowrap;">
-                                        {{ $faq->kategori->nama_kategori ?? 'Umum' }}
+                                        {{ $faq->kategori->nama_kategori ?? __('messages.umum') ?? 'Umum' }}
                                     </span>
                                     <span style="font-weight: 600; font-size: 14px; line-height: 1.4;">
                                         {{ $faq->pertanyaan }}
@@ -249,7 +249,7 @@
 
             @if($t->lampiran_support)
             <div style="margin-bottom: 16px;">
-                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Lampiran Respons Support</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">{{ __('messages.lampiran_respons_support') ?? 'Lampiran Respons Support' }}</div>
                 <div style="display: flex; flex-wrap: wrap; gap: 8px;">
                 @php $lampiranSupports = is_array($t->lampiran_support) ? $t->lampiran_support : [$t->lampiran_support]; @endphp
                 @foreach($lampiranSupports as $lampSupp)
@@ -270,7 +270,7 @@
                         </button>
                     @else
                         <button type="button" onclick="openUniversalPreview('{{ Storage::url($lampSupp) }}', '{{ $extSupp }}', '{{ addslashes(basename($lampSupp)) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); cursor: pointer;">
-                            Lihat {{ strtoupper($extSupp) }}
+                            {{ __('messages.lihat') ?? 'Lihat' }} {{ strtoupper($extSupp) }}
                         </button>
                     @endif
                 @endforeach
@@ -280,10 +280,10 @@
 
             @if($t->template_laporan)
             <div style="margin-bottom: 16px;">
-                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">Template Surat Dari Support</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px;">{{ __('messages.template_surat_dari_support') ?? 'Template Surat Dari Support' }}</div>
                 <button type="button" onclick="openUniversalPreview('{{ Storage::url($t->template_laporan) }}', '{{ pathinfo($t->template_laporan, PATHINFO_EXTENSION) }}', '{{ addslashes(basename($t->template_laporan)) }}')" class="btn btn-ghost btn-sm" style="display: inline-flex; align-items: center; gap: 8px; border: 1.5px solid #3b82f6; color: #1d4ed8; background: #eff6ff; padding: 8px 14px; border-radius: 6px; font-weight: 600; cursor: pointer;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                    <span>Lihat {{ str_replace(['_', '-'], ' ', pathinfo($t->template_laporan, PATHINFO_FILENAME)) }} ({{ strtoupper(pathinfo($t->template_laporan, PATHINFO_EXTENSION)) }})</span>
+                    <span>{{ __('messages.lihat') ?? 'Lihat' }} {{ str_replace(['_', '-'], ' ', pathinfo($t->template_laporan, PATHINFO_FILENAME)) }} ({{ strtoupper(pathinfo($t->template_laporan, PATHINFO_EXTENSION)) }})</span>
                 </button>
             </div>
 
@@ -304,10 +304,10 @@
                                     {{ __('messages.lihat_surat_balasan_saat_ini') }} {{ count($balasanFiles) > 1 ? '#' . ($index + 1) : '' }}
                                 </button>
                                 @if($t->status !== \App\Enums\TicketStatus::DONE)
-                                <form action="{{ route('pelapor.tickets.delete_balasan', ['ticket' => $t->ticket_id, 'index' => $index]) }}" method="POST" style="margin: 0;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus file ini?');">
+                                <form action="{{ route('pelapor.tickets.delete_balasan', ['ticket' => $t->ticket_id, 'index' => $index]) }}" method="POST" style="margin: 0;" onsubmit="return confirm('{{ __('messages.apakah_yakin_hapus_file') ?? 'Apakah Anda yakin ingin menghapus file ini?' }}');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-ghost btn-sm" style="color: var(--danger); border: 1.5px solid var(--danger-soft); padding: 8px; border-radius: 6px;" title="Hapus File">
+                                    <button type="submit" class="btn btn-ghost btn-sm" style="color: var(--danger); border: 1.5px solid var(--danger-soft); padding: 8px; border-radius: 6px;" title="{{ __('messages.hapus_file') ?? 'Hapus File' }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
                                             <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
@@ -384,8 +384,8 @@
                     <textarea name="permasalahan" required style="width: 100%; padding: 8px; border: 1px solid var(--line); border-radius: 6px; font-family: var(--font-body); font-size: 14px; min-height: 100px;">{{ $t->permasalahan }}</textarea>
                 </div>
                 <div class="field" style="margin-bottom: 16px;">
-                    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">Ganti Lampiran (Opsional)</label>
-                    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">Biarkan kosong jika tidak ingin mengganti lampiran saat ini. Jika diisi, lampiran lama akan terhapus.</div>
+                    <label style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase;">{{ __('messages.ganti_lampiran_opsional') ?? 'Ganti Lampiran (Opsional)' }}</label>
+                    <div style="font-size: 12px; color: var(--text-muted); margin-bottom: 6px;">{{ __('messages.biarkan_kosong_lampiran') ?? 'Biarkan kosong jika tidak ingin mengganti lampiran saat ini. Jika diisi, lampiran lama akan terhapus.' }}</div>
                     <input type="file" id="edit_lampiran_input_{{ $t->ticket_id }}" name="lampiran[]" multiple accept=".jpg,.jpeg,.png,.mp4,.pdf,.doc,.docx,.xlsx,.csv,.pptx,.ppsx,.xlsm,.docm,.xlsb,.zip,.rar" style="width:100%; font-size: 13px; font-family:var(--font-body); padding:8px; border:1.5px dashed var(--line); border-radius:8px; background:var(--paper); cursor:pointer;">
                     <div class="helper" style="font-size: 11px; margin-top: 4px;">{{ __('messages.format_lampiran') }}</div>
                 </div>
@@ -443,7 +443,7 @@
 <div class="overlay" id="modal-faq-{{ $faq->faq_id }}">
     <div class="modal w-sm">
         <div class="modal-head">
-            <div><h3>FAQ Detail</h3><p>{{ $faq->kategori->nama_kategori ?? 'Umum' }}</p></div>
+            <div><h3>{{ __('messages.faq_detail') ?? 'FAQ Detail' }}</h3><p>{{ $faq->kategori->nama_kategori ?? __('messages.umum') ?? 'Umum' }}</p></div>
             <button type="button" class="modal-x" onclick="closeModal('modal-faq-{{ $faq->faq_id }}'); event.stopPropagation();">✕</button>
         </div>
         <div class="modal-body" style="padding: 24px;">
@@ -575,7 +575,8 @@ function checkFileSize(form, inputId, maxMb) {
         
 
         if (totalSizeMb > maxMb) {
-            alert('Total ukuran file terlalu besar! Maksimal ' + maxMb + ' MB (Batas server). File Anda berukuran ' + totalSizeMb.toFixed(2) + ' MB.');
+            var errorMsg = "{{ __('messages.error_file_too_large') }}".replace(':maxMb', maxMb).replace(':totalSizeMb', totalSizeMb.toFixed(2));
+            alert(errorMsg);
             return false;
         }
     }

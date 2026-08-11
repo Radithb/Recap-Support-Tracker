@@ -60,11 +60,11 @@
 </style>
 
 <div class="form-card">
-    <h2 style="margin-top: 0; margin-bottom: 20px; font-size: 18px;">Form Edit Implementasi</h2>
+    <h2 style="margin-top: 0; margin-bottom: 20px; font-size: 18px;">{{ __('messages.form_edit_implementasi') }}</h2>
     
     @if ($errors->any())
         <div style="background-color: #fef2f2; color: #b91c1c; padding: 15px; border-radius: 6px; margin-bottom: 20px; border: 1px solid #fecaca;">
-            <strong style="display: block; margin-bottom: 5px;">Terjadi kesalahan:</strong>
+            <strong style="display: block; margin-bottom: 5px;">{{ __('messages.terjadi_kesalahan') }}</strong>
             <ul style="margin: 0; padding-left: 20px;">
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -78,9 +78,9 @@
         @method('PUT')
         
         <div class="form-group">
-            <label class="form-label">Koperasi</label>
+            <label class="form-label">{{ __('messages.koperasi_label') }}</label>
             <select name="instansi_id" class="form-control searchable-select" required>
-                <option value="">Pilih Koperasi</option>
+                <option value="">{{ __('messages.pilih_koperasi') }}</option>
                 @foreach($instansis as $instansi)
                     <option value="{{ $instansi->instansi_id }}" {{ (old('instansi_id', $implementasi->instansi_id) == $instansi->instansi_id) ? 'selected' : '' }}>
                         {{ $instansi->nama_instansi }}
@@ -90,7 +90,7 @@
         </div>
         
         <div class="form-group">
-            <label class="form-label">Aplikasi/Modul</label>
+            <label class="form-label">{{ __('messages.aplikasi_modul') }}</label>
             <div id="aplikasi-container">
                 @php
                     $savedAplikasis = $implementasi->aplikasis->pluck('aplikasi_id')->toArray();
@@ -103,7 +103,7 @@
                 @foreach($oldAplikasis as $index => $oldAppId)
                 <div class="aplikasi-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
                     <select name="aplikasi_id[]" class="form-control searchable-select" required style="flex-grow: 1;">
-                        <option value="" disabled {{ empty($oldAppId) ? 'selected' : '' }}>Pilih Aplikasi</option>
+                        <option value="" disabled {{ empty($oldAppId) ? 'selected' : '' }}>{{ __('messages.pilih_aplikasi') }}</option>
                         @foreach($aplikasis as $app)
                             <option value="{{ $app->aplikasi_id }}" {{ $oldAppId == $app->aplikasi_id ? 'selected' : '' }}>
                                 {{ $app->nama_aplikasi }}
@@ -122,11 +122,11 @@
 
         <div class="grid-2">
             <div class="form-group">
-                <label class="form-label">Tanggal Pelatihan</label>
+                <label class="form-label">{{ __('messages.tanggal_pelatihan') }}</label>
                 <input type="date" name="tanggal_pelatihan" class="form-control" value="{{ old('tanggal_pelatihan', $implementasi->tanggal_pelatihan ? $implementasi->tanggal_pelatihan->format('Y-m-d') : '') }}" required>
             </div>
             <div class="form-group">
-                <label class="form-label">Metode Pelatihan</label>
+                <label class="form-label">{{ __('messages.metode_pelatihan') }}</label>
                 <select name="metode_pelatihan" class="form-control" required>
                     <option value="Online (Zoom/Meet)" {{ old('metode_pelatihan', $implementasi->metode_pelatihan) == 'Online (Zoom/Meet)' ? 'selected' : '' }}>Online (Zoom/Meet)</option>
                     <option value="Offline (Kunjungan)" {{ old('metode_pelatihan', $implementasi->metode_pelatihan) == 'Offline (Kunjungan)' ? 'selected' : '' }}>Offline (Kunjungan)</option>
@@ -147,7 +147,7 @@
 
         <div class="grid-2">
             <div class="form-group">
-                <label class="form-label">Anggota Yang Hadir</label>
+                <label class="form-label">{{ __('messages.anggota_hadir') }}</label>
                 <div id="anggota-container">
                     @php
                         $savedAnggota = $implementasi->anggota_hadir ? array_map('trim', explode(',', $implementasi->anggota_hadir)) : [];
@@ -165,7 +165,7 @@
                         }
                     @endphp
                     <div class="anggota-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
-                        <input type="text" name="anggota_hadir[]" class="form-control" placeholder="Nama Anggota" value="{{ $namaVal }}" required style="flex: 1;">
+                        <input type="text" name="anggota_hadir[]" class="form-control" placeholder="{{ __('messages.nama_anggota') }}" value="{{ $namaVal }}" required style="flex: 1;">
                         <select name="posisi_anggota[]" class="form-control" onchange="this.style.color = this.value ? '#1e293b' : '#94a3b8';" style="flex: 1; color: {{ $posVal ? '#1e293b' : '#94a3b8' }};">
                             <option value="" disabled {{ empty($posVal) ? 'selected hidden' : '' }} style="color: #94a3b8;">{{ __('messages.posisi') }}</option>
                             @foreach($rolesList as $role)
@@ -183,7 +183,7 @@
             </div>
             
             <div class="form-group">
-                <label class="form-label">Trainer/Pendamping (Opsional)</label>
+                <label class="form-label">{{ __('messages.nama_trainer') }}</label>
                 <div id="trainer-container">
                     @php
                         $savedTrainer = $implementasi->nama_trainer ? array_map('trim', explode(',', $implementasi->nama_trainer)) : [];
@@ -193,7 +193,7 @@
                     @foreach($oldTrainer as $index => $trainer)
                     <div class="trainer-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
                         <select name="nama_trainer[]" class="form-control searchable-select">
-                            <option value="" disabled {{ empty($trainer) ? 'selected' : '' }} hidden>Pilih Trainer</option>
+                            <option value="" disabled {{ empty($trainer) ? 'selected' : '' }} hidden>{{ __('messages.pilih_trainer') }}</option>
                             @foreach($usersSupport as $user)
                                 <option value="{{ $user->nama }}" {{ $trainer === $user->nama ? 'selected' : '' }}>{{ $user->nama }}</option>
                             @endforeach
@@ -211,38 +211,38 @@
 
         <div class="grid-2">
             <div class="form-group">
-                <label class="form-label">No. Telepon / WhatsApp PIC</label>
+                <label class="form-label">{{ __('messages.whatsapp_pic') }}</label>
                 <input type="text" name="kontak_pic" class="form-control" placeholder="Contoh: 081234567890" value="{{ old('kontak_pic', $implementasi->kontak_pic) }}" required>
             </div>
             <div class="form-group">
-                <label class="form-label">Email PIC (Opsional)</label>
+                <label class="form-label">{{ __('messages.email_pic') }}</label>
                 <input type="email" name="email_pic" class="form-control" placeholder="Email PIC Koperasi" value="{{ old('email_pic', $implementasi->email_pic) }}">
             </div>
         </div>
         
         <div class="grid-2">
             <div class="form-group">
-                <label class="form-label">Tanggal Go-Live (Opsional)</label>
+                <label class="form-label">{{ __('messages.tanggal_go_live') }}</label>
                 <input type="date" name="target_go_live" class="form-control" value="{{ old('target_go_live', $implementasi->target_go_live ? $implementasi->target_go_live->format('Y-m-d') : '') }}">
             </div>
             <div class="form-group">
-                <label class="form-label">Waktu Go-Live (Opsional)</label>
+                <label class="form-label">{{ __('messages.waktu_go_live') }}</label>
                 <input type="time" name="waktu_go_live" class="form-control" value="{{ old('waktu_go_live', $implementasi->waktu_go_live ? \Carbon\Carbon::parse($implementasi->waktu_go_live)->format('H:i') : '') }}">
             </div>
         </div>
         
         <div class="grid-2">
             <div class="form-group">
-                <label class="form-label">Tempat (Zoom/GMeet/Lokasi)</label>
+                <label class="form-label">{{ __('messages.tempat_go_live') }}</label>
                 <select name="tempat_go_live" class="form-control">
-                    <option value="">Pilih Tempat</option>
+                    <option value="">{{ __('messages.pilih_tempat') }}</option>
                     <option value="Zoom" {{ old('tempat_go_live', $implementasi->tempat_go_live) == 'Zoom' ? 'selected' : '' }}>Zoom</option>
                     <option value="Gmeet" {{ old('tempat_go_live', $implementasi->tempat_go_live) == 'Gmeet' ? 'selected' : '' }}>Gmeet</option>
                     <option value="Lokasi" {{ old('tempat_go_live', $implementasi->tempat_go_live) == 'Lokasi' ? 'selected' : '' }}>Lokasi</option>
                 </select>
             </div>
             <div class="form-group">
-                <label class="form-label">Status Go-Live</label>
+                <label class="form-label">{{ __('messages.status_go_live') }}</label>
                 <select name="status_go_live" class="form-control">
                     <option value="Belum Siap Go Live" {{ old('status_go_live', $implementasi->status_go_live) == 'Belum Siap Go Live' ? 'selected' : '' }}>Belum Siap Go Live</option>
                     <option value="Siap Go Live" {{ old('status_go_live', $implementasi->status_go_live) == 'Siap Go Live' ? 'selected' : '' }}>Siap Go Live</option>
@@ -251,12 +251,12 @@
         </div>
 
         <div class="form-group">
-            <label class="form-label">Catatan Pelatihan (Opsional)</label>
+            <label class="form-label">{{ __('messages.catatan_pelatihan') }}</label>
             <textarea name="catatan_pelatihan" class="form-control" rows="3" placeholder="Tuliskan catatan tambahan jika ada">{{ old('catatan_pelatihan', $implementasi->catatan_pelatihan) }}</textarea>
         </div>
 
         <div class="form-footer">
-            <a href="{{ route('implementasi.index') }}" class="btn-secondary">Batal</a>
+            <a href="{{ route('implementasi.index') }}" class="btn-secondary">{{ __('messages.batal') }}</a>
             <button type="submit" class="btn-primary">{{ __('messages.simpan_perubahan') }}</button>
         </div>
     </form>
@@ -271,7 +271,7 @@
         
         inputGroup.innerHTML = `
             <select name="aplikasi_id[]" class="form-control searchable-select" required style="flex-grow: 1;">
-                <option value="" disabled selected>Pilih Aplikasi</option>
+                <option value="" disabled selected>{{ __('messages.pilih_aplikasi') }}</option>
                 @foreach($aplikasis as $app)
                     <option value="{{ $app->aplikasi_id }}">{{ $app->nama_aplikasi }}</option>
                 @endforeach
@@ -285,7 +285,7 @@
             new TomSelect(newSelect, {
                 create: false,
                 sortField: { field: "text", direction: "asc" },
-                placeholder: newSelect.getAttribute('placeholder') || 'Pilih...',
+                placeholder: newSelect.getAttribute('placeholder') || '{{ __('messages.pilih_aplikasi') }}',
                 onChange: function(value) {
                     if (typeof updateAplikasiOptions === 'function') updateAplikasiOptions();
                 }

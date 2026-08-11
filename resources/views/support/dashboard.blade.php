@@ -880,7 +880,8 @@
             
 
             if (totalSizeMb > maxMb) {
-                alert('Total ukuran file terlalu besar! Maksimal ' + maxMb + ' MB (Batas server). File Anda berukuran ' + totalSizeMb.toFixed(2) + ' MB.');
+                var errorMsg = "{{ __('messages.error_file_too_large') }}".replace(':maxMb', maxMb).replace(':totalSizeMb', totalSizeMb.toFixed(2));
+                alert(errorMsg);
                 return false;
             }
         }
