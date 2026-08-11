@@ -116,33 +116,52 @@ class ImplementasiKoperasi extends Model
         
         $allDone = ['Sudah Valid', 'Selesai', 'Done', 'Migrasi Selesai'];
         
-        // --- 1. Bobot Kesiapan (Kategori selain 'Migrasi') : 40% ---
-        $queryKesiapan = (clone $query)->where('kategori', '!=', 'Migrasi');
-        $totalKesiapan = $queryKesiapan->count();
-        $doneKesiapan = (clone $queryKesiapan)->whereIn('status', $allDone)->count();
-        
-        $bobotKesiapan = 40;
-        $nilaiKesiapan = ($totalKesiapan > 0) ? ($doneKesiapan / $totalKesiapan) * $bobotKesiapan : 0;
+        $queryRunning = (clone $query)->where('kategori', 'like', 'Running%');
+        $totalRunning = $queryRunning->count();
 
-        // --- 2. Bobot Migrasi (Kategori 'Migrasi') : 30% ---
-        $queryMigrasi = (clone $query)->where('kategori', 'Migrasi');
-        $totalMigrasi = $queryMigrasi->count();
-        $doneMigrasi = (clone $queryMigrasi)->whereIn('status', $allDone)->count();
+        if ($totalRunning > 0) {
+            // Bobot saat Running Monitoring checklist tersedia (Total = 100%)
+            // 1. Bobot Kesiapan (Data Utama, Keuangan, Master, dll.) : 25%
+            $queryKesiapan = (clone $query)->where('kategori', '!=', 'Migrasi')->where('kategori', 'not like', 'Running%');
+            $totalKesiapan = $queryKesiapan->count();
+            $doneKesiapan = (clone $queryKesiapan)->whereIn('status', $allDone)->count();
+            $nilaiKesiapan = ($totalKesiapan > 0) ? ($doneKesiapan / $totalKesiapan) * 25 : 0;
 
-        $bobotMigrasi = 30;
-        $nilaiMigrasi = ($totalMigrasi > 0) ? ($doneMigrasi / $totalMigrasi) * $bobotMigrasi : 0;
+            // 2. Bobot Migrasi (Kategori 'Migrasi') : 25%
+            $queryMigrasi = (clone $query)->where('kategori', 'Migrasi');
+            $totalMigrasi = $queryMigrasi->count();
+            $doneMigrasi = (clone $queryMigrasi)->whereIn('status', $allDone)->count();
+            $nilaiMigrasi = ($totalMigrasi > 0) ? ($doneMigrasi / $totalMigrasi) * 25 : 0;
 
-        // --- 3. Bobot Cut-Off Date : 15% ---
-        $bobotCutoff = 15;
-        $nilaiCutoff = ($this->status_cutoff == 'Cut-Off Valid') ? $bobotCutoff : 0;
+            // 3. Bobot Cut-Off Date : 10%
+            $nilaiCutoff = ($this->status_cutoff == 'Cut-Off Valid') ? 10 : 0;
 
-        // --- 4. Bobot Go-Live : 15% ---
-        $bobotGoLive = 15;
-        $nilaiGoLive = ($this->status_go_live == 'Siap Go Live' || $this->status_go_live == 'Go-Live Selesai' || $this->status_go_live == 'Selesai') ? $bobotGoLive : 0;
+            // 4. Bobot Go-Live : 15%
+            $nilaiGoLive = ($this->status_go_live == 'Siap Go Live' || $this->status_go_live == 'Go-Live Selesai' || $this->status_go_live == 'Selesai') ? 15 : 0;
 
-        // --- Kalkulasi Total Progres ---
-        // Jika belum ada input apa-apa (0 total kriteria yang terdaftar/terisi), tetap mulai dari 0
-        $persentase = round($nilaiKesiapan + $nilaiMigrasi + $nilaiCutoff + $nilaiGoLive, 2);
+            // 5. Bobot Running Monitoring (Kategori 'Running - ...') : 25%
+            $doneRunning = (clone $queryRunning)->whereIn('status', $allDone)->count();
+            $nilaiRunning = ($totalRunning > 0) ? ($doneRunning / $totalRunning) * 25 : 0;
+
+            // --- Kalkulasi Total Progres ---
+            $persentase = round($nilaiKesiapan + $nilaiMigrasi + $nilaiCutoff + $nilaiGoLive + $nilaiRunning, 2);
+        } else {
+            // Bobot default sebelum ada checklist Running Monitoring (Total = 100%)
+            $queryKesiapan = (clone $query)->where('kategori', '!=', 'Migrasi');
+            $totalKesiapan = $queryKesiapan->count();
+            $doneKesiapan = (clone $queryKesiapan)->whereIn('status', $allDone)->count();
+            $nilaiKesiapan = ($totalKesiapan > 0) ? ($doneKesiapan / $totalKesiapan) * 40 : 0;
+
+            $queryMigrasi = (clone $query)->where('kategori', 'Migrasi');
+            $totalMigrasi = $queryMigrasi->count();
+            $doneMigrasi = (clone $queryMigrasi)->whereIn('status', $allDone)->count();
+            $nilaiMigrasi = ($totalMigrasi > 0) ? ($doneMigrasi / $totalMigrasi) * 30 : 0;
+
+            $nilaiCutoff = ($this->status_cutoff == 'Cut-Off Valid') ? 15 : 0;
+            $nilaiGoLive = ($this->status_go_live == 'Siap Go Live' || $this->status_go_live == 'Go-Live Selesai' || $this->status_go_live == 'Selesai') ? 15 : 0;
+
+            $persentase = round($nilaiKesiapan + $nilaiMigrasi + $nilaiCutoff + $nilaiGoLive, 2);
+        }
 
         $updateData = ['progres' => $persentase];
 

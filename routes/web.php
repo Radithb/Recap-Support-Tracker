@@ -81,8 +81,9 @@ Route::get('/generate-running-checklists', function () {
                 $totalAdded++;
             }
         }
+        $impl->updateProgres();
     }
-    return "Selesai! Berhasil menambahkan {$totalAdded} item baru dan memperbarui {$renamedCount} teks SAS menjadi Sakti.<br><a href='/'>Kembali ke Aplikasi</a>";
+    return "Selesai! Berhasil menambahkan {$totalAdded} item baru, memperbarui {$renamedCount} teks SAS menjadi Sakti, dan menghitung ulang seluruh persentase progres!<br><a href='/'>Kembali ke Aplikasi</a>";
 });
 
 // ROUTE SEMENTARA UNTUK MIGRASI & FORCE CLEAR CACHE (InfinityFree)
