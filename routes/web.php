@@ -351,6 +351,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/pengaturan', [AuthController::class, 'updatePengaturan'])->name('pengaturan.update');
     Route::post('/pengaturan/bahasa', [AuthController::class, 'updateLanguage'])->name('pengaturan.bahasa');
 
+    // Notifications (accessible by all authenticated users: Pelapor & Support)
+    Route::get('/notifications/{id}/read', [App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.read');
+    Route::post('/notifications/mark-all-read', [App\Http\Controllers\NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
+
     // Implementasi & Go-Live Koperasi
     Route::middleware([\App\Http\Middleware\IsSupport::class])->prefix('implementasi')->name('implementasi.')->group(function () {
         Route::get('/', [\App\Http\Controllers\ImplementasiController::class, 'index'])->name('index');
@@ -402,10 +406,6 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
     
     // Master Data
     Route::get('/master-data', [MasterDataController::class, 'index'])->name('master-data.index');
-
-    // Notifications
-    Route::get('/notifications/{id}/read', [App\Http\Controllers\NotificationController::class, 'markAsRead'])->name('notifications.read');
-    Route::post('/notifications/mark-all-read', [App\Http\Controllers\NotificationController::class, 'markAllAsRead'])->name('notifications.markAllRead');
     Route::get('/master-data/export', [MasterDataController::class, 'export'])->name('master-data.export');
     Route::post('/master-data/aplikasi', [MasterDataController::class, 'storeAplikasi'])->name('master-data.aplikasi.store');
     Route::match(['PUT', 'POST'], '/master-data/aplikasi/{id}', [MasterDataController::class, 'updateAplikasi'])->name('master-data.aplikasi.update');
