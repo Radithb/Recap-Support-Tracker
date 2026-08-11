@@ -141,11 +141,20 @@ class ImplementasiKoperasi extends Model
 
         // --- Kalkulasi Total Progres ---
         // Jika belum ada input apa-apa (0 total kriteria yang terdaftar/terisi), tetap mulai dari 0
-        $persentase = $nilaiKesiapan + $nilaiMigrasi + $nilaiCutoff + $nilaiGoLive;
+        $persentase = round($nilaiKesiapan + $nilaiMigrasi + $nilaiCutoff + $nilaiGoLive, 2);
 
-        $this->update(['progres' => round($persentase, 2)]);
+        $updateData = ['progres' => $persentase];
 
-        return round($persentase, 2);
+        // Otomatis ubah Action Status (status_tindakan) menjadi 'Selesai' jika progres sudah 100%
+        if ($persentase >= 100) {
+            if ($this->status_tindakan !== 'Selesai' && $this->status_tindakan !== 'Implementasi Selesai') {
+                $updateData['status_tindakan'] = 'Selesai';
+            }
+        }
+
+        $this->update($updateData);
+
+        return $persentase;
     }
     public function checkAndSetGoLiveDate()
     {
