@@ -113,15 +113,39 @@ class ImplementasiKoperasi extends Model
     {
         $query = $this->checklists();
         $totalChecklist = $query->count();
+        
+        $allDone = ['Sudah Valid', 'Selesai', 'Done', 'Migrasi Selesai'];
+        $validChecklist = (clone $query)->whereIn('status', $allDone)->count();
 
-        if ($totalChecklist == 0) {
+        // Hitung 5 syarat Go-Live
+        $syaratGoLive = 0;
+        
+        // 1. Pelatihan Selesai
+        if (!empty($this->tanggal_selesai) || !empty($this->tanggal_pelatihan) || !empty($this->berita_acara)) $syaratGoLive++;
+        
+        // 2. Data Utama & User Aplikasi Tersedia
+        $dataUtamaNotDone = (clone $query)->where('kategori', 'Data Utama')->whereNotIn('status', $allDone)->count();
+        if ($dataUtamaNotDone === 0) $syaratGoLive++;
+        
+        // 3. Data Cut-Off Disepakati
+        if (!empty($this->tanggal_cut_off)) $syaratGoLive++;
+        
+        // 4. Migrasi Selesai
+        $migrasiNotDone = (clone $query)->where('kategori', 'Migrasi')->whereNotIn('status', $allDone)->count();
+        if ($migrasiNotDone === 0) $syaratGoLive++;
+        
+        // 5. PIC Koperasi Ditentukan
+        if (!empty($this->anggota_hadir) || !empty($this->pic_koperasi)) $syaratGoLive++;
+
+        $totalKriteria = $totalChecklist + 5; // Checklist + 5 Syarat Go-Live
+        $kriteriaTerpenuhi = $validChecklist + $syaratGoLive;
+
+        if ($totalKriteria == 0) {
             $this->update(['progres' => 0]);
             return 0;
         }
 
-        $validChecklist = (clone $query)->whereIn('status', ['Sudah Valid', 'Selesai', 'Done', 'Migrasi Selesai'])->count();
-        $persentase = ($validChecklist / $totalChecklist) * 100;
-
+        $persentase = ($kriteriaTerpenuhi / $totalKriteria) * 100;
         $this->update(['progres' => round($persentase, 2)]);
 
         return round($persentase, 2);

@@ -463,6 +463,7 @@ class ImplementasiController extends Controller
             'catatan' => 'Data implementasi diperbarui melalui form edit.'
         ]);
 
+        $implementasi->updateProgres();
         $implementasi->checkAndSetGoLiveDate();
 
         return redirect()->route('implementasi.index')->with('success', __('messages.impl_updated'));
@@ -506,6 +507,7 @@ class ImplementasiController extends Controller
             'catatan' => 'Data Go-Live diperbarui melalui halaman detail.'
         ]);
 
+        $implementasi->updateProgres();
         $implementasi->checkAndSetGoLiveDate();
 
         return redirect()->route('implementasi.show', $id)->with('success', __('messages.golive_updated'));
@@ -548,6 +550,7 @@ class ImplementasiController extends Controller
             'catatan' => 'Data Cut-Off diperbarui melalui halaman detail.'
         ]);
 
+        $implementasi->updateProgres();
         $implementasi->checkAndSetGoLiveDate();
 
         return redirect()->route('implementasi.show', $id)->with('success', __('messages.cutoff_updated'));
