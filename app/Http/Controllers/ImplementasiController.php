@@ -397,6 +397,10 @@ class ImplementasiController extends Controller
             abort(403, 'Anda tidak memiliki akses untuk mengubah data ini.');
         }
 
+        if ($request->filled('waktu_go_live')) {
+            $request->merge(['waktu_go_live' => str_replace('.', ':', trim($request->waktu_go_live))]);
+        }
+
         $request->validate([
             'instansi_id' => 'required|exists:instansis,instansi_id',
             'aplikasi_id' => 'required|array',
@@ -492,6 +496,10 @@ class ImplementasiController extends Controller
     public function updateGoLive(Request $request, $id)
     {
         $implementasi = ImplementasiKoperasi::findOrFail($id);
+
+        if ($request->filled('waktu_go_live')) {
+            $request->merge(['waktu_go_live' => str_replace('.', ':', trim($request->waktu_go_live))]);
+        }
 
         $request->validate([
             'target_go_live' => 'nullable|date',

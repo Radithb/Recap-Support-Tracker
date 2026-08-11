@@ -207,7 +207,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-label">{{ __('messages.waktu_go_live') }}</label>
-                    <input type="time" name="waktu_go_live" class="form-control" value="{{ old('waktu_go_live', $implementasi->waktu_go_live ? \Carbon\Carbon::parse($implementasi->waktu_go_live)->format('H:i') : '') }}">
+                    <input type="text" name="waktu_go_live" class="form-control" placeholder="13:50" value="{{ old('waktu_go_live', $implementasi->waktu_go_live ? \Carbon\Carbon::parse($implementasi->waktu_go_live)->format('H:i') : '') }}">
                 </div>
             </div>
             

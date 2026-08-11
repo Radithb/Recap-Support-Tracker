@@ -958,7 +958,7 @@
                     </div>
                     <div>
                         <label style="display: block; font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 5px;">{{ __('messages.waktu') }}</label>
-                        <input type="time" name="waktu_go_live" class="form-control" value="{{ $implementasi->waktu_go_live ? \Carbon\Carbon::parse($implementasi->waktu_go_live)->format('H:i') : '' }}" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
+                        <input type="text" name="waktu_go_live" class="form-control" placeholder="13:50" value="{{ $implementasi->waktu_go_live ? \Carbon\Carbon::parse($implementasi->waktu_go_live)->format('H:i') : '' }}" {{ !$canGoLive ? 'disabled' : '' }} style="width: 100%; border: 1px solid #cbd5e1; padding: 8px; border-radius: 4px;">
                     </div>
                 </div>
 
