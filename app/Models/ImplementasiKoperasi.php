@@ -14,6 +14,7 @@ class ImplementasiKoperasi extends Model
     protected $fillable = [
         'nomor_implementasi',
         'instansi_id',
+        'kantor_cabang',
         'aplikasi_id',
         'tanggal_pelatihan',
         'tanggal_selesai',

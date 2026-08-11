@@ -335,7 +335,17 @@
                     @endphp
                     <tr>
                         <td style="white-space: nowrap;"><strong>{{ $impl->nomor_implementasi }}</strong></td>
-                        <td style="max-width: 180px; word-break: break-word; white-space: normal;">{{ $impl->instansi->nama_instansi ?? '-' }}</td>
+                        <td style="max-width: 180px; word-break: break-word; white-space: normal;">
+                            {{ $impl->instansi->nama_instansi ?? '-' }}
+                            @if($impl->kantor_cabang)
+                                <div style="margin-top: 4px;">
+                                    <span style="display: inline-block; padding: 2px 6px; background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 11px; font-weight: 500;">
+                                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline; margin-bottom: -1px; margin-right: 2px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                                        {{ $impl->kantor_cabang }}
+                                    </span>
+                                </div>
+                            @endif
+                        </td>
                         <td style="max-width: 220px; word-break: break-word; white-space: normal;">
                             @if($impl->aplikasis && $impl->aplikasis->count() > 0)
                                 <div style="display: flex; flex-wrap: wrap; gap: 4px;">
@@ -509,6 +519,7 @@
                                 <option value="{{ $instansi->instansi_id }}">{{ $instansi->nama_instansi }}</option>
                             @endforeach
                         </select>
+                        <input type="text" name="kantor_cabang" class="form-control mt-2" placeholder="Kantor / Cabang (Opsional)" value="{{ old('kantor_cabang') }}" style="margin-top: 8px;">
                     </div>
                     <div class="form-group">
                         <label class="form-label">Status</label>

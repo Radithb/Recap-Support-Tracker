@@ -13,6 +13,7 @@
                             </option>
                         @endforeach
                     </select>
+                    <input type="text" name="kantor_cabang" class="form-control mt-2" placeholder="Kantor / Cabang (Opsional)" value="{{ old('kantor_cabang', $implementasi->kantor_cabang) }}" style="margin-top: 8px;">
                 </div>
                 <div class="form-group">
                     <label class="form-label">{{ __('messages.status_implementasi') }}</label>

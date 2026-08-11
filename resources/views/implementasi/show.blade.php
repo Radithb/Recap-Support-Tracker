@@ -496,6 +496,12 @@
             <div class="impl-number">{{ $implementasi->nomor_implementasi }}</div>
             <div style="font-size: 14px; color: #64748b; margin-top: 5px;">
                 <strong>{{ $implementasi->instansi->nama_instansi ?? 'Koperasi' }}</strong>
+                @if($implementasi->kantor_cabang)
+                    <span style="font-size: 12px; color: #475569; background: #f1f5f9; border: 1px solid #cbd5e1; padding: 2px 6px; border-radius: 4px; margin-left: 6px;">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline; margin-bottom: -2px;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                        {{ $implementasi->kantor_cabang }}
+                    </span>
+                @endif
                 <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px;">
                     @if($implementasi->aplikasis && $implementasi->aplikasis->count() > 0)
                         @foreach($implementasi->aplikasis as $appItem)

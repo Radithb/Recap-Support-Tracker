@@ -165,6 +165,7 @@ class ImplementasiController extends Controller
         $implementasi = ImplementasiKoperasi::create([
             'nomor_implementasi' => $nomor_implementasi,
             'instansi_id' => $request->instansi_id,
+            'kantor_cabang' => $request->kantor_cabang,
             'aplikasi_id' => is_array($request->aplikasi_id) ? $request->aplikasi_id[0] : $request->aplikasi_id, // Backward compatibility
             'tanggal_pelatihan' => $request->tanggal_pelatihan,
             'tanggal_selesai' => $request->tanggal_selesai ?? $request->tanggal_pelatihan,
@@ -464,6 +465,7 @@ class ImplementasiController extends Controller
 
         $implementasi->update([
             'instansi_id' => $request->instansi_id,
+            'kantor_cabang' => $request->kantor_cabang,
             'aplikasi_id' => is_array($request->aplikasi_id) ? $request->aplikasi_id[0] : $request->aplikasi_id, // Backward compatibility
             'tanggal_pelatihan' => $request->tanggal_pelatihan,
             'tanggal_selesai' => $request->tanggal_selesai ?? $request->tanggal_pelatihan,
