@@ -642,7 +642,30 @@
             <div class="summary-item">
                 <div class="summary-label">{{ __('messages.ringkasan_kontak_pic') }}</div>
                 <div class="summary-value">
-                    <span style="font-weight:400; font-size:12px;">WA: {{ $implementasi->kontak_pic }}<br>Email: {{ $implementasi->email_pic ?? '-' }}</span>
+                    <div style="font-weight:400; font-size:12px;">
+                        <div style="margin-bottom: 8px;">
+                            @if($implementasi->kontak_pic)
+                                @php
+                                    $wa_numbers = array_filter(array_map('trim', explode(',', $implementasi->kontak_pic)));
+                                @endphp
+                                @foreach($wa_numbers as $index => $wa)
+                                    <div style="display: flex; margin-bottom: 2px;">
+                                        <span style="width: 85px; flex-shrink: 0;">WA PIC ke-{{ $index + 1 }}</span>
+                                        <span>: {{ $wa }}</span>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div style="display: flex; margin-bottom: 2px;">
+                                    <span style="width: 85px; flex-shrink: 0;">WA</span>
+                                    <span>: -</span>
+                                </div>
+                            @endif
+                        </div>
+                        <div style="display: flex;">
+                            <span style="width: 85px; flex-shrink: 0;">Email</span>
+                            <span style="word-break: break-all;">: {{ $implementasi->email_pic ?? '-' }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="summary-item">
@@ -1186,6 +1209,7 @@
                                     <option value="Proses Simulasi" {{ $implementasi->status_tindakan == 'Proses Simulasi' ? 'selected' : '' }}>Proses Simulasi</option>
                                     <option value="Perbaikan / Update Aplikasi" {{ $implementasi->status_tindakan == 'Perbaikan / Update Aplikasi' ? 'selected' : '' }}>Perbaikan / Update Aplikasi</option>
                                     <option value="Pelatihan Ulang" {{ $implementasi->status_tindakan == 'Pelatihan Ulang' ? 'selected' : '' }}>Pelatihan Ulang</option>
+                                    <option value="Selesai" {{ $implementasi->status_tindakan == 'Selesai' ? 'selected' : '' }}>Selesai (Tuntas)</option>
                                 </select>
                             </div>
                         </div>

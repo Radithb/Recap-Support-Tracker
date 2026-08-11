@@ -422,6 +422,15 @@ class ImplementasiController extends Controller
         }
         $anggotaHadirStr = implode(', ', $anggotaList);
 
+        if ($request->status === 'Implementasi Selesai') {
+            if ($implementasi->progres < 100) {
+                return redirect()->back()->withInput()->with('error', 'Tidak dapat mengubah status menjadi Implementasi Selesai karena progres kesiapan/checklist belum 100%.');
+            }
+            if ($implementasi->status_tindakan !== 'Selesai') {
+                return redirect()->back()->withInput()->with('error', 'Tidak dapat mengubah status menjadi Implementasi Selesai karena status tindakan (follow-up) belum Selesai/Tuntas.');
+            }
+        }
+
         $implementasi->update([
             'instansi_id' => $request->instansi_id,
             'aplikasi_id' => is_array($request->aplikasi_id) ? $request->aplikasi_id[0] : $request->aplikasi_id, // Backward compatibility
@@ -560,6 +569,11 @@ class ImplementasiController extends Controller
             'komitmen_koperasi' => 'nullable|string',
             'tanggal_followup_berikutnya' => 'nullable|date',
         ]);
+        $newStatusTindakan = $request->status_tindakan ?? 'Persiapan Data';
+        
+        if ($implementasi->status === 'Implementasi Selesai' && $newStatusTindakan !== 'Selesai') {
+            return redirect()->back()->withInput()->with('error', 'Tidak dapat mengubah status tindakan karena status utama sudah "Implementasi Selesai". Harap ubah status utama terlebih dahulu.');
+        }
 
         $implementasi->update([
             'jenis_tindakan' => $request->jenis_tindakan,
