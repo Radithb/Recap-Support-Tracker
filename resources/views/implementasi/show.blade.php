@@ -1312,7 +1312,6 @@
                         <tr>
                             <th>Kategori</th>
                             <th>Item Pemeriksaan</th>
-                            <th style="width: 200px;">Status</th>
                             <th>Catatan</th>
                             <th style="width: 120px; text-align: center;">Aksi</th>
                         </tr>
@@ -1326,16 +1325,9 @@
                                     {{ str_replace('Running - ', '', $chk->kategori) }}
                                 </td>
                                 @endif
-                                <td style="font-weight: 500;">{{ $chk->nama_item }}</td>
-                                <td>
-                                    @if(Auth::user()->role === \App\Enums\UserRole::PELAPOR)
-                                        <span style="font-weight:600; color: #475569;">{{ $chk->status == 'Sudah Valid' || $chk->status == 'Done' ? 'Done' : 'Tidak Done' }}</span>
-                                    @else
-                                        <select id="status-{{ $chk->id }}" class="checklist-select">
-                                            <option value="Belum Dikirim" {{ $chk->status != 'Sudah Valid' && $chk->status != 'Done' ? 'selected' : '' }}>Tidak Done</option>
-                                            <option value="Sudah Valid" {{ ($chk->status == 'Sudah Valid' || $chk->status == 'Done') ? 'selected' : '' }}>Sudah Valid (Done)</option>
-                                        </select>
-                                    @endif
+                                <td style="font-weight: 500;">
+                                    {{ $chk->nama_item }}
+                                    <input type="hidden" id="status-{{ $chk->id }}" value="{{ $chk->status }}">
                                 </td>
                                 <td>
                                     @if(Auth::user()->role === \App\Enums\UserRole::PELAPOR)
@@ -1505,9 +1497,9 @@
         const textElement = document.getElementById('confirm-done-text');
         
         if (select && textElement) {
-            let currentStatus = select.options[select.selectedIndex].text;
-            if (currentStatus !== 'Sudah Valid (Done)' && currentStatus !== 'Migrasi Selesai') {
-                textElement.innerHTML = `Status saat ini adalah <strong style="color: #ef4444;">${currentStatus}</strong>.<br><br>Apakah Anda yakin ingin menandainya menjadi <strong>Sudah Valid / Done</strong>?`;
+            let currentStatus = select.options ? select.options[select.selectedIndex].text : (select.value || 'Belum');
+            if (currentStatus !== 'Sudah Valid (Done)' && currentStatus !== 'Migrasi Selesai' && currentStatus !== 'Sudah Valid' && currentStatus !== 'Done') {
+                textElement.innerHTML = `Apakah Anda yakin ingin menandai item checklist ini sebagai <strong>Sudah Valid / Done</strong>?`;
             } else {
                 textElement.innerHTML = `Apakah Anda yakin ingin menandai item checklist ini sebagai <strong>Sudah Valid / Done</strong>?`;
             }
@@ -1525,9 +1517,13 @@
         if (selectedChecklistId) {
             const select = document.getElementById('status-' + selectedChecklistId);
             if (select) {
-                let hasMigrasiSelesai = Array.from(select.options).some(opt => opt.value === 'Migrasi Selesai');
-                if (hasMigrasiSelesai) {
-                    select.value = 'Migrasi Selesai';
+                if (select.options) {
+                    let hasMigrasiSelesai = Array.from(select.options).some(opt => opt.value === 'Migrasi Selesai');
+                    if (hasMigrasiSelesai) {
+                        select.value = 'Migrasi Selesai';
+                    } else {
+                        select.value = 'Sudah Valid';
+                    }
                 } else {
                     select.value = 'Sudah Valid';
                 }
