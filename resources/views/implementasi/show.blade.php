@@ -843,7 +843,7 @@
     <!-- TAB 4: GO-LIVE -->
     <div id="tab-target-golive" class="tab-content">
         @php
-            $allDone = ['Sudah Valid', 'Done', 'Selesai'];
+            $allDone = ['Sudah Valid', 'Done', 'Selesai', 'Migrasi Selesai'];
             $dataUtamaNotDone = $implementasi->checklists()->where('kategori', 'Data Utama')->whereNotIn('status', $allDone)->count();
             $migrasiNotDone = $implementasi->checklists()->where('kategori', 'Migrasi')->whereNotIn('status', $allDone)->count();
             
