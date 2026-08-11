@@ -26,6 +26,42 @@ Route::get('/reset-admin-password', function () {
     return "User tidak ditemukan.";
 });
 
+// ROUTE SEMENTARA UNTUK GENERATE RUNNING CHECKLIST (InfinityFree)
+Route::get('/generate-running-checklists', function () {
+    $implementasis = \App\Models\ImplementasiKoperasi::all();
+    $runningItems = [
+        ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'SAS sudah digunakan sebagai aplikasi operasional utama'],
+        ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Operator aktif menggunakan SAS'],
+        ['kategori' => 'Running - Penggunaan Aplikasi', 'nama_item' => 'Proses manual/Excel untuk transaksi utama sudah ditinggalkan'],
+        ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi anggota sudah berjalan'],
+        ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi simpanan sudah berjalan'],
+        ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi pinjaman sudah berjalan'],
+        ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi angsuran sudah berjalan'],
+        ['kategori' => 'Running - Transaksi', 'nama_item' => 'Transaksi kas sudah berjalan'],
+        ['kategori' => 'Running - Laporan', 'nama_item' => 'Laporan sudah digunakan oleh koperasi'],
+        ['kategori' => 'Running - Laporan', 'nama_item' => 'Laporan SAS menjadi acuan operasional'],
+        ['kategori' => 'Running - Kemandirian', 'nama_item' => 'Operator dapat melakukan transaksi tanpa bantuan Support'],
+        ['kategori' => 'Running - Kemandirian', 'nama_item' => 'Operator dapat melakukan pengecekan/koreksi sederhana sendiri'],
+        ['kategori' => 'Running - Kemandirian', 'nama_item' => 'Operator sudah memahami proses operasional SAS']
+    ];
+    
+    $count = 0;
+    foreach($implementasis as $impl) {
+        $hasRunning = $impl->checklists()->where('kategori', 'like', 'Running%')->exists();
+        if (!$hasRunning) {
+            foreach($runningItems as $item) {
+                $impl->checklists()->create([
+                    'kategori' => $item['kategori'],
+                    'nama_item' => $item['nama_item'],
+                    'status' => 'Belum Dikirim',
+                ]);
+            }
+            $count++;
+        }
+    }
+    return "Selesai! Checklist Running Monitoring berhasil ditambahkan untuk {$count} data implementasi lama.<br><a href='/'>Kembali ke Aplikasi</a>";
+});
+
 // ROUTE SEMENTARA UNTUK MIGRASI & FORCE CLEAR CACHE (InfinityFree)
 Route::get('/run-migrations', function () {
     $message = "<h3>🔧 Server Diagnostik & Clear Cache</h3>";
