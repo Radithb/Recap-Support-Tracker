@@ -482,6 +482,52 @@
     </div>
 </div>
 
+<!-- Modal Kelola / Hapus Running Monitoring -->
+<div class="modal-overlay" id="modalKelolaRunning" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(2px); z-index: 9999; justify-content: center; align-items: center;">
+    <div style="background: #fff; border-radius: 12px; width: 90%; max-width: 550px; max-height: 85vh; display: flex; flex-direction: column; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); animation: fadeUpDoneModal 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;">
+        <div style="padding: 16px 20px; border-bottom: 1px solid #e2e8f0; display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="margin: 0; font-size: 16px; font-weight: 700; color: #1e293b;">Kelola Item Running Monitoring</h4>
+            <button type="button" onclick="closeKelolaRunningModal()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #64748b;">&times;</button>
+        </div>
+        <div style="padding: 20px; overflow-y: auto; flex-grow: 1;">
+
+            <div id="kelola-running-list" style="display: flex; flex-direction: column; gap: 8px;">
+                @foreach($implementasi->checklists->filter(function($item) { return str_starts_with($item->kategori ?? '', 'Running'); }) as $chk)
+                <div id="modal-item-{{ $chk->id }}" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px;">
+                    <div>
+                        <span style="font-size: 11px; font-weight: 600; text-transform: uppercase; color: #64748b; background: #e2e8f0; padding: 2px 6px; border-radius: 4px; margin-right: 6px;">{{ str_replace('Running - ', '', $chk->kategori) }}</span>
+                        <span style="font-size: 13px; font-weight: 600; color: #1e293b;">{{ $chk->nama_item }}</span>
+                    </div>
+                    <button type="button" onclick="deleteChecklist({{ $chk->id }}, '{{ addslashes($chk->nama_item) }}')" style="background: #ef4444; color: #fff; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px;" title="Hapus Item Ini">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                        {{ __('messages.btn_hapus') }}
+                    </button>
+                </div>
+                @endforeach
+            </div>
+
+            <!-- Tambah Item Running Kustom -->
+            <div style="margin-top: 20px; padding-top: 15px; border-top: 1px dashed #cbd5e1;">
+                <h5 style="margin: 0 0 10px; font-size: 13px; font-weight: 600; color: #475569;">Tambah Item Running Monitoring</h5>
+                <div style="display: flex; gap: 8px;">
+                    <select id="new-running-kategori" style="width: 140px; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; font-family: inherit;">
+                        <option value="Running - Aplikasi">Aplikasi</option>
+                        <option value="Running - Penggunaan Aplikasi">Penggunaan Aplikasi</option>
+                        <option value="Running - Transaksi">Transaksi</option>
+                        <option value="Running - Laporan">Laporan</option>
+                        <option value="Running - Kemandirian">Kemandirian</option>
+                    </select>
+                    <input type="text" id="new-running-nama" placeholder="Nama Item Running Status..." style="flex-grow: 1; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px;">
+                    <button type="button" onclick="addCustomRunning({{ $implementasi->id }})" style="background: #2563eb; color: #fff; border: none; padding: 7px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; white-space: nowrap;">{{ __('messages.btn_tambah') }}</button>
+                </div>
+            </div>
+        </div>
+        <div style="padding: 12px 20px; border-top: 1px solid #e2e8f0; display: flex; justify-content: flex-end;">
+            <button type="button" onclick="closeKelolaRunningModal()" style="padding: 7px 16px; border-radius: 6px; border: 1px solid #cbd5e1; background: #fff; color: #475569; font-weight: 600; cursor: pointer; font-size: 13px;">{{ __('messages.btn_selesai') }}</button>
+        </div>
+    </div>
+</div>
+
 <div style="max-width: 1280px; margin: 0 auto; padding: 20px 30px;">
 @if(session('success'))
     <div id="success-alert" class="alert-dismiss fade-up" style="animation-delay: 0.1s; display: flex; justify-content: space-between; align-items: center; padding: 12px 14px; background: #d1fae5; color: #065f46; border-radius: 8px; margin-bottom: 24px; font-size: 13.5px; font-weight: 600; border: 1px solid #34d399; transition: opacity 0.6s ease, transform 0.6s ease;">
@@ -1297,6 +1343,12 @@
     <div id="tab-running" class="tab-content">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
             <h4 style="margin: 0; font-size: 14px; font-weight: 600; color: #475569;">Running Monitoring (Status Kemandirian)</h4>
+            @if(Auth::user()->role !== \App\Enums\UserRole::PELAPOR)
+                <button type="button" onclick="openKelolaRunningModal()" style="background: #475569; color: #fff; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;" title="Hapus atau Tambah Item Running Monitoring">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                    {{ __('messages.btn_edit') }}
+                </button>
+            @endif
         </div>
         @php
             $runningChecklists = $implementasi->checklists->filter(function($item) {
@@ -1548,6 +1600,51 @@
 
     function closeKelolaMigrasiModal() {
         document.getElementById('modalKelolaMigrasi').style.display = 'none';
+    }
+
+    function openKelolaRunningModal() {
+        document.getElementById('modalKelolaRunning').style.display = 'flex';
+    }
+
+    function closeKelolaRunningModal() {
+        document.getElementById('modalKelolaRunning').style.display = 'none';
+    }
+
+    function addCustomRunning(implId) {
+        const namaInput = document.getElementById('new-running-nama');
+        const kategoriSelect = document.getElementById('new-running-kategori');
+        const nama = namaInput.value.trim();
+        const kategori = kategoriSelect.value || 'Running - Aplikasi';
+
+        if (!nama) {
+            alert('Nama item running status tidak boleh kosong');
+            return;
+        }
+
+        fetch(`{{ url('implementasi') }}/${implId}/checklist`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ nama_item: nama, kategori: kategori })
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                namaInput.value = '';
+
+                document.getElementById('progres-text').innerText = data.new_progres + '%';
+                document.getElementById('progres-fill').style.width = data.new_progres + '%';
+
+                showToast("Item Running Monitoring berhasil ditambahkan");
+                setTimeout(() => location.reload(), 1000);
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Gagal menambahkan item Running Monitoring');
+        });
     }
 
     function deleteChecklist(id, name) {
