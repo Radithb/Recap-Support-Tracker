@@ -101,50 +101,6 @@
                     </p>
                     {{-- Teks singkat khusus mobile --}}
                     <p class="desc-mobile" style="display: none;">{{ __('messages.desc_mobile_pantau_status') ?? 'Pantau status, riwayat, dan estimasi penyelesaian tiket anda langsung dari dashboard.' }}</p>
-
-                    <div style="display: flex; gap: 24px; margin-top: 36px; flex-wrap: wrap;">
-                        <!-- Layanan Bantuan -->
-                        <div style="display: flex; gap: 14px; align-items: flex-start; flex: 1; min-width: 200px;">
-                            <div style="background: rgba(255, 255, 255, 0.1); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.2);">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: white;">
-                                    <path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/>
-                                    <path d="M21 16v2a4 4 0 0 1-4 4h-5"/>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 style="margin: 0 0 6px 0; font-size: calc(14px * var(--text-scale, 1)); font-weight: 700; color: white;">{{ __('messages.layanan_bantuan') ?? 'Layanan Bantuan' }}</h3>
-                                <p style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: rgba(255, 255, 255, 0.7); line-height: 1.5;">{{ __('messages.layanan_bantuan_desc') ?? 'Sampaikan kebutuhan atau kendala terkait penggunaan aplikasi.' }}</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Informasi & Pembaruan -->
-                        <div style="display: flex; gap: 14px; align-items: flex-start; flex: 1; min-width: 200px;">
-                            <div style="background: rgba(255, 255, 255, 0.1); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.2);">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: white;">
-                                    <path d="m3 11 18-5v12L3 14v-3z"></path>
-                                    <path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 style="margin: 0 0 6px 0; font-size: calc(14px * var(--text-scale, 1)); font-weight: 700; color: white;">{{ __('messages.informasi_pembaruan') ?? 'Informasi & Pembaruan' }}</h3>
-                                <p style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: rgba(255, 255, 255, 0.7); line-height: 1.5;">{{ __('messages.informasi_pembaruan_desc') ?? 'Dapatkan informasi terbaru mengenai layanan dan Aplikasi SAKTI.' }}</p>
-                            </div>
-                        </div>
-                        
-                        <!-- Panduan Pengguna -->
-                        <div style="display: flex; gap: 14px; align-items: flex-start; flex: 1; min-width: 200px;">
-                            <div style="background: rgba(255, 255, 255, 0.1); width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid rgba(255, 255, 255, 0.2);">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: white;">
-                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 style="margin: 0 0 6px 0; font-size: calc(14px * var(--text-scale, 1)); font-weight: 700; color: white;">{{ __('messages.panduan_pengguna') ?? 'Panduan Pengguna' }}</h3>
-                                <p style="margin: 0; font-size: calc(13px * var(--text-scale, 1)); color: rgba(255, 255, 255, 0.7); line-height: 1.5;">{{ __('messages.panduan_pengguna_desc') ?? 'Akses informasi dan panduan yang membantu penggunaan aplikasi.' }}</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 {{-- Footer Info --}}
