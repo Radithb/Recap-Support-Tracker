@@ -70,17 +70,19 @@
                         <td><div style="max-width:300px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-weight:500;">{{ $t->permasalahan }}</div></td>
                         <td>
                             @php
-                                $statusClass = match($t->status) {
-                                    \App\Enums\TicketStatus::OPEN => 'status-open',
-                                    \App\Enums\TicketStatus::PROSES => 'status-proses',
-                                    \App\Enums\TicketStatus::PENDING => 'status-pending',
-                                    \App\Enums\TicketStatus::REVIEW => 'status-review',
-                                    \App\Enums\TicketStatus::WAITING => 'status-waiting',
-                                    \App\Enums\TicketStatus::DONE => 'status-done',
-                                    default => ''
+                                $rawStatus = $t->status instanceof \BackedEnum ? $t->status->value : (string)$t->status;
+                                $statusStr = strtolower($rawStatus);
+                                $statusClass = match(true) {
+                                    str_contains($statusStr, 'open') => 'status-open',
+                                    str_contains($statusStr, 'proses') => 'status-proses',
+                                    str_contains($statusStr, 'pending') => 'status-pending',
+                                    str_contains($statusStr, 'review') => 'status-review',
+                                    str_contains($statusStr, 'waiting') => 'status-waiting',
+                                    str_contains($statusStr, 'done') || str_contains($statusStr, 'selesai') => 'status-done',
+                                    default => 'status-open'
                                 };
                             @endphp
-                            <span class="status {{ $statusClass }}">{{ $t->status->value ?? $t->status }}</span>
+                            <span class="status {{ $statusClass }}">{{ $rawStatus }}</span>
                         </td>
                         <td>
                             <button class="btn btn-ghost btn-sm" onclick="openModal('modal-detail-{{ $t->ticket_id }}')">{{ __('messages.btn_detail') }}</button>
