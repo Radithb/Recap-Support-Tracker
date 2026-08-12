@@ -337,7 +337,6 @@
                     <div style="font-size: 11px; color: var(--text-muted); margin-top: 6px;">{{ __('messages.format_lampiran_surat_balasan') }}</div>
                 @endif
             </div>
-            @endif
 
             <div style="display: grid; grid-template-columns: 1fr; gap: 16px;">
                 <div>
