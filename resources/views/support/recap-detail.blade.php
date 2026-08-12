@@ -122,7 +122,9 @@
                                     $bg = '#dcfce7'; $color = '#16a34a'; // Hijau
                                 } elseif ($statusLower === 'pending') {
                                     $bg = '#fef9c3'; $color = '#ca8a04'; // Kuning
-                                } elseif ($statusLower === 'proses' || $statusLower === 'on progress' || $statusLower === 'open') {
+                                } elseif ($statusLower === 'open') {
+                                    $bg = '#f1f5f9'; $color = '#475569'; // Abu-abu
+                                } elseif ($statusLower === 'proses' || $statusLower === 'on progress') {
                                     $bg = '#fee2e2'; $color = '#dc2626'; // Merah
                                 } else {
                                     $bg = 'var(--paper-sunken)'; $color = 'var(--text-muted)'; // Default abu-abu

@@ -577,7 +577,9 @@
                                                     $bg = '#dcfce7'; $color = '#16a34a';
                                                 } elseif ($statusLower === 'pending') {
                                                     $bg = '#fef9c3'; $color = '#ca8a04';
-                                                } elseif ($statusLower === 'proses' || $statusLower === 'on progress' || $statusLower === 'open') {
+                                                } elseif ($statusLower === 'open') {
+                                                    $bg = '#f1f5f9'; $color = '#475569';
+                                                } elseif ($statusLower === 'proses' || $statusLower === 'on progress') {
                                                     $bg = '#fee2e2'; $color = '#dc2626';
                                                 } elseif ($statusLower === 'in review' || $statusLower === 'review') {
                                                     $bg = '#e0e7ff'; $color = '#4f46e5';

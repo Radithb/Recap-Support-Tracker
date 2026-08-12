@@ -137,14 +137,14 @@
     padding:4px 10px 4px 8px; border-radius:100px; letter-spacing:.01em;
   }
   .status::before{content:""; width:7px; height:7px; border-radius:50%;}
-  .status-open{background:var(--clay-soft); color:#7A3626;}
-  .status-open::before{background:var(--clay);}
+  .status-open{background:var(--paper-sunken); color:var(--ink-soft);}
+  .status-open::before{background:var(--ink-soft);}
   .status-pending{background:var(--gold-soft); color:#7A5F1C;}
   .status-pending::before{background:var(--gold);}
   .status-done{background:var(--sage-soft); color:#2E5138;}
   .status-done::before{background:var(--sage);}
 
-  html.dark-mode .status-open { color: #f87171; }
+  html.dark-mode .status-open { color: #94a3b8; }
   html.dark-mode .status-pending { color: #facc15; }
   html.dark-mode .status-done { color: #4ade80; }
 

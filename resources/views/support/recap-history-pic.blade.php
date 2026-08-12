@@ -93,7 +93,7 @@
                         $stVal = is_object($tkt->status) ? $tkt->status->value : $tkt->status;
                         $stLower = strtolower($stVal);
                         $badgeBg = '#e2e8f0'; $badgeClr = '#475569';
-                        if ($stLower === 'open') { $badgeBg = '#fee2e2'; $badgeClr = '#b91c1c'; }
+                        if ($stLower === 'open') { $badgeBg = '#f1f5f9'; $badgeClr = '#475569'; }
                         elseif ($stLower === 'proses') { $badgeBg = '#dbeafe'; $badgeClr = '#1d4ed8'; }
                         elseif ($stLower === 'pending') { $badgeBg = '#fef08a'; $badgeClr = '#854d0e'; }
                         elseif ($stLower === 'done') { $badgeBg = '#dcfce3'; $badgeClr = '#166534'; }
@@ -252,7 +252,7 @@
         // Status Badge
         let stLower = (status || '').toLowerCase();
         let badgeBg = '#e2e8f0', badgeClr = '#475569';
-        if (stLower === 'open') { badgeBg = '#fee2e2'; badgeClr = '#b91c1c'; }
+        if (stLower === 'open') { badgeBg = '#f1f5f9'; badgeClr = '#475569'; }
         else if (stLower === 'proses') { badgeBg = '#dbeafe'; badgeClr = '#1d4ed8'; }
         else if (stLower === 'pending') { badgeBg = '#fef08a'; badgeClr = '#854d0e'; }
         else if (stLower === 'done') { badgeBg = '#dcfce3'; badgeClr = '#166534'; }
