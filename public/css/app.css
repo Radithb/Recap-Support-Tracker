@@ -161,8 +161,8 @@ h1, h2, h3, h4, h5, h6,
   padding:4px 10px 4px 8px; border-radius:100px; letter-spacing:.01em;
 }
 .status::before{content:""; width:7px; height:7px; border-radius:50%;}
-.status-open{background:#e2e8f0; color:#475569;}
-.status-open::before{background:#64748b;}
+.status-open{background:#e2e8f0 !important; color:#475569 !important;}
+.status-open::before{background:#64748b !important;}
 .status-pending{background:#fef08a; color:#ca8a04;}
 .status-pending::before{background:#ca8a04;}
 .status-proses{background:#fee2e2; color:#dc2626;}

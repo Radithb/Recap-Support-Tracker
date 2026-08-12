@@ -137,8 +137,8 @@
     padding:4px 10px 4px 8px; border-radius:100px; letter-spacing:.01em;
   }
   .status::before{content:""; width:7px; height:7px; border-radius:50%;}
-  .status-open{background:#e2e8f0; color:#475569;}
-  .status-open::before{background:#64748b;}
+  .status-open{background:#e2e8f0 !important; color:#475569 !important;}
+  .status-open::before{background:#64748b !important;}
   .status-pending{background:var(--gold-soft); color:#7A5F1C;}
   .status-pending::before{background:var(--gold);}
   .status-done{background:var(--sage-soft); color:#2E5138;}
