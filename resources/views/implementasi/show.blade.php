@@ -327,6 +327,8 @@
         border-color: #334155;
     }
     .dark-mode .impl-number, .dark-mode .summary-value { color: #f8fafc; }
+    .running-kategori-td { background: #f8fafc; border-right: 1px solid #e2e8f0; color: #1e293b; }
+    .dark-mode .running-kategori-td { background: #0f172a !important; color: #f8fafc !important; border-color: #334155 !important; }
     .dark-mode .checklist-table th { background: #0f172a; color: #f8fafc; border-color: #334155; }
     .dark-mode .checklist-table td, .dark-mode .tabs-nav { border-color: #334155; }
     .dark-mode .checklist-input, .dark-mode .checklist-select { background: #0f172a; color: white; border-color: #334155; }
@@ -1373,7 +1375,7 @@
                             @foreach($items as $index => $chk)
                             <tr id="chk-row-{{ $chk->id }}">
                                 @if($index === 0)
-                                <td rowspan="{{ count($items) }}" style="font-weight: 600; vertical-align: top; background: #f8fafc; border-right: 1px solid #e2e8f0; width: 200px;">
+                                <td rowspan="{{ count($items) }}" class="running-kategori-td" style="font-weight: 600; vertical-align: top; width: 200px;">
                                     {{ str_replace('Running - ', '', $chk->kategori) }}
                                 </td>
                                 @endif
