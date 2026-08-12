@@ -119,6 +119,9 @@ class ImplementasiKoperasi extends Model
         $queryRunning = (clone $query)->where('kategori', 'like', 'Running%');
         $totalRunning = $queryRunning->count();
 
+        $validCutoffStatuses = ['Cut-Off Valid', 'Cut-Off Diterima', 'Cut-Off Dijadwalkan'];
+        $validGoLiveStatuses = ['Siap Go Live', 'Go-Live Selesai', 'Selesai', 'Done'];
+
         if ($totalRunning > 0) {
             // Bobot saat Running Monitoring checklist tersedia (Total = 100%)
             // 1. Bobot Kesiapan (Data Utama, Keuangan, Master, dll.) : 25%
@@ -133,14 +136,11 @@ class ImplementasiKoperasi extends Model
             $doneMigrasi = (clone $queryMigrasi)->whereIn('status', $allDone)->count();
             $nilaiMigrasi = ($totalMigrasi > 0) ? ($doneMigrasi / $totalMigrasi) * 25 : 0;
 
-            // 3. Bobot Cut-Off Date : 10% (Terisi tanggal cut off ATAU status valid/diterima/dijadwalkan)
-            $nilaiCutoff = (!empty($this->tanggal_cut_off) || in_array($this->status_cutoff, ['Cut-Off Valid', 'Cut-Off Diterima', 'Cut-Off Dijadwalkan'])) ? 10 : 0;
+            // 3. Bobot Cut-Off Date : 10% (Hanya jika status_cutoff Valid / Diterima / Dijadwalkan)
+            $nilaiCutoff = in_array($this->status_cutoff, $validCutoffStatuses) ? 10 : 0;
 
-            // 4. Bobot Go-Live : 15% (Berdasarkan status Go-Live atau Status Utama yang sudah Monitoring / Siap Go Live / Done)
-            $nilaiGoLive = (
-                in_array($this->status_go_live, ['Siap Go Live', 'Go-Live Selesai', 'Selesai', 'Done', 'Monitoring']) ||
-                in_array($this->status, ['Monitoring', 'Go-Live Selesai', 'Selesai', 'Implementasi Selesai', 'Siap Go Live', 'Go-Live'])
-            ) ? 15 : 0;
+            // 4. Bobot Go-Live : 15% (Hanya jika status_go_live Siap Go Live / Done / Selesai)
+            $nilaiGoLive = in_array($this->status_go_live, $validGoLiveStatuses) ? 15 : 0;
 
             // 5. Bobot Running Monitoring (Kategori 'Running - ...') : 25%
             $doneRunning = (clone $queryRunning)->whereIn('status', $allDone)->count();
@@ -160,24 +160,28 @@ class ImplementasiKoperasi extends Model
             $doneMigrasi = (clone $queryMigrasi)->whereIn('status', $allDone)->count();
             $nilaiMigrasi = ($totalMigrasi > 0) ? ($doneMigrasi / $totalMigrasi) * 30 : 0;
 
-            $nilaiCutoff = (!empty($this->tanggal_cut_off) || in_array($this->status_cutoff, ['Cut-Off Valid', 'Cut-Off Diterima', 'Cut-Off Dijadwalkan'])) ? 15 : 0;
-            $nilaiGoLive = (
-                in_array($this->status_go_live, ['Siap Go Live', 'Go-Live Selesai', 'Selesai', 'Done', 'Monitoring']) ||
-                in_array($this->status, ['Monitoring', 'Go-Live Selesai', 'Selesai', 'Implementasi Selesai', 'Siap Go Live', 'Go-Live'])
-            ) ? 15 : 0;
+            // Bobot Cut-Off Date : 15%
+            $nilaiCutoff = in_array($this->status_cutoff, $validCutoffStatuses) ? 15 : 0;
+
+            // Bobot Go-Live : 15%
+            $nilaiGoLive = in_array($this->status_go_live, $validGoLiveStatuses) ? 15 : 0;
 
             $persentase = round($nilaiKesiapan + $nilaiMigrasi + $nilaiCutoff + $nilaiGoLive, 2);
         }
 
         $updateData = ['progres' => $persentase];
 
-        // Otomatis ubah Action Status (status_tindakan) dan Status Utama (status) menjadi 'Selesai' / 'Implementasi Selesai' jika progres sudah 100%
+        // Otomatis ubah Action Status (status_tindakan) dan Status Utama (status)
         if ($persentase >= 100) {
             if ($this->status_tindakan !== 'Selesai' && $this->status_tindakan !== 'Implementasi Selesai') {
                 $updateData['status_tindakan'] = 'Selesai';
             }
             if ($this->status !== 'Implementasi Selesai') {
                 $updateData['status'] = 'Implementasi Selesai';
+            }
+        } else {
+            if ($this->status === 'Implementasi Selesai') {
+                $updateData['status'] = 'Proses Pendampingan';
             }
         }
 
