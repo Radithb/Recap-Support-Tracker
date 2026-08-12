@@ -263,9 +263,6 @@
             <button type="button" onclick="applyPersonalization()" class="btn btn-amber" style="padding: 10px 24px; font-weight: 600; background: #e11d48; color: white;">
                 {{ __('messages.terapkan_tampilan') }}
             </button>
-            <div class="tab" data-target="panel-akun" style="padding-bottom: 16px; font-weight: 600; cursor: pointer; color: var(--text-muted); border-bottom: 2px solid transparent; font-size: calc(14.5px * var(--text-scale, 1)); transition: all 0.2s;">
-                {{ __('messages.keamanan_akun') }}
-            </div>
         </div>
     </div>
 
