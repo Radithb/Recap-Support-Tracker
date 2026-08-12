@@ -68,7 +68,16 @@
             <h1 style="color: var(--ink, #1e293b);">{{ __('messages.history_letter_document') }}</h1>
             <p class="subtitle" style="color: var(--text-muted, #64748b);">Tiket #{{ $ticket->ticket_id }} &mdash; {{ $ticket->aplikasi->nama_aplikasi ?? '-' }}</p>
         </div>
-        <a href="{{ url()->previous() }}" class="btn btn-ghost" style="display: inline-flex; align-items: center; gap: 8px;">
+        @php
+            $defaultBack = Auth::check() && Auth::user()->role === \App\Enums\UserRole::PELAPOR->value
+                ? route('pelapor.dashboard')
+                : route('support.dashboard');
+            $prevUrl = url()->previous();
+            if (!$prevUrl || $prevUrl === url()->current()) {
+                $prevUrl = $defaultBack;
+            }
+        @endphp
+        <a href="{{ $prevUrl }}" onclick="if(document.referrer && document.referrer !== window.location.href){ window.history.back(); return false; }" class="btn btn-ghost doc-btn-ghost" style="display: inline-flex; align-items: center; gap: 8px;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
             {{ __('messages.kembali') }}
         </a>
