@@ -82,7 +82,7 @@
                                     default => 'status-open'
                                 };
                             @endphp
-                            <span class="status {{ $statusClass }}">{{ $rawStatus }}</span>
+                            <span class="status {{ $statusClass }}" data-status="{{ $statusStr }}">{{ $rawStatus }}</span>
                         </td>
                         <td>
                             <button class="btn btn-ghost btn-sm" onclick="openModal('modal-detail-{{ $t->ticket_id }}')">{{ __('messages.btn_detail') }}</button>

@@ -100,7 +100,7 @@
                                     default => 'status-open'
                                 };
                             @endphp
-                            <span class="status {{ $statusClass }}">{{ $rawStatus }}</span>
+                            <span class="status {{ $statusClass }}" data-status="{{ $statusStr }}">{{ $rawStatus }}</span>
                         </div>
                         @empty
                         <div class="ticket-card" style="justify-content:center; padding:30px;">

@@ -20,6 +20,23 @@
             width: 1.25rem !important;
             height: 1.25rem !important;
         }
+
+        /* Force Open status badge to be clean gray in Light and Dark mode */
+        .status-open, [data-status*="open"] {
+            background: #e2e8f0 !important;
+            color: #475569 !important;
+        }
+        .status-open::before {
+            background: #64748b !important;
+        }
+
+        html.dark-mode .status-open, html.dark-mode [data-status*="open"] {
+            background: #334155 !important;
+            color: #cbd5e1 !important;
+        }
+        html.dark-mode .status-open::before {
+            background: #94a3b8 !important;
+        }
     </style>
     <script>
         // Apply personalization before page render to prevent FOUC

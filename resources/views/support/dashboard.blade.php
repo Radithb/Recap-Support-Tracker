@@ -191,7 +191,7 @@
                         default => 'status-open'
                     };
                 @endphp
-                <span class="status {{ $statusClass }}">{{ $rawStatus }}</span>
+                <span class="status {{ $statusClass }}" data-status="{{ $statusStr }}">{{ $rawStatus }}</span>
             </td>
             <td class="mono" style="color: var(--text-muted); font-size: 0.85rem; white-space: nowrap;">
                 {{ $t->updated_at->format('d M Y') }}
