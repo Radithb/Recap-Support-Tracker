@@ -126,9 +126,7 @@
         <!-- STEP 2: Surat Laporan Template -->
         @if($ticket->template_laporan)
         @php
-            $tplUrl = file_exists(public_path('templates/' . basename($ticket->template_laporan)))
-                ? asset('templates/' . basename($ticket->template_laporan))
-                : Storage::url($ticket->template_laporan);
+            $tplUrl = route('download.template', basename($ticket->template_laporan));
         @endphp
         <div style="margin-bottom: 32px; position: relative;">
             <div class="doc-step-dot" style="position: absolute; left: -29px; top: 0; width: 16px; height: 16px; border-radius: 50%; background: #8b5cf6;"></div>

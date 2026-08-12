@@ -15,6 +15,15 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+// Route download template via PHP (bypass InfinityFree static file blocking)
+Route::get('/download-template/{filename}', function ($filename) {
+    $path = public_path('templates/' . $filename);
+    if (!file_exists($path)) {
+        abort(404, 'File template tidak ditemukan.');
+    }
+    return response()->download($path, $filename);
+})->where('filename', '.*')->name('download.template');
+
 // ROUTE SEMENTARA UNTUK RESET PASSWORD ADMIN
 Route::get('/reset-admin-password', function () {
     $user = \App\Models\User::where('email', 'support@skk.co.id')->first();

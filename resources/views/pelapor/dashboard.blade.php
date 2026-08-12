@@ -282,9 +282,7 @@
 
             @if($t->template_laporan)
                 @php
-                    $tplUrl = file_exists(public_path('templates/' . basename($t->template_laporan)))
-                        ? asset('templates/' . basename($t->template_laporan))
-                        : Storage::url($t->template_laporan);
+                    $tplUrl = route('download.template', basename($t->template_laporan));
                 @endphp
                 <div style="margin-bottom: 24px;">
                     <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Surat Laporan Template</div>
