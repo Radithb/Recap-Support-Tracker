@@ -133,11 +133,11 @@ class ImplementasiKoperasi extends Model
             $doneMigrasi = (clone $queryMigrasi)->whereIn('status', $allDone)->count();
             $nilaiMigrasi = ($totalMigrasi > 0) ? ($doneMigrasi / $totalMigrasi) * 25 : 0;
 
-            // 3. Bobot Cut-Off Date : 10%
-            $nilaiCutoff = ($this->status_cutoff == 'Cut-Off Valid') ? 10 : 0;
+            // 3. Bobot Cut-Off Date : 10% (Terisi tanggal cut off ATAU status valid/diterima/dijadwalkan)
+            $nilaiCutoff = (!empty($this->tanggal_cut_off) || in_array($this->status_cutoff, ['Cut-Off Valid', 'Cut-Off Diterima', 'Cut-Off Dijadwalkan'])) ? 10 : 0;
 
-            // 4. Bobot Go-Live : 15%
-            $nilaiGoLive = ($this->status_go_live == 'Siap Go Live' || $this->status_go_live == 'Go-Live Selesai' || $this->status_go_live == 'Selesai') ? 15 : 0;
+            // 4. Bobot Go-Live : 15% (Terisi tanggal target go-live ATAU status siap go live/done)
+            $nilaiGoLive = (!empty($this->target_go_live) || in_array($this->status_go_live, ['Siap Go Live', 'Go-Live Selesai', 'Selesai', 'Done'])) ? 15 : 0;
 
             // 5. Bobot Running Monitoring (Kategori 'Running - ...') : 25%
             $doneRunning = (clone $queryRunning)->whereIn('status', $allDone)->count();
@@ -157,8 +157,8 @@ class ImplementasiKoperasi extends Model
             $doneMigrasi = (clone $queryMigrasi)->whereIn('status', $allDone)->count();
             $nilaiMigrasi = ($totalMigrasi > 0) ? ($doneMigrasi / $totalMigrasi) * 30 : 0;
 
-            $nilaiCutoff = ($this->status_cutoff == 'Cut-Off Valid') ? 15 : 0;
-            $nilaiGoLive = ($this->status_go_live == 'Siap Go Live' || $this->status_go_live == 'Go-Live Selesai' || $this->status_go_live == 'Selesai') ? 15 : 0;
+            $nilaiCutoff = (!empty($this->tanggal_cut_off) || in_array($this->status_cutoff, ['Cut-Off Valid', 'Cut-Off Diterima', 'Cut-Off Dijadwalkan'])) ? 15 : 0;
+            $nilaiGoLive = (!empty($this->target_go_live) || in_array($this->status_go_live, ['Siap Go Live', 'Go-Live Selesai', 'Selesai', 'Done'])) ? 15 : 0;
 
             $persentase = round($nilaiKesiapan + $nilaiMigrasi + $nilaiCutoff + $nilaiGoLive, 2);
         }
