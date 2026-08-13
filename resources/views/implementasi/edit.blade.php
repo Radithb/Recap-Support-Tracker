@@ -154,7 +154,7 @@
                         $savedAnggota = $implementasi->anggota_hadir ? array_map('trim', explode(',', $implementasi->anggota_hadir)) : [];
                         $oldAnggota = old('anggota_hadir', $savedAnggota);
                         if(empty($oldAnggota)) $oldAnggota = [''];
-                        $rolesList = ['Manager', 'Sekretaris', 'Bendahara', 'Pengawas', 'Admin', 'Akuntansi', 'IT'];
+                        $rolesList = ['Manager', 'Sekretaris', 'Bendahara', 'Pengawas', 'Admin', 'Akuntansi', 'IT', 'Staff'];
                     @endphp
                     @foreach($oldAnggota as $index => $anggotaStr)
                     @php
@@ -167,10 +167,10 @@
                     @endphp
                     <div class="anggota-input-group" style="display: flex; gap: 10px; margin-bottom: 10px;">
                         <input type="text" name="anggota_hadir[]" class="form-control" placeholder="{{ __('messages.nama_anggota') }}" value="{{ $namaVal }}" required style="flex: 1;">
-                        <select name="posisi_anggota[]" class="form-control" onchange="this.style.color = this.value ? '#1e293b' : '#94a3b8';" style="flex: 1; color: {{ $posVal ? '#1e293b' : '#94a3b8' }};">
+                        <select name="posisi_anggota[]" class="form-control" onchange="this.style.color = this.value ? '' : '#94a3b8';" style="flex: 1; color: {{ $posVal ? 'inherit' : '#94a3b8' }};">
                             <option value="" disabled {{ empty($posVal) ? 'selected hidden' : '' }} style="color: #94a3b8;">{{ __('messages.posisi') }}</option>
                             @foreach($rolesList as $role)
-                                <option value="{{ $role }}" {{ $posVal == $role ? 'selected' : '' }} style="color: #1e293b;">{{ $role }}</option>
+                                <option value="{{ $role }}" {{ $posVal == $role ? 'selected' : '' }}>{{ $role }}</option>
                             @endforeach
                         </select>
                         @if($index === 0)

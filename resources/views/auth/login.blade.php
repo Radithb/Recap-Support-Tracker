@@ -175,7 +175,7 @@
                                     <input type="checkbox" name="remember" style="width: 14px; height: 14px; accent-color: var(--brand-primary); margin:0; padding:0; border: 1.5px solid var(--line); border-radius: 4px; cursor: pointer;">
                                     {{ __('messages.ingat_saya') ?? 'Ingat saya' }}
                                 </label>
-                                <a href="{{ route('password.request') }}" style="color: var(--brand-primary); font-weight: 600; text-decoration: underline;">{{ __('messages.lupa_kata_sandi') ?? 'Lupa kata sandi?' }}</a>
+                                <a href="#" id="forgot-password-trigger" style="color: var(--brand-primary); font-weight: 600; text-decoration: underline;">{{ __('messages.lupa_kata_sandi') ?? 'Lupa kata sandi?' }}</a>
                             </div>
 
                             <button type="submit" class="btn" style="width: 100%; justify-content: center; background: #17447e; border: none; color: white; padding: 11px 14px; border-radius: 10px; font-size: 13px; font-weight: 600; box-shadow: 0 4px 14px rgba(23, 68, 126, 0.35); transition: all 0.2s; cursor: pointer;" onmouseover="this.style.transform='translateY(-2px)'; this.style.background='#123566'; this.style.boxShadow='0 6px 20px rgba(23, 68, 126, 0.45)';" onmouseout="this.style.transform='translateY(0)'; this.style.background='#17447e'; this.style.boxShadow='0 4px 14px rgba(23, 68, 126, 0.35)';">{{ __('messages.masuk_ke_dashboard') ?? 'Masuk ke Dashboard' }} &rarr;</button>
@@ -267,6 +267,7 @@
         // Modal Bantuan Support logic
         const supportTrigger = document.getElementById('support-modal-trigger');
         const registerTrigger = document.getElementById('register-modal-trigger');
+        const forgotPasswordTrigger = document.getElementById('forgot-password-trigger');
         const supportModal = document.getElementById('support-modal');
         const closeSupportModal = document.getElementById('close-support-modal');
         const modalId = document.querySelector('#support-modal .modal-card');
@@ -276,13 +277,17 @@
         const defaultTitle = 'Hubungi Tim Support';
         const defaultText = 'Jika Anda mengalami kendala saat login, silakan hubungi tim support kami melalui kontak di bawah ini:';
         const registerText = 'Hubungi Tim Support/Admin. Pembuatan akun (registrasi) baru sepenuhnya dialihkan oleh Super Admin untuk keperluan validasi mitra/koperasi.';
+        const forgotPasswordText = 'Hubungi Tim Support/Admin. Penyetelan ulang kata sandi sepenuhnya dialihkan oleh Super Admin demi alasan keamanan.';
 
-        function openModal(e, isRegister = false) {
+        function openModal(e, mode = 'support') {
             e.preventDefault();
             
-            if(isRegister) {
+            if(mode === 'register') {
                 modalTitle.textContent = 'Pembuatan Akun Baru';
                 modalText.textContent = registerText;
+            } else if(mode === 'forgot') {
+                modalTitle.textContent = 'Lupa Kata Sandi';
+                modalText.textContent = forgotPasswordText;
             } else {
                 modalTitle.textContent = defaultTitle;
                 modalText.textContent = defaultText;
@@ -303,8 +308,9 @@
             }, 300);
         }
 
-        if (supportTrigger) supportTrigger.addEventListener('click', (e) => openModal(e, false));
-        if (registerTrigger) registerTrigger.addEventListener('click', (e) => openModal(e, true));
+        if (supportTrigger) supportTrigger.addEventListener('click', (e) => openModal(e, 'support'));
+        if (registerTrigger) registerTrigger.addEventListener('click', (e) => openModal(e, 'register'));
+        if (forgotPasswordTrigger) forgotPasswordTrigger.addEventListener('click', (e) => openModal(e, 'forgot'));
         if (closeSupportModal) closeSupportModal.addEventListener('click', closeModal);
         
         // Close modal when clicking outside modal-card
