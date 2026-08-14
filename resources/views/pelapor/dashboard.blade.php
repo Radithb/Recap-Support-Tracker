@@ -475,6 +475,19 @@
         <form action="{{ route('pelapor.tickets.store') }}" method="POST" enctype="multipart/form-data" onsubmit="return checkFileSize(this, 'lampiran_input', 8);">
             @csrf
             <div class="modal-body">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+                    <div class="field" style="margin-bottom: 0;">
+                        <label>No. Telepon / WhatsApp (Opsional)</label>
+                        <input type="text" name="whatsapp" value="{{ old('whatsapp', Auth::user()->whatsapp ?? '') }}" placeholder="Contoh: 08123456789">
+                        @error('whatsapp') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
+                    </div>
+                    <div class="field" style="margin-bottom: 0;">
+                        <label>Email (Opsional)</label>
+                        <input type="email" name="email" value="{{ old('email', Auth::user()->email ?? '') }}" placeholder="nama@email.com">
+                        @error('email') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
+                    </div>
+                </div>
+
                 <div class="field">
                     <label>{{ __('messages.aplikasi_bermasalah') }}</label>
                     <select name="aplikasi_id" required>

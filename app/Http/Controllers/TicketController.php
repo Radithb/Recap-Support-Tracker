@@ -57,6 +57,19 @@ class TicketController extends Controller
     public function store(StoreTicketRequest $request)
     {
         $data = $request->validated();
+
+        // Update kontak & email pelapor jika diisi
+        $user = Auth::user();
+        $userUpdates = [];
+        if ($request->filled('whatsapp')) {
+            $userUpdates['whatsapp'] = trim($request->whatsapp);
+        }
+        if ($request->filled('email')) {
+            $userUpdates['email'] = trim($request->email);
+        }
+        if (!empty($userUpdates)) {
+            $user->update($userUpdates);
+        }
         
         $lampiranPaths = [];
         if ($request->hasFile('lampiran')) {

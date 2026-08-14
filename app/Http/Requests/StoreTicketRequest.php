@@ -16,6 +16,8 @@ class StoreTicketRequest extends FormRequest
         return [
             'aplikasi_id' => ['required', 'exists:master_aplikasis,aplikasi_id'],
             'permasalahan' => ['required', 'string', 'min:10'],
+            'whatsapp' => ['nullable', 'string', 'max:30'],
+            'email' => ['nullable', 'email', 'max:255'],
             'lampiran' => ['nullable', 'array'], // File tidak terbatas
             'lampiran.*' => ['file', 'mimes:jpeg,png,jpg,mp4,pdf,doc,docx,xlsx,csv,pptx,ppsx,xlsm,docm,xlsb,zip,rar', 'max:5120'], // Max 5MB per file
         ];
