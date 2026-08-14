@@ -776,6 +776,7 @@
                                         <option value="Sudah Dikirim" {{ $chk->status == 'Sudah Dikirim' ? 'selected' : '' }}>Sudah Dikirim</option>
                                         <option value="Sedang Diproses" {{ $chk->status == 'Sedang Diproses' ? 'selected' : '' }}>Sedang Diproses</option>
                                         <option value="Perlu Revisi" {{ $chk->status == 'Perlu Revisi' ? 'selected' : '' }}>Perlu Revisi</option>
+                                        <option value="Data tidak tersedia" {{ $chk->status == 'Data tidak tersedia' ? 'selected' : '' }}>Data tidak tersedia</option>
                                         <option value="Sudah Valid" {{ ($chk->status == 'Sudah Valid' || $chk->status == 'Done') ? 'selected' : '' }}>Sudah Valid (Done)</option>
                                     </select>
                                 @endif
@@ -857,6 +858,7 @@
                                         <option value="Sedang Diproses" {{ $chk->status == 'Sedang Diproses' ? 'selected' : '' }}>Sedang Diproses</option>
                                         <option value="Menunggu Validasi" {{ $chk->status == 'Menunggu Validasi' ? 'selected' : '' }}>Menunggu Validasi</option>
                                         <option value="Perlu Perbaikan" {{ ($chk->status == 'Perlu Perbaikan' || $chk->status == 'Perlu Revisi') ? 'selected' : '' }}>Perlu Perbaikan</option>
+                                        <option value="Data tidak tersedia" {{ $chk->status == 'Data tidak tersedia' ? 'selected' : '' }}>Data tidak tersedia</option>
                                         <option value="Migrasi Berhasil" {{ $chk->status == 'Migrasi Berhasil' ? 'selected' : '' }}>Migrasi Berhasil</option>
                                         <option value="Migrasi Selesai" {{ ($chk->status == 'Migrasi Selesai' || $chk->status == 'Sudah Valid' || $chk->status == 'Done') ? 'selected' : '' }}>Migrasi Selesai</option>
                                     </select>
