@@ -488,8 +488,8 @@
                             @error('email') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
                         </div>
                     </div>
-                    <div style="font-size: 11.5px; color: #64748b; font-style: italic; display: flex; align-items: flex-start; gap: 4px; line-height: 1.4; margin-top: 4px;">
-                        <span style="color: #d97706; font-style: normal; font-size: 12px; margin-top: 1px;">⚠️</span>
+                    <div style="font-size: 11.5px; color: #64748b; font-style: italic; display: flex; align-items: flex-start; gap: 5px; line-height: 1.4; margin-top: 4px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; margin-top: 2px;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
                         <span>Harap cantumkan atau perbarui dengan nomor WhatsApp & email yang aktif untuk mempermudah koordinasi Tim Support.</span>
                     </div>
                 </div>
