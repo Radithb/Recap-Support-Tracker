@@ -550,16 +550,23 @@
     }
 
     function showGlobalToast(message, isSuccess = true) {
-        // Tampilkan juga alert hijau di dalam modal Add Implementation Data (jika modal sedang terbuka)
+        // Jika modal Add Implementation Data sedang terbuka, tampilkan notifikasi HANYA di dalam pop-up modal tersebut
         const modalAlert = document.getElementById('modalDataBaruAlert');
         const modalAlertText = document.getElementById('modalDataBaruAlertText');
-        if (modalAlert && modalAlertText && isSuccess) {
+        const modalDataBaru = document.getElementById('modalDataBaru');
+        
+        let shownInModal = false;
+        if (modalAlert && modalAlertText && modalDataBaru && getComputedStyle(modalDataBaru).display !== 'none') {
             modalAlertText.innerText = message;
             modalAlert.style.display = 'flex';
+            shownInModal = true;
             setTimeout(() => {
                 modalAlert.style.display = 'none';
             }, 4500);
         }
+
+        // Jika notifikasi sudah muncul di dalam pop-up modal, batalkan notifikasi yang di luar/di atas pop up!
+        if (shownInModal) return;
 
         let toast = document.getElementById('globalToast');
         if (!toast) return;
