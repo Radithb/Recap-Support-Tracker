@@ -604,7 +604,7 @@
 @endforeach
 
 <!-- Modal Verifikasi Akun -->
-@if($pendingUsers->count() > 0)
+@if(isset($pendingUsers) && $pendingUsers->count() > 0)
 <div class="overlay" id="modal-verify">
         <div class="modal" style="width: 1000px; max-width: 95vw;">
         <div class="modal-head" style="border-bottom: 1px solid var(--line); padding-bottom: 16px; display: flex; justify-content: space-between; align-items: flex-start;">

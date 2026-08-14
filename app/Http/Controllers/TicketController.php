@@ -310,7 +310,14 @@ class TicketController extends Controller
         $tickets = $query->oldest('created_at')->paginate(20);
         $kategoris = MasterKategori::all();
 
-        return view('support.prioritas', compact('tickets', 'kategoris'));
+        // Ambil daftar user pelapor yang belum diverifikasi
+        $pendingUsers = \App\Models\User::with('instansi')
+            ->where('role', \App\Enums\UserRole::PELAPOR->value)
+            ->where('is_verified', false)
+            ->latest()
+            ->get();
+
+        return view('support.prioritas', compact('tickets', 'kategoris', 'pendingUsers'));
     }
 
     public function updateSupport(Request $request, Ticket $ticket)
