@@ -238,6 +238,20 @@ Route::get('/run-migrations', function () {
     return $message;
 });
 
+Route::get('/run-migrate-cabang', function() {
+    try {
+        if (!\Illuminate\Support\Facades\Schema::hasColumn('implementasi_koperasi', 'kantor_cabang')) {
+            \Illuminate\Support\Facades\Schema::table('implementasi_koperasi', function (\Illuminate\Database\Schema\Blueprint $table) {
+                $table->string('kantor_cabang')->nullable()->after('instansi_id');
+            });
+            return "✅ BERHASIL! Kolom 'kantor_cabang' telah sukses ditambahkan ke tabel database!";
+        }
+        return "ℹ️ Kolom 'kantor_cabang' SUDAH ADA di tabel database Anda.";
+    } catch (\Exception $e) {
+        return "❌ Error: " . $e->getMessage();
+    }
+});
+
 Route::get('/check-templates', function() {
     $message = "<h3>📁 Cek Folder Templates di Server</h3>";
     
