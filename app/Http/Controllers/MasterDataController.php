@@ -225,6 +225,32 @@ class MasterDataController extends Controller
         return back()->with('success', __('messages.success_update_koperasi'));
     }
 
+    public function storeKoperasiAjax(Request $request)
+    {
+        $request->validate([
+            'nama_instansi' => 'required|string|max:255',
+            'alamat' => 'nullable|string',
+            'no_telp' => 'nullable|string|max:255',
+        ]);
+
+        $instansi = Instansi::create([
+            'nama_instansi' => $request->nama_instansi,
+            'alamat' => $request->alamat,
+            'no_telp' => $request->no_telp,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Koperasi berhasil ditambahkan.',
+            'instansi' => [
+                'instansi_id' => $instansi->instansi_id,
+                'nama_instansi' => $instansi->nama_instansi,
+                'alamat' => $instansi->alamat,
+                'no_telp' => $instansi->no_telp,
+            ]
+        ]);
+    }
+
     public function destroyKoperasi($id)
     {
         $instansi = Instansi::findOrFail($id);

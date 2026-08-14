@@ -467,6 +467,7 @@ Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.
     Route::match(['PUT', 'POST'], '/master-data/kategori/{id}', [MasterDataController::class, 'updateKategori'])->name('master-data.kategori.update');
     Route::delete('/master-data/kategori/{id}', [MasterDataController::class, 'destroyKategori'])->name('master-data.kategori.destroy');
     Route::match(['PUT', 'POST'], '/master-data/koperasi/{id}', [MasterDataController::class, 'updateKoperasi'])->name('master-data.koperasi.update');
+    Route::post('/master-data/koperasi/ajax-store', [MasterDataController::class, 'storeKoperasiAjax'])->name('master-data.koperasi.ajax-store');
     Route::delete('/master-data/koperasi/{id}', [MasterDataController::class, 'destroyKoperasi'])->name('master-data.koperasi.destroy');
 
     // Verifikasi Akun Pelapor

@@ -953,18 +953,8 @@
         .then(html => {
             container.innerHTML = html;
             container.querySelectorAll('.searchable-select').forEach(function(el) {
-                if (!el.tomselect) {
-                    new TomSelect(el, {
-                        create: el.classList.contains('allow-create'),
-                        createFilter: function(input) { return input.trim().length >= 1; },
-                        render: {
-                            option_create: function(data, escape) {
-                                return '<div class="create" style="padding: 10px 14px; background: #eff6ff; color: #2563eb; font-weight: 600; cursor: pointer; border-top: 1px dashed #bfdbfe;">+ Tambah "<strong>' + escape(data.input) + '</strong>" sebagai Koperasi Baru</div>';
-                            }
-                        },
-                        sortField: { field: "text", direction: "asc" },
-                        placeholder: el.getAttribute('placeholder') || 'Pilih atau ketik nama baru...'
-                    });
+                if (typeof initSingleTomSelect === 'function') {
+                    initSingleTomSelect(el);
                 }
             });
         })

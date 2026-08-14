@@ -499,26 +499,102 @@
             }
         }
     });
-    document.addEventListener('DOMContentLoaded', function() {
-        document.querySelectorAll('.searchable-select').forEach(function(el) {
-            if (!el.tomselect) {
-                new TomSelect(el, {
-                    create: el.classList.contains('allow-create'),
-                    createFilter: function(input) { return input.trim().length >= 1; },
-                    render: {
-                        option_create: function(data, escape) {
-                            return '<div class="create" style="padding: 10px 14px; background: #eff6ff; color: #2563eb; font-weight: 600; cursor: pointer; border-top: 1px dashed #bfdbfe;">+ Tambah "<strong>' + escape(data.input) + '</strong>" sebagai Koperasi Baru</div>';
-                        }
-                    },
-                    sortField: { field: "text", direction: "asc" },
-                    placeholder: el.getAttribute('placeholder') || 'Pilih atau ketik nama baru...',
-                    onChange: function(value) {
-                        if (typeof updateAplikasiOptions === 'function') {
-                            updateAplikasiOptions();
-                        }
+    window.activeTomSelectCallback = null;
+    window.activeTomSelectInstance = null;
+
+    function initSingleTomSelect(el) {
+        if (!el || el.tomselect) return;
+        const isAllowCreate = el.classList.contains('allow-create');
+        new TomSelect(el, {
+            create: isAllowCreate ? function(input, callback) {
+                window.activeTomSelectCallback = callback;
+                window.activeTomSelectInstance = this;
+                document.getElementById('quick_nama_instansi').value = input;
+                document.getElementById('quick_alamat_instansi').value = '';
+                document.getElementById('quick_no_telp_instansi').value = '';
+                const modal = document.getElementById('modalTambahKoperasiCepat');
+                if (modal) modal.style.display = 'flex';
+                return false;
+            } : false,
+            createFilter: function(input) { return input.trim().length >= 1; },
+            render: {
+                option_create: function(data, escape) {
+                    return '<div class="create" style="padding: 10px 14px; background: #eff6ff; color: #2563eb; font-weight: 600; cursor: pointer; border-top: 1px dashed #bfdbfe;">+ Tambah "<strong>' + escape(data.input) + '</strong>" & Lengkapi Detail...</div>';
+                }
+            },
+            sortField: { field: "text", direction: "asc" },
+            placeholder: el.getAttribute('placeholder') || 'Pilih atau ketik nama baru...',
+            onChange: function(value) {
+                if (typeof updateAplikasiOptions === 'function') {
+                    updateAplikasiOptions();
+                }
+            }
+        });
+    }
+
+    function submitKoperasiCepat(e) {
+        e.preventDefault();
+        const btn = document.getElementById('btnSubmitKoperasiCepat');
+        btn.disabled = true;
+        btn.innerText = 'Menyimpan...';
+
+        const formData = new FormData(document.getElementById('formTambahKoperasiCepat'));
+
+        fetch('{{ route('support.master-data.koperasi.ajax-store') }}', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            btn.disabled = false;
+            btn.innerText = 'Simpan Koperasi';
+
+            if (data.success) {
+                document.getElementById('modalTambahKoperasiCepat').style.display = 'none';
+
+                if (window.activeTomSelectCallback) {
+                    window.activeTomSelectCallback({
+                        value: data.instansi.instansi_id,
+                        text: data.instansi.nama_instansi
+                    });
+                }
+                if (window.activeTomSelectInstance) {
+                    window.activeTomSelectInstance.addOption({
+                        value: data.instansi.instansi_id,
+                        text: data.instansi.nama_instansi
+                    });
+                    window.activeTomSelectInstance.setValue(data.instansi.instansi_id);
+                }
+
+                document.querySelectorAll('select[name="instansi_id"]').forEach(select => {
+                    if (select.tomselect && select.tomselect !== window.activeTomSelectInstance) {
+                        select.tomselect.addOption({
+                            value: data.instansi.instansi_id,
+                            text: data.instansi.nama_instansi
+                        });
                     }
                 });
+
+                window.activeTomSelectCallback = null;
+                window.activeTomSelectInstance = null;
+            } else {
+                alert(data.message || 'Gagal menyimpan koperasi.');
             }
+        })
+        .catch(err => {
+            btn.disabled = false;
+            btn.innerText = 'Simpan Koperasi';
+            alert('Terjadi kesalahan saat menyimpan koperasi.');
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.searchable-select').forEach(function(el) {
+            initSingleTomSelect(el);
         });
     });
 
@@ -641,6 +717,34 @@
             <a id="universalPreviewDownloadBtn" href="#" target="_blank" class="btn btn-primary" style="text-decoration: none;">{{ __('messages.btn_unduh_file') ?? 'Unduh File' }}</a>
             <button class="btn btn-ghost" onclick="closeUniversalPreview()">{{ __('messages.tutup') ?? 'Tutup' }}</button>
         </div>
+    </div>
+</div>
+<!-- Modal Quick Add Koperasi -->
+<div class="modal-overlay" id="modalTambahKoperasiCepat" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); z-index: 999999; align-items: center; justify-content: center;">
+    <div class="modal-container" style="background: var(--paper, #ffffff); width: 90%; max-width: 480px; border-radius: 16px; padding: 24px; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); border: 1px solid var(--line, #e2e8f0);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--line, #e2e8f0); padding-bottom: 12px;">
+            <h3 style="margin: 0; font-size: 1.1rem; color: var(--ink, #1e293b); font-weight: 700;">Tambah Detail Koperasi Baru</h3>
+            <button type="button" onclick="document.getElementById('modalTambahKoperasiCepat').style.display='none'" style="background: none; border: none; font-size: 20px; color: var(--text-muted); cursor: pointer;">&times;</button>
+        </div>
+        <form id="formTambahKoperasiCepat" onsubmit="submitKoperasiCepat(event)">
+            @csrf
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 6px;">Nama Koperasi <span style="color: #ef4444;">*</span></label>
+                <input type="text" id="quick_nama_instansi" name="nama_instansi" required class="form-control" placeholder="Nama Koperasi / Instansi" style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.9rem; background: var(--paper-sunken); color: var(--ink);">
+            </div>
+            <div style="margin-bottom: 16px;">
+                <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 6px;">Alamat (Opsional)</label>
+                <textarea id="quick_alamat_instansi" name="alamat" rows="3" class="form-control" placeholder="Alamat lengkap koperasi..." style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.9rem; background: var(--paper-sunken); color: var(--ink); font-family: inherit;"></textarea>
+            </div>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; font-size: 0.85rem; font-weight: 600; color: var(--ink); margin-bottom: 6px;">No. Telepon / WhatsApp (Opsional)</label>
+                <input type="text" id="quick_no_telp_instansi" name="no_telp" class="form-control" placeholder="Nomor telepon..." style="width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line); font-size: 0.9rem; background: var(--paper-sunken); color: var(--ink);">
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid var(--line, #e2e8f0); padding-top: 16px;">
+                <button type="button" class="btn btn-secondary" onclick="document.getElementById('modalTambahKoperasiCepat').style.display='none'" style="padding: 9px 18px; border-radius: 8px; font-weight: 600;">Batal</button>
+                <button type="submit" id="btnSubmitKoperasiCepat" class="btn btn-primary" style="padding: 9px 18px; border-radius: 8px; font-weight: 600; background: #2563eb; color: white; border: none; cursor: pointer;">Simpan Koperasi</button>
+            </div>
+        </form>
     </div>
 </div>
 </body>
