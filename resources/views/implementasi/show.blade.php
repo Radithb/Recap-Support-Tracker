@@ -703,16 +703,6 @@
                     @endif
                 </div>
             </div>
-            <div class="summary-item" style="grid-column: 1 / -1; background: var(--paper-raised, #fff);">
-                <div class="summary-label" style="font-weight: 700; color: #1e293b;">Catatan Pelatihan / Hasil Pelatihan</div>
-                <div class="summary-value" style="font-weight: 400; font-size: 13.5px; line-height: 1.6; color: #334155; white-space: pre-wrap; margin-top: 4px;">
-                    @if($implementasi->catatan_pelatihan)
-                        {{ $implementasi->catatan_pelatihan }}
-                    @else
-                        <span style="color: #94a3b8; font-style: italic;">Belum ada catatan hasil pelatihan.</span>
-                    @endif
-                </div>
-            </div>
             <div class="summary-item" style="max-width: 100%; word-break: break-word;">
                 <div class="summary-label">{{ __('messages.ringkasan_anggota_hadir') }}</div>
                 <div class="summary-value">
@@ -760,6 +750,16 @@
                 <div class="summary-label">{{ __('messages.ringkasan_tindakan_berikutnya') }}</div>
                 <div class="summary-value">{{ $implementasi->tindakan_berikutnya ?? 'Belum ada' }}</div>
                 <div style="font-size: 12px; margin-top: 5px; font-weight: 500; color: var(--primary);">Status: {{ $implementasi->status_tindakan ?? '-' }}</div>
+            </div>
+            <div class="summary-item" style="grid-column: 1 / -1; background: var(--paper-raised, #fff);">
+                <div class="summary-label" style="font-weight: 700; color: #1e293b;">CATATAN PELATIHANS / HASIL PELATIHANS</div>
+                <div class="summary-value" style="font-weight: 400; font-size: 13.5px; line-height: 1.6; color: #334155; white-space: pre-wrap; margin-top: 4px;">
+                    @if($implementasi->catatan_pelatihan)
+                        {{ $implementasi->catatan_pelatihan }}
+                    @else
+                        <span style="color: #94a3b8; font-style: italic;">Belum ada catatan hasil pelatihan.</span>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
