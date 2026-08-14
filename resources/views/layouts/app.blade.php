@@ -502,7 +502,8 @@
     document.addEventListener('DOMContentLoaded', function() {
         document.querySelectorAll('.searchable-select').forEach(function(el) {
             new TomSelect(el, {
-                create: false,
+                create: el.classList.contains('allow-create'),
+                createFilter: function(input) { return input.length >= 2; }, // minimal 2 huruf
                 sortField: { field: "text", direction: "asc" },
                 placeholder: el.getAttribute('placeholder') || 'Pilih...',
                 onChange: function(value) {

@@ -117,6 +117,16 @@ class ImplementasiController extends Controller
      */
     public function store(Request $request)
     {
+        // Cek jika instansi_id berupa string teks (koperasi baru diketik manual)
+        $instansiId = $request->instansi_id;
+        if (!empty($instansiId) && !is_numeric($instansiId)) {
+            $newInstansi = \App\Models\Instansi::create([
+                'nama_instansi' => $instansiId,
+                'jenis_instansi' => 'KSP', // Default
+            ]);
+            $request->merge(['instansi_id' => $newInstansi->instansi_id]);
+        }
+
         $request->validate([
             'instansi_id' => 'required|exists:instansis,instansi_id',
             'aplikasi_id' => 'required|array',
@@ -433,6 +443,16 @@ class ImplementasiController extends Controller
 
         if ($request->filled('waktu_go_live')) {
             $request->merge(['waktu_go_live' => str_replace('.', ':', trim($request->waktu_go_live))]);
+        }
+
+        // Cek jika instansi_id berupa string teks (koperasi baru diketik manual)
+        $instansiId = $request->instansi_id;
+        if (!empty($instansiId) && !is_numeric($instansiId)) {
+            $newInstansi = \App\Models\Instansi::create([
+                'nama_instansi' => $instansiId,
+                'jenis_instansi' => 'KSP', // Default
+            ]);
+            $request->merge(['instansi_id' => $newInstansi->instansi_id]);
         }
 
         $request->validate([

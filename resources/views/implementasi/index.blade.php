@@ -513,7 +513,7 @@
                 <div class="grid-2">
                     <div class="form-group">
                         <label class="form-label">{{ __('messages.koperasi') }}</label>
-                        <select name="instansi_id" class="form-control searchable-select" required>
+                        <select name="instansi_id" class="form-control searchable-select allow-create" required>
                             <option value="">{{ __('messages.select_koperasi') }}</option>
                             @foreach($instansis as $instansi)
                                 <option value="{{ $instansi->instansi_id }}">{{ $instansi->nama_instansi }}</option>

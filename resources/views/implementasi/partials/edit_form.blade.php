@@ -5,7 +5,7 @@
             <div class="grid-2">
                 <div class="form-group">
                     <label class="form-label">{{ __('messages.koperasi_label') }}</label>
-                    <select name="instansi_id" class="form-control searchable-select" required>
+                    <select name="instansi_id" class="form-control searchable-select allow-create" required>
                         <option value="">{{ __('messages.pilih_koperasi') }}</option>
                         @foreach($instansis as $instansi)
                             <option value="{{ $instansi->instansi_id }}" {{ (old('instansi_id', $implementasi->instansi_id) == $instansi->instansi_id) ? 'selected' : '' }}>
