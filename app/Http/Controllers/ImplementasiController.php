@@ -172,10 +172,9 @@ class ImplementasiController extends Controller
             $tempatGoLive = trim($request->detail_lokasi);
         }
 
-        $implementasi = ImplementasiKoperasi::create([
+        $dataToSave = [
             'nomor_implementasi' => $nomor_implementasi,
             'instansi_id' => $request->instansi_id,
-            'kantor_cabang' => $request->kantor_cabang,
             'aplikasi_id' => is_array($request->aplikasi_id) ? $request->aplikasi_id[0] : $request->aplikasi_id, // Backward compatibility
             'tanggal_pelatihan' => $request->tanggal_pelatihan,
             'tanggal_selesai' => $request->tanggal_selesai ?? $request->tanggal_pelatihan,
@@ -193,7 +192,13 @@ class ImplementasiController extends Controller
             'status' => $request->status ?? 'Pelatihan Dijadwalkan',
             'tindakan_berikutnya' => 'Follow-Up Kesiapan Koperasi',
             'pic_tindakan' => $anggotaHadirStr ?: 'Tim Support',
-        ]);
+        ];
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn('implementasi_koperasi', 'kantor_cabang')) {
+            $dataToSave['kantor_cabang'] = $request->kantor_cabang;
+        }
+
+        $implementasi = ImplementasiKoperasi::create($dataToSave);
 
         // Sync pivot table
         if (is_array($request->aplikasi_id)) {
@@ -511,9 +516,8 @@ class ImplementasiController extends Controller
             $tempatGoLive = trim($request->detail_lokasi);
         }
 
-        $implementasi->update([
+        $dataToUpdate = [
             'instansi_id' => $request->instansi_id,
-            'kantor_cabang' => $request->kantor_cabang,
             'aplikasi_id' => is_array($request->aplikasi_id) ? $request->aplikasi_id[0] : $request->aplikasi_id, // Backward compatibility
             'tanggal_pelatihan' => $request->tanggal_pelatihan,
             'tanggal_selesai' => $request->tanggal_selesai ?? $request->tanggal_pelatihan,
@@ -530,7 +534,13 @@ class ImplementasiController extends Controller
             'status_go_live' => $request->status_go_live ?? 'Belum Siap Go Live',
             'status' => $request->status ?? $implementasi->status,
             'pic_tindakan' => $anggotaHadirStr ?: 'Tim Support',
-        ]);
+        ];
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn('implementasi_koperasi', 'kantor_cabang')) {
+            $dataToUpdate['kantor_cabang'] = $request->kantor_cabang;
+        }
+
+        $implementasi->update($dataToUpdate);
 
         // Sync pivot table
         if (is_array($request->aplikasi_id)) {
