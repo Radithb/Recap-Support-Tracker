@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('implementasi_koperasi', function (Blueprint $table) {
-            $table->string('kantor_cabang')->nullable()->after('instansi_id');
-        });
+        if (!Schema::hasColumn('implementasi_koperasi', 'kantor_cabang')) {
+            Schema::table('implementasi_koperasi', function (Blueprint $table) {
+                $table->string('kantor_cabang')->nullable()->after('instansi_id');
+            });
+        }
     }
 
     /**
