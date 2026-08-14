@@ -70,12 +70,52 @@
     </div>
 </div>
 
-<div class="toolbar fade-up" style="animation-delay: 0.15s;">
-    <div class="search">
+<form id="filter-form" action="{{ route('support.prioritas') }}" method="GET" class="fade-up" style="animation-delay: 0.15s; display: flex; gap: 10px; flex-wrap: wrap; width: 100%; margin-bottom: 20px; align-items: center;">
+    <div class="search" style="flex: 1; min-width: 220px; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; display: flex; align-items: center;">
         <img src="{{ asset('magnifying-glass.png') }}" alt="Search" style="width: 14px; height: 14px; margin-right: 8px; vertical-align: middle; opacity: 0.4; filter: grayscale(100%);">
-        <input type="text" placeholder="{{ __('messages.cari_tiket') }}" style="border:none; background:transparent; width:100%; outline:none;" id="search-input">
+        <input type="text" name="search" value="{{ request('search') }}" placeholder="{{ __('messages.cari_tiket') }} / Koperasi..." style="border:none; background:transparent; width:100%; outline:none; font-size: 0.88rem; color: var(--ink);" id="search-input">
     </div>
-</div>
+
+    <!-- Filter Status -->
+    <select name="status" onchange="document.getElementById('filter-form').submit()" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); font-family: var(--font-body); font-weight: 500; font-size: 0.85rem; color: var(--ink); background: var(--paper-raised); cursor: pointer; outline:none;">
+        <option value="">-- Semua Status Aktif --</option>
+        <option value="Open" {{ request('status') == 'Open' ? 'selected' : '' }}>Open</option>
+        <option value="Proses" {{ request('status') == 'Proses' ? 'selected' : '' }}>Proses</option>
+        <option value="In Review" {{ request('status') == 'In Review' ? 'selected' : '' }}>In Review</option>
+        <option value="Waiting" {{ request('status') == 'Waiting' ? 'selected' : '' }}>Waiting</option>
+        <option value="Pending" {{ request('status') == 'Pending' ? 'selected' : '' }}>Pending</option>
+    </select>
+
+    <!-- Filter Aplikasi -->
+    @if(isset($aplikasis) && count($aplikasis) > 0)
+    <select name="aplikasi_id" onchange="document.getElementById('filter-form').submit()" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); font-family: var(--font-body); font-weight: 500; font-size: 0.85rem; color: var(--ink); background: var(--paper-raised); cursor: pointer; outline:none;">
+        <option value="">-- Semua Aplikasi --</option>
+        @foreach($aplikasis as $app)
+            <option value="{{ $app->aplikasi_id }}" {{ request('aplikasi_id') == $app->aplikasi_id ? 'selected' : '' }}>
+                {{ $app->nama_aplikasi }}
+            </option>
+        @endforeach
+    </select>
+    @endif
+
+    <!-- Filter Kategori -->
+    @if(isset($kategoris) && count($kategoris) > 0)
+    <select name="kategori_id" onchange="document.getElementById('filter-form').submit()" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); font-family: var(--font-body); font-weight: 500; font-size: 0.85rem; color: var(--ink); background: var(--paper-raised); cursor: pointer; outline:none;">
+        <option value="">-- Semua Kategori --</option>
+        @foreach($kategoris as $kat)
+            <option value="{{ $kat->kategori_id }}" {{ request('kategori_id') == $kat->kategori_id ? 'selected' : '' }}>
+                {{ $kat->nama_kategori }}
+            </option>
+        @endforeach
+    </select>
+    @endif
+
+    @if(request()->anyFilled(['search', 'status', 'aplikasi_id', 'kategori_id']))
+        <a href="{{ route('support.prioritas') }}" class="btn btn-ghost" style="padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; color: #ef4444; border: 1px solid #fecaca; background: #fef2f2; text-decoration: none; font-weight: 600;">
+            Reset Filter
+        </a>
+    @endif
+</form>
 
 <div class="fade-up" style="animation-delay: 0.25s; overflow-x: auto; width: 100%;">
 <table class="tickets" id="tickets-table" style="min-width: 1100px;">

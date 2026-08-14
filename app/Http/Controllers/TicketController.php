@@ -298,17 +298,33 @@ class TicketController extends Controller
         $query = Ticket::with(['pelapor.instansi', 'aplikasi', 'kategori'])
             ->whereNotIn('status', [\App\Enums\TicketStatus::DONE->value, 'Done', 'Selesai']);
         
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('kategori_id')) {
+            $query->where('kategori_id', $request->kategori_id);
+        }
+
+        if ($request->filled('aplikasi_id')) {
+            $query->where('aplikasi_id', $request->aplikasi_id);
+        }
+
         if ($request->filled('search')) {
             $search = $request->search;
             $query->where(function($q) use ($search) {
                 $q->where('ticket_id', 'like', "%$search%")
-                  ->orWhere('permasalahan', 'like', "%$search%");
+                  ->orWhere('permasalahan', 'like', "%$search%")
+                  ->orWhereHas('pelapor.instansi', function($iq) use ($search) {
+                      $iq->where('nama_instansi', 'like', "%$search%");
+                  });
             });
         }
 
         // Order by created_at ASC (Oldest first)
         $tickets = $query->oldest('created_at')->paginate(20);
         $kategoris = MasterKategori::all();
+        $aplikasis = MasterAplikasi::all();
 
         // Ambil daftar user pelapor yang belum diverifikasi
         $pendingUsers = \App\Models\User::with('instansi')
@@ -317,7 +333,7 @@ class TicketController extends Controller
             ->latest()
             ->get();
 
-        return view('support.prioritas', compact('tickets', 'kategoris', 'pendingUsers'));
+        return view('support.prioritas', compact('tickets', 'kategoris', 'aplikasis', 'pendingUsers'));
     }
 
     public function updateSupport(Request $request, Ticket $ticket)
