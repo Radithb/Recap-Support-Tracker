@@ -78,7 +78,7 @@
 
     <!-- Filter Status -->
     <select name="status" onchange="document.getElementById('filter-form').submit()" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); font-family: var(--font-body); font-weight: 500; font-size: 0.85rem; color: {{ request()->filled('status') ? 'var(--ink)' : '#64748b' }}; background: var(--paper-raised); cursor: pointer; outline:none;">
-        <option value="" style="color: #64748b;">-- Semua Status Aktif --</option>
+        <option value="" style="color: #64748b;">Semua Status Aktif</option>
         <option value="Open" {{ request('status') == 'Open' ? 'selected' : '' }} style="color: var(--ink);">Open</option>
         <option value="Proses" {{ request('status') == 'Proses' ? 'selected' : '' }} style="color: var(--ink);">Proses</option>
         <option value="In Review" {{ request('status') == 'In Review' ? 'selected' : '' }} style="color: var(--ink);">In Review</option>
@@ -89,7 +89,7 @@
     <!-- Filter Aplikasi -->
     @if(isset($aplikasis) && count($aplikasis) > 0)
     <select name="aplikasi_id" onchange="document.getElementById('filter-form').submit()" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); font-family: var(--font-body); font-weight: 500; font-size: 0.85rem; color: {{ request()->filled('aplikasi_id') ? 'var(--ink)' : '#64748b' }}; background: var(--paper-raised); cursor: pointer; outline:none;">
-        <option value="" style="color: #64748b;">-- Semua Aplikasi --</option>
+        <option value="" style="color: #64748b;">Semua Aplikasi</option>
         @foreach($aplikasis as $app)
             <option value="{{ $app->aplikasi_id }}" {{ request('aplikasi_id') == $app->aplikasi_id ? 'selected' : '' }} style="color: var(--ink);">
                 {{ $app->nama_aplikasi }}
@@ -101,7 +101,7 @@
     <!-- Filter Kategori -->
     @if(isset($kategoris) && count($kategoris) > 0)
     <select name="kategori_id" onchange="document.getElementById('filter-form').submit()" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); font-family: var(--font-body); font-weight: 500; font-size: 0.85rem; color: {{ request()->filled('kategori_id') ? 'var(--ink)' : '#64748b' }}; background: var(--paper-raised); cursor: pointer; outline:none;">
-        <option value="" style="color: #64748b;">-- Semua Kategori --</option>
+        <option value="" style="color: #64748b;">Semua Kategori</option>
         @foreach($kategoris as $kat)
             <option value="{{ $kat->kategori_id }}" {{ request('kategori_id') == $kat->kategori_id ? 'selected' : '' }} style="color: var(--ink);">
                 {{ $kat->nama_kategori }}
