@@ -475,16 +475,22 @@
         <form action="{{ route('pelapor.tickets.store') }}" method="POST" enctype="multipart/form-data" onsubmit="return checkFileSize(this, 'lampiran_input', 8);">
             @csrf
             <div class="modal-body">
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
-                    <div class="field" style="margin-bottom: 0;">
-                        <label>No. Telepon / WhatsApp (Opsional)</label>
-                        <input type="text" name="whatsapp" value="{{ old('whatsapp', Auth::user()->whatsapp ?? '') }}" placeholder="Contoh: 08123456789">
-                        @error('whatsapp') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
+                <div style="margin-bottom: 16px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 6px;">
+                        <div class="field" style="margin-bottom: 0;">
+                            <label>No. Telepon / WhatsApp (Opsional)</label>
+                            <input type="text" name="whatsapp" value="{{ old('whatsapp', Auth::user()->whatsapp ?? '') }}" placeholder="Contoh: 08123456789">
+                            @error('whatsapp') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
+                        </div>
+                        <div class="field" style="margin-bottom: 0;">
+                            <label>Email (Opsional)</label>
+                            <input type="email" name="email" value="{{ old('email', Auth::user()->email ?? '') }}" placeholder="nama@email.com">
+                            @error('email') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
+                        </div>
                     </div>
-                    <div class="field" style="margin-bottom: 0;">
-                        <label>Email (Opsional)</label>
-                        <input type="email" name="email" value="{{ old('email', Auth::user()->email ?? '') }}" placeholder="nama@email.com">
-                        @error('email') <div style="color: #ef4444; font-size: 12px; margin-top: 4px;">{{ $message }}</div> @enderror
+                    <div style="font-size: 11.5px; color: #64748b; font-style: italic; display: flex; align-items: flex-start; gap: 4px; line-height: 1.4; margin-top: 4px;">
+                        <span style="color: #d97706; font-style: normal; font-size: 12px; margin-top: 1px;">⚠️</span>
+                        <span>Harap cantumkan atau perbarui dengan nomor WhatsApp & email yang aktif untuk mempermudah koordinasi Tim Support.</span>
                     </div>
                 </div>
 
