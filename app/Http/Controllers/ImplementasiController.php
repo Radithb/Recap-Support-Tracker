@@ -175,6 +175,7 @@ class ImplementasiController extends Controller
         $dataToSave = [
             'nomor_implementasi' => $nomor_implementasi,
             'instansi_id' => $request->instansi_id,
+            'kantor_cabang' => $request->kantor_cabang,
             'aplikasi_id' => is_array($request->aplikasi_id) ? $request->aplikasi_id[0] : $request->aplikasi_id, // Backward compatibility
             'tanggal_pelatihan' => $request->tanggal_pelatihan,
             'tanggal_selesai' => $request->tanggal_selesai ?? $request->tanggal_pelatihan,
@@ -193,10 +194,6 @@ class ImplementasiController extends Controller
             'tindakan_berikutnya' => 'Follow-Up Kesiapan Koperasi',
             'pic_tindakan' => $anggotaHadirStr ?: 'Tim Support',
         ];
-
-        if (\Illuminate\Support\Facades\Schema::hasColumn('implementasi_koperasi', 'kantor_cabang')) {
-            $dataToSave['kantor_cabang'] = $request->kantor_cabang;
-        }
 
         $implementasi = ImplementasiKoperasi::create($dataToSave);
 
@@ -518,6 +515,7 @@ class ImplementasiController extends Controller
 
         $dataToUpdate = [
             'instansi_id' => $request->instansi_id,
+            'kantor_cabang' => $request->kantor_cabang,
             'aplikasi_id' => is_array($request->aplikasi_id) ? $request->aplikasi_id[0] : $request->aplikasi_id, // Backward compatibility
             'tanggal_pelatihan' => $request->tanggal_pelatihan,
             'tanggal_selesai' => $request->tanggal_selesai ?? $request->tanggal_pelatihan,
@@ -535,10 +533,6 @@ class ImplementasiController extends Controller
             'status' => $request->status ?? $implementasi->status,
             'pic_tindakan' => $anggotaHadirStr ?: 'Tim Support',
         ];
-
-        if (\Illuminate\Support\Facades\Schema::hasColumn('implementasi_koperasi', 'kantor_cabang')) {
-            $dataToUpdate['kantor_cabang'] = $request->kantor_cabang;
-        }
 
         $implementasi->update($dataToUpdate);
 
