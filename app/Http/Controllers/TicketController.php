@@ -296,7 +296,7 @@ class TicketController extends Controller
     public function prioritas(Request $request)
     {
         $query = Ticket::with(['pelapor.instansi', 'aplikasi', 'kategori'])
-            ->where('status', '!=', \App\Enums\TicketStatus::SELESAI->value);
+            ->whereNotIn('status', [\App\Enums\TicketStatus::DONE->value, 'Done', 'Selesai']);
         
         if ($request->filled('search')) {
             $search = $request->search;
