@@ -363,44 +363,51 @@
             </div>
             @endif
 
-            <!-- Detail Pelapor & Aplikasi (Grid) -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: var(--paper-sunken); padding: 16px; border-radius: 12px; border: 1px solid var(--line);">
-                <div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.instansi') }}</div>
-                    <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">{{ $t->pelapor->instansi->nama_instansi ?? '-' }}</div>
-                </div>
-                <div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.pic_pelapor') }}</div>
-                    <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">{{ $t->pelapor->nama ?? '-' }}</div>
-                    @if($t->pelapor)
-                    <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; display: flex; flex-direction: column; gap: 4px;">
-                        <div style="display: flex; align-items: center; gap: 5px; color: var(--ink-soft); font-weight: 500;">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                            <span>{{ $t->pelapor->whatsapp ?? $t->pelapor->instansi->no_telp ?? '-' }}</span>
-                        </div>
-                        <div style="display: flex; align-items: center; gap: 5px; color: var(--ink-soft); font-weight: 500;">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                            <span style="word-break: break-all;">{{ $t->pelapor->email ?? '-' }}</span>
-                        </div>
+            <!-- Detail Pelapor & Aplikasi (Grid 2 Kolom Clean) -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background: var(--paper-sunken); padding: 18px; border-radius: 12px; border: 1px solid var(--line); align-items: start;">
+                <!-- Kolom Kiri: Instansi & Aplikasi -->
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div>
+                        <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.instansi') }}</div>
+                        <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">{{ $t->pelapor->instansi->nama_instansi ?? '-' }}</div>
                     </div>
-                    <a href="{{ route('support.pelapor.profile', $t->pelapor->user_id) }}" class="btn btn-ghost" style="padding: 4px 10px; font-size: 0.7rem; margin-top: 8px; border: 1px solid var(--line); display: inline-flex; align-items: center; gap: 4px; border-radius: 6px; text-decoration: none;">
-                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                        {{ __('messages.lihat_profil') }}
-                    </a>
-                    @endif
+                    <div>
+                        <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.aplikasi') }}</div>
+                        <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">{{ $t->aplikasi->nama_aplikasi ?? '-' }}</div>
+                    </div>
                 </div>
-                <div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.aplikasi') }}</div>
-                    <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">{{ $t->aplikasi->nama_aplikasi ?? '-' }}</div>
-                </div>
-                <div>
-                    <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.kategori') }}</div>
-                    <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">
-                        @if($t->kategori)
-                            <span style="color: #be123c;">{{ $t->kategori->nama_kategori }}</span>
-                        @else
-                            -
+
+                <!-- Kolom Kanan: PIC Pelapor & Kategori -->
+                <div style="display: flex; flex-direction: column; gap: 16px;">
+                    <div>
+                        <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.pic_pelapor') }}</div>
+                        <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">{{ $t->pelapor->nama ?? '-' }}</div>
+                        @if($t->pelapor)
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px; display: flex; flex-direction: column; gap: 4px;">
+                            <div style="display: flex; align-items: center; gap: 5px; color: var(--ink-soft); font-weight: 500;">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                <span>{{ $t->pelapor->whatsapp ?? $t->pelapor->instansi->no_telp ?? '-' }}</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 5px; color: var(--ink-soft); font-weight: 500;">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                <span style="word-break: break-all;">{{ $t->pelapor->email ?? '-' }}</span>
+                            </div>
+                        </div>
+                        <a href="{{ route('support.pelapor.profile', $t->pelapor->user_id) }}" class="btn btn-ghost" style="padding: 4px 10px; font-size: 0.7rem; margin-top: 8px; border: 1px solid var(--line); display: inline-flex; align-items: center; gap: 4px; border-radius: 6px; text-decoration: none;">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                            {{ __('messages.lihat_profil') }}
+                        </a>
                         @endif
+                    </div>
+                    <div>
+                        <div style="font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">{{ __('messages.kategori') }}</div>
+                        <div style="font-weight: 600; color: var(--ink); font-size: 0.85rem;">
+                            @if($t->kategori)
+                                <span style="color: #be123c;">{{ $t->kategori->nama_kategori }}</span>
+                            @else
+                                -
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
