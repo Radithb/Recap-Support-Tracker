@@ -54,6 +54,34 @@
         html.dark-mode .skeleton-updating {
             background: linear-gradient(90deg, #1e293b 0px, #334155 80px, #1e293b 160px) !important;
         }
+
+        /* Smooth Fade-Up & Fade-Out animations for modal alert notification */
+        @keyframes modalAlertFadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(14px) scale(0.97);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        @keyframes modalAlertFadeOut {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-10px) scale(0.97);
+            }
+        }
+        .animate-fade-up {
+            animation: modalAlertFadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+        }
+        .animate-fade-out {
+            animation: modalAlertFadeOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+        }
     </style>
     <script>
         // Apply personalization before page render to prevent FOUC
@@ -559,10 +587,17 @@
         if (modalAlert && modalAlertText && modalDataBaru && getComputedStyle(modalDataBaru).display !== 'none') {
             modalAlertText.innerText = message;
             modalAlert.style.display = 'flex';
+            modalAlert.classList.remove('animate-fade-out');
+            modalAlert.classList.add('animate-fade-up');
             shownInModal = true;
             setTimeout(() => {
-                modalAlert.style.display = 'none';
-            }, 4500);
+                modalAlert.classList.remove('animate-fade-up');
+                modalAlert.classList.add('animate-fade-out');
+                setTimeout(() => {
+                    modalAlert.style.display = 'none';
+                    modalAlert.classList.remove('animate-fade-out');
+                }, 300);
+            }, 4200);
         }
 
         // Jika notifikasi sudah muncul di dalam pop-up modal, batalkan notifikasi yang di luar/di atas pop up!
