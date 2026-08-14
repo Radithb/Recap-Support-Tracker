@@ -56,6 +56,9 @@ class ImplementasiKoperasi extends Model
         'kendala_koperasi',
         'komitmen_koperasi',
         'tanggal_followup_berikutnya',
+        'tanggal_mulai_support',
+        'tanggal_selesai_support',
+        'durasi_support',
     ];
 
     protected $casts = [
@@ -66,6 +69,8 @@ class ImplementasiKoperasi extends Model
         'target_tanggal_tindakan' => 'date',
         'tanggal_tutup_buku' => 'date',
         'tanggal_mulai_aplikasi' => 'date',
+        'tanggal_mulai_support' => 'date',
+        'tanggal_selesai_support' => 'date',
         'progres' => 'decimal:2',
         'tanggal_followup' => 'date',
         'tanggal_followup_berikutnya' => 'date',

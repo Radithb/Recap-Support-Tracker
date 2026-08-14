@@ -673,6 +673,26 @@
                     @endif
                 </div>
             </div>
+            <div class="summary-item" style="border-left: 3px solid #2563eb; background: var(--paper-raised, #fff);">
+                <div class="summary-label" style="color: #2563eb; font-weight: 700;">Masa Berlaku Tim Support</div>
+                <div class="summary-value" style="font-size: 13px;">
+                    @if($implementasi->tanggal_mulai_support || $implementasi->tanggal_selesai_support)
+                        <div style="font-weight: 600; color: #1e293b;">
+                            {{ $implementasi->tanggal_mulai_support ? $implementasi->tanggal_mulai_support->format('d M Y') : 'Awal' }}
+                            &nbsp;&rarr;&nbsp;
+                            <span style="color: #2563eb;">{{ $implementasi->tanggal_selesai_support ? $implementasi->tanggal_selesai_support->format('d M Y') : 'Selesai' }}</span>
+                        </div>
+                    @endif
+                    @if($implementasi->durasi_support)
+                        <div style="font-size: 12px; color: #64748b; font-weight: 500; margin-top: 2px;">
+                            Durasi: <strong>{{ $implementasi->durasi_support }}</strong>
+                        </div>
+                    @endif
+                    @if(!$implementasi->tanggal_mulai_support && !$implementasi->tanggal_selesai_support && !$implementasi->durasi_support)
+                        <span style="color: #94a3b8;">Belum Ditentukan</span>
+                    @endif
+                </div>
+            </div>
             <div class="summary-item">
                 <div class="summary-label">{{ __('messages.ringkasan_berita_acara') }}</div>
                 <div class="summary-value">

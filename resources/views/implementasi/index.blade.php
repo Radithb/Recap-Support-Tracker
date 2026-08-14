@@ -593,6 +593,26 @@
                     </div>
                 </div>
 
+                <div class="form-group" style="background: var(--paper-sunken, #f8fafc); padding: 14px; border-radius: 8px; border: 1px solid #cbd5e1; margin-bottom: 15px;">
+                    <label class="form-label" style="font-weight: 600; color: #1e293b; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        <span>Masa Berlaku Tim Support</span>
+                    </label>
+                    <div class="grid-2">
+                        <div>
+                            <label class="form-label" style="font-weight: normal; font-size: 12px; color: #64748b;">Mulai Support</label>
+                            <input type="date" name="tanggal_mulai_support" class="form-control">
+                        </div>
+                        <div>
+                            <label class="form-label" style="font-weight: normal; font-size: 12px; color: #64748b;">Hingga Tanggal (Selesai Support)</label>
+                            <input type="date" name="tanggal_selesai_support" class="form-control">
+                        </div>
+                    </div>
+                    <div style="margin-top: 8px;">
+                        <input type="text" name="durasi_support" class="form-control" placeholder="Durasi Support (Opsional, misal: 6 Bulan / 1 Tahun)">
+                    </div>
+                </div>
+
                 <div class="grid-2">
                     <div class="form-group">
                         <label class="form-label">{{ __('messages.metode_pelatihan') }}</label>
