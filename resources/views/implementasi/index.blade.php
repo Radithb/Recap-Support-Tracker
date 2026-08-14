@@ -946,13 +946,15 @@
                 </div>
             </div>`;
         
-        fetch(`/implementasi/${id}/edit`, {
+        const editUrl = "{{ url('implementasi') }}/" + id + "/edit";
+        fetch(editUrl, {
             headers: {
-                'X-Requested-With': 'XMLHttpRequest'
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'text/html'
             }
         })
         .then(response => {
-            if (!response.ok) throw new Error('Terjadi kesalahan saat memuat form.');
+            if (!response.ok) throw new Error('Terjadi kesalahan server (' + response.status + '). Gagal memuat form edit.');
             return response.text();
         })
         .then(html => {
@@ -964,7 +966,10 @@
             });
         })
         .catch(error => {
-            container.innerHTML = `<div style="padding: 30px; text-align: center; color: #ef4444;">${error.message}</div>`;
+            container.innerHTML = `<div style="padding: 30px; text-align: center; color: #ef4444; font-weight: 600;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: block; margin: 0 auto 10px auto;"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                ${error.message || 'Gagal memuat form edit.'}
+            </div>`;
         });
     }
 
