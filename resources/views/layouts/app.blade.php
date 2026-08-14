@@ -548,12 +548,19 @@
             },
             body: formData
         })
-        .then(res => res.json())
+        .then(async res => {
+            const data = await res.json().catch(() => null);
+            if (!res.ok) {
+                const msg = (data && data.message) ? data.message : ('Terjadi kesalahan server (' + res.status + ')');
+                throw new Error(msg);
+            }
+            return data;
+        })
         .then(data => {
             btn.disabled = false;
             btn.innerText = 'Simpan Koperasi';
 
-            if (data.success) {
+            if (data && data.success) {
                 document.getElementById('modalTambahKoperasiCepat').style.display = 'none';
 
                 if (window.activeTomSelectCallback) {
@@ -582,13 +589,13 @@
                 window.activeTomSelectCallback = null;
                 window.activeTomSelectInstance = null;
             } else {
-                alert(data.message || 'Gagal menyimpan koperasi.');
+                alert((data && data.message) ? data.message : 'Gagal menyimpan koperasi.');
             }
         })
         .catch(err => {
             btn.disabled = false;
             btn.innerText = 'Simpan Koperasi';
-            alert('Terjadi kesalahan saat menyimpan koperasi.');
+            alert(err.message || 'Terjadi kesalahan saat menyimpan koperasi.');
         });
     }
 

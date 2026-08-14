@@ -227,14 +227,46 @@ class MasterDataController extends Controller
 
     public function storeKoperasiAjax(Request $request)
     {
-        $request->validate([
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
             'nama_instansi' => 'required|string|max:255',
             'alamat' => 'nullable|string',
             'no_telp' => 'nullable|string|max:255',
         ]);
 
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first()
+            ], 422);
+        }
+
+        $namaClean = trim($request->nama_instansi);
+
+        // Prevent duplicates (Cegah data ganda)
+        $existing = Instansi::whereRaw('LOWER(nama_instansi) = ?', [mb_strtolower($namaClean)])->first();
+        if ($existing) {
+            $updateData = array_filter([
+                'alamat' => $request->alamat,
+                'no_telp' => $request->no_telp,
+            ]);
+            if (!empty($updateData)) {
+                $existing->update($updateData);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Koperasi sudah terdaftar dan berhasil dipilih.',
+                'instansi' => [
+                    'instansi_id' => $existing->instansi_id,
+                    'nama_instansi' => $existing->nama_instansi,
+                    'alamat' => $existing->alamat,
+                    'no_telp' => $existing->no_telp,
+                ]
+            ]);
+        }
+
         $instansi = Instansi::create([
-            'nama_instansi' => $request->nama_instansi,
+            'nama_instansi' => $namaClean,
             'alamat' => $request->alamat,
             'no_telp' => $request->no_telp,
         ]);
