@@ -532,6 +532,37 @@
         });
     }
 
+    function showGlobalToast(message, isSuccess = true) {
+        let toast = document.getElementById('globalToast');
+        if (!toast) return;
+
+        const msgEl = document.getElementById('globalToastMessage');
+        const iconEl = document.getElementById('globalToastIcon');
+        msgEl.innerText = message;
+
+        if (isSuccess) {
+            toast.style.borderLeft = '4px solid #22c55e';
+            iconEl.style.color = '#22c55e';
+            iconEl.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>';
+        } else {
+            toast.style.borderLeft = '4px solid #ef4444';
+            iconEl.style.color = '#ef4444';
+            iconEl.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
+        }
+
+        toast.style.display = 'flex';
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)';
+
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(10px)';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 300);
+        }, 3500);
+    }
+
     function submitKoperasiCepat(e) {
         e.preventDefault();
         const btn = document.getElementById('btnSubmitKoperasiCepat');
@@ -563,6 +594,9 @@
             if (data && data.success) {
                 document.getElementById('modalTambahKoperasiCepat').style.display = 'none';
 
+                // Tampilkan Notifikasi Toast Berhasil
+                showGlobalToast(data.message || 'Koperasi berhasil ditambahkan!');
+
                 if (window.activeTomSelectCallback) {
                     window.activeTomSelectCallback({
                         value: data.instansi.instansi_id,
@@ -589,13 +623,13 @@
                 window.activeTomSelectCallback = null;
                 window.activeTomSelectInstance = null;
             } else {
-                alert((data && data.message) ? data.message : 'Gagal menyimpan koperasi.');
+                showGlobalToast((data && data.message) ? data.message : 'Gagal menyimpan koperasi.', false);
             }
         })
         .catch(err => {
             btn.disabled = false;
             btn.innerText = 'Simpan Koperasi';
-            alert(err.message || 'Terjadi kesalahan saat menyimpan koperasi.');
+            showGlobalToast(err.message || 'Terjadi kesalahan saat menyimpan koperasi.', false);
         });
     }
 
@@ -753,6 +787,13 @@
             </div>
         </form>
     </div>
+</div>
+<!-- Global Toast Notification -->
+<div id="globalToast" style="display: none; position: fixed; bottom: 24px; right: 24px; z-index: 9999999; background: #0f172a; color: #ffffff; padding: 14px 20px; border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3); border-left: 4px solid #22c55e; align-items: center; gap: 12px; transition: all 0.3s ease; font-size: 0.9rem; font-weight: 500;">
+    <div id="globalToastIcon" style="display: flex; align-items: center; justify-content: center; color: #22c55e;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+    </div>
+    <span id="globalToastMessage">Berhasil disimpan!</span>
 </div>
 </body>
 </html>
