@@ -455,6 +455,7 @@ Route::middleware(['auth', IsPelapor::class])->prefix('pelapor')->name('pelapor.
 // Akses Support
 Route::middleware(['auth', IsSupport::class])->prefix('support')->name('support.')->group(function () {
     Route::get('/dashboard', [TicketController::class, 'supportDashboard'])->name('dashboard');
+    Route::get('/prioritas', [TicketController::class, 'prioritas'])->name('prioritas');
     Route::get('/tickets/{ticket}', function () {
         return redirect()->route('support.dashboard');
     });

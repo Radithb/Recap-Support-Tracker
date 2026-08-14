@@ -293,6 +293,26 @@ class TicketController extends Controller
         return view('support.dashboard', compact('tickets', 'kategoris', 'pendingUsers'));
     }
 
+    public function prioritas(Request $request)
+    {
+        $query = Ticket::with(['pelapor.instansi', 'aplikasi', 'kategori'])
+            ->where('status', '!=', \App\Enums\TicketStatus::SELESAI->value);
+        
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('ticket_id', 'like', "%$search%")
+                  ->orWhere('permasalahan', 'like', "%$search%");
+            });
+        }
+
+        // Order by created_at ASC (Oldest first)
+        $tickets = $query->oldest('created_at')->paginate(20);
+        $kategoris = MasterKategori::all();
+
+        return view('support.prioritas', compact('tickets', 'kategoris'));
+    }
+
     public function updateSupport(Request $request, Ticket $ticket)
     {
         $request->validate([
