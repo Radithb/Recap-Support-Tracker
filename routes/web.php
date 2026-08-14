@@ -95,6 +95,17 @@ Route::get('/generate-running-checklists', function () {
     return "Selesai! Berhasil menambahkan {$totalAdded} item baru, memperbarui {$renamedCount} teks SAS menjadi Sakti, dan menghitung ulang seluruh persentase progres!<br><a href='/'>Kembali ke Aplikasi</a>";
 });
 
+// ROUTE SEMENTARA UNTUK MIGRASI DATABASE (InfinityFree)
+Route::get('/migrate-db', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        $output = \Illuminate\Support\Facades\Artisan::output();
+        return "<h3>Migrasi Berhasil!</h3><pre>" . $output . "</pre><br><a href='/'>Kembali ke Aplikasi</a>";
+    } catch (\Exception $e) {
+        return "<h3>Gagal Migrasi!</h3><pre>" . $e->getMessage() . "</pre>";
+    }
+});
+
 // ROUTE SEMENTARA UNTUK MIGRASI & FORCE CLEAR CACHE (InfinityFree)
 Route::get('/run-migrations', function () {
     $message = "<h3>🔧 Server Diagnostik & Clear Cache</h3>";
