@@ -37,6 +37,23 @@
         html.dark-mode .status-open::before {
             background: #94a3b8 !important;
         }
+
+        /* Skeleton shimmer animation for updating dropdown */
+        @keyframes skeletonPulse {
+            0% { background-position: -200px 0; }
+            100% { background-position: calc(200px + 100%) 0; }
+        }
+        .skeleton-updating {
+            pointer-events: none !important;
+            background: linear-gradient(90deg, #e2e8f0 0px, #f8fafc 80px, #e2e8f0 160px) !important;
+            background-size: 200px 100% !important;
+            animation: skeletonPulse 1.2s infinite ease-in-out !important;
+            border-radius: 8px !important;
+            opacity: 0.85 !important;
+        }
+        html.dark-mode .skeleton-updating {
+            background: linear-gradient(90deg, #1e293b 0px, #334155 80px, #1e293b 160px) !important;
+        }
     </style>
     <script>
         // Apply personalization before page render to prevent FOUC
@@ -556,7 +573,7 @@
 
         setTimeout(() => {
             toast.style.opacity = '0';
-            toast.style.transform = 'translateY(10px)';
+            toast.style.transform = 'translateY(-10px)';
             setTimeout(() => {
                 toast.style.display = 'none';
             }, 300);
@@ -594,8 +611,15 @@
             if (data && data.success) {
                 document.getElementById('modalTambahKoperasiCepat').style.display = 'none';
 
-                // Tampilkan Notifikasi Toast Berhasil
+                // Notifikasi Toast Berada di Atas
                 showGlobalToast(data.message || 'Koperasi berhasil ditambahkan!');
+
+                // Skeleton Shimmer Loading pada Dropdown saat kembali
+                let targetWrapper = null;
+                if (window.activeTomSelectInstance && window.activeTomSelectInstance.wrapper) {
+                    targetWrapper = window.activeTomSelectInstance.wrapper;
+                    targetWrapper.classList.add('skeleton-updating');
+                }
 
                 if (window.activeTomSelectCallback) {
                     window.activeTomSelectCallback({
@@ -619,6 +643,12 @@
                         });
                     }
                 });
+
+                if (targetWrapper) {
+                    setTimeout(() => {
+                        targetWrapper.classList.remove('skeleton-updating');
+                    }, 650);
+                }
 
                 window.activeTomSelectCallback = null;
                 window.activeTomSelectInstance = null;
@@ -788,8 +818,8 @@
         </form>
     </div>
 </div>
-<!-- Global Toast Notification -->
-<div id="globalToast" style="display: none; position: fixed; bottom: 24px; right: 24px; z-index: 9999999; background: #0f172a; color: #ffffff; padding: 14px 20px; border-radius: 12px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3); border-left: 4px solid #22c55e; align-items: center; gap: 12px; transition: all 0.3s ease; font-size: 0.9rem; font-weight: 500;">
+<!-- Global Toast Notification (Posisi di Atas Layar) -->
+<div id="globalToast" style="display: none; position: fixed; top: 28px; right: 28px; z-index: 99999999; background: #0f172a; color: #ffffff; padding: 14px 22px; border-radius: 12px; box-shadow: 0 14px 30px -5px rgba(0,0,0,0.4); border-left: 4px solid #22c55e; align-items: center; gap: 12px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); font-size: 0.9rem; font-weight: 500;">
     <div id="globalToastIcon" style="display: flex; align-items: center; justify-content: center; color: #22c55e;">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
     </div>
