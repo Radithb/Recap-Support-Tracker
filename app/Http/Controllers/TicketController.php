@@ -10,6 +10,9 @@ use App\Models\Faq;
 use App\Enums\TicketStatus;
 use App\Http\Requests\StoreTicketRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use App\Console\Commands\CheckPriorityQueueOverdue;
 
 class TicketController extends Controller
 {
@@ -321,8 +324,84 @@ class TicketController extends Controller
             });
         }
 
+        // Rentang Waktu (Harian, Mingguan, Bulanan, Kustom, Semua)
+        $rentangWaktu = $request->input('rentang_waktu', $request->input('filter_tanggal', 'harian'));
+        $dateStr = $request->input('date');
+        $focalDate = $dateStr ? Carbon::parse($dateStr) : Carbon::today();
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $daysIndo = [
+            'Sunday' => 'Minggu',
+            'Monday' => 'Senin',
+            'Tuesday' => 'Selasa',
+            'Wednesday' => 'Rabu',
+            'Thursday' => 'Kamis',
+            'Friday' => 'Jumat',
+            'Saturday' => 'Sabtu'
+        ];
+
+        $monthsIndo = [
+            1 => 'Januari', 2 => 'Februari', 3 => 'Maret', 4 => 'April',
+            5 => 'Mei', 6 => 'Juni', 7 => 'Juli', 8 => 'Agustus',
+            9 => 'September', 10 => 'Oktober', 11 => 'November', 12 => 'Desember'
+        ];
+
+        $prevDate = '';
+        $nextDate = '';
+        $displayDateText = '';
+
+        if ($rentangWaktu === 'harian') {
+            $prevDate = $focalDate->copy()->subDay()->format('Y-m-d');
+            $nextDate = $focalDate->copy()->addDay()->format('Y-m-d');
+            $displayDateText = ($daysIndo[$focalDate->format('l')] ?? $focalDate->format('l')) . ', ' . $focalDate->format('j') . ' ' . ($monthsIndo[$focalDate->month] ?? $focalDate->format('F')) . ' ' . $focalDate->year;
+            $query->whereDate(DB::raw('COALESCE(tanggal_input, created_at)'), $focalDate->format('Y-m-d'));
+        } elseif ($rentangWaktu === 'mingguan') {
+            $startOfWeek = $focalDate->copy()->startOfWeek(Carbon::MONDAY);
+            $endOfWeek = $focalDate->copy()->endOfWeek(Carbon::SUNDAY);
+            $prevDate = $focalDate->copy()->subWeek()->format('Y-m-d');
+            $nextDate = $focalDate->copy()->addWeek()->format('Y-m-d');
+            
+            if ($startOfWeek->month === $endOfWeek->month) {
+                $displayDateText = $startOfWeek->format('j') . ' - ' . $endOfWeek->format('j') . ' ' . ($monthsIndo[$startOfWeek->month] ?? $startOfWeek->format('F')) . ' ' . $startOfWeek->year;
+            } else {
+                $displayDateText = $startOfWeek->format('j') . ' ' . ($monthsIndo[$startOfWeek->month] ?? $startOfWeek->format('M')) . ' - ' . $endOfWeek->format('j') . ' ' . ($monthsIndo[$endOfWeek->month] ?? $endOfWeek->format('M')) . ' ' . $endOfWeek->year;
+            }
+            $query->whereBetween(DB::raw('DATE(COALESCE(tanggal_input, created_at))'), [$startOfWeek->format('Y-m-d'), $endOfWeek->format('Y-m-d')]);
+        } elseif ($rentangWaktu === 'bulanan') {
+            $prevDate = $focalDate->copy()->subMonth()->format('Y-m-d');
+            $nextDate = $focalDate->copy()->addMonth()->format('Y-m-d');
+            $displayDateText = ($monthsIndo[$focalDate->month] ?? $focalDate->format('F')) . ' ' . $focalDate->year;
+            $query->whereMonth(DB::raw('COALESCE(tanggal_input, created_at)'), $focalDate->month)
+                  ->whereYear(DB::raw('COALESCE(tanggal_input, created_at)'), $focalDate->year);
+        } elseif ($rentangWaktu === 'kustom') {
+            if ($startDate && $endDate) {
+                $query->whereBetween(DB::raw('DATE(COALESCE(tanggal_input, created_at))'), [$startDate, $endDate]);
+                $startC = Carbon::parse($startDate);
+                $endC = Carbon::parse($endDate);
+                $displayDateText = $startC->format('d/m/Y') . ' - ' . $endC->format('d/m/Y');
+            } elseif ($startDate) {
+                $query->whereDate(DB::raw('COALESCE(tanggal_input, created_at)'), '>=', $startDate);
+                $displayDateText = 'Dari ' . Carbon::parse($startDate)->format('d/m/Y');
+            } elseif ($endDate) {
+                $query->whereDate(DB::raw('COALESCE(tanggal_input, created_at)'), '<=', $endDate);
+                $displayDateText = 'Sampai ' . Carbon::parse($endDate)->format('d/m/Y');
+            } else {
+                $displayDateText = 'Pilih Rentang Tanggal';
+            }
+        } elseif ($rentangWaktu === 'semua') {
+            $displayDateText = 'Semua Waktu';
+        }
+
+        // Pemicu pengecekan otomatis tiket overdue >= 5 hari agar langsung masuk notifikasi
+        try {
+            CheckPriorityQueueOverdue::checkAndNotify();
+        } catch (\Throwable $e) {
+            \Illuminate\Support\Facades\Log::warning('CheckPriorityQueueOverdue error: ' . $e->getMessage());
+        }
+
         // Order by created_at ASC (Oldest first)
-        $tickets = $query->oldest('created_at')->paginate(20);
+        $tickets = $query->oldest('created_at')->paginate(20)->withQueryString();
         $kategoris = MasterKategori::all();
         $aplikasis = MasterAplikasi::all();
 
@@ -333,7 +412,11 @@ class TicketController extends Controller
             ->latest()
             ->get();
 
-        return view('support.prioritas', compact('tickets', 'kategoris', 'aplikasis', 'pendingUsers'));
+        return view('support.prioritas', compact(
+            'tickets', 'kategoris', 'aplikasis', 'pendingUsers',
+            'rentangWaktu', 'focalDate', 'prevDate', 'nextDate',
+            'displayDateText', 'startDate', 'endDate'
+        ));
     }
 
     public function updateSupport(Request $request, Ticket $ticket)

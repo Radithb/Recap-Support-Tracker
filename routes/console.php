@@ -9,3 +9,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Schedule::command('check:followup')->dailyAt('08:00');
+Schedule::command('check:prioritas-overdue')->dailyAt('08:00');
+

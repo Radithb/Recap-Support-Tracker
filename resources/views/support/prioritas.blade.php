@@ -70,52 +70,180 @@
     </div>
 </div>
 
-<form id="filter-form" action="{{ route('support.prioritas') }}" method="GET" class="fade-up" style="animation-delay: 0.15s; display: flex; gap: 10px; flex-wrap: wrap; width: 100%; margin-bottom: 20px; align-items: center;">
-    <div class="search" style="flex: 1; min-width: 220px; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; display: flex; align-items: center;">
-        <img src="{{ asset('magnifying-glass.png') }}" alt="Search" style="width: 14px; height: 14px; margin-right: 8px; vertical-align: middle; opacity: 0.4; filter: grayscale(100%);">
-        <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari ID tiket, nama koperasi, atau kendala..." style="border:none; background:transparent; width:100%; outline:none; font-size: 0.88rem; color: var(--ink);" id="search-input">
-    </div>
+<div class="fade-up" style="animation-delay: 0.15s; background: var(--paper-raised); border: 1px solid var(--line); border-radius: 16px; padding: 20px 24px; margin-bottom: 24px; box-shadow: var(--shadow-sm);">
+    <form id="filter-form" action="{{ route('support.prioritas') }}" method="GET" style="margin: 0;">
+        <input type="hidden" name="date" id="date_input" value="{{ request('date', $focalDate->format('Y-m-d')) }}">
 
-    <!-- Filter Status -->
-    <select name="status" onchange="document.getElementById('filter-form').submit()" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); font-family: var(--font-body); font-weight: 500; font-size: 0.85rem; color: {{ request()->filled('status') ? 'var(--ink)' : '#64748b' }}; background: var(--paper-raised); cursor: pointer; outline:none;">
-        <option value="" style="color: #64748b;">Semua Status Aktif</option>
-        <option value="Open" {{ request('status') == 'Open' ? 'selected' : '' }} style="color: var(--ink);">Open</option>
-        <option value="Proses" {{ request('status') == 'Proses' ? 'selected' : '' }} style="color: var(--ink);">Proses</option>
-        <option value="In Review" {{ request('status') == 'In Review' ? 'selected' : '' }} style="color: var(--ink);">In Review</option>
-        <option value="Waiting" {{ request('status') == 'Waiting' ? 'selected' : '' }} style="color: var(--ink);">Waiting</option>
-        <option value="Pending" {{ request('status') == 'Pending' ? 'selected' : '' }} style="color: var(--ink);">Pending</option>
-    </select>
+        <!-- Top Section: RENTANG WAKTU & Date Navigator -->
+        <div style="display: flex; align-items: center; justify-content: flex-start; gap: 16px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase;">RENTANG WAKTU:</span>
+                
+                <!-- Dropdown Rentang Waktu -->
+                <div style="position: relative; display: inline-block;">
+                    <select name="rentang_waktu" id="rentang_waktu_select" onchange="handlePeriodChange(this.value)" style="border-radius: 9999px; border: 1.5px solid var(--line); padding: 7px 36px 7px 18px; font-weight: 600; font-size: 0.88rem; background: var(--paper); color: var(--ink); outline: none; cursor: pointer; appearance: none; -webkit-appearance: none; -moz-appearance: none;">
+                        <option value="harian" {{ $rentangWaktu === 'harian' ? 'selected' : '' }}>Harian</option>
+                        <option value="mingguan" {{ $rentangWaktu === 'mingguan' ? 'selected' : '' }}>Mingguan</option>
+                        <option value="bulanan" {{ $rentangWaktu === 'bulanan' ? 'selected' : '' }}>Bulanan</option>
+                        <option value="kustom" {{ $rentangWaktu === 'kustom' ? 'selected' : '' }}>Kustom</option>
+                        <option value="semua" {{ $rentangWaktu === 'semua' ? 'selected' : '' }}>Semua Waktu</option>
+                    </select>
+                    <svg style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); pointer-events: none; opacity: 0.6;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+            </div>
 
-    <!-- Filter Aplikasi -->
-    @if(isset($aplikasis) && count($aplikasis) > 0)
-    <select name="aplikasi_id" onchange="document.getElementById('filter-form').submit()" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); font-family: var(--font-body); font-weight: 500; font-size: 0.85rem; color: {{ request()->filled('aplikasi_id') ? 'var(--ink)' : '#64748b' }}; background: var(--paper-raised); cursor: pointer; outline:none;">
-        <option value="" style="color: #64748b;">Semua Aplikasi</option>
-        @foreach($aplikasis as $app)
-            <option value="{{ $app->aplikasi_id }}" {{ request('aplikasi_id') == $app->aplikasi_id ? 'selected' : '' }} style="color: var(--ink);">
-                {{ $app->nama_aplikasi }}
-            </option>
-        @endforeach
-    </select>
-    @endif
+            <!-- Date Navigator Button Group (Harian / Mingguan / Bulanan) -->
+            @if(in_array($rentangWaktu, ['harian', 'mingguan', 'bulanan']))
+            <style>
+                .date-navigator-center {
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 7px 22px;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    user-select: none;
+                }
+                .date-navigator-center:hover {
+                    background: var(--paper-sunken, #f1f5f9) !important;
+                }
+                .date-picker-overlay {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0;
+                    cursor: pointer;
+                    z-index: 10;
+                    border: none;
+                    margin: 0;
+                    padding: 0;
+                }
+                .date-picker-overlay::-webkit-calendar-picker-indicator {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    margin: 0;
+                    padding: 0;
+                    cursor: pointer;
+                    opacity: 0;
+                }
+            </style>
+            <div style="display: inline-flex; align-items: center; border: 1.5px solid var(--line); border-radius: 9999px; background: var(--paper); overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.03);">
+                <button type="button" onclick="navigateDate('{{ $prevDate }}')" style="border: none; background: transparent; padding: 7px 16px; cursor: pointer; color: var(--ink); border-right: 1px solid var(--line); display: flex; align-items: center; justify-content: center; transition: background 0.2s;" onmouseover="this.style.background='var(--paper-sunken)'" onmouseout="this.style.background='transparent'" title="Sebelumnya">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <div class="date-navigator-center" onclick="openManualDatePicker(event)" title="Klik untuk mengubah tanggal secara manual">
+                    <span style="font-weight: 600; font-size: 0.88rem; color: var(--ink); white-space: nowrap; pointer-events: none; display: flex; align-items: center; gap: 8px;">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.7; color: #2563eb;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                        {{ $displayDateText }}
+                    </span>
+                    @if($rentangWaktu === 'bulanan')
+                        <input type="month" id="manual_date_picker" class="date-picker-overlay" value="{{ $focalDate->format('Y-m') }}" onchange="navigateMonth(this.value)" onclick="event.stopPropagation()">
+                    @else
+                        <input type="date" id="manual_date_picker" class="date-picker-overlay" value="{{ $focalDate->format('Y-m-d') }}" onchange="navigateDate(this.value)" onclick="event.stopPropagation()">
+                    @endif
+                </div>
+                <button type="button" onclick="navigateDate('{{ $nextDate }}')" style="border: none; background: transparent; padding: 7px 16px; cursor: pointer; color: var(--ink); border-left: 1px solid var(--line); display: flex; align-items: center; justify-content: center; transition: background 0.2s;" onmouseover="this.style.background='var(--paper-sunken)'" onmouseout="this.style.background='transparent'" title="Selanjutnya">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+            @elseif($rentangWaktu === 'kustom')
+            <div id="custom-date-box" style="display: inline-flex; align-items: center; gap: 10px; border: 1.5px solid var(--line); border-radius: 9999px; background: var(--paper); padding: 5px 16px;">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">DARI:</span>
+                    <input type="date" name="start_date" id="start_date_input" value="{{ request('start_date') }}" onchange="document.getElementById('filter-form').submit()" style="border: none; background: transparent; color: var(--ink); font-size: 0.85rem; font-weight: 500; font-family: var(--font-body); outline: none; cursor: pointer;">
+                </div>
+                <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">—</span>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <span style="font-size: 0.78rem; color: var(--text-muted); font-weight: 600;">SAMPAI:</span>
+                    <input type="date" name="end_date" id="end_date_input" value="{{ request('end_date') }}" onchange="document.getElementById('filter-form').submit()" style="border: none; background: transparent; color: var(--ink); font-size: 0.85rem; font-weight: 500; font-family: var(--font-body); outline: none; cursor: pointer;">
+                </div>
+            </div>
+            @endif
+        </div>
 
-    <!-- Filter Kategori -->
-    @if(isset($kategoris) && count($kategoris) > 0)
-    <select name="kategori_id" onchange="document.getElementById('filter-form').submit()" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--line); font-family: var(--font-body); font-weight: 500; font-size: 0.85rem; color: {{ request()->filled('kategori_id') ? 'var(--ink)' : '#64748b' }}; background: var(--paper-raised); cursor: pointer; outline:none;">
-        <option value="" style="color: #64748b;">Semua Kategori</option>
-        @foreach($kategoris as $kat)
-            <option value="{{ $kat->kategori_id }}" {{ request('kategori_id') == $kat->kategori_id ? 'selected' : '' }} style="color: var(--ink);">
-                {{ $kat->nama_kategori }}
-            </option>
-        @endforeach
-    </select>
-    @endif
+        <!-- Divider Line -->
+        <div style="border-top: 1px solid var(--line); opacity: 0.6; margin: 18px 0 16px 0;"></div>
 
-    @if(request()->anyFilled(['search', 'status', 'aplikasi_id', 'kategori_id']))
-        <a href="{{ route('support.prioritas') }}" class="btn btn-ghost" style="padding: 8px 14px; border-radius: 8px; font-size: 0.85rem; color: #ef4444; border: 1px solid #fecaca; background: #fef2f2; text-decoration: none; font-weight: 600;">
-            Reset Filter
-        </a>
-    @endif
-</form>
+        <!-- Bottom Section: Filter Columns (STATUS, APLIKASI, KATEGORI, CARI) -->
+        <div style="display: flex; gap: 14px; flex-wrap: wrap; align-items: flex-end;">
+            <!-- Filter Status -->
+            <div style="min-width: 160px;">
+                <label style="display: block; font-size: 0.72rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 6px; text-transform: uppercase;">STATUS</label>
+                <div style="position: relative;">
+                    <select name="status" onchange="document.getElementById('filter-form').submit()" style="width: 100%; border-radius: 9999px; border: 1.5px solid var(--line); padding: 8px 34px 8px 16px; background: var(--paper); font-weight: 500; font-size: 0.85rem; color: {{ request()->filled('status') ? 'var(--ink)' : '#64748b' }}; outline: none; cursor: pointer; appearance: none; -webkit-appearance: none;">
+                        <option value="" style="color: #64748b;">Semua Status Aktif</option>
+                        <option value="Open" {{ request('status') == 'Open' ? 'selected' : '' }} style="color: var(--ink);">Open</option>
+                        <option value="Proses" {{ request('status') == 'Proses' ? 'selected' : '' }} style="color: var(--ink);">Proses</option>
+                        <option value="In Review" {{ request('status') == 'In Review' ? 'selected' : '' }} style="color: var(--ink);">In Review</option>
+                        <option value="Waiting" {{ request('status') == 'Waiting' ? 'selected' : '' }} style="color: var(--ink);">Waiting</option>
+                        <option value="Pending" {{ request('status') == 'Pending' ? 'selected' : '' }} style="color: var(--ink);">Pending</option>
+                    </select>
+                    <svg style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); pointer-events: none; opacity: 0.6;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+            </div>
+
+            <!-- Filter Aplikasi -->
+            @if(isset($aplikasis) && count($aplikasis) > 0)
+            <div style="min-width: 160px;">
+                <label style="display: block; font-size: 0.72rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 6px; text-transform: uppercase;">APLIKASI</label>
+                <div style="position: relative;">
+                    <select name="aplikasi_id" onchange="document.getElementById('filter-form').submit()" style="width: 100%; border-radius: 9999px; border: 1.5px solid var(--line); padding: 8px 34px 8px 16px; background: var(--paper); font-weight: 500; font-size: 0.85rem; color: {{ request()->filled('aplikasi_id') ? 'var(--ink)' : '#64748b' }}; outline: none; cursor: pointer; appearance: none; -webkit-appearance: none;">
+                        <option value="" style="color: #64748b;">Semua Aplikasi</option>
+                        @foreach($aplikasis as $app)
+                            <option value="{{ $app->aplikasi_id }}" {{ request('aplikasi_id') == $app->aplikasi_id ? 'selected' : '' }} style="color: var(--ink);">
+                                {{ $app->nama_aplikasi }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <svg style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); pointer-events: none; opacity: 0.6;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+            </div>
+            @endif
+
+            <!-- Filter Kategori -->
+            @if(isset($kategoris) && count($kategoris) > 0)
+            <div style="min-width: 160px;">
+                <label style="display: block; font-size: 0.72rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 6px; text-transform: uppercase;">KATEGORI</label>
+                <div style="position: relative;">
+                    <select name="kategori_id" onchange="document.getElementById('filter-form').submit()" style="width: 100%; border-radius: 9999px; border: 1.5px solid var(--line); padding: 8px 34px 8px 16px; background: var(--paper); font-weight: 500; font-size: 0.85rem; color: {{ request()->filled('kategori_id') ? 'var(--ink)' : '#64748b' }}; outline: none; cursor: pointer; appearance: none; -webkit-appearance: none;">
+                        <option value="" style="color: #64748b;">Semua Kategori</option>
+                        @foreach($kategoris as $kat)
+                            <option value="{{ $kat->kategori_id }}" {{ request('kategori_id') == $kat->kategori_id ? 'selected' : '' }} style="color: var(--ink);">
+                                {{ $kat->nama_kategori }}
+                            </option>
+                        @endforeach
+                    </select>
+                    <svg style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); pointer-events: none; opacity: 0.6;" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+            </div>
+            @endif
+
+            <!-- Search Bar: CARI -->
+            <div style="flex: 1; min-width: 240px;">
+                <label style="display: block; font-size: 0.72rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0.5px; margin-bottom: 6px; text-transform: uppercase;">CARI</label>
+                <div style="display: flex; align-items: center; border-radius: 9999px; border: 1.5px solid var(--line); padding: 8px 16px; background: var(--paper);">
+                    <img src="{{ asset('magnifying-glass.png') }}" alt="Search" style="width: 14px; height: 14px; margin-right: 8px; vertical-align: middle; opacity: 0.4; filter: grayscale(100%);">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Cari ID tiket, nama koperasi, atau kendala..." style="border: none; background: transparent; width: 100%; outline: none; font-size: 0.85rem; color: var(--ink);" id="search-input">
+                </div>
+            </div>
+
+            <!-- Reset Button -->
+            @if(request()->anyFilled(['search', 'status', 'aplikasi_id', 'kategori_id', 'date', 'start_date', 'end_date']) || (request()->filled('rentang_waktu') && request('rentang_waktu') !== 'harian'))
+            <div style="margin-bottom: 2px;">
+                <a href="{{ route('support.prioritas') }}" style="display: inline-flex; align-items: center; gap: 4px; border-radius: 9999px; padding: 8px 18px; border: 1.5px solid #fecaca; background: #fef2f2; color: #ef4444; font-size: 0.82rem; font-weight: 600; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.background='#fee2e2'" onmouseout="this.style.background='#fef2f2'">
+                    Reset
+                </a>
+            </div>
+            @endif
+        </div>
+    </form>
+</div>
 
 <div class="fade-up" style="animation-delay: 0.25s; overflow-x: auto; width: 100%;">
 <table class="tickets" id="tickets-table" style="min-width: 1100px;">
@@ -137,15 +265,23 @@
             <td class="mono" style="color: var(--text-muted); font-size: 0.85rem; white-space: nowrap;">{{ $t->ticket_id }}</td>
             <td style="white-space: nowrap;">
                 @php
-                    $diff = $t->created_at->diffForHumans();
-                    $days = $t->created_at->diffInDays(now());
-                    $color = $days >= 3 ? '#ef4444' : ($days >= 1 ? '#f59e0b' : '#10b981');
-                    $bg = $days >= 3 ? '#fee2e2' : ($days >= 1 ? '#fef3c7' : '#d1fae5');
+                    $created = $t->tanggal_input ?? $t->created_at;
+                    $diff = $created ? $created->diffForHumans() : '-';
+                    $days = $created ? (int)$created->diffInDays(now()) : 0;
+                    $color = $days >= 5 ? '#b91c1c' : ($days >= 3 ? '#ef4444' : ($days >= 1 ? '#d97706' : '#16a34a'));
+                    $bg = $days >= 5 ? '#fee2e2' : ($days >= 3 ? '#fee2e2' : ($days >= 1 ? '#fef3c7' : '#dcfce7'));
                 @endphp
-                <span style="display: inline-block; background: {{ $bg }}; color: {{ $color }}; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700;">
-                    {{ $diff }}
-                </span>
-                <div style="font-size: 0.7rem; color: #94a3b8; margin-top: 4px;">{{ $t->created_at->format('d M Y H:i') }}</div>
+                <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                    <span style="display: inline-block; background: {{ $bg }}; color: {{ $color }}; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; border: {{ $days >= 5 ? '1px solid #f87171' : 'none' }};">
+                        {{ $diff }}
+                    </span>
+                    @if($days >= 5)
+                        <span style="display: inline-block; background: #dc2626; color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.5px;" title="Tiket telah menunggu 5 hari atau lebih dan masuk notifikasi prioritas">
+                            ≥ 5 HARI
+                        </span>
+                    @endif
+                </div>
+                <div style="font-size: 0.7rem; color: #94a3b8; margin-top: 4px;">{{ $created ? $created->format('d M Y H:i') : '-' }}</div>
             </td>
             <td style="font-weight: 500; color: var(--ink); font-size: 0.9rem; white-space: nowrap;">{{ $t->pelapor->instansi->nama_instansi ?? '-' }}</td>
             <td>
@@ -907,6 +1043,37 @@
             }
         }
         return true;
+    }
+
+    function openManualDatePicker(e) {
+        const input = document.getElementById('manual_date_picker');
+        if (!input) return;
+        try {
+            if (typeof input.showPicker === 'function') {
+                input.showPicker();
+            } else {
+                input.focus();
+                input.click();
+            }
+        } catch (err) {
+            input.focus();
+        }
+    }
+
+    function navigateDate(targetDate) {
+        if (!targetDate) return;
+        document.getElementById('date_input').value = targetDate;
+        document.getElementById('filter-form').submit();
+    }
+
+    function navigateMonth(targetMonth) {
+        if (!targetMonth) return;
+        document.getElementById('date_input').value = targetMonth + '-01';
+        document.getElementById('filter-form').submit();
+    }
+
+    function handlePeriodChange(val) {
+        document.getElementById('filter-form').submit();
     }
 
     document.addEventListener('DOMContentLoaded', function () {

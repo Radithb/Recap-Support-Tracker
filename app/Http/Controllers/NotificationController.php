@@ -23,6 +23,10 @@ class NotificationController extends Controller
             return redirect($notification->data['url']);
         }
         
+        if (isset($notification->data['ticket_id'])) {
+            return redirect()->route('support.prioritas', ['search' => $notification->data['ticket_id']]);
+        }
+        
         if (isset($notification->data['implementasi_id'])) {
             return redirect()->route('implementasi.show', $notification->data['implementasi_id']);
         }
