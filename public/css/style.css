@@ -139,15 +139,29 @@
   .status::before{content:""; width:7px; height:7px; border-radius:50%;}
   .status-open{background:#e2e8f0 !important; color:#475569 !important;}
   .status-open::before{background:#64748b !important;}
-  .status-pending{background:var(--gold-soft); color:#7A5F1C;}
-  .status-pending::before{background:var(--gold);}
-  .status-done{background:var(--sage-soft); color:#2E5138;}
-  .status-done::before{background:var(--sage);}
+  .status-proses{background:#fee2e2 !important; color:#dc2626 !important;}
+  .status-proses::before{background:#dc2626 !important;}
+  .status-pending{background:#fef08a !important; color:#ca8a04 !important;}
+  .status-pending::before{background:#ca8a04 !important;}
+  .status-review{background:#e0e7ff !important; color:#4f46e5 !important;}
+  .status-review::before{background:#4f46e5 !important;}
+  .status-waiting{background:#ffedd5 !important; color:#ea580c !important;}
+  .status-waiting::before{background:#ea580c !important;}
+  .status-done{background:#dcfce7 !important; color:#16a34a !important;}
+  .status-done::before{background:#16a34a !important;}
 
   html.dark-mode .status-open { background: #334155 !important; color: #cbd5e1 !important; }
   html.dark-mode .status-open::before { background: #94a3b8 !important; }
-  html.dark-mode .status-pending { color: #facc15; }
-  html.dark-mode .status-done { color: #4ade80; }
+  html.dark-mode .status-proses { color: #f87171 !important; background: rgba(220, 38, 38, 0.2) !important; }
+  html.dark-mode .status-proses::before { background: #f87171 !important; }
+  html.dark-mode .status-pending { color: #facc15 !important; background: rgba(202, 138, 4, 0.2) !important; }
+  html.dark-mode .status-pending::before { background: #facc15 !important; }
+  html.dark-mode .status-review { color: #818cf8 !important; background: rgba(79, 70, 229, 0.2) !important; }
+  html.dark-mode .status-review::before { background: #818cf8 !important; }
+  html.dark-mode .status-waiting { color: #fb923c !important; background: rgba(234, 88, 12, 0.2) !important; }
+  html.dark-mode .status-waiting::before { background: #fb923c !important; }
+  html.dark-mode .status-done { color: #4ade80 !important; background: rgba(22, 163, 74, 0.2) !important; }
+  html.dark-mode .status-done::before { background: #4ade80 !important; }
 
   .login-wrap{
     min-height:calc(100vh - 45px);

@@ -21,21 +21,110 @@
             height: 1.25rem !important;
         }
 
-        /* Force Open status badge to be clean gray in Light and Dark mode */
+        /* Complete Status Pills (Light & Dark Mode) */
+        .status {
+            display: inline-flex !important;
+            align-items: center !important;
+            gap: 6px !important;
+            font-size: calc(11.5px * var(--text-scale, 1)) !important;
+            font-weight: 700 !important;
+            padding: 4px 10px 4px 8px !important;
+            border-radius: 100px !important;
+            letter-spacing: .01em !important;
+            white-space: nowrap !important;
+        }
+        .status::before {
+            content: "" !important;
+            width: 7px !important;
+            height: 7px !important;
+            border-radius: 50% !important;
+            display: inline-block !important;
+        }
         .status-open, [data-status*="open"] {
             background: #e2e8f0 !important;
             color: #475569 !important;
         }
-        .status-open::before {
+        .status-open::before, [data-status*="open"]::before {
             background: #64748b !important;
         }
+        .status-proses, [data-status*="proses"], [data-status*="progress"] {
+            background: #fee2e2 !important;
+            color: #dc2626 !important;
+        }
+        .status-proses::before, [data-status*="proses"]::before, [data-status*="progress"]::before {
+            background: #dc2626 !important;
+        }
+        .status-pending, [data-status*="pending"] {
+            background: #fef08a !important;
+            color: #ca8a04 !important;
+        }
+        .status-pending::before, [data-status*="pending"]::before {
+            background: #ca8a04 !important;
+        }
+        .status-review, [data-status*="review"] {
+            background: #e0e7ff !important;
+            color: #4f46e5 !important;
+        }
+        .status-review::before, [data-status*="review"]::before {
+            background: #4f46e5 !important;
+        }
+        .status-waiting, [data-status*="waiting"] {
+            background: #ffedd5 !important;
+            color: #ea580c !important;
+        }
+        .status-waiting::before, [data-status*="waiting"]::before {
+            background: #ea580c !important;
+        }
+        .status-done, [data-status*="done"], [data-status*="selesai"] {
+            background: #dcfce7 !important;
+            color: #16a34a !important;
+        }
+        .status-done::before, [data-status*="done"]::before, [data-status*="selesai"]::before {
+            background: #16a34a !important;
+        }
 
+        /* Dark Mode Overrides */
         html.dark-mode .status-open, html.dark-mode [data-status*="open"] {
             background: #334155 !important;
             color: #cbd5e1 !important;
         }
-        html.dark-mode .status-open::before {
+        html.dark-mode .status-open::before, html.dark-mode [data-status*="open"]::before {
             background: #94a3b8 !important;
+        }
+        html.dark-mode .status-proses, html.dark-mode [data-status*="proses"], html.dark-mode [data-status*="progress"] {
+            background: rgba(220, 38, 38, 0.2) !important;
+            color: #f87171 !important;
+        }
+        html.dark-mode .status-proses::before, html.dark-mode [data-status*="proses"]::before, html.dark-mode [data-status*="progress"]::before {
+            background: #f87171 !important;
+        }
+        html.dark-mode .status-pending, html.dark-mode [data-status*="pending"] {
+            background: rgba(202, 138, 4, 0.2) !important;
+            color: #facc15 !important;
+        }
+        html.dark-mode .status-pending::before, html.dark-mode [data-status*="pending"]::before {
+            background: #facc15 !important;
+        }
+        html.dark-mode .status-review, html.dark-mode [data-status*="review"] {
+            background: rgba(79, 70, 229, 0.2) !important;
+            color: #818cf8 !important;
+        }
+        html.dark-mode .status-review::before, html.dark-mode [data-status*="review"]::before {
+            background: #818cf8 !important;
+        }
+        html.dark-mode .status-waiting, html.dark-mode [data-status*="waiting"] {
+            background: rgba(234, 88, 12, 0.2) !important;
+            color: #fb923c !important;
+        }
+        html.dark-mode .status-waiting::before, html.dark-mode [data-status*="waiting"]::before {
+            background: #fb923c !important;
+        }
+        html.dark-mode .status-done, html.dark-mode [data-status*="done"], html.dark-mode [data-status*="selesai"] {
+            background: rgba(22, 163, 74, 0.2) !important;
+            color: #4ade80 !important;
+        }
+        html.dark-mode .status-done::before, html.dark-mode [data-status*="done"]::before, html.dark-mode [data-status*="selesai"]::before {
+            background: #4ade80 !important;
         }
 
         /* Skeleton shimmer animation for updating dropdown */
